@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Busy</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+
+    <!--    enum sex values-->
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+</resources>
