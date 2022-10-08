@@ -24,23 +24,39 @@ public class HomeViewModel extends ViewModel {
         List<ItemListOfDays> listOfDays = new ArrayList<>();
 
         Calendar calendar = new GregorianCalendar();
+        calendar.set(Calendar.HOUR, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        int position = 0;
         for (int i = 1; i < 101; i++) {
-            Date d = MyDate.getStartDay(calendar);
-            calendar.roll(Calendar.DATE, true);
+            Date d = calendar.getTime();
             ItemListOfDays itemListOfDays = new ItemListOfDays();
             itemListOfDays.setDate(d);
 
-            List<String> titlesService = new ArrayList<>();
+            if (position == taskList.size()) position = 0;
 
-            for (ItemTaskList task: taskList) {
-                Date dateTask = new Date(task.getDate());
-                if (d.compareTo(dateTask)==0) {
+            List<String> titlesService = new ArrayList<>();
+            long currDate = 0;
+            for (; position < taskList.size(); position++) {
+                ItemTaskList task = taskList.get(position);
+
+                if (currDate != 0 && currDate != task.getDate()) {
+                    position +=1;
+
+                    break;
+                }
+
+                if (task.getDate()==d.getTime()) {
                     titlesService.add(task.getTitleServices());
+
+                    currDate = task.getDate();
                 }
             }
             itemListOfDays.setTitlesService(titlesService);
-
             listOfDays.add(itemListOfDays);
+
+            calendar.roll(Calendar.DATE, true);
         }
 
         mListOfDays = new MutableLiveData<>();

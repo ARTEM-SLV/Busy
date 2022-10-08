@@ -18,12 +18,14 @@ public class MyDate {
     }
 
     public static Date getStartDay(Calendar calendar){
-        calendar.set(Calendar.HOUR, 0);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
+        Calendar cloneCalendar = (Calendar) calendar.clone();
 
-        return calendar.getTime();
+        cloneCalendar.set(Calendar.HOUR, 0);
+        cloneCalendar.set(Calendar.MINUTE, 0);
+        cloneCalendar.set(Calendar.SECOND, 0);
+        cloneCalendar.set(Calendar.MILLISECOND, 0);
+
+        return cloneCalendar.getTime();
     }
 
     public static Date getEndDay(Date date){
@@ -39,11 +41,13 @@ public class MyDate {
     }
 
     public static Date getEndDay(Calendar calendar){
-        calendar.set(Calendar.HOUR, 23);
-        calendar.set(Calendar.MINUTE, 59);
-        calendar.set(Calendar.SECOND, 59);
-        calendar.set(Calendar.MILLISECOND, 999);
+        Calendar cloneCalendar = (Calendar) calendar.clone();
 
-        return calendar.getTime();
+        cloneCalendar.set(Calendar.HOUR, 23);
+        cloneCalendar.set(Calendar.MINUTE, 59);
+        cloneCalendar.set(Calendar.SECOND, 59);
+        cloneCalendar.set(Calendar.MILLISECOND, 999);
+
+        return cloneCalendar.getTime();
     }
 }

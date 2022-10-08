@@ -19,7 +19,8 @@ public interface MainDao {
     @Query("SELECT tasks.day as date, services.short_title titleServices " +
             "FROM Task as tasks " +
             "LEFT OUTER JOIN Service as services " +
-            "ON tasks.id_service = services.uid")
+            "ON tasks.id_service = services.uid " +
+            "ORDER BY tasks.day")
     List<ItemTaskList> getTasksAndServices();
 
 //
@@ -27,8 +28,8 @@ public interface MainDao {
 //    List<Task> findByDate(long date);
 
     //tasks
-    @Query("SELECT * FROM Task")
-    List<Task> loadAll();
+    @Query("SELECT day FROM Task GROUP BY day")
+    List<Long> getTaskDates();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertTaskList(List<Task> taskList);

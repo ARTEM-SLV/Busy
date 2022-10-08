@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.view.menu.MenuView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.arty.busy.R;
@@ -76,11 +77,26 @@ public class ListOfDaysAdapter extends RecyclerView.Adapter<ListOfDaysAdapter.Vi
         @SuppressLint("SetTextI18n")
         public void setData(ItemListOfDays itemTaskList){
             tvDay.setText(df.format(itemTaskList.getDate()));
-
             Resources res = context.getResources();
             List<String> titlesService = itemTaskList.getTitlesService();
+
+            String totalS = res.getString(R.string.total);
+            int totalI = titlesService.size();
+
+            cleanTvTask(res);
+
+            if (totalI == 10){
+                mainContainerLOD.setBackgroundResource(R.drawable.style_radial_yellow);
+            } else if (totalI > 10){
+                mainContainerLOD.setBackgroundResource(R.drawable.style_radial_red);
+            } else mainContainerLOD.setBackgroundResource(R.drawable.style_radial_green);
+
             int i = 1;
             for (String title : titlesService) {
+                if (i>10){
+                    break;
+                }
+
                 int id = res.getIdentifier("tvTask" + i, "id", context.getPackageName());
                 TextView tvTask = itemView.findViewById(id);
                 tvTask.setText(title);
@@ -88,8 +104,15 @@ public class ListOfDaysAdapter extends RecyclerView.Adapter<ListOfDaysAdapter.Vi
                 i++;
             }
 
-            String total = res.getString(R.string.total);
-            tvCountTasks.setText(total + " " + titlesService.size());
+            tvCountTasks.setText(totalS + " " + (totalI));
+        }
+
+        private void cleanTvTask(Resources res){
+            for (int i = 1; i <= 10; i++) {
+                int id = res.getIdentifier("tvTask" + i, "id", context.getPackageName());
+                TextView tvTask = itemView.findViewById(id);
+                tvTask.setText("");
+            }
         }
 
         @Override

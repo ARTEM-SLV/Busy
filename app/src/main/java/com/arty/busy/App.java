@@ -60,25 +60,30 @@ public class App extends Application {
     private void fillDataBaseForTest(){
         List<Task> taskList = new ArrayList<>();
         List<Service> serviceList = new ArrayList<>();
-        int randomNum;
 
         Calendar calendar = new GregorianCalendar();
+        int uid = 0;
         for (int i = 0; i < 30; i++) {
-            Task task = new Task();
-
-            Date dd = MyDate.getStartDay(calendar);
             Date dt = calendar.getTime();
+            Date dd = MyDate.getStartDay(calendar);
+
+            int randomJ = (int) Math.round(Math.random()*11)+1;
+
+            for (int j = 0; j < randomJ; j++) {
+                int randomNum = (int) Math.round(Math.random()*4)+1;
+
+                Task task = new Task();
+                task.uid = uid;
+                task.day = dd.getTime();
+                task.date_time = dt.getTime();
+                task.id_customer = randomNum;
+                task.id_service = randomNum;
+
+                taskList.add(task);
+                uid++;
+            }
+
             calendar.roll(Calendar.DATE, true);
-
-            randomNum = (int) Math.round(Math.random()*4)+1;
-
-            task.uid = i;
-            task.day = dd.getTime();
-            task.date_time = dt.getTime();
-            task.id_customer = randomNum;
-            task.id_service = randomNum;
-
-            taskList.add(task);
         }
         App.getInstance().getMainDao().insertTaskList(taskList);
 

@@ -49,7 +49,7 @@
                 android:paddingEnd="10dp"
                 android:paddingBottom="3dp"
                 android:textColor="@color/SteelBlue"
-                android:textSize="14sp"
+                android:textSize="12sp"
                 app:fontFamily="@font/lnky"
                 tools:text="total 0" />
         </LinearLayout>
