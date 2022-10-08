@@ -9,6 +9,7 @@ import com.arty.busy.data.MainDao;
 import com.arty.busy.model.Service;
 import com.arty.busy.model.Task;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -36,6 +37,8 @@ public class App extends Application {
                 .build();
 
         mainDao = dataBase.mainDao();
+
+        fillDataBaseForTest();
     }
 
     public AppDataBase getDataBase() {
@@ -55,35 +58,86 @@ public class App extends Application {
     }
 
     private void fillDataBaseForTest(){
-        List<Task> taskList = null;
-        List<Service> serviceList = null;
+        List<Task> taskList = new ArrayList<>();
+        List<Service> serviceList = new ArrayList<>();
+        int randomNum;
 
         Calendar calendar = new GregorianCalendar();
         for (int i = 0; i < 30; i++) {
             Task task = new Task();
 
-            Date dd = calendar.getTime();
+            Date dd = MyDate.getStartDay(calendar);
             Date dt = calendar.getTime();
             calendar.roll(Calendar.DATE, true);
 
+            randomNum = (int) Math.round(Math.random()*4)+1;
+
             task.uid = i;
-            task.date = dd.getTime();
-            task.time = dt.getTime();
-            task.id_customer = i;
-            task.id_service = i;
+            task.day = dd.getTime();
+            task.date_time = dt.getTime();
+            task.id_customer = randomNum;
+            task.id_service = randomNum;
 
             taskList.add(task);
         }
+        App.getInstance().getMainDao().insertTaskList(taskList);
 
-        for (int i = 0; i < 5; i++) {
-            Service service = new Service();
+        Service service1 = new Service();
+        service1.uid = 1;
+        service1.title = "Ресницы классика";
+        service1.short_title = "РК";
+        service1.description = "Ресницы классика";
+        service1.price = 500.00;
+        service1.execution_time = 60;
+        service1.preparation_time = 15;
+        service1.id_line_of_business = 1;
+        serviceList.add(service1);
 
-            service.uid = i;
-//            service.description = ;
-//            service.time = dt.getTime();
-//            service.id_customer = i;
-//            service.id_service = i;
-        }
+        Service service2 = new Service();
+        service2.uid = 2;
+        service2.title = "Ресницы 2D";
+        service2.short_title = "Р2D";
+        service2.description = "Ресницы 2D";
+        service2.price = 500.00;
+        service2.execution_time = 60;
+        service2.preparation_time = 15;
+        service2.id_line_of_business = 1;
+        serviceList.add(service2);
+
+        Service service3 = new Service();
+        service3.uid = 3;
+        service3.title = "Ресницы 3D";
+        service3.short_title = "Р3D";
+        service3.description = "Ресницы классика";
+        service3.price = 500.00;
+        service3.execution_time = 60;
+        service3.preparation_time = 15;
+        service3.id_line_of_business = 1;
+        serviceList.add(service3);
+
+        Service service4 = new Service();
+        service4.uid = 4;
+        service4.title = "Ресницы 5D";
+        service4.short_title = "Р5D";
+        service4.description = "Ресницы 5D";
+        service4.price = 500.00;
+        service4.execution_time = 60;
+        service4.preparation_time = 15;
+        service4.id_line_of_business = 1;
+        serviceList.add(service4);
+
+        Service service5 = new Service();
+        service5.uid = 5;
+        service5.title = "Массаж спины";
+        service5.short_title = "МП";
+        service5.description = "Массаж спины";
+        service5.price = 500.00;
+        service5.execution_time = 60;
+        service5.preparation_time = 15;
+        service5.id_line_of_business = 2;
+        serviceList.add(service5);
+
+        App.getInstance().getMainDao().insertServiceList(serviceList);
     }
 
 

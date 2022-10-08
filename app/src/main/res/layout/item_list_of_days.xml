@@ -32,7 +32,7 @@
             android:paddingBottom="5dp">
 
             <TextView
-                android:id="@+id/tvDate_LOD"
+                android:id="@+id/tvDay_LOD"
                 android:layout_width="wrap_content"
                 android:layout_height="80dp"
                 android:background="@drawable/style_day_green"

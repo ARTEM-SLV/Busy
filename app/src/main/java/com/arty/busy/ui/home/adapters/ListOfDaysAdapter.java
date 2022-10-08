@@ -3,7 +3,7 @@ package com.arty.busy.ui.home.adapters;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
+import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.arty.busy.R;
-import com.arty.busy.ui.home.tasklist.ItemListOfDays;
+import com.arty.busy.ui.home.items.ItemListOfDays;
 import com.arty.busy.ui.home.activity.TasksByDayActivity;
 
 import java.text.DateFormat;
@@ -24,7 +24,7 @@ import java.util.List;
 
 public class ListOfDaysAdapter extends RecyclerView.Adapter<ListOfDaysAdapter.ViewHolderLOD> {
     private Context context;
-    private ArrayList<ItemListOfDays> listOfDaysArr;
+    private List<ItemListOfDays> listOfDaysArr;
 
     public ListOfDaysAdapter(Context context) {
         this.context = context;
@@ -50,7 +50,7 @@ public class ListOfDaysAdapter extends RecyclerView.Adapter<ListOfDaysAdapter.Vi
     }
 
     static class ViewHolderLOD extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private TextView tvDayDesc;
+        private TextView tvDay;
         private TextView tvCountTasks;
         private Context context;
         private List<ItemListOfDays> listOfDaysArr;
@@ -60,13 +60,13 @@ public class ListOfDaysAdapter extends RecyclerView.Adapter<ListOfDaysAdapter.Vi
         @SuppressLint("SimpleDateFormat")
         DateFormat df = new SimpleDateFormat("E. dd.MM");
 
-        public ViewHolderLOD(@NonNull View itemView, Context context, ArrayList<ItemListOfDays> listOfDaysArr) {
+        public ViewHolderLOD(@NonNull View itemView, Context context, List<ItemListOfDays> listOfDaysArr) {
             super(itemView);
 
             this.context = context;
             this.listOfDaysArr = listOfDaysArr;
 
-            tvDayDesc = itemView.findViewById(R.id.tvDate_LOD);
+            tvDay = itemView.findViewById(R.id.tvDay_LOD);
             tvCountTasks = itemView.findViewById(R.id.tvCountTasks_LOD);
             mainContainerLOD = itemView.findViewById(R.id.mainContainer_LOD);
 
@@ -74,13 +74,27 @@ public class ListOfDaysAdapter extends RecyclerView.Adapter<ListOfDaysAdapter.Vi
         }
 
         @SuppressLint("SetTextI18n")
-        public void setData(ItemListOfDays itemListOfDays){
+        public void setData(ItemListOfDays itemTaskList){
+            tvDay.setText(df.format(itemTaskList.getDate()));
 
+            Resources res = context.getResources();
+            List<String> titlesService = itemTaskList.getTitlesService();
+            int i = 1;
+            for (String title : titlesService) {
+                int id = res.getIdentifier("tvTask" + i, "id", context.getPackageName());
+                TextView tvTask = itemView.findViewById(id);
+                tvTask.setText(title);
+
+                i++;
+            }
+
+            String total = res.getString(R.string.total);
+            tvCountTasks.setText(total + " " + titlesService.size());
         }
 
         @Override
         public void onClick(View v) {
-            Log.d("TestOnClick", "Pressed: " + getAdapterPosition());
+//            Log.d("TestOnClick", "Pressed: " + getAdapterPosition());
             Intent intent = new Intent(context, TasksByDayActivity.class);
             intent.putExtra("Date", listOfDaysArr.get(getAdapterPosition()).getDate());
             context.startActivity(intent);

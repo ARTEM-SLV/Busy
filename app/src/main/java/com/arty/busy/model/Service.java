@@ -27,10 +27,10 @@ public class Service implements Parcelable {
     public double price;
 
     @ColumnInfo(name = "execution_time")
-    public long execution_time;
+    public int execution_time;
 
     @ColumnInfo(name = "preparation_time")
-    public long preparation_time;
+    public int preparation_time;
 
     @ColumnInfo(name = "id_line_of_business")
     public int id_line_of_business;
@@ -44,8 +44,8 @@ public class Service implements Parcelable {
         short_title = in.readString();
         description = in.readString();
         price = in.readDouble();
-        execution_time = in.readLong();
-        preparation_time = in.readLong();
+        execution_time = in.readInt();
+        preparation_time = in.readInt();
         id_line_of_business = in.readInt();
     }
 
@@ -86,8 +86,8 @@ public class Service implements Parcelable {
         dest.writeString(short_title);
         dest.writeString(description);
         dest.writeDouble(price);
-        dest.writeLong(execution_time);
-        dest.writeLong(preparation_time);
+        dest.writeInt(execution_time);
+        dest.writeInt(preparation_time);
         dest.writeInt(id_line_of_business);
     }
 }

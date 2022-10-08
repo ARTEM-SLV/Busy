@@ -1,6 +1,6 @@
-package com.arty.busy.ui.home.tasklist;
+package com.arty.busy.ui.home.items;
 
-public class ItemListOfDays {
+public class ItemTaskList {
     private long date;
     private String titleServices;
 

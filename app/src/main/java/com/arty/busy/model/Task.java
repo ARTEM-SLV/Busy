@@ -11,7 +11,7 @@ import androidx.room.PrimaryKey;
 import java.util.Objects;
 
 @Entity(indices = {
-        @Index(value = {"date", "time"})}
+        @Index(value = {"day", "date_time"})}
 )
 public class Task implements Parcelable {
     @PrimaryKey(autoGenerate = true)
@@ -23,11 +23,11 @@ public class Task implements Parcelable {
     @ColumnInfo(name = "id_customer")
     public int id_customer;
 
-    @ColumnInfo(name = "date")
-    public long date;
+    @ColumnInfo(name = "day")
+    public long day;
 
-    @ColumnInfo(name = "time")
-    public long time;
+    @ColumnInfo(name = "date_time")
+    public long date_time;
 
     @ColumnInfo(name = "done")
     public boolean done;
@@ -42,8 +42,8 @@ public class Task implements Parcelable {
         uid = in.readInt();
         id_service = in.readInt();
         id_customer = in.readInt();
-        date = in.readLong();
-        time = in.readLong();
+        day = in.readLong();
+        date_time = in.readLong();
         done = in.readByte() != 0;
         paid = in.readByte() != 0;
     }
@@ -65,12 +65,12 @@ public class Task implements Parcelable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Task task = (Task) o;
-        return uid == task.uid && id_service == task.id_service && id_customer == task.id_customer && date == task.date && time == task.time && done == task.done;
+        return uid == task.uid && id_service == task.id_service && id_customer == task.id_customer && day == task.day && date_time == task.date_time && done == task.done;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(uid, id_service, id_customer, date, time, done);
+        return Objects.hash(uid, id_service, id_customer, day, date_time, done);
     }
 
 
@@ -84,8 +84,8 @@ public class Task implements Parcelable {
         dest.writeInt(uid);
         dest.writeInt(id_service);
         dest.writeInt(id_customer);
-        dest.writeLong(date);
-        dest.writeLong(time);
+        dest.writeLong(day);
+        dest.writeLong(date_time);
         dest.writeByte((byte) (done ? 1 : 0));
         dest.writeByte((byte) (paid ? 1 : 0));
     }

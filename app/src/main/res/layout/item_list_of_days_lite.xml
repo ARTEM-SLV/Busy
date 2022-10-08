@@ -26,7 +26,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/tvDate_LOD"
+                android:id="@+id/tvDay_LOD"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -47,11 +47,11 @@
                 android:gravity="end|bottom"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
-                android:paddingBottom="2dp"
+                android:paddingBottom="3dp"
                 android:textColor="@color/SteelBlue"
                 android:textSize="14sp"
-                app:fontFamily="@font/bistro_c"
-                tools:text="0" />
+                app:fontFamily="@font/lnky"
+                tools:text="total 0" />
         </LinearLayout>
 
         <LinearLayout
@@ -84,7 +84,7 @@
                         android:id="@+id/tvTask1"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:fontFamily="@font/lnky"
+                        android:fontFamily="@font/margot"
                         android:gravity="center"
                         android:textColor="@color/SteelBlue"
                         tools:text="MT" />
@@ -102,7 +102,7 @@
                         android:id="@+id/tvTask2"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:fontFamily="@font/lnky"
+                        android:fontFamily="@font/margot"
                         android:gravity="center"
                         android:textColor="@color/SteelBlue"
                         tools:text="РК" />
@@ -120,7 +120,7 @@
                         android:id="@+id/tvTask3"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:fontFamily="@font/lnky"
+                        android:fontFamily="@font/margot"
                         android:gravity="center"
                         android:textColor="@color/SteelBlue"
                         tools:text="Р2D" />
@@ -138,7 +138,7 @@
                         android:id="@+id/tvTask4"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:fontFamily="@font/lnky"
+                        android:fontFamily="@font/margot"
                         android:gravity="center"
                         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                         android:textColor="@color/SteelBlue" />
@@ -156,7 +156,7 @@
                         android:id="@+id/tvTask5"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:fontFamily="@font/lnky"
+                        android:fontFamily="@font/margot"
                         android:gravity="center"
                         android:textColor="@color/SteelBlue" />
                 </LinearLayout>
@@ -184,7 +184,7 @@
                         android:id="@+id/tvTask6"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:fontFamily="@font/lnky"
+                        android:fontFamily="@font/margot"
                         android:gravity="center"
                         android:textColor="@color/SteelBlue" />
                 </LinearLayout>
@@ -201,7 +201,7 @@
                         android:id="@+id/tvTask7"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:fontFamily="@font/lnky"
+                        android:fontFamily="@font/margot"
                         android:gravity="center"
                         android:textColor="@color/SteelBlue" />
                 </LinearLayout>
@@ -218,7 +218,7 @@
                         android:id="@+id/tvTask8"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:fontFamily="@font/lnky"
+                        android:fontFamily="@font/margot"
                         android:gravity="center"
                         android:textColor="@color/SteelBlue" />
                 </LinearLayout>
@@ -235,7 +235,7 @@
                         android:id="@+id/tvTask9"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:fontFamily="@font/lnky"
+                        android:fontFamily="@font/margot"
                         android:gravity="center"
                         android:textColor="@color/SteelBlue" />
                 </LinearLayout>
@@ -252,7 +252,7 @@
                         android:id="@+id/tvTask10"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:fontFamily="@font/lnky"
+                        android:fontFamily="@font/margot"
                         android:gravity="center"
                         android:textColor="@color/SteelBlue" />
                 </LinearLayout>
