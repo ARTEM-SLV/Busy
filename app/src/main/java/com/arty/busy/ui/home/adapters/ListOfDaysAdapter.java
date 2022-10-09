@@ -4,15 +4,10 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.PaintDrawable;
-import android.graphics.drawable.PictureDrawable;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -21,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.arty.busy.R;
 import com.arty.busy.ui.home.items.ItemListOfDays;
-import com.arty.busy.ui.home.activity.TasksByDayActivity;
+import com.arty.busy.ui.home.activity.TasksToDayActivity;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -129,7 +124,7 @@ public class ListOfDaysAdapter extends RecyclerView.Adapter<ListOfDaysAdapter.Vi
         @Override
         public void onClick(View v) {
 //            Log.d("TestOnClick", "Pressed: " + getAdapterPosition());
-            Intent intent = new Intent(context, TasksByDayActivity.class);
+            Intent intent = new Intent(context, TasksToDayActivity.class);
             intent.putExtra("Date", listOfDaysArr.get(getAdapterPosition()).getDate());
             context.startActivity(intent);
         }

@@ -9,13 +9,13 @@ import com.arty.busy.R;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
-public class TasksByDayActivity extends Activity {
+public class TasksToDayActivity extends Activity {
     private Object date;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list_of_days);
+        setContentView(R.layout.activity_ltasks_to_day);
 
         init();
     }
