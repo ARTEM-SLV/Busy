@@ -37,26 +37,22 @@ public class HomeViewModel extends ViewModel {
             if (position == taskList.size()) position = 0;
 
             List<String> titlesService = new ArrayList<>();
-            long currDate = 0;
-            for (; position < taskList.size(); position++) {
-                ItemTaskList task = taskList.get(position);
+            for (int j = position; j < taskList.size(); j++) {
+                ItemTaskList task = taskList.get(j);
 
-                if (currDate != 0 && currDate != task.getDate()) {
-                    position +=1;
-
+                if (task.getDate()>d.getTime())
                     break;
-                }
 
                 if (task.getDate()==d.getTime()) {
                     titlesService.add(task.getTitleServices());
 
-                    currDate = task.getDate();
+                    position =j+1;
                 }
             }
             itemListOfDays.setTitlesService(titlesService);
             listOfDays.add(itemListOfDays);
 
-            calendar.roll(Calendar.DATE, true);
+            MyDate.increaseByDay(calendar, d);
         }
 
         mListOfDays = new MutableLiveData<>();

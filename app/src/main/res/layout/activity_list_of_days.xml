@@ -17,6 +17,7 @@
         android:padding="5dp"
         android:textColor="@color/SteelBlue"
         android:textSize="20sp"
+        app:fontFamily="@font/lnky"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

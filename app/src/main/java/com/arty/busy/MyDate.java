@@ -50,4 +50,24 @@ public class MyDate {
 
         return cloneCalendar.getTime();
     }
+
+    public static void increaseByDay(Calendar calendar, Date d){
+        calendar.roll(Calendar.DATE, true);
+        if (d.compareTo(calendar.getTime())>0){
+            calendar.roll(Calendar.MONTH, true);
+        }
+        if (d.compareTo(calendar.getTime())>0){
+            calendar.roll(Calendar.YEAR, true);
+        }
+    }
+
+    public static void decreaseByDay(Calendar calendar, Date d){
+        calendar.roll(Calendar.DATE, false);
+        if (d.compareTo(calendar.getTime())<0){
+            calendar.roll(Calendar.MONTH, false);
+        }
+        if (d.compareTo(calendar.getTime())<0){
+            calendar.roll(Calendar.YEAR, false);
+        }
+    }
 }

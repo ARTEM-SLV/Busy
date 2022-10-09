@@ -83,7 +83,7 @@ public class App extends Application {
                 uid++;
             }
 
-            calendar.roll(Calendar.DATE, true);
+            MyDate.increaseByDay(calendar, dt);
         }
         App.getInstance().getMainDao().insertTaskList(taskList);
 

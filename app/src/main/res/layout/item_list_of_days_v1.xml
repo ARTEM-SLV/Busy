@@ -1,76 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mainLayout_LOD"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center"
-    android:paddingStart="10dp"
-    android:paddingTop="5dp"
-    android:paddingEnd="10dp"
-    android:paddingBottom="5dp">
+    android:paddingLeft="5dp"
+    android:paddingTop="2dp"
+    android:paddingRight="5dp"
+    android:paddingBottom="2dp">
 
     <LinearLayout
         android:id="@+id/mainContainer_LOD"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/style_radial_green"
-        android:orientation="horizontal">
+        android:background="@drawable/style_frame"
+        android:orientation="horizontal"
+        android:paddingStart="5dp"
+        android:paddingTop="5dp"
+        android:paddingEnd="5dp"
+        android:paddingBottom="10dp">
 
         <LinearLayout
-            android:id="@+id/containerStart_LOD"
+            android:id="@+id/containerLeft_LOD"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="35"
-            android:orientation="vertical">
+            android:layout_weight="13"
+            android:orientation="horizontal"
+            android:paddingStart="2dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp">
 
             <TextView
                 android:id="@+id/tvDay_LOD"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center_vertical|bottom"
-                android:paddingStart="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="80dp"
+                android:background="@drawable/style_day_green"
+                android:textAlignment="viewStart"
                 android:textAllCaps="false"
-                android:textColor="@color/SteelBlue"
-                android:textSize="24sp"
+                android:textColor="@color/purple_700"
+                android:textSize="20sp"
                 android:textStyle="bold|italic"
                 android:typeface="sans"
                 tools:text="Wed. 26.09" />
-
-            <TextView
-                android:id="@+id/tvCountTasks_LOD"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="3"
-                android:gravity="end|bottom"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
-                android:paddingBottom="3dp"
-                android:textColor="@color/SteelBlue"
-                android:textSize="12sp"
-                app:fontFamily="@font/lnky"
-                tools:text="total 0" />
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/containerMid_LOD"
+            android:id="@+id/containerRight_LOD"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="10"
-            android:orientation="vertical"
-            android:paddingStart="5dp"
-            android:paddingEnd="10dp">
+            android:layout_weight="8"
+            android:orientation="vertical" >
 
             <LinearLayout
                 android:id="@+id/containerMidLineTop_LOD"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:orientation="horizontal"
-                android:paddingTop="3dp"
-                android:paddingBottom="3dp">
+                android:orientation="horizontal">
 
                 <LinearLayout
                     android:id="@+id/containerLineTop1"
@@ -84,10 +71,8 @@
                         android:id="@+id/tvTask1"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:fontFamily="@font/margot"
                         android:gravity="center"
-                        android:textColor="@color/SteelBlue"
-                        tools:text="MT" />
+                        android:textColor="@color/black" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -102,10 +87,8 @@
                         android:id="@+id/tvTask2"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:fontFamily="@font/margot"
                         android:gravity="center"
-                        android:textColor="@color/SteelBlue"
-                        tools:text="РК" />
+                        android:textColor="@color/black" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -120,10 +103,8 @@
                         android:id="@+id/tvTask3"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:fontFamily="@font/margot"
                         android:gravity="center"
-                        android:textColor="@color/SteelBlue"
-                        tools:text="Р2D" />
+                        android:textColor="@color/black" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -138,27 +119,8 @@
                         android:id="@+id/tvTask4"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:fontFamily="@font/margot"
                         android:gravity="center"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                        android:textColor="@color/SteelBlue" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/containerLineTop5"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/tvTask5"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:fontFamily="@font/margot"
-                        android:gravity="center"
-                        android:textColor="@color/SteelBlue" />
+                        android:textColor="@color/black" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -168,9 +130,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:orientation="horizontal"
-                android:paddingTop="3dp"
-                android:paddingBottom="3dp">
+                android:orientation="horizontal">
 
                 <LinearLayout
                     android:id="@+id/containerLineBot1"
@@ -181,12 +141,11 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/tvTask6"
+                        android:id="@+id/tvTask5"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:fontFamily="@font/margot"
                         android:gravity="center"
-                        android:textColor="@color/SteelBlue" />
+                        android:textColor="@color/black" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -198,12 +157,11 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/tvTask7"
+                        android:id="@+id/tvTask6"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:fontFamily="@font/margot"
                         android:gravity="center"
-                        android:textColor="@color/SteelBlue" />
+                        android:textColor="@color/black" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -215,12 +173,11 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/tvTask8"
+                        android:id="@+id/tvTask7"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:fontFamily="@font/margot"
                         android:gravity="center"
-                        android:textColor="@color/SteelBlue" />
+                        android:textColor="@color/black" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -232,35 +189,35 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/tvTask9"
+                        android:id="@+id/tvTask8"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:fontFamily="@font/margot"
                         android:gravity="center"
-                        android:textColor="@color/SteelBlue" />
+                        android:textColor="@color/black" />
                 </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/containerLineBot5"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/tvTask10"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:fontFamily="@font/margot"
-                        android:gravity="center"
-                        android:textColor="@color/SteelBlue" />
-                </LinearLayout>
-
             </LinearLayout>
-
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/containerEnd_LOD"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="13"
+            android:orientation="horizontal"
+            android:padding="5dp">
+
+            <TextView
+                android:id="@+id/tvCountTasks_LOD"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/style_ring"
+                android:gravity="center"
+                android:text="0"
+                android:textColor="@color/DarkCyan"
+                android:textSize="50sp"
+                android:typeface="serif"
+                tools:text="0" />
+        </LinearLayout>
     </LinearLayout>
 
 </RelativeLayout>

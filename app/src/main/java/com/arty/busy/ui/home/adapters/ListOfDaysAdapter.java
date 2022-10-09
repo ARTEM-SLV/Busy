@@ -4,14 +4,19 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.PaintDrawable;
+import android.graphics.drawable.PictureDrawable;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.view.menu.MenuView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.arty.busy.R;
@@ -35,7 +40,7 @@ public class ListOfDaysAdapter extends RecyclerView.Adapter<ListOfDaysAdapter.Vi
     @NonNull
     @Override
     public ViewHolderLOD onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_list_of_days_lite, viewGroup, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_list_of_days, viewGroup, false);
 
         return new ViewHolderLOD(view, context, listOfDaysArr);
     }
@@ -57,6 +62,7 @@ public class ListOfDaysAdapter extends RecyclerView.Adapter<ListOfDaysAdapter.Vi
         private List<ItemListOfDays> listOfDaysArr;
 
         private LinearLayout mainContainerLOD;
+        private LinearLayout containerRight_LOD;
 
         @SuppressLint("SimpleDateFormat")
         DateFormat df = new SimpleDateFormat("E. dd.MM");
@@ -70,6 +76,7 @@ public class ListOfDaysAdapter extends RecyclerView.Adapter<ListOfDaysAdapter.Vi
             tvDay = itemView.findViewById(R.id.tvDay_LOD);
             tvCountTasks = itemView.findViewById(R.id.tvCountTasks_LOD);
             mainContainerLOD = itemView.findViewById(R.id.mainContainer_LOD);
+            containerRight_LOD = itemView.findViewById(R.id.containerRight_LOD);
 
             itemView.setOnClickListener(this);
         }
@@ -82,6 +89,10 @@ public class ListOfDaysAdapter extends RecyclerView.Adapter<ListOfDaysAdapter.Vi
 
             String totalS = res.getString(R.string.total);
             int totalI = titlesService.size();
+            if (totalI == 0 ){
+                Drawable drawable = context.getDrawable(R.drawable.free);
+                containerRight_LOD.setForeground(drawable);
+            } else containerRight_LOD.setForeground(null);
 
             cleanTvTask(res);
 
