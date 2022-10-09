@@ -17,7 +17,7 @@
         android:clickable="true"
         android:contentDescription="@string/app_name"
         android:src="@drawable/ic_add_24"
-        app:backgroundTint="@color/MediumAquamarine"
+        app:backgroundTint="@color/Turquoise"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
