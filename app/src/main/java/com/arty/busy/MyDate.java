@@ -51,7 +51,7 @@ public class MyDate {
         return cloneCalendar.getTime();
     }
 
-    public static void increaseByDay(Calendar calendar, Date d){
+    public static void setNextDay(Calendar calendar, Date d){
         calendar.roll(Calendar.DATE, true);
         if (d.compareTo(calendar.getTime())>0){
             calendar.roll(Calendar.MONTH, true);
@@ -61,7 +61,7 @@ public class MyDate {
         }
     }
 
-    public static void decreaseByDay(Calendar calendar, Date d){
+    public static void setLastDay(Calendar calendar, Date d){
         calendar.roll(Calendar.DATE, false);
         if (d.compareTo(calendar.getTime())<0){
             calendar.roll(Calendar.MONTH, false);

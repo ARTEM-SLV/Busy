@@ -83,7 +83,7 @@ public class App extends Application {
                 uid++;
             }
 
-            MyDate.increaseByDay(calendar, dt);
+            MyDate.setNextDay(calendar, dt);
         }
         App.getInstance().getMainDao().insertTaskList(taskList);
 

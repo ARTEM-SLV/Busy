@@ -49,5 +49,9 @@ public interface MainDao {
 
     @Delete
     void deleteServiceList(Service service);
+
+    //workday
+    @Query("SELECT day FROM Task GROUP BY day")
+    List<Long> getWorkdayTime();
 }
 

@@ -34,7 +34,8 @@ public class HomeViewModel extends ViewModel {
             ItemListOfDays itemListOfDays = new ItemListOfDays();
             itemListOfDays.setDate(d);
 
-            if (position == taskList.size()) position = 0;
+//            if (position == taskList.size())
+//                position = 0;
 
             List<String> titlesService = new ArrayList<>();
             for (int j = position; j < taskList.size(); j++) {
@@ -46,13 +47,13 @@ public class HomeViewModel extends ViewModel {
                 if (task.getDate()==d.getTime()) {
                     titlesService.add(task.getTitleServices());
 
-                    position =j+1;
+                    position = j+1;
                 }
             }
             itemListOfDays.setTitlesService(titlesService);
             listOfDays.add(itemListOfDays);
 
-            MyDate.increaseByDay(calendar, d);
+            MyDate.setNextDay(calendar, d);
         }
 
         mListOfDays = new MutableLiveData<>();
