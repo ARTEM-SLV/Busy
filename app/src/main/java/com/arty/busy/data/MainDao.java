@@ -10,18 +10,35 @@ import androidx.room.Update;
 import com.arty.busy.model.Service;
 import com.arty.busy.model.Task;
 import com.arty.busy.ui.home.items.ItemTaskList;
+import com.arty.busy.ui.home.items.ItemTasksToDay;
 
 import java.util.List;
 
 @Dao
 public interface MainDao {
 
-    @Query("SELECT tasks.day as date, services.short_title titleServices " +
+    @Query("SELECT " +
+                "tasks.day as date, " +
+                "services.short_title as servicesShort " +
             "FROM Task as tasks " +
-            "LEFT OUTER JOIN Service as services " +
-            "ON tasks.id_service = services.uid " +
+                "LEFT OUTER JOIN Service as services ON tasks.id_service = services.uid " +
             "ORDER BY tasks.day")
-    List<ItemTaskList> getTasksAndServices();
+    List<ItemTaskList> getTaskList();
+
+    @Query("SELECT " +
+                "tasks.date_time as date, " +
+                "services.title as services, " +
+                "services.short_title as servicesShort, " +
+                "customers.first_name as client, " +
+                "services.price as price, " +
+                "tasks.done as done, " +
+                "tasks.paid as paid " +
+            "FROM Task as tasks " +
+                "LEFT OUTER JOIN Service as services ON tasks.id_service = services.uid " +
+                "LEFT OUTER JOIN Customer as customers ON tasks.id_customer = customers.uid " +
+            "WHERE tasks.day <= :dateBeginning and tasks.day >= :dateEnding " +
+            "ORDER BY tasks.day")
+    List<ItemTasksToDay> getTasksToDay(long dateBeginning, long dateEnding);
 
 //
 //    @Query("SELECT * FROM Task WHERE date = :date")

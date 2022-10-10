@@ -20,7 +20,7 @@ public class HomeViewModel extends ViewModel {
     private MutableLiveData<List<ItemListOfDays>> mListOfDays;
 
     public LiveData<List<ItemListOfDays>> getListOfDays() {
-        List<ItemTaskList> taskList = App.getInstance().getMainDao().getTasksAndServices();
+        List<ItemTaskList> taskList = App.getInstance().getMainDao().getTaskList();
         List<ItemListOfDays> listOfDays = new ArrayList<>();
 
         Calendar calendar = new GregorianCalendar();
@@ -34,9 +34,6 @@ public class HomeViewModel extends ViewModel {
             ItemListOfDays itemListOfDays = new ItemListOfDays();
             itemListOfDays.setDate(d);
 
-//            if (position == taskList.size())
-//                position = 0;
-
             List<String> titlesService = new ArrayList<>();
             for (int j = position; j < taskList.size(); j++) {
                 ItemTaskList task = taskList.get(j);
@@ -45,7 +42,7 @@ public class HomeViewModel extends ViewModel {
                     break;
 
                 if (task.getDate()==d.getTime()) {
-                    titlesService.add(task.getTitleServices());
+                    titlesService.add(task.getServicesShort());
 
                     position = j+1;
                 }

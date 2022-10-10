@@ -2,7 +2,7 @@ package com.arty.busy.ui.home.items;
 
 public class ItemTaskList {
     private long date;
-    private String titleServices;
+    private String servicesShort;
 
     public long getDate() {
         return date;
@@ -12,11 +12,11 @@ public class ItemTaskList {
         this.date = date;
     }
 
-    public String getTitleServices() {
-        return titleServices;
+    public String getServicesShort() {
+        return servicesShort;
     }
 
-    public void setTitleServices(String titleServices) {
-        this.titleServices = titleServices;
+    public void setServicesShort(String servicesShort) {
+        this.servicesShort = servicesShort;
     }
 }

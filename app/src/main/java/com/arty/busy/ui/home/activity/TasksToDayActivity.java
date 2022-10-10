@@ -1,5 +1,6 @@
 package com.arty.busy.ui.home.activity;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
 import android.widget.TextView;
@@ -21,7 +22,7 @@ public class TasksToDayActivity extends Activity {
     }
 
     private void init(){
-        DateFormat df = new SimpleDateFormat("EEEE dd. MMM");
+        @SuppressLint("SimpleDateFormat") DateFormat df = new SimpleDateFormat("EEEE dd. MMM");
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             date = extras.get("Date");
