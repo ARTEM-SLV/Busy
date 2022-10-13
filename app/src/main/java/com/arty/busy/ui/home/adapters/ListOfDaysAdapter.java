@@ -51,10 +51,10 @@ public class ListOfDaysAdapter extends RecyclerView.Adapter<ListOfDaysAdapter.Vi
     }
 
     static class ViewHolderLOD extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private TextView tvDay;
-        private TextView tvCountTasks;
         private Context context;
         private List<ItemListOfDays> listOfDaysArr;
+        private TextView tvDay;
+        private TextView tvCountTasks;
 
         private LinearLayout mainContainerLOD;
         private LinearLayout containerRight_LOD;
@@ -64,7 +64,6 @@ public class ListOfDaysAdapter extends RecyclerView.Adapter<ListOfDaysAdapter.Vi
 
         public ViewHolderLOD(@NonNull View itemView, Context context, List<ItemListOfDays> listOfDaysArr) {
             super(itemView);
-
             this.context = context;
             this.listOfDaysArr = listOfDaysArr;
 

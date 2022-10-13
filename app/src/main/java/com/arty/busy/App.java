@@ -38,7 +38,7 @@ public class App extends Application {
 
         mainDao = dataBase.mainDao();
 
-//        fillDataBaseForTest();
+        fillDataBaseForTest();
     }
 
     public AppDataBase getDataBase() {
