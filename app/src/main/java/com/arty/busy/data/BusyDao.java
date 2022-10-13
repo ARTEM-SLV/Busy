@@ -15,7 +15,7 @@ import com.arty.busy.ui.home.items.ItemTasksToDay;
 import java.util.List;
 
 @Dao
-public interface MainDao {
+public interface BusyDao {
 
     @Query("SELECT " +
                 "tasks.day as date, " +

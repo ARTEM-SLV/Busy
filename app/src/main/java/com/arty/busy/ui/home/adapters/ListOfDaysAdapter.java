@@ -135,4 +135,10 @@ public class ListOfDaysAdapter extends RecyclerView.Adapter<ListOfDaysAdapter.Vi
 
         notifyDataSetChanged();
     }
+
+    public void removeElement(int pos){
+        listOfDaysArr.remove(pos);
+        notifyItemRangeChanged(0, listOfDaysArr.size());
+        notifyItemRemoved(pos);
+    }
 }

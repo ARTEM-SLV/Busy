@@ -5,7 +5,7 @@ import android.app.Application;
 import androidx.room.Room;
 
 import com.arty.busy.data.AppDataBase;
-import com.arty.busy.data.MainDao;
+import com.arty.busy.data.BusyDao;
 import com.arty.busy.model.Service;
 import com.arty.busy.model.Task;
 
@@ -17,7 +17,7 @@ import java.util.List;
 
 public class App extends Application {
     private AppDataBase dataBase;
-    private MainDao mainDao;
+    private BusyDao busyDao;
 
     private static App instance;
 
@@ -36,7 +36,7 @@ public class App extends Application {
                 .allowMainThreadQueries()
                 .build();
 
-        mainDao = dataBase.mainDao();
+        busyDao = dataBase.busyDao();
 
         fillDataBaseForTest();
     }
@@ -49,12 +49,12 @@ public class App extends Application {
         this.dataBase = dataBase;
     }
 
-    public MainDao getMainDao() {
-        return mainDao;
+    public BusyDao getMainDao() {
+        return busyDao;
     }
 
-    public void setMainDao(MainDao mainDao) {
-        this.mainDao = mainDao;
+    public void setMainDao(BusyDao busyDao) {
+        this.busyDao = busyDao;
     }
 
     private void fillDataBaseForTest(){

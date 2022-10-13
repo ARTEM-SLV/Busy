@@ -51,7 +51,7 @@ public class HomeFragment extends Fragment {
     }
 
     private ItemTouchHelper getItemTouchHelper(){
-        return new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.ANIMATION_TYPE_SWIPE_CANCEL) {
+        return new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
                 return false;
@@ -59,7 +59,7 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-
+                listOfDaysAdapter.removeElement(viewHolder.getAdapterPosition());
             }
         });
     }
