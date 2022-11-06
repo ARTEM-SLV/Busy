@@ -8,12 +8,14 @@ import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.arty.busy.MyDate;
 import com.arty.busy.R;
 import com.arty.busy.ui.home.items.ItemListOfDays;
 import com.arty.busy.ui.home.activity.TasksToDayActivity;
@@ -21,6 +23,7 @@ import com.arty.busy.ui.home.activity.TasksToDayActivity;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ListOfDaysAdapter extends RecyclerView.Adapter<ListOfDaysAdapter.ViewHolderLOD> {
@@ -50,29 +53,41 @@ public class ListOfDaysAdapter extends RecyclerView.Adapter<ListOfDaysAdapter.Vi
         return listOfDaysArr.size();
     }
 
+    public Date getDateFormListOfDaysArr(int pos) {
+        return listOfDaysArr.get(pos).getDate();
+    }
+
     static class ViewHolderLOD extends RecyclerView.ViewHolder implements View.OnClickListener {
         private Context context;
         private List<ItemListOfDays> listOfDaysArr;
+
+        private LinearLayout containerMain_LOD;
+        private LinearLayout containerRight_LOD;
         private TextView tvDay;
         private TextView tvCountTasks;
+        private ImageView icoThisDay;
+//        private LinearLayout containerLeft_LOD;
 
-        private LinearLayout mainContainerLOD;
-        private LinearLayout containerRight_LOD;
+        private Date currentDate;
 
         @SuppressLint("SimpleDateFormat")
         DateFormat df = new SimpleDateFormat("E. dd.MM");
 
-        public ViewHolderLOD(@NonNull View itemView, Context context, List<ItemListOfDays> listOfDaysArr) {
-            super(itemView);
+        public ViewHolderLOD(@NonNull View view, Context context, List<ItemListOfDays> listOfDaysArr) {
+            super(view);
             this.context = context;
             this.listOfDaysArr = listOfDaysArr;
 
-            tvDay = itemView.findViewById(R.id.tvDay_LOD);
-            tvCountTasks = itemView.findViewById(R.id.tvCountTasks_LOD);
-            mainContainerLOD = itemView.findViewById(R.id.mainContainer_LOD);
-            containerRight_LOD = itemView.findViewById(R.id.containerRight_LOD);
+            containerMain_LOD = view.findViewById(R.id.containerMain_LOD);
+            containerRight_LOD = view.findViewById(R.id.containerRight_LOD);
+            tvDay = view.findViewById(R.id.tvDay_LOD);
+            tvCountTasks = view.findViewById(R.id.tvCountTasks_LOD);
+            icoThisDay = view.findViewById(R.id.icoThisDay_LOD);
+//            containerLeft_LOD = view.findViewById(R.id.containerLeft_LOD);
 
-            itemView.setOnClickListener(this);
+            currentDate = MyDate.getCurrentDate();
+
+            view.setOnClickListener(this);
         }
 
         @SuppressLint("SetTextI18n")
@@ -84,17 +99,27 @@ public class ListOfDaysAdapter extends RecyclerView.Adapter<ListOfDaysAdapter.Vi
             String totalS = res.getString(R.string.total);
             int totalI = titlesService.size();
             if (totalI == 0 ){
-                Drawable drawable = context.getDrawable(R.drawable.free);
-                containerRight_LOD.setForeground(drawable);
+                Drawable drawableFree = context.getDrawable(R.drawable.free);
+                containerRight_LOD.setForeground(drawableFree);
             } else containerRight_LOD.setForeground(null);
 
             cleanTvTask(res);
 
             if (totalI == 10){
-                mainContainerLOD.setBackgroundResource(R.drawable.style_radial_yellow);
+                containerMain_LOD.setBackgroundResource(R.drawable.style_radial_yellow);
             } else if (totalI > 10){
-                mainContainerLOD.setBackgroundResource(R.drawable.style_radial_red);
-            } else mainContainerLOD.setBackgroundResource(R.drawable.style_radial_green);
+                containerMain_LOD.setBackgroundResource(R.drawable.style_radial_red);
+            } else containerMain_LOD.setBackgroundResource(R.drawable.style_radial_green);
+
+            if (currentDate.equals(itemTaskList.getDate())){
+//                Drawable drawableStroke = context.getDrawable(R.drawable.style_stroke_darkblue);
+//                containerMain_LOD.setForeground(drawableStroke);
+                icoThisDay.setVisibility(View.VISIBLE);
+            } else {
+//                containerMain_LOD.setForeground(null);
+                icoThisDay.setVisibility(View.INVISIBLE);
+            }
+
 
             int i = 1;
             for (String title : titlesService) {
@@ -122,17 +147,26 @@ public class ListOfDaysAdapter extends RecyclerView.Adapter<ListOfDaysAdapter.Vi
 
         @Override
         public void onClick(View v) {
-//            Log.d("TestOnClick", "Pressed: " + getAdapterPosition());
             Intent intent = new Intent(context, TasksToDayActivity.class);
             intent.putExtra("Date", listOfDaysArr.get(getAdapterPosition()).getDate());
             context.startActivity(intent);
         }
     }
 
-    public void updateAdapter(List<ItemListOfDays> updatedList){
+    public void loadData(List<ItemListOfDays> listOfDays){
         listOfDaysArr.clear();
-        listOfDaysArr.addAll(updatedList);
+        listOfDaysArr.addAll(listOfDays);
 
+        notifyDataSetChanged();
+    }
+
+    public void addNewDataOnTop(List<ItemListOfDays> listOfDays) {
+        listOfDaysArr.addAll(0, listOfDays);
+        notifyDataSetChanged();
+    }
+
+    public void addNewDataOnBot(List<ItemListOfDays> listOfDays) {
+        listOfDaysArr.addAll(this.listOfDaysArr.size(), listOfDays);
         notifyDataSetChanged();
     }
 

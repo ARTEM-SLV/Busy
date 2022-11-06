@@ -7,8 +7,8 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.arty.busy.model.Service;
-import com.arty.busy.model.Task;
+import com.arty.busy.models.Service;
+import com.arty.busy.models.Task;
 import com.arty.busy.ui.home.items.ItemTaskList;
 import com.arty.busy.ui.home.items.ItemTasksToDay;
 
@@ -22,8 +22,9 @@ public interface BusyDao {
                 "services.short_title as servicesShort " +
             "FROM Task as tasks " +
                 "LEFT OUTER JOIN Service as services ON tasks.id_service = services.uid " +
+            "WHERE tasks.day BETWEEN :dateBeginning AND :dateEnding " +
             "ORDER BY tasks.day")
-    List<ItemTaskList> getTaskList();
+    List<ItemTaskList> getTaskList(long dateBeginning, long dateEnding);
 
     @Query("SELECT " +
                 "tasks.date_time as date, " +
@@ -36,9 +37,9 @@ public interface BusyDao {
             "FROM Task as tasks " +
                 "LEFT OUTER JOIN Service as services ON tasks.id_service = services.uid " +
                 "LEFT OUTER JOIN Customer as customers ON tasks.id_customer = customers.uid " +
-            "WHERE tasks.day <= :dateBeginning and tasks.day >= :dateEnding " +
+            "WHERE tasks.day = :day " +
             "ORDER BY tasks.day")
-    List<ItemTasksToDay> getTasksToDay(long dateBeginning, long dateEnding);
+    List<ItemTasksToDay> getTasksToDay(long day);
 
 //
 //    @Query("SELECT * FROM Task WHERE date = :date")

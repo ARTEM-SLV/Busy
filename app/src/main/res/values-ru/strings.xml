@@ -1,8 +1,10 @@
 <resources>
     <string name="app_name">Busy</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_home">Ежедневник</string>
+    <string name="title_customers">Клиенты</string>
+    <string name="title_services">Услуги</string>
+    <string name="title_count" >Подсчет</string>
+    <string name="title_settings" >Настройки</string>
 
     <!--    enum sex values-->
     <string name="male">Мужской</string>

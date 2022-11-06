@@ -16,7 +16,7 @@ public class TasksToDayActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ltasks_to_day);
+        setContentView(R.layout.activity_tasks_to_day);
 
         init();
     }
@@ -26,7 +26,7 @@ public class TasksToDayActivity extends Activity {
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             date = extras.get("Date");
-            TextView tvDate = findViewById(R.id.tvTestDate);
+            TextView tvDate = findViewById(R.id.tvTestDate_TTD);
             tvDate.setText(df.format(date));
         }
     }

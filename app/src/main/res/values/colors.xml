@@ -160,7 +160,6 @@
     <color name="DarkGray">#A9A9A9</color>
     <color name="DarkGrey">#A9A9A9</color>
     <color name="Gray">#808080</color>
-    <color name="Grey">#808080</color>
     <color name="DimGray">#696969</color>
     <color name="DimGrey">#696969</color>
     <color name="LightSlateGray">#778899</color>
@@ -170,5 +169,7 @@
     <color name="DarkSlateGray">#2F4F4F</color>
     <color name="DarkSlateGrey">#2F4F4F</color>
     <color name="Black">#000000</color>
+
+    <color name="Gray_30">#30808080</color>
 
 </resources>

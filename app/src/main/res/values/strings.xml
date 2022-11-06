@@ -1,8 +1,10 @@
 <resources>
     <string name="app_name">Busy</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_home">Diary</string>
+    <string name="title_customers">Customers</string>
+    <string name="title_services">Services</string>
+    <string name="title_count" >Count</string>
+    <string name="title_settings" >Settings</string>
 
     <!--    enum sex values-->
     <string name="male">Male</string>
@@ -10,13 +12,4 @@
 
     <!--    -->
     <string name="total">total</string>
-    <string name="title_activity_task_list_to_day">TaskListToDayActivity</string>
-    <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
-
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 </resources>
