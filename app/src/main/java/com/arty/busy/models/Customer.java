@@ -1,4 +1,4 @@
-package com.arty.busy.model;
+package com.arty.busy.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;

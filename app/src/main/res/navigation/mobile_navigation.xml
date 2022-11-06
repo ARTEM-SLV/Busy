@@ -12,14 +12,26 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.arty.busy.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/navigation_services"
+        android:name="com.arty.busy.ui.services.ServicesFragment"
+        android:label="@string/title_services"
+        tools:layout="@layout/fragment_services" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.arty.busy.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/navigation_customers"
+        android:name="com.arty.busy.ui.customers.CustomersFragment"
+        android:label="@string/title_customers"
+        tools:layout="@layout/fragment_customers" />
+
+    <fragment
+        android:id="@+id/navigation_count"
+        android:name="com.arty.busy.ui.count.CountFragment"
+        android:label="@string/title_count"
+        tools:layout="@layout/fragment_count" />
+
+    <fragment
+        android:id="@+id/navigation_settings"
+        android:name="com.arty.busy.ui.settings.SettingsFragment"
+        android:label="@string/title_settings"
+        tools:layout="@layout/fragment_settings" />
 </navigation>
