@@ -6,13 +6,12 @@ import androidx.room.Room;
 
 import com.arty.busy.data.AppDataBase;
 import com.arty.busy.data.BusyDao;
-import com.arty.busy.model.Service;
-import com.arty.busy.model.Task;
+import com.arty.busy.models.Service;
+import com.arty.busy.models.Task;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 public class App extends Application {
@@ -38,7 +37,7 @@ public class App extends Application {
 
         busyDao = dataBase.busyDao();
 
-        fillDataBaseForTest();
+//        fillDataBaseForTest();
     }
 
     public AppDataBase getDataBase() {
@@ -49,7 +48,7 @@ public class App extends Application {
         this.dataBase = dataBase;
     }
 
-    public BusyDao getMainDao() {
+    public BusyDao getBusyDao() {
         return busyDao;
     }
 
@@ -61,13 +60,13 @@ public class App extends Application {
         List<Task> taskList = new ArrayList<>();
         List<Service> serviceList = new ArrayList<>();
 
-        Calendar calendar = new GregorianCalendar();
+        Calendar calendar = Calendar.getInstance();
         int uid = 0;
-        for (int i = 0; i < 30; i++) {
+        for (int i = 0; i < 3000; i++) {
             Date dt = calendar.getTime();
             Date dd = MyDate.getStartDay(calendar);
 
-            int randomJ = (int) Math.round(Math.random()*11)+1;
+            int randomJ = (int) Math.round(Math.random()*10)+1;
 
             for (int j = 0; j < randomJ; j++) {
                 int randomNum = (int) Math.round(Math.random()*4)+1;
@@ -83,9 +82,10 @@ public class App extends Application {
                 uid++;
             }
 
-            MyDate.setNextDay(calendar, dt);
+//            MyDate.setNextDay(calendar, dt);
+            calendar.add(Calendar.DATE, 1);
         }
-        App.getInstance().getMainDao().insertTaskList(taskList);
+        App.getInstance().getBusyDao().insertTaskList(taskList);
 
         Service service1 = new Service();
         service1.uid = 1;
@@ -142,7 +142,7 @@ public class App extends Application {
         service5.id_line_of_business = 2;
         serviceList.add(service5);
 
-        App.getInstance().getMainDao().insertServiceList(serviceList);
+        App.getInstance().getBusyDao().insertServiceList(serviceList);
     }
 
 
