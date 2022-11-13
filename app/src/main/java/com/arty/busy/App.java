@@ -1,6 +1,8 @@
 package com.arty.busy;
 
 import android.app.Application;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
 import androidx.room.Room;
 
@@ -17,6 +19,7 @@ import java.util.List;
 public class App extends Application {
     private AppDataBase dataBase;
     private BusyDao busyDao;
+    private SharedPreferences sharedPreferences;
 
     private static App instance;
 
@@ -37,7 +40,9 @@ public class App extends Application {
 
         busyDao = dataBase.busyDao();
 
-//        fillDataBaseForTest();
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(App.this);
+
+        fillDataBaseForTest();
     }
 
     public AppDataBase getDataBase() {
@@ -54,6 +59,22 @@ public class App extends Application {
 
     public void setMainDao(BusyDao busyDao) {
         this.busyDao = busyDao;
+    }
+
+    public void updateSettings(){
+        Settings.TIME_BEGINNING = sharedPreferences.getInt(Constants.KEY_TIME_BEGINNING, 0);
+        Settings.TIME_ENDING = sharedPreferences.getInt(Constants.KEY_TIME_ENDING, 0);
+        Settings.TIME_BEGINNING_BREAK = sharedPreferences.getInt(Constants.KEY_TIME_BEGINNING_BREAK, 0);
+        Settings.TIME_ENDING_BREAK = sharedPreferences.getInt(Constants.KEY_TIME_ENDING_BREAK, 0);
+    }
+
+    public void saveSettings(){
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        editor.putInt(Constants.KEY_TIME_BEGINNING, Settings.TIME_BEGINNING);
+        editor.putInt(Constants.KEY_TIME_ENDING, Settings.TIME_ENDING);
+        editor.putInt(Constants.KEY_TIME_BEGINNING_BREAK, Settings.TIME_BEGINNING_BREAK);
+        editor.putInt(Constants.KEY_TIME_ENDING_BREAK, Settings.TIME_ENDING_BREAK);
     }
 
     private void fillDataBaseForTest(){
@@ -145,5 +166,7 @@ public class App extends Application {
         App.getInstance().getBusyDao().insertServiceList(serviceList);
     }
 
+    private void fillWorkday(){
 
+    }
 }
