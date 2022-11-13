@@ -3,6 +3,7 @@ package com.arty.busy;
 import android.app.Application;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
 import androidx.room.Room;
 
@@ -41,8 +42,10 @@ public class App extends Application {
         busyDao = dataBase.busyDao();
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(App.this);
+//        fillWorkday();
+        updateSettings();
 
-        fillDataBaseForTest();
+//        fillDataBaseForTest();
     }
 
     public AppDataBase getDataBase() {
@@ -62,10 +65,10 @@ public class App extends Application {
     }
 
     public void updateSettings(){
-        Settings.TIME_BEGINNING = sharedPreferences.getInt(Constants.KEY_TIME_BEGINNING, 0);
-        Settings.TIME_ENDING = sharedPreferences.getInt(Constants.KEY_TIME_ENDING, 0);
-        Settings.TIME_BEGINNING_BREAK = sharedPreferences.getInt(Constants.KEY_TIME_BEGINNING_BREAK, 0);
-        Settings.TIME_ENDING_BREAK = sharedPreferences.getInt(Constants.KEY_TIME_ENDING_BREAK, 0);
+        Settings.TIME_BEGINNING = sharedPreferences.getInt(Constants.KEY_TIME_BEGINNING, -1);
+        Settings.TIME_ENDING = sharedPreferences.getInt(Constants.KEY_TIME_ENDING, -1);
+        Settings.TIME_BEGINNING_BREAK = sharedPreferences.getInt(Constants.KEY_TIME_BEGINNING_BREAK, -1);
+        Settings.TIME_ENDING_BREAK = sharedPreferences.getInt(Constants.KEY_TIME_ENDING_BREAK, -1);
     }
 
     public void saveSettings(){
@@ -75,6 +78,8 @@ public class App extends Application {
         editor.putInt(Constants.KEY_TIME_ENDING, Settings.TIME_ENDING);
         editor.putInt(Constants.KEY_TIME_BEGINNING_BREAK, Settings.TIME_BEGINNING_BREAK);
         editor.putInt(Constants.KEY_TIME_ENDING_BREAK, Settings.TIME_ENDING_BREAK);
+
+        editor.commit();
     }
 
     private void fillDataBaseForTest(){
@@ -167,6 +172,9 @@ public class App extends Application {
     }
 
     private void fillWorkday(){
+        Settings.TIME_BEGINNING = 9; // 8:00
+        Settings.TIME_ENDING = 20; // 20:00
 
+        saveSettings();
     }
 }

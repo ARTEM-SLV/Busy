@@ -83,7 +83,6 @@
                 android:orientation="horizontal"
                 android:paddingEnd="10dp"
                 android:paddingBottom="5dp"
-                android:background="@color/Gray_30"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -110,8 +109,8 @@
                                 android:layout_height="match_parent"
                                 android:fontFamily="cursive"
                                 android:gravity="center"
-                                android:textColor="@color/Gray"
                                 android:text="0:00"
+                                android:textColor="@color/Gray"
                                 android:textSize="24sp"
                                 android:textStyle="bold" />
 
@@ -144,9 +143,9 @@
                                 android:layout_height="match_parent"
                                 android:fontFamily="cursive"
                                 android:gravity="center_vertical|end"
-                                android:textColor="@color/Gray"
                                 android:paddingEnd="10dp"
                                 android:text="30"
+                                android:textColor="@color/Gray"
                                 android:textSize="18sp"
                                 android:textStyle="bold" />
                         </LinearLayout>
@@ -175,7 +174,6 @@
                 android:orientation="horizontal"
                 android:paddingEnd="10dp"
                 android:paddingBottom="5dp"
-                android:background="@color/Gray_30"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/line1_TOD">
@@ -202,8 +200,8 @@
                                 android:layout_height="match_parent"
                                 android:fontFamily="cursive"
                                 android:gravity="center"
-                                android:textColor="@color/Gray"
                                 android:text="1:00"
+                                android:textColor="@color/Gray"
                                 android:textSize="24sp"
                                 android:textStyle="bold" />
 
@@ -239,9 +237,9 @@
                                 android:layout_height="match_parent"
                                 android:fontFamily="cursive"
                                 android:gravity="center_vertical|end"
-                                android:textColor="@color/Gray"
                                 android:paddingEnd="10dp"
                                 android:text="30"
+                                android:textColor="@color/Gray"
                                 android:textSize="18sp"
                                 android:textStyle="bold" />
                         </LinearLayout>
@@ -270,7 +268,6 @@
                 android:orientation="horizontal"
                 android:paddingEnd="10dp"
                 android:paddingBottom="5dp"
-                android:background="@color/Gray_30"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/line2_TOD">
@@ -297,8 +294,8 @@
                                 android:layout_height="match_parent"
                                 android:fontFamily="cursive"
                                 android:gravity="center"
-                                android:textColor="@color/Gray"
                                 android:text="2:00"
+                                android:textColor="@color/Gray"
                                 android:textSize="24sp"
                                 android:textStyle="bold" />
 
@@ -334,9 +331,9 @@
                                 android:layout_height="match_parent"
                                 android:fontFamily="cursive"
                                 android:gravity="center_vertical|end"
-                                android:textColor="@color/Gray"
                                 android:paddingEnd="10dp"
                                 android:text="30"
+                                android:textColor="@color/Gray"
                                 android:textSize="18sp"
                                 android:textStyle="bold" />
                         </LinearLayout>
@@ -365,7 +362,6 @@
                 android:orientation="horizontal"
                 android:paddingEnd="10dp"
                 android:paddingBottom="5dp"
-                android:background="@color/Gray_30"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/line3_TOD">
@@ -392,8 +388,8 @@
                                 android:layout_height="match_parent"
                                 android:fontFamily="cursive"
                                 android:gravity="center"
-                                android:textColor="@color/Gray"
                                 android:text="3:00"
+                                android:textColor="@color/Gray"
                                 android:textSize="24sp"
                                 android:textStyle="bold" />
 
@@ -429,9 +425,9 @@
                                 android:layout_height="match_parent"
                                 android:fontFamily="cursive"
                                 android:gravity="center_vertical|end"
-                                android:textColor="@color/Gray"
                                 android:paddingEnd="10dp"
                                 android:text="30"
+                                android:textColor="@color/Gray"
                                 android:textSize="18sp"
                                 android:textStyle="bold" />
                         </LinearLayout>
@@ -460,7 +456,6 @@
                 android:orientation="horizontal"
                 android:paddingEnd="10dp"
                 android:paddingBottom="5dp"
-                android:background="@color/Gray_30"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/line4_TOD">
@@ -487,8 +482,8 @@
                                 android:layout_height="match_parent"
                                 android:fontFamily="cursive"
                                 android:gravity="center"
-                                android:textColor="@color/Gray"
                                 android:text="4:00"
+                                android:textColor="@color/Gray"
                                 android:textSize="24sp"
                                 android:textStyle="bold" />
 
@@ -524,9 +519,9 @@
                                 android:layout_height="match_parent"
                                 android:fontFamily="cursive"
                                 android:gravity="center_vertical|end"
-                                android:textColor="@color/Gray"
                                 android:paddingEnd="10dp"
                                 android:text="30"
+                                android:textColor="@color/Gray"
                                 android:textSize="18sp"
                                 android:textStyle="bold" />
                         </LinearLayout>
@@ -555,7 +550,6 @@
                 android:orientation="horizontal"
                 android:paddingEnd="10dp"
                 android:paddingBottom="5dp"
-                android:background="@color/Gray_30"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/line5_TOD">
@@ -582,8 +576,8 @@
                                 android:layout_height="match_parent"
                                 android:fontFamily="cursive"
                                 android:gravity="center"
-                                android:textColor="@color/Gray"
                                 android:text="5:00"
+                                android:textColor="@color/Gray"
                                 android:textSize="24sp"
                                 android:textStyle="bold" />
 
@@ -619,9 +613,9 @@
                                 android:layout_height="match_parent"
                                 android:fontFamily="cursive"
                                 android:gravity="center_vertical|end"
-                                android:textColor="@color/Gray"
                                 android:paddingEnd="10dp"
                                 android:text="30"
+                                android:textColor="@color/Gray"
                                 android:textSize="18sp"
                                 android:textStyle="bold" />
                         </LinearLayout>
@@ -650,7 +644,6 @@
                 android:orientation="horizontal"
                 android:paddingEnd="10dp"
                 android:paddingBottom="5dp"
-                android:background="@color/Gray_30"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/line6_TOD">
@@ -675,10 +668,10 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:textColor="@color/Gray"
                                 android:fontFamily="cursive"
                                 android:gravity="center"
                                 android:text="6:00"
+                                android:textColor="@color/Gray"
                                 android:textSize="24sp"
                                 android:textStyle="bold" />
 
@@ -714,9 +707,9 @@
                                 android:layout_height="match_parent"
                                 android:fontFamily="cursive"
                                 android:gravity="center_vertical|end"
-                                android:textColor="@color/Gray"
                                 android:paddingEnd="10dp"
                                 android:text="30"
+                                android:textColor="@color/Gray"
                                 android:textSize="18sp"
                                 android:textStyle="bold" />
                         </LinearLayout>
@@ -743,7 +736,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
-                android:background="@color/Gray_30"
                 android:paddingEnd="10dp"
                 android:paddingBottom="5dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -772,8 +764,8 @@
                                 android:layout_height="match_parent"
                                 android:fontFamily="cursive"
                                 android:gravity="center"
-                                android:textColor="@color/Gray"
                                 android:text="7:00"
+                                android:textColor="@color/Gray"
                                 android:textSize="24sp"
                                 android:textStyle="bold" />
 
@@ -809,9 +801,9 @@
                                 android:layout_height="match_parent"
                                 android:fontFamily="cursive"
                                 android:gravity="center_vertical|end"
-                                android:textColor="@color/Gray"
                                 android:paddingEnd="10dp"
                                 android:text="30"
+                                android:textColor="@color/Gray"
                                 android:textSize="18sp"
                                 android:textStyle="bold" />
                         </LinearLayout>
@@ -837,7 +829,6 @@
                 android:id="@+id/line9_TOD"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/style_topline_salmon"
                 android:orientation="horizontal"
                 android:paddingEnd="10dp"
                 android:paddingBottom="5dp"
@@ -1964,7 +1955,6 @@
                 android:id="@+id/line21_TOD"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/style_bottomline_salmon"
                 android:orientation="horizontal"
                 android:paddingEnd="10dp"
                 android:paddingBottom="5dp"
@@ -2060,7 +2050,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
-                android:background="@color/Gray_30"
                 android:paddingEnd="10dp"
                 android:paddingBottom="5dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -2089,8 +2078,8 @@
                                 android:layout_height="match_parent"
                                 android:fontFamily="cursive"
                                 android:gravity="center"
-                                android:textColor="@color/Gray"
                                 android:text="21:00"
+                                android:textColor="@color/Gray"
                                 android:textSize="24sp"
                                 android:textStyle="bold" />
 
@@ -2126,9 +2115,9 @@
                                 android:layout_height="match_parent"
                                 android:fontFamily="cursive"
                                 android:gravity="center_vertical|end"
-                                android:textColor="@color/Gray"
                                 android:paddingEnd="10dp"
                                 android:text="30"
+                                android:textColor="@color/Gray"
                                 android:textSize="18sp"
                                 android:textStyle="bold" />
                         </LinearLayout>
@@ -2155,7 +2144,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
-                android:background="@color/Gray_30"
                 android:paddingEnd="10dp"
                 android:paddingBottom="5dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -2184,8 +2172,8 @@
                                 android:layout_height="match_parent"
                                 android:fontFamily="cursive"
                                 android:gravity="center"
-                                android:textColor="@color/Gray"
                                 android:text="22:00"
+                                android:textColor="@color/Gray"
                                 android:textSize="24sp"
                                 android:textStyle="bold" />
 
@@ -2221,9 +2209,9 @@
                                 android:layout_height="match_parent"
                                 android:fontFamily="cursive"
                                 android:gravity="center_vertical|end"
-                                android:textColor="@color/Gray"
                                 android:paddingEnd="10dp"
                                 android:text="30"
+                                android:textColor="@color/Gray"
                                 android:textSize="18sp"
                                 android:textStyle="bold" />
                         </LinearLayout>
@@ -2250,7 +2238,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
-                android:background="@color/Gray_30"
                 android:paddingEnd="10dp"
                 android:paddingBottom="5dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -2279,8 +2266,8 @@
                                 android:layout_height="match_parent"
                                 android:fontFamily="cursive"
                                 android:gravity="center"
-                                android:textColor="@color/Gray"
                                 android:text="23:00"
+                                android:textColor="@color/Gray"
                                 android:textSize="24sp"
                                 android:textStyle="bold" />
 
@@ -2316,9 +2303,9 @@
                                 android:layout_height="match_parent"
                                 android:fontFamily="cursive"
                                 android:gravity="center_vertical|end"
-                                android:textColor="@color/Gray"
                                 android:paddingEnd="10dp"
                                 android:text="30"
+                                android:textColor="@color/Gray"
                                 android:textSize="18sp"
                                 android:textStyle="bold" />
                         </LinearLayout>
