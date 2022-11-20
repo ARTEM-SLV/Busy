@@ -27,7 +27,7 @@ public interface BusyDao {
     List<ItemTaskList> getTaskList(long dateBeginning, long dateEnding);
 
     @Query("SELECT " +
-                "tasks.date_time as date, " +
+                "tasks.time as time, " +
                 "services.title as services, " +
                 "services.short_title as servicesShort, " +
                 "customers.first_name as client, " +

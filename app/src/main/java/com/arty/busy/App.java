@@ -3,7 +3,6 @@ package com.arty.busy;
 import android.app.Application;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.util.Log;
 
 import androidx.room.Room;
 
@@ -94,13 +93,16 @@ public class App extends Application {
 
             int randomJ = (int) Math.round(Math.random()*10)+1;
 
+            byte time = 9;
             for (int j = 0; j < randomJ; j++) {
                 int randomNum = (int) Math.round(Math.random()*4)+1;
+                int randomHour = (int) Math.round(Math.random()*2);
+                time +=randomHour;
 
                 Task task = new Task();
                 task.uid = uid;
                 task.day = dd.getTime();
-                task.date_time = dt.getTime();
+                task.time = time;
                 task.id_customer = randomNum;
                 task.id_service = randomNum;
 
@@ -173,7 +175,7 @@ public class App extends Application {
 
     private void fillWorkday(){
         Settings.TIME_BEGINNING = 9; // 8:00
-        Settings.TIME_ENDING = 20; // 20:00
+        Settings.TIME_ENDING = 19; // 20:00
 
         saveSettings();
     }

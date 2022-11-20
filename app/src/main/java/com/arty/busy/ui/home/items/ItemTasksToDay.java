@@ -1,7 +1,7 @@
 package com.arty.busy.ui.home.items;
 
 public class ItemTasksToDay {
-    private long date;
+    private byte time;
     private String services;
     private String servicesShort;
     private String client;
@@ -10,7 +10,7 @@ public class ItemTasksToDay {
     private boolean paid;
 
     public ItemTasksToDay() {
-        this.date = 0;
+        this.time = 0;
         this.services = "";
         this.servicesShort = "";
         this.client = "";
@@ -19,12 +19,12 @@ public class ItemTasksToDay {
         this.paid = false;
     }
 
-    public long getDate() {
-        return date;
+    public byte getTime() {
+        return time;
     }
 
-    public void setDate(long date) {
-        this.date = date;
+    public void setTime(byte date) {
+        this.time = date;
     }
 
     public String getServices() {

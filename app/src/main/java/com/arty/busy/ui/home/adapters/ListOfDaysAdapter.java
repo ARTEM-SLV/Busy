@@ -148,7 +148,7 @@ public class ListOfDaysAdapter extends RecyclerView.Adapter<ListOfDaysAdapter.Vi
         @Override
         public void onClick(View v) {
             Intent intent = new Intent(context, TasksToDayActivity.class);
-            intent.putExtra("Date", listOfDaysArr.get(getAdapterPosition()).getDate());
+            intent.putExtra("Date", listOfDaysArr.get(getAdapterPosition()).getDate().getTime());
             context.startActivity(intent);
         }
     }

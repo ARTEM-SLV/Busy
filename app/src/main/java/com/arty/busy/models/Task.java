@@ -11,7 +11,7 @@ import androidx.room.PrimaryKey;
 import java.util.Objects;
 
 @Entity(indices = {
-        @Index(value = {"day", "date_time"})}
+        @Index(value = {"day"})}
 )
 public class Task implements Parcelable {
     @PrimaryKey(autoGenerate = true)
@@ -26,8 +26,8 @@ public class Task implements Parcelable {
     @ColumnInfo(name = "day")
     public long day;
 
-    @ColumnInfo(name = "date_time")
-    public long date_time;
+    @ColumnInfo(name = "time")
+    public byte time;
 
     @ColumnInfo(name = "done")
     public boolean done;
@@ -43,7 +43,7 @@ public class Task implements Parcelable {
         id_service = in.readInt();
         id_customer = in.readInt();
         day = in.readLong();
-        date_time = in.readLong();
+        time = in.readByte();
         done = in.readByte() != 0;
         paid = in.readByte() != 0;
     }
@@ -65,12 +65,12 @@ public class Task implements Parcelable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Task task = (Task) o;
-        return uid == task.uid && id_service == task.id_service && id_customer == task.id_customer && day == task.day && date_time == task.date_time && done == task.done;
+        return uid == task.uid && id_service == task.id_service && id_customer == task.id_customer && day == task.day && time == task.time && done == task.done;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(uid, id_service, id_customer, day, date_time, done);
+        return Objects.hash(uid, id_service, id_customer, day, time, done);
     }
 
 
@@ -85,7 +85,7 @@ public class Task implements Parcelable {
         dest.writeInt(id_service);
         dest.writeInt(id_customer);
         dest.writeLong(day);
-        dest.writeLong(date_time);
+        dest.writeByte(time);
         dest.writeByte((byte) (done ? 1 : 0));
         dest.writeByte((byte) (paid ? 1 : 0));
     }
