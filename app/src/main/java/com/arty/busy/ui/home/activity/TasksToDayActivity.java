@@ -49,6 +49,7 @@ public class TasksToDayActivity extends Activity {
         tvDate = (TextView) findViewById(R.id.tvTestDate_TTD);
         constraintLayout = findViewById(R.id.constraint_TTD);
         scrollView = (ScrollView) findViewById(R.id.scroll_TTD);
+
         scrollView.post(new Runnable() {
             @Override
             public void run() {
@@ -62,7 +63,9 @@ public class TasksToDayActivity extends Activity {
             }
         });
 
-        @SuppressLint("SimpleDateFormat") DateFormat df = new SimpleDateFormat("EEEE dd. MMM");
+        setInvisibleAllBtnTask();
+
+        @SuppressLint("SimpleDateFormat") DateFormat df = new SimpleDateFormat("EEEE dd MMM.");
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             currDate = extras.getLong("Date");
@@ -82,8 +85,8 @@ public class TasksToDayActivity extends Activity {
                 lineID = this.getResources().getIdentifier("hour" + (h) + "_TTD", "id", getPackageName());
                 linerHours = findViewById(lineID);
 
-                if (Settings.TIME_BEGINNING != -1 && h < Settings.TIME_BEGINNING || Settings.TIME_ENDING != -1 && h > Settings.TIME_ENDING)
-                    linerHours.setBackgroundResource(R.color.Gray_20);
+//                if (Settings.TIME_BEGINNING != -1 && h < Settings.TIME_BEGINNING || Settings.TIME_ENDING != -1 && h > Settings.TIME_ENDING)
+//                    linerHours.setBackgroundResource(R.color.Gray_20);
 
                 if (h == Settings.TIME_BEGINNING)
                     linerHours.setBackgroundResource(R.drawable.style_topline_salmon);
@@ -96,8 +99,9 @@ public class TasksToDayActivity extends Activity {
 
     private void fillData(){
         Time time;
-        int hour;
         int btnID;
+        byte hour;
+        byte minute;
 
         List<ItemTasksToDay> listTasksToDay = App.getInstance().getBusyDao().getTasksToDay(currDate);
 
@@ -110,6 +114,15 @@ public class TasksToDayActivity extends Activity {
             Button btnTask = findViewById(btnID);
             btnTask.setVisibility(View.VISIBLE);
             btnTask.setText(sTime);
+        }
+    }
+
+    private void setInvisibleAllBtnTask(){
+        int btnID;
+
+        for (int hour = 0; hour < 24; hour++) {
+            btnID = this.getResources().getIdentifier("btnHour" + (hour) + "_TTD", "id", getPackageName());
+            Button btnTask = findViewById(btnID);
         }
     }
 }

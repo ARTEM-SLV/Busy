@@ -12,7 +12,9 @@ import java.util.Date;
 
 public class MyDate {
     @SuppressLint("SimpleDateFormat")
-    public final static DateFormat timeFormat = new SimpleDateFormat("hh:mm");
+    public final static DateFormat timeFormat24 = new SimpleDateFormat("HH:mm");
+    @SuppressLint("SimpleDateFormat")
+    public final static DateFormat timeFormat = new SimpleDateFormat("h:mm a");
     public final static long DAY = 86400000;
     private final static String TAG_PARSE_STRING_TO_TIME = "MyDateError.ParseStringToTime";
 

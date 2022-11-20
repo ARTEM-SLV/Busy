@@ -1,6 +1,5 @@
 package com.arty.busy;
 
-import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
@@ -13,8 +12,6 @@ import com.arty.busy.date.MyDate;
 import com.arty.busy.models.Service;
 import com.arty.busy.models.Task;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -72,6 +69,8 @@ public class App extends Application {
         Settings.TIME_ENDING = sharedPreferences.getInt(Constants.KEY_TIME_ENDING, -1);
         Settings.TIME_BEGINNING_BREAK = sharedPreferences.getInt(Constants.KEY_TIME_BEGINNING_BREAK, -1);
         Settings.TIME_ENDING_BREAK = sharedPreferences.getInt(Constants.KEY_TIME_ENDING_BREAK, -1);
+
+        Settings.TIME_24_HOURS_FORMAT_DATE = sharedPreferences.getBoolean(Constants.KEY_TIME_24_HOURS_FORMAT_DATE, true);
     }
 
     public void saveSettings(){
@@ -82,6 +81,8 @@ public class App extends Application {
         editor.putInt(Constants.KEY_TIME_BEGINNING_BREAK, Settings.TIME_BEGINNING_BREAK);
         editor.putInt(Constants.KEY_TIME_ENDING_BREAK, Settings.TIME_ENDING_BREAK);
 
+        editor.putBoolean(Constants.KEY_TIME_24_HOURS_FORMAT_DATE, Settings.TIME_24_HOURS_FORMAT_DATE);
+
         editor.commit();
     }
 
@@ -90,26 +91,32 @@ public class App extends Application {
         List<Service> serviceList = new ArrayList<>();
 
         Calendar calendar = Calendar.getInstance();
+        MyDate.setStartDay(calendar);
         int uid = 0;
         for (int i = 0; i < 3000; i++) {
-            calendar.set(Calendar.HOUR_OF_DAY, 8);
-            Date dt = calendar.getTime();
+//            calendar.set(Calendar.HOUR_OF_DAY, 8);
+            Date dt; // = calendar.getTime();
             Date dd = MyDate.getStartDay(calendar);
 
-            int randomJ = (int) Math.round(Math.random()*10)+1;
+            byte hour = 7;
+            int randomJ = (int) Math.round(Math.random()*5)+1;
             for (int j = 0; j < randomJ; j++) {
                 int randomNum = (int) Math.round(Math.random()*4)+1;
-                int randomHour = (int) Math.round(Math.random()*3);
+                int randomHour = (int) Math.round(Math.random()*2)+1;
+                int randomMinute = (int) Math.round(Math.random()*1);
+
+                hour += randomHour;
+
+                calendar.set(Calendar.HOUR_OF_DAY, hour);
+                calendar.set(Calendar.MINUTE, randomMinute==1 ? 30 : 0);
+                dt = calendar.getTime();
 
                 Task task = new Task();
                 task.uid = uid;
                 task.day = dd.getTime();
-                task.time = MyDate.timeFormat.format(dt);
+                task.time = MyDate.timeFormat24.format(dt);
                 task.id_customer = randomNum;
                 task.id_service = randomNum;
-
-                calendar.add(Calendar.HOUR_OF_DAY, randomHour);
-                dt = calendar.getTime();
 
                 taskList.add(task);
                 uid++;
