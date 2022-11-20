@@ -27,7 +27,7 @@ public class Task implements Parcelable {
     public long day;
 
     @ColumnInfo(name = "time")
-    public byte time;
+    public String time;
 
     @ColumnInfo(name = "done")
     public boolean done;
@@ -43,7 +43,7 @@ public class Task implements Parcelable {
         id_service = in.readInt();
         id_customer = in.readInt();
         day = in.readLong();
-        time = in.readByte();
+        time = in.readString();
         done = in.readByte() != 0;
         paid = in.readByte() != 0;
     }
@@ -85,7 +85,7 @@ public class Task implements Parcelable {
         dest.writeInt(id_service);
         dest.writeInt(id_customer);
         dest.writeLong(day);
-        dest.writeByte(time);
+        dest.writeString(time);
         dest.writeByte((byte) (done ? 1 : 0));
         dest.writeByte((byte) (paid ? 1 : 0));
     }

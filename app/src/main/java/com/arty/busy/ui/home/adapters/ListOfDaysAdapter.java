@@ -15,7 +15,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.arty.busy.MyDate;
+import com.arty.busy.date.MyDate;
 import com.arty.busy.R;
 import com.arty.busy.ui.home.items.ItemListOfDays;
 import com.arty.busy.ui.home.activity.TasksToDayActivity;
@@ -90,7 +90,6 @@ public class ListOfDaysAdapter extends RecyclerView.Adapter<ListOfDaysAdapter.Vi
             view.setOnClickListener(this);
         }
 
-        @SuppressLint("SetTextI18n")
         public void setData(ItemListOfDays itemTaskList){
             tvDay.setText(df.format(itemTaskList.getDate()));
             Resources res = context.getResources();

@@ -1,5 +1,6 @@
 package com.arty.busy;
 
+import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
@@ -8,9 +9,12 @@ import androidx.room.Room;
 
 import com.arty.busy.data.AppDataBase;
 import com.arty.busy.data.BusyDao;
+import com.arty.busy.date.MyDate;
 import com.arty.busy.models.Service;
 import com.arty.busy.models.Task;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -41,10 +45,10 @@ public class App extends Application {
         busyDao = dataBase.busyDao();
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(App.this);
-//        fillWorkday();
+//        fillWorkday();    //for test
         updateSettings();
 
-//        fillDataBaseForTest();
+//        fillDataBaseForTest();    //for test
     }
 
     public AppDataBase getDataBase() {
@@ -88,29 +92,29 @@ public class App extends Application {
         Calendar calendar = Calendar.getInstance();
         int uid = 0;
         for (int i = 0; i < 3000; i++) {
+            calendar.set(Calendar.HOUR_OF_DAY, 8);
             Date dt = calendar.getTime();
             Date dd = MyDate.getStartDay(calendar);
 
             int randomJ = (int) Math.round(Math.random()*10)+1;
-
-            byte time = 9;
             for (int j = 0; j < randomJ; j++) {
                 int randomNum = (int) Math.round(Math.random()*4)+1;
-                int randomHour = (int) Math.round(Math.random()*2);
-                time +=randomHour;
+                int randomHour = (int) Math.round(Math.random()*3);
 
                 Task task = new Task();
                 task.uid = uid;
                 task.day = dd.getTime();
-                task.time = time;
+                task.time = MyDate.timeFormat.format(dt);
                 task.id_customer = randomNum;
                 task.id_service = randomNum;
+
+                calendar.add(Calendar.HOUR_OF_DAY, randomHour);
+                dt = calendar.getTime();
 
                 taskList.add(task);
                 uid++;
             }
 
-//            MyDate.setNextDay(calendar, dt);
             calendar.add(Calendar.DATE, 1);
         }
         App.getInstance().getBusyDao().insertTaskList(taskList);
@@ -174,7 +178,7 @@ public class App extends Application {
     }
 
     private void fillWorkday(){
-        Settings.TIME_BEGINNING = 9; // 8:00
+        Settings.TIME_BEGINNING = 8; // 8:00
         Settings.TIME_ENDING = 19; // 20:00
 
         saveSettings();

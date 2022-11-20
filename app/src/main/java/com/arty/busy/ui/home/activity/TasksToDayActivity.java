@@ -15,6 +15,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import com.arty.busy.App;
 import com.arty.busy.R;
 import com.arty.busy.Settings;
+import com.arty.busy.date.MyDate;
+import com.arty.busy.date.Time;
 import com.arty.busy.ui.home.items.ItemTasksToDay;
 
 import java.text.DateFormat;
@@ -93,18 +95,21 @@ public class TasksToDayActivity extends Activity {
     }
 
     private void fillData(){
-        Date d;
-        byte h;
+        Time time;
+        int hour;
         int btnID;
 
         List<ItemTasksToDay> listTasksToDay = App.getInstance().getBusyDao().getTasksToDay(currDate);
 
         for (ItemTasksToDay itemTaskToDay: listTasksToDay) {
-            h = itemTaskToDay.getTime();
+            String sTime = itemTaskToDay.getTime();
+            time = MyDate.parseStringToTime(sTime);
+            hour = time.getHour();
 
-            btnID = this.getResources().getIdentifier("btnHour" + (h) + "_TTD", "id", getPackageName());
+            btnID = this.getResources().getIdentifier("btnHour" + (hour) + "_TTD", "id", getPackageName());
             Button btnTask = findViewById(btnID);
             btnTask.setVisibility(View.VISIBLE);
+            btnTask.setText(sTime);
         }
     }
 }
