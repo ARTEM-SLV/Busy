@@ -11,6 +11,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
 
 import com.arty.busy.App;
 import com.arty.busy.R;
@@ -21,8 +22,6 @@ import com.arty.busy.ui.home.items.ItemTasksToDay;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 public class TasksToDayActivity extends Activity {
@@ -40,7 +39,7 @@ public class TasksToDayActivity extends Activity {
         setContentView(R.layout.activity_tasks_to_day);
 
         init();
-        fillData();
+        fillTasksData();
     }
 
     private void init(){
@@ -65,7 +64,8 @@ public class TasksToDayActivity extends Activity {
 
         setInvisibleAllBtnTask();
 
-        @SuppressLint("SimpleDateFormat") DateFormat df = new SimpleDateFormat("EEEE dd MMM.");
+        @SuppressLint("SimpleDateFormat")
+        DateFormat df = new SimpleDateFormat("EEEE dd MMM.");
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             currDate = extras.getLong("Date");
@@ -97,7 +97,7 @@ public class TasksToDayActivity extends Activity {
         }
     }
 
-    private void fillData(){
+    private void fillTasksData(){
         Time time;
         int btnID;
         byte hour;
@@ -109,11 +109,19 @@ public class TasksToDayActivity extends Activity {
             String sTime = itemTaskToDay.getTime();
             time = MyDate.parseStringToTime(sTime);
             hour = time.getHour();
+            minute = time.getMinute();
 
             btnID = this.getResources().getIdentifier("btnHour" + (hour) + "_TTD", "id", getPackageName());
             Button btnTask = findViewById(btnID);
+
+            ConstraintLayout.LayoutParams btnParams = (ConstraintLayout.LayoutParams) btnTask.getLayoutParams();
+            btnParams.setMargins(0, minute*3, 0, 0);
+            btnParams.setMarginStart(270);
+            btnTask.setLayoutParams(btnParams);
+            btnTask.setHeight(itemTaskToDay.getExecution_time()*3);
+
+            btnTask.setText(sTime + "\n" + itemTaskToDay.getServices() + "\n" + itemTaskToDay.getClient());
             btnTask.setVisibility(View.VISIBLE);
-            btnTask.setText(sTime);
         }
     }
 
@@ -123,6 +131,7 @@ public class TasksToDayActivity extends Activity {
         for (int hour = 0; hour < 24; hour++) {
             btnID = this.getResources().getIdentifier("btnHour" + (hour) + "_TTD", "id", getPackageName());
             Button btnTask = findViewById(btnID);
+            btnTask.setVisibility(View.INVISIBLE);
         }
     }
 }

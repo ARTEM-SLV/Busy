@@ -7,6 +7,7 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
+import com.arty.busy.models.Customer;
 import com.arty.busy.models.Service;
 import com.arty.busy.models.Task;
 import com.arty.busy.ui.home.items.ItemTaskList;
@@ -30,8 +31,9 @@ public interface BusyDao {
                 "tasks.time as time, " +
                 "services.title as services, " +
                 "services.short_title as servicesShort, " +
-                "customers.first_name as client, " +
+                "customers.first_name || ' ' || customers.last_name  as client, " +
                 "services.price as price, " +
+                "services.execution_time as execution_time, " +
                 "tasks.done as done, " +
                 "tasks.paid as paid " +
             "FROM Task as tasks " +
@@ -45,7 +47,7 @@ public interface BusyDao {
 //    @Query("SELECT * FROM Task WHERE date = :date")
 //    List<Task> findByDate(long date);
 
-    //tasks
+    // Tasks
     @Query("SELECT day FROM Task GROUP BY day")
     List<Long> getTaskDates();
 
@@ -58,7 +60,7 @@ public interface BusyDao {
     @Delete
     void deleteTaskList(Task task);
 
-    //services
+    // Services
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertServiceList(List<Service> serviceList);
 
@@ -68,8 +70,14 @@ public interface BusyDao {
     @Delete
     void deleteServiceList(Service service);
 
-    //workday
-    @Query("SELECT day FROM Task GROUP BY day")
-    List<Long> getWorkdayTime();
+    // Customers
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertCustomerList(List<Customer> customerList);
+
+    @Update
+    void updateCustomerList(Customer customer);
+
+    @Delete
+    void deleteCustomerList(Customer customer);
 }
 

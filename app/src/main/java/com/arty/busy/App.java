@@ -9,6 +9,8 @@ import androidx.room.Room;
 import com.arty.busy.data.AppDataBase;
 import com.arty.busy.data.BusyDao;
 import com.arty.busy.date.MyDate;
+import com.arty.busy.enums.Sex;
+import com.arty.busy.models.Customer;
 import com.arty.busy.models.Service;
 import com.arty.busy.models.Task;
 
@@ -46,6 +48,7 @@ public class App extends Application {
         updateSettings();
 
 //        fillDataBaseForTest();    //for test
+//        fillCustomers();
     }
 
     public AppDataBase getDataBase() {
@@ -86,15 +89,24 @@ public class App extends Application {
         editor.commit();
     }
 
+    //++ For test
     private void fillDataBaseForTest(){
-        List<Task> taskList = new ArrayList<>();
-        List<Service> serviceList = new ArrayList<>();
+        // filling of tasks
+        fillTasks();
 
+        // filling of services
+        fillServices();
+
+        //filling of customers
+        fillCustomers();
+    }
+
+    private void fillTasks(){
+        List<Task> taskList = new ArrayList<>();
         Calendar calendar = Calendar.getInstance();
         MyDate.setStartDay(calendar);
         int uid = 0;
         for (int i = 0; i < 3000; i++) {
-//            calendar.set(Calendar.HOUR_OF_DAY, 8);
             Date dt; // = calendar.getTime();
             Date dd = MyDate.getStartDay(calendar);
 
@@ -124,7 +136,12 @@ public class App extends Application {
 
             calendar.add(Calendar.DATE, 1);
         }
-        App.getInstance().getBusyDao().insertTaskList(taskList);
+
+        this.getBusyDao().insertTaskList(taskList);
+    }
+
+    private void fillServices(){
+        List<Service> serviceList = new ArrayList<>();
 
         Service service1 = new Service();
         service1.uid = 1;
@@ -154,7 +171,7 @@ public class App extends Application {
         service3.short_title = "Р3D";
         service3.description = "Ресницы классика";
         service3.price = 500.00;
-        service3.execution_time = 60;
+        service3.execution_time = 90;
         service3.preparation_time = 15;
         service3.id_line_of_business = 1;
         serviceList.add(service3);
@@ -165,7 +182,7 @@ public class App extends Application {
         service4.short_title = "Р5D";
         service4.description = "Ресницы 5D";
         service4.price = 500.00;
-        service4.execution_time = 60;
+        service4.execution_time = 120;
         service4.preparation_time = 15;
         service4.id_line_of_business = 1;
         serviceList.add(service4);
@@ -181,7 +198,53 @@ public class App extends Application {
         service5.id_line_of_business = 2;
         serviceList.add(service5);
 
-        App.getInstance().getBusyDao().insertServiceList(serviceList);
+        this.getBusyDao().insertServiceList(serviceList);
+    }
+
+    private void fillCustomers(){
+        List<Customer> customerList = new ArrayList<>();
+
+        Customer customer1 = new Customer();
+        customer1.uid = 1;
+        customer1.first_name = "Женя";
+        customer1.last_name = "Иванова";
+        customer1.sex = String.valueOf(Sex.female); //getString(R.string.female);
+        customer1.age = 25;
+        customerList.add(customer1);
+
+        Customer customer2 = new Customer();
+        customer2.uid = 2;
+        customer2.first_name = "Максим";
+        customer2.last_name = "Петров";
+        customer2.sex = String.valueOf(Sex.female); //getString(R.string.female);
+        customer2.age = 25;
+        customerList.add(customer2);
+
+        Customer customer3 = new Customer();
+        customer3.uid = 3;
+        customer3.first_name = "Наташа";
+        customer3.last_name = "Романова";
+        customer3.sex = String.valueOf(Sex.female); //getString(R.string.female);
+        customer3.age = 25;
+        customerList.add(customer3);
+
+        Customer customer4 = new Customer();
+        customer4.uid = 4;
+        customer4.first_name = "Ванда";
+        customer4.last_name = "Максимова";
+        customer4.sex = String.valueOf(Sex.female); //getString(R.string.female);
+        customer4.age = 25;
+        customerList.add(customer4);
+
+        Customer customer5 = new Customer();
+        customer5.uid = 5;
+        customer5.first_name = "Полина";
+        customer5.last_name = "Гага";
+        customer5.sex = String.valueOf(Sex.female); //getString(R.string.female);
+        customer5.age = 25;
+        customerList.add(customer5);
+
+        this.getBusyDao().insertCustomerList(customerList);
     }
 
     private void fillWorkday(){
@@ -190,4 +253,5 @@ public class App extends Application {
 
         saveSettings();
     }
+    //-- For test
 }
