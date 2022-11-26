@@ -56,6 +56,7 @@ public class HomeViewModel extends ViewModel {
             ItemListOfDays itemListOfDays = new ItemListOfDays();
             itemListOfDays.setDate(new Date(day));
 
+            List<String> timeService = new ArrayList<>();
             List<String> titlesService = new ArrayList<>();
             int position = 0;
             for (int i = position; i < taskList.size(); i++) {
@@ -65,11 +66,13 @@ public class HomeViewModel extends ViewModel {
                     break;
 
                 if (task.getDate() == day) {
+                    timeService.add(task.getTime());
                     titlesService.add(task.getServicesShort());
 
                     position = i + 1;
                 }
             }
+            itemListOfDays.setTimeService(timeService);
             itemListOfDays.setTitlesService(titlesService);
             listOfDays.add(itemListOfDays);
         }

@@ -20,6 +20,7 @@ public interface BusyDao {
 
     @Query("SELECT " +
                 "tasks.day as date, " +
+                "tasks.time as time," +
                 "services.short_title as servicesShort " +
             "FROM Task as tasks " +
                 "LEFT OUTER JOIN Service as services ON tasks.id_service = services.uid " +
@@ -33,7 +34,7 @@ public interface BusyDao {
                 "services.short_title as servicesShort, " +
                 "customers.first_name || ' ' || customers.last_name  as client, " +
                 "services.price as price, " +
-                "services.execution_time as execution_time, " +
+                "services.duration as duration, " +
                 "tasks.done as done, " +
                 "tasks.paid as paid " +
             "FROM Task as tasks " +

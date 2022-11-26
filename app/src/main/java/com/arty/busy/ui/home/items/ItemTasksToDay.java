@@ -6,7 +6,7 @@ public class ItemTasksToDay {
     private String servicesShort;
     private String client;
     private double price;
-    private int execution_time;
+    private int duration;
     private boolean done;
     private boolean paid;
 
@@ -16,7 +16,7 @@ public class ItemTasksToDay {
         this.servicesShort = "";
         this.client = "";
         this.price = 0.0d;
-        this.execution_time = 0;
+        this.duration = 0;
         this.done = false;
         this.paid = false;
     }
@@ -64,15 +64,15 @@ public class ItemTasksToDay {
             this.price = price;
     }
 
-    public int getExecution_time() {
-        return execution_time;
+    public int getDuration() {
+        return duration;
     }
 
-    public void setExecution_time(int execution_time) {
-        if(execution_time < 0)
-            this.execution_time = 0;
+    public void setDuration(int duration) {
+        if(duration < 0)
+            this.duration = 0;
         else
-            this.execution_time = execution_time;
+            this.duration = duration;
     }
 
     public boolean isDone() {

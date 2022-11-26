@@ -15,7 +15,7 @@ public class Time {
     }
 
     public byte getHour() {
-        return hour;
+        return this.hour;
     }
 
     public void setHour(byte hour) {
@@ -28,7 +28,7 @@ public class Time {
     }
 
     public byte getMinute() {
-        return minute;
+        return this.minute;
     }
 
     public void setMinute(byte minute) {
@@ -38,5 +38,52 @@ public class Time {
             this.minute = 59;
         } else
             this.minute = minute;
+    }
+
+    public int compareTo(Time t){
+        int res = 0;
+
+        if (this.hour > t.getHour()){
+            res = 1;
+        } else if (this.hour < t.getHour()){
+            res = -1;
+        } else{
+            if (this.minute > t.getMinute()){
+                res = 1;
+            } else if (this.minute < t.getMinute()){
+                res = -1;
+            }
+        }
+
+        return res;
+    }
+
+    public void addHours(byte hours){
+        byte res = (byte) (hours + this.hour);
+        if (res >= 24){
+            res -= 24;
+        }
+
+        this.hour = res;
+    }
+
+    public void addMinutes(byte minutes){
+        byte res = (byte) (minutes + this.minute);
+        if (res >= 60){
+            this.addTime(res);
+            res -= 60;
+        }
+
+        this.minute = res;
+    }
+
+    public void addTime(int count){
+        byte hours = (byte) (count / 60);
+        this.addHours(hours);
+
+        byte minutes = (byte) (count - hours*60);
+        if (minutes<0 & count>0)
+            minutes = 0;
+        this.addMinutes(minutes);
     }
 }

@@ -48,7 +48,7 @@ public class App extends Application {
         updateSettings();
 
 //        fillDataBaseForTest();    //for test
-//        fillCustomers();
+//        fillCustomers();      //for test
     }
 
     public AppDataBase getDataBase() {
@@ -149,7 +149,7 @@ public class App extends Application {
         service1.short_title = "РК";
         service1.description = "Ресницы классика";
         service1.price = 500.00;
-        service1.execution_time = 60;
+        service1.duration = 60;
         service1.preparation_time = 15;
         service1.id_line_of_business = 1;
         serviceList.add(service1);
@@ -160,7 +160,7 @@ public class App extends Application {
         service2.short_title = "Р2D";
         service2.description = "Ресницы 2D";
         service2.price = 500.00;
-        service2.execution_time = 60;
+        service2.duration = 60;
         service2.preparation_time = 15;
         service2.id_line_of_business = 1;
         serviceList.add(service2);
@@ -171,7 +171,7 @@ public class App extends Application {
         service3.short_title = "Р3D";
         service3.description = "Ресницы классика";
         service3.price = 500.00;
-        service3.execution_time = 90;
+        service3.duration = 90;
         service3.preparation_time = 15;
         service3.id_line_of_business = 1;
         serviceList.add(service3);
@@ -182,7 +182,7 @@ public class App extends Application {
         service4.short_title = "Р5D";
         service4.description = "Ресницы 5D";
         service4.price = 500.00;
-        service4.execution_time = 120;
+        service4.duration = 120;
         service4.preparation_time = 15;
         service4.id_line_of_business = 1;
         serviceList.add(service4);
@@ -193,7 +193,7 @@ public class App extends Application {
         service5.short_title = "МП";
         service5.description = "Массаж спины";
         service5.price = 500.00;
-        service5.execution_time = 60;
+        service5.duration = 60;
         service5.preparation_time = 15;
         service5.id_line_of_business = 2;
         serviceList.add(service5);

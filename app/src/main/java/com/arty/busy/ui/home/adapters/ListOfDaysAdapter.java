@@ -85,7 +85,7 @@ public class ListOfDaysAdapter extends RecyclerView.Adapter<ListOfDaysAdapter.Vi
             icoThisDay = view.findViewById(R.id.icoThisDay_LOD);
 //            containerLeft_LOD = view.findViewById(R.id.containerLeft_LOD);
 
-            currentDate = MyDate.getCurrentDate();
+            currentDate = MyDate.getCurrentStartDate();
 
             view.setOnClickListener(this);
         }
@@ -93,10 +93,11 @@ public class ListOfDaysAdapter extends RecyclerView.Adapter<ListOfDaysAdapter.Vi
         public void setData(ItemListOfDays itemTaskList){
             tvDay.setText(df.format(itemTaskList.getDate()));
             Resources res = context.getResources();
-            List<String> titlesService = itemTaskList.getTitlesService();
+            List<String> listTimeService = itemTaskList.getTimeService();
+            List<String> listTitlesService = itemTaskList.getTitlesService();
 
             String totalS = res.getString(R.string.total);
-            int totalI = titlesService.size();
+            int totalI = listTitlesService.size();
             if (totalI == 0 ){
                 Drawable drawableFree = context.getDrawable(R.drawable.free);
                 containerRight_LOD.setForeground(drawableFree);
@@ -120,17 +121,24 @@ public class ListOfDaysAdapter extends RecyclerView.Adapter<ListOfDaysAdapter.Vi
             }
 
 
-            int i = 1;
-            for (String title : titlesService) {
-                if (i>10){
+            int nom;
+            for ( int i = 0; i < totalI; i++) {
+                nom = i+1;
+
+                if (nom>10){
                     break;
                 }
 
-                int id = res.getIdentifier("tvTask" + i, "id", context.getPackageName());
-                TextView tvTask = itemView.findViewById(id);
-                tvTask.setText(title);
+                String time = listTimeService.get(i);
+                String title = listTitlesService.get(i);
 
-                i++;
+                int idTime = res.getIdentifier("tvTask" + nom + "Time", "id", context.getPackageName());
+                TextView tvTaskTime = itemView.findViewById(idTime);
+                tvTaskTime.setText(time);
+
+                int idService = res.getIdentifier("tvTask" + nom, "id", context.getPackageName());
+                TextView tvTask = itemView.findViewById(idService);
+                tvTask.setText(title);
             }
 
             tvCountTasks.setText(totalS + " " + (totalI));
@@ -138,8 +146,12 @@ public class ListOfDaysAdapter extends RecyclerView.Adapter<ListOfDaysAdapter.Vi
 
         private void cleanTvTask(Resources res){
             for (int i = 1; i <= 10; i++) {
-                int id = res.getIdentifier("tvTask" + i, "id", context.getPackageName());
-                TextView tvTask = itemView.findViewById(id);
+                int idTime = res.getIdentifier("tvTask" + i + "Time", "id", context.getPackageName());
+                TextView tvTaskTime = itemView.findViewById(idTime);
+                tvTaskTime.setText("");
+
+                int idService = res.getIdentifier("tvTask" + i, "id", context.getPackageName());
+                TextView tvTask = itemView.findViewById(idService);
                 tvTask.setText("");
             }
         }

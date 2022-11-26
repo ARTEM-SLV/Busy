@@ -26,8 +26,8 @@ public class Service implements Parcelable {
     @ColumnInfo(name = "price")
     public double price;
 
-    @ColumnInfo(name = "execution_time")
-    public int execution_time;
+    @ColumnInfo(name = "duration")
+    public int duration;
 
     @ColumnInfo(name = "preparation_time")
     public int preparation_time;
@@ -44,7 +44,7 @@ public class Service implements Parcelable {
         short_title = in.readString();
         description = in.readString();
         price = in.readDouble();
-        execution_time = in.readInt();
+        duration = in.readInt();
         preparation_time = in.readInt();
         id_line_of_business = in.readInt();
     }
@@ -66,12 +66,12 @@ public class Service implements Parcelable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Service that = (Service) o;
-        return uid == that.uid && Double.compare(that.price, price) == 0 && execution_time == that.execution_time && preparation_time == that.preparation_time && id_line_of_business == that.id_line_of_business && Objects.equals(title, that.title) && Objects.equals(short_title, that.short_title) && Objects.equals(description, that.description);
+        return uid == that.uid && Double.compare(that.price, price) == 0 && duration == that.duration && preparation_time == that.preparation_time && id_line_of_business == that.id_line_of_business && Objects.equals(title, that.title) && Objects.equals(short_title, that.short_title) && Objects.equals(description, that.description);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(uid, title, short_title, description, price, execution_time, preparation_time, id_line_of_business);
+        return Objects.hash(uid, title, short_title, description, price, duration, preparation_time, id_line_of_business);
     }
 
     @Override
@@ -86,7 +86,7 @@ public class Service implements Parcelable {
         dest.writeString(short_title);
         dest.writeString(description);
         dest.writeDouble(price);
-        dest.writeInt(execution_time);
+        dest.writeInt(duration);
         dest.writeInt(preparation_time);
         dest.writeInt(id_line_of_business);
     }

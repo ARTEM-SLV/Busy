@@ -5,6 +5,7 @@ import java.util.List;
 
 public class ItemListOfDays {
     private Date date;
+    private List<String> timeService;
     private List<String> titlesService;
 
     public Date getDate() {
@@ -13,6 +14,14 @@ public class ItemListOfDays {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public List<String> getTimeService() {
+        return timeService;
+    }
+
+    public void setTimeService(List<String> timeService) {
+        this.timeService = timeService;
     }
 
     public List<String> getTitlesService() {

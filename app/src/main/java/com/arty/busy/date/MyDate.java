@@ -127,7 +127,7 @@ public class MyDate {
     }
 
     @NonNull
-    public static Date getCurrentDate(){
+    public static Date getCurrentStartDate(){
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, 0);
         calendar.set(Calendar.MINUTE, 0);
@@ -162,5 +162,18 @@ public class MyDate {
         }
 
         return time;
+    }
+
+    public static String parseTimeToString(Time t){
+        String sHour = t.getHour() < 10 ? "0"+t.getHour() : String.valueOf(t.getHour());
+        String sMinute = t.getMinute() < 10 ? "0"+t.getMinute() : String.valueOf(t.getMinute());
+
+        return sHour + ":" + sMinute;
+    }
+
+    public static Time getTime(Date d){
+        String sTime = timeFormat24.format(d);
+
+        return parseStringToTime(sTime);
     }
 }
