@@ -2,6 +2,7 @@ package com.arty.busy.ui.home.activity;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -32,7 +33,7 @@ public class TasksToDayActivity extends Activity {
     private ScrollView scrollView;
     private ConstraintLayout constraintLayout;
 
-    private int posStart = Settings.TIME_BEGINNING*360 + Settings.TIME_BEGINNING*12;
+    private int posStart;
     private int posY;
 
     private Time currTime;
@@ -42,6 +43,7 @@ public class TasksToDayActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tasks_to_day);
 
+        setPosStart(Settings.TIME_BEGINNING);
         init();
         fillTasksData();
     }
@@ -101,6 +103,10 @@ public class TasksToDayActivity extends Activity {
         }
     }
 
+    private void setPosStart(int time){
+        posStart = time*360 + time*12;
+    }
+
     private void setCurrTime(){
         Date currDate = new Date();
         currTime = MyDate.getTime(currDate);
@@ -143,6 +149,7 @@ public class TasksToDayActivity extends Activity {
                 currResColor = getColor(R.color.Brown);
             } else if (isNextTask(timeStart)){
                 currResColor = getColor(R.color.Navy);
+                setPosStart(hour);
             }
 
             @SuppressLint("DiscouragedApi")
@@ -157,6 +164,14 @@ public class TasksToDayActivity extends Activity {
             btnTask.setText(sTimeStart + " - " + sTimeEnd + "\n" + itemTaskToDay.getClient() + "\n" + itemTaskToDay.getServices());
             btnTask.setTextColor(currResColor);
             btnTask.setVisibility(View.VISIBLE);
+
+            btnTask.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(TasksToDayActivity.this, TaskActivity.class);
+                    startActivity(intent);
+                }
+            });
         }
     }
 

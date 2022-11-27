@@ -20,7 +20,7 @@
     <string name="cd_customer">клиент</string>
     <string name="cd_done">выполнено</string>
     <string name="cd_paid">оплачено</string>
-    <string name="cd_sum">сумма</string>
+    <string name="cd_price">цена</string>
     <string name="cd_plus">плюс</string>
     <string name="cd_minus">минус</string>
     <!--   content description -->

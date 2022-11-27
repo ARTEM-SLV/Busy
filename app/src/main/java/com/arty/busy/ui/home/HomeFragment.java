@@ -81,12 +81,12 @@ public class HomeFragment extends Fragment {
                     }
                 } else isLoadingDown = false;
 
-                Date d = listOfDaysAdapter.getDateFormListOfDaysArr(firstVisibleItems);
-                String formattedDate = df.format(d);
-
-                Toast toast = Toast.makeText(binding.homeListOfDays.getContext(), formattedDate, Toast.LENGTH_LONG);
-                toast.setGravity(Gravity.TOP, 0, 0);
-                toast.show();
+//                Date d = listOfDaysAdapter.getDateFormListOfDaysArr(firstVisibleItems);
+//                String formattedDate = df.format(d);
+//
+//                Toast toast = Toast.makeText(binding.homeListOfDays.getContext(), formattedDate, Toast.LENGTH_LONG);
+//                toast.setGravity(Gravity.TOP, 0, 0);
+//                toast.show();
             }
         });
 

@@ -14,11 +14,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Busy">
         <activity
-            android:name=".TaskActivity"
-            android:exported="false">
+            android:name=".ui.home.activity.TaskActivity"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.Dialog">
             <meta-data
                 android:name="android.app.lib_name"
-                android:value="" />
+                android:value=""/>
         </activity>
         <activity
             android:name=".ui.home.activity.TasksToDayActivity"

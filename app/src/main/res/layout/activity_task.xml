@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_gravity="center"
     android:background="@color/DarkSeaGreen"
+    android:minWidth="300dp"
     tools:context=".ui.home.activity.TaskActivity">
 
     <TextView
@@ -100,6 +102,7 @@
         android:minWidth="48dp"
         android:minHeight="48dp"
         android:src="@drawable/ic_add_24"
+        android:visibility="gone"
         app:layout_constraintEnd_toStartOf="@+id/etSum_T"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout"
         app:tint="@color/DarkSlateGray" />
@@ -109,12 +112,12 @@
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:autofillHints=""
         android:background="@android:color/transparent"
-        android:ems="10"
         android:fontFamily="casual"
         android:gravity="center"
-        android:hint="@string/cd_sum"
-        android:inputType="textPersonName"
+        android:hint="@string/cd_price"
+        android:inputType="number"
         android:minHeight="48dp"
         android:textColor="@color/DarkSlateGray"
         android:textSize="32sp"
@@ -139,24 +142,33 @@
 
         <CheckBox
             android:id="@+id/checkBox3"
+            style="@style/Widget.AppCompat.CompoundButton.CheckBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:buttonTint="@color/DarkSlateGray"
             android:minHeight="48dp"
-            android:text="CheckBox" />
+            android:text="CheckBox"
+            android:textColor="@color/DarkSlateGray" />
 
         <CheckBox
             android:id="@+id/checkBox2"
+            style="@android:style/Widget.Holo.Light.CompoundButton.CheckBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:buttonTint="@color/DarkSlateGray"
             android:minHeight="48dp"
-            android:text="CheckBox" />
+            android:text="CheckBox"
+            android:textColor="@color/DarkSlateGray" />
 
         <CheckBox
             android:id="@+id/checkBox"
+            style="@android:style/Widget.Material.CompoundButton.CheckBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:buttonTint="@color/DarkSlateGray"
             android:minHeight="48dp"
-            android:text="CheckBox" />
+            android:text="CheckBox"
+            android:textColor="@color/DarkSlateGray" />
     </LinearLayout>
 
     <CheckBox
@@ -167,6 +179,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:buttonTint="@color/DarkSlateGray"
+        android:fontFamily="@font/lnky"
         android:minHeight="48dp"
         android:text="@string/cd_done"
         android:textColor="@color/DarkSlateGray"
@@ -184,6 +197,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:buttonTint="@color/DarkSlateGray"
+        android:fontFamily="@font/lnky"
         android:minHeight="48dp"
         android:text="@string/cd_paid"
         android:textColor="@color/DarkSlateGray"
@@ -202,6 +216,7 @@
         android:minWidth="48dp"
         android:minHeight="48dp"
         android:src="@drawable/ic_remove_24"
+        android:visibility="gone"
         app:layout_constraintStart_toEndOf="@+id/etSum_T"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout"
         app:tint="@color/DarkSlateGray" />

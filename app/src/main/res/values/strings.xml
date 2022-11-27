@@ -48,7 +48,7 @@
     <string name="cd_customer">customer</string>
     <string name="cd_done">is done</string>
     <string name="cd_paid">is paid</string>
-    <string name="cd_sum">sum</string>
+    <string name="cd_price">price</string>
     <string name="cd_plus">plus</string>
     <string name="cd_minus">minus</string>
     <!--   content description -->
