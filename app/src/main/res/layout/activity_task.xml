@@ -3,17 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@color/DarkSeaGreen"
-    tools:context=".ui.home.activity.TaskActivity" >
+    tools:context=".ui.home.activity.TaskActivity">
 
     <TextView
         android:id="@+id/tvTime_T"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:fontFamily="@font/margot"
-        android:textColor="@color/DarkBlue"
+        android:fontFamily="casual"
+        android:textColor="@color/DarkSlateGray"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -27,7 +27,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:background="@android:color/transparent"
-        android:contentDescription="@string/btn_ok"
+        android:contentDescription="@string/cd_ok"
         android:minWidth="48dp"
         android:minHeight="48dp"
         android:src="@drawable/ic_ok_24"
@@ -41,10 +41,169 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:background="@android:color/transparent"
-        android:contentDescription="@string/btn_cancel"
+        android:contentDescription="@string/cd_cancel"
         android:minWidth="48dp"
         android:minHeight="48dp"
         android:src="@drawable/ic_close_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/etService_T"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:autofillHints=""
+        android:background="@drawable/style_stroke_dark_slate_gray"
+        android:drawableEnd="@drawable/ic_chevron_right_24"
+        android:hint="@string/cd_service"
+        android:inputType="none"
+        android:minHeight="48dp"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:textColor="@color/DarkBlue"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTime_T" />
+
+    <EditText
+        android:id="@+id/etCustomer_T"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:autofillHints=""
+        android:background="@drawable/style_stroke_dark_slate_gray"
+        android:drawableEnd="@drawable/ic_chevron_right_24"
+        android:hint="@string/cd_customer"
+        android:inputType="none"
+        android:minHeight="48dp"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:textColor="@color/DarkBlue"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etService_T" />
+
+    <ImageButton
+        android:id="@+id/btnPlus_T"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/cd_plus"
+        android:minWidth="48dp"
+        android:minHeight="48dp"
+        android:src="@drawable/ic_add_24"
+        app:layout_constraintEnd_toStartOf="@+id/etSum_T"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:tint="@color/DarkSlateGray" />
+
+    <EditText
+        android:id="@+id/etSum_T"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@android:color/transparent"
+        android:ems="10"
+        android:fontFamily="casual"
+        android:gravity="center"
+        android:hint="@string/cd_sum"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        android:textColor="@color/DarkSlateGray"
+        android:textSize="32sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        tools:text="1550" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/style_stroke_dark_slate_gray"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etCustomer_T">
+
+
+        <CheckBox
+            android:id="@+id/checkBox3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:text="CheckBox" />
+
+        <CheckBox
+            android:id="@+id/checkBox2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:text="CheckBox" />
+
+        <CheckBox
+            android:id="@+id/checkBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:text="CheckBox" />
+    </LinearLayout>
+
+    <CheckBox
+        android:id="@+id/cbDone_T"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:buttonTint="@color/DarkSlateGray"
+        android:minHeight="48dp"
+        android:text="@string/cd_done"
+        android:textColor="@color/DarkSlateGray"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etSum_T" />
+
+    <CheckBox
+        android:id="@+id/cbPaid_T"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:buttonTint="@color/DarkSlateGray"
+        android:minHeight="48dp"
+        android:text="@string/cd_paid"
+        android:textColor="@color/DarkSlateGray"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cbDone_T" />
+
+    <ImageButton
+        android:id="@+id/imageButton4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/cd_minus"
+        android:minWidth="48dp"
+        android:minHeight="48dp"
+        android:src="@drawable/ic_remove_24"
+        app:layout_constraintStart_toEndOf="@+id/etSum_T"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:tint="@color/DarkSlateGray" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

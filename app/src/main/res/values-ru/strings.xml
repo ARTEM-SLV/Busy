@@ -13,8 +13,15 @@
     <!--    -->
     <string name="total">всего</string>
 
-    <!--   buttons -->
-    <string name="btn_cancel">отмена</string>
-    <string name="btn_ok">принять</string>
-    <!--   buttons -->
+    <!--   content description -->
+    <string name="cd_cancel">отменить</string>
+    <string name="cd_ok">принять</string>
+    <string name="cd_service">услуга</string>
+    <string name="cd_customer">клиент</string>
+    <string name="cd_done">выполнено</string>
+    <string name="cd_paid">оплачено</string>
+    <string name="cd_sum">сумма</string>
+    <string name="cd_plus">плюс</string>
+    <string name="cd_minus">минус</string>
+    <!--   content description -->
 </resources>
