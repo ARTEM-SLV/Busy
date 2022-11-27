@@ -12,4 +12,9 @@
 
     <!--    -->
     <string name="total">всего</string>
+
+    <!--   buttons -->
+    <string name="btn_cancel">отмена</string>
+    <string name="btn_ok">принять</string>
+    <!--   buttons -->
 </resources>

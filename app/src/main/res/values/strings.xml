@@ -1,10 +1,10 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Busy</string>
     <string name="title_home">Diary</string>
     <string name="title_customers">Customers</string>
     <string name="title_services">Services</string>
-    <string name="title_count" >Count</string>
-    <string name="title_settings" >Settings</string>
+    <string name="title_count">Count</string>
+    <string name="title_settings">Settings</string>
 
     <!--    enum sex values-->
     <string name="male">Male</string>
@@ -12,4 +12,37 @@
 
     <!--    -->
     <string name="total">total</string>
+
+    <!--   buttons -->
+    <string name="btn_cancel">cancel</string>
+    <string name="btn_ok">ok</string>
+    <!--   buttons -->
+
+    <!--   numbers -->
+    <string name="time_half" translatable="false">30</string>
+    <string name="time_zero" translatable="false">00:00</string>
+    <string name="time_1" translatable="false">1:00</string>
+    <string name="time_2" translatable="false">2:00</string>
+    <string name="time_3" translatable="false">3:00</string>
+    <string name="time_4" translatable="false">4:00</string>
+    <string name="time_5" translatable="false">5:00</string>
+    <string name="time_6" translatable="false">6:00</string>
+    <string name="time_7" translatable="false">7:00</string>
+    <string name="time_8" translatable="false">8:00</string>
+    <string name="time_9" translatable="false">9:00</string>
+    <string name="time_10" translatable="false">10:00</string>
+    <string name="time_11" translatable="false">11:00</string>
+    <string name="time_12" translatable="false">12:00</string>
+    <string name="time_13" translatable="false">13:00</string>
+    <string name="time_14" translatable="false">14:00</string>
+    <string name="time_15" translatable="false">15:00</string>
+    <string name="time_16" translatable="false">16:00</string>
+    <string name="time_17" translatable="false">17:00</string>
+    <string name="time_18" translatable="false">18:00</string>
+    <string name="time_19" translatable="false">19:00</string>
+    <string name="time_20" translatable="false">20:00</string>
+    <string name="time_21" translatable="false">21:00</string>
+    <string name="time_22" translatable="false">22:00</string>
+    <string name="time_23" translatable="false">23:00</string>
+    <!--   numbers -->
 </resources>

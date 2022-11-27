@@ -67,7 +67,6 @@
                 android:paddingStart="15dp"
                 android:paddingEnd="5dp"
                 android:paddingTop="5dp"
-                android:textColor="@color/Brown"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -85,7 +84,7 @@
                 android:paddingEnd="5dp"
                 android:paddingTop="5dp"
                 android:textSize="14sp"
-                android:visibility="invisible"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/hour0_TTD" />
@@ -101,7 +100,7 @@
                 android:paddingEnd="5dp"
                 android:paddingTop="5dp"
                 android:textSize="14sp"
-                android:visibility="invisible"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/hour1_TTD" />
@@ -117,7 +116,7 @@
                 android:paddingEnd="5dp"
                 android:paddingTop="5dp"
                 android:textSize="14sp"
-                android:visibility="invisible"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/hour2_TTD" />
@@ -133,7 +132,7 @@
                 android:paddingEnd="5dp"
                 android:paddingTop="5dp"
                 android:textSize="14sp"
-                android:visibility="invisible"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/hour3_TTD" />
@@ -149,7 +148,7 @@
                 android:paddingEnd="5dp"
                 android:paddingTop="5dp"
                 android:textSize="14sp"
-                android:visibility="invisible"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/hour4_TTD" />
@@ -165,7 +164,7 @@
                 android:paddingEnd="5dp"
                 android:paddingTop="5dp"
                 android:textSize="14sp"
-                android:visibility="invisible"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/hour5_TTD" />
@@ -181,7 +180,7 @@
                 android:paddingEnd="5dp"
                 android:paddingTop="5dp"
                 android:textSize="14sp"
-                android:visibility="invisible"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/hour6_TTD" />
@@ -197,7 +196,7 @@
                 android:paddingEnd="5dp"
                 android:paddingTop="5dp"
                 android:textSize="14sp"
-                android:visibility="invisible"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/hour7_TTD" />
@@ -213,7 +212,7 @@
                 android:paddingEnd="5dp"
                 android:paddingTop="5dp"
                 android:textSize="14sp"
-                android:visibility="invisible"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/hour8_TTD" />
@@ -229,7 +228,7 @@
                 android:paddingEnd="5dp"
                 android:paddingTop="5dp"
                 android:textSize="14sp"
-                android:visibility="invisible"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/hour9_TTD" />
@@ -245,7 +244,7 @@
                 android:paddingEnd="5dp"
                 android:paddingTop="5dp"
                 android:textSize="14sp"
-                android:visibility="invisible"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/hour10_TTD" />
@@ -261,7 +260,7 @@
                 android:paddingEnd="5dp"
                 android:paddingTop="5dp"
                 android:textSize="14sp"
-                android:visibility="invisible"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/hour11_TTD" />
@@ -277,7 +276,7 @@
                 android:paddingEnd="5dp"
                 android:paddingTop="5dp"
                 android:textSize="14sp"
-                android:visibility="invisible"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/hour12_TTD" />
@@ -293,7 +292,7 @@
                 android:paddingEnd="5dp"
                 android:paddingTop="5dp"
                 android:textSize="14sp"
-                android:visibility="invisible"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/hour13_TTD" />
@@ -309,7 +308,7 @@
                 android:paddingEnd="5dp"
                 android:paddingTop="5dp"
                 android:textSize="14sp"
-                android:visibility="invisible"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/hour14_TTD" />
@@ -325,7 +324,7 @@
                 android:paddingEnd="5dp"
                 android:paddingTop="5dp"
                 android:textSize="14sp"
-                android:visibility="invisible"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/hour15_TTD" />
@@ -341,7 +340,7 @@
                 android:paddingEnd="5dp"
                 android:paddingTop="5dp"
                 android:textSize="14sp"
-                android:visibility="invisible"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/hour16_TTD" />
@@ -357,7 +356,7 @@
                 android:paddingEnd="5dp"
                 android:paddingTop="5dp"
                 android:textSize="14sp"
-                android:visibility="invisible"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/hour17_TTD" />
@@ -373,7 +372,7 @@
                 android:paddingEnd="5dp"
                 android:paddingTop="5dp"
                 android:textSize="14sp"
-                android:visibility="invisible"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/hour18_TTD" />
@@ -389,7 +388,7 @@
                 android:paddingEnd="5dp"
                 android:paddingTop="5dp"
                 android:textSize="14sp"
-                android:visibility="invisible"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/hour19_TTD" />
@@ -405,7 +404,7 @@
                 android:paddingEnd="5dp"
                 android:paddingTop="5dp"
                 android:textSize="14sp"
-                android:visibility="invisible"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/hour20_TTD" />
@@ -421,7 +420,7 @@
                 android:paddingEnd="5dp"
                 android:paddingTop="5dp"
                 android:textSize="14sp"
-                android:visibility="invisible"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/hour21_TTD" />
@@ -437,7 +436,7 @@
                 android:paddingEnd="5dp"
                 android:paddingTop="5dp"
                 android:textSize="14sp"
-                android:visibility="invisible"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/hour22_TTD" />
@@ -475,7 +474,7 @@
                                 android:layout_height="match_parent"
                                 android:fontFamily="cursive"
                                 android:gravity="center"
-                                android:text="0:00"
+                                android:text="@string/time_zero"
                                 android:textColor="@color/Gray_50"
                                 android:textSize="24sp"
                                 android:textStyle="bold" />
@@ -507,8 +506,9 @@
                                 android:layout_height="match_parent"
                                 android:fontFamily="cursive"
                                 android:gravity="center_vertical|end"
+                                android:paddingStart="10dp"
                                 android:paddingEnd="10dp"
-                                android:text="30"
+                                android:text="@string/time_half"
                                 android:textColor="@color/Gray_50"
                                 android:textSize="18sp"
                                 android:textStyle="bold" />
@@ -561,7 +561,7 @@
                                 android:layout_height="match_parent"
                                 android:fontFamily="cursive"
                                 android:gravity="center"
-                                android:text="1:00"
+                                android:text="@string/time_1"
                                 android:textColor="@color/Gray_50"
                                 android:textSize="24sp"
                                 android:textStyle="bold" />
@@ -572,8 +572,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="180px"
                             android:background="@drawable/style_underline_gray_50"
-                            android:orientation="horizontal"
-                            android:paddingStart="5dp">
+                            android:orientation="horizontal">
 
                         </LinearLayout>
 
@@ -586,9 +585,8 @@
                         android:orientation="horizontal">
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="100dp"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"
                             android:orientation="horizontal">
 
 
@@ -597,17 +595,17 @@
                                 android:layout_height="match_parent"
                                 android:fontFamily="cursive"
                                 android:gravity="center_vertical|end"
+                                android:paddingStart="10dp"
                                 android:paddingEnd="10dp"
-                                android:text="30"
+                                android:text="@string/time_half"
                                 android:textColor="@color/Gray_50"
                                 android:textSize="18sp"
                                 android:textStyle="bold" />
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="180px"
-                            android:layout_weight="3"
                             android:background="@drawable/style_underline_dashed_gray_50"
                             android:orientation="horizontal">
 
@@ -643,9 +641,8 @@
                         android:orientation="horizontal">
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="100dp"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"
                             android:orientation="horizontal">
 
                             <TextView
@@ -653,7 +650,7 @@
                                 android:layout_height="match_parent"
                                 android:fontFamily="cursive"
                                 android:gravity="center"
-                                android:text="2:00"
+                                android:text="@string/time_2"
                                 android:textColor="@color/Gray_50"
                                 android:textSize="24sp"
                                 android:textStyle="bold" />
@@ -661,9 +658,8 @@
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="180px"
-                            android:layout_weight="3"
                             android:background="@drawable/style_underline_gray_50"
                             android:orientation="horizontal">
 
@@ -679,9 +675,8 @@
                         android:orientation="horizontal">
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="100dp"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"
                             android:orientation="horizontal">
 
 
@@ -690,17 +685,17 @@
                                 android:layout_height="match_parent"
                                 android:fontFamily="cursive"
                                 android:gravity="center_vertical|end"
+                                android:paddingStart="10dp"
                                 android:paddingEnd="10dp"
-                                android:text="30"
+                                android:text="@string/time_half"
                                 android:textColor="@color/Gray_50"
                                 android:textSize="18sp"
                                 android:textStyle="bold" />
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="180px"
-                            android:layout_weight="3"
                             android:background="@drawable/style_underline_dashed_gray_50"
                             android:orientation="horizontal">
 
@@ -736,9 +731,8 @@
                         android:orientation="horizontal">
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="100dp"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"
                             android:orientation="horizontal">
 
                             <TextView
@@ -746,7 +740,7 @@
                                 android:layout_height="match_parent"
                                 android:fontFamily="cursive"
                                 android:gravity="center"
-                                android:text="3:00"
+                                android:text="@string/time_3"
                                 android:textColor="@color/Gray_50"
                                 android:textSize="24sp"
                                 android:textStyle="bold" />
@@ -754,9 +748,8 @@
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="180px"
-                            android:layout_weight="3"
                             android:background="@drawable/style_underline_gray_50"
                             android:orientation="horizontal">
 
@@ -772,9 +765,8 @@
                         android:orientation="horizontal">
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="100dp"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"
                             android:orientation="horizontal">
 
 
@@ -783,17 +775,17 @@
                                 android:layout_height="match_parent"
                                 android:fontFamily="cursive"
                                 android:gravity="center_vertical|end"
+                                android:paddingStart="10dp"
                                 android:paddingEnd="10dp"
-                                android:text="30"
+                                android:text="@string/time_half"
                                 android:textColor="@color/Gray_50"
                                 android:textSize="18sp"
                                 android:textStyle="bold" />
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="180px"
-                            android:layout_weight="3"
                             android:background="@drawable/style_underline_dashed_gray_50"
                             android:orientation="horizontal">
 
@@ -829,9 +821,8 @@
                         android:orientation="horizontal">
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="100dp"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"
                             android:orientation="horizontal">
 
                             <TextView
@@ -839,7 +830,7 @@
                                 android:layout_height="match_parent"
                                 android:fontFamily="cursive"
                                 android:gravity="center"
-                                android:text="4:00"
+                                android:text="@string/time_4"
                                 android:textColor="@color/Gray_50"
                                 android:textSize="24sp"
                                 android:textStyle="bold" />
@@ -847,9 +838,8 @@
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="180px"
-                            android:layout_weight="3"
                             android:background="@drawable/style_underline_gray_50"
                             android:orientation="horizontal">
 
@@ -865,9 +855,8 @@
                         android:orientation="horizontal">
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="100dp"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"
                             android:orientation="horizontal">
 
 
@@ -876,17 +865,17 @@
                                 android:layout_height="match_parent"
                                 android:fontFamily="cursive"
                                 android:gravity="center_vertical|end"
+                                android:paddingStart="10dp"
                                 android:paddingEnd="10dp"
-                                android:text="30"
+                                android:text="@string/time_half"
                                 android:textColor="@color/Gray_50"
                                 android:textSize="18sp"
                                 android:textStyle="bold" />
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="180px"
-                            android:layout_weight="3"
                             android:background="@drawable/style_underline_dashed_gray_50"
                             android:orientation="horizontal">
 
@@ -922,9 +911,8 @@
                         android:orientation="horizontal">
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="100dp"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"
                             android:orientation="horizontal">
 
                             <TextView
@@ -932,7 +920,7 @@
                                 android:layout_height="match_parent"
                                 android:fontFamily="cursive"
                                 android:gravity="center"
-                                android:text="5:00"
+                                android:text="@string/time_5"
                                 android:textColor="@color/Gray_50"
                                 android:textSize="24sp"
                                 android:textStyle="bold" />
@@ -940,9 +928,8 @@
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="180px"
-                            android:layout_weight="3"
                             android:background="@drawable/style_underline_gray_50"
                             android:orientation="horizontal">
 
@@ -958,9 +945,8 @@
                         android:orientation="horizontal">
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="100dp"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"
                             android:orientation="horizontal">
 
 
@@ -969,17 +955,17 @@
                                 android:layout_height="match_parent"
                                 android:fontFamily="cursive"
                                 android:gravity="center_vertical|end"
+                                android:paddingStart="10dp"
                                 android:paddingEnd="10dp"
-                                android:text="30"
+                                android:text="@string/time_half"
                                 android:textColor="@color/Gray_50"
                                 android:textSize="18sp"
                                 android:textStyle="bold" />
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="180px"
-                            android:layout_weight="3"
                             android:background="@drawable/style_underline_dashed_gray_50"
                             android:orientation="horizontal">
 
@@ -1015,9 +1001,8 @@
                         android:orientation="horizontal">
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="100dp"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"
                             android:orientation="horizontal">
 
                             <TextView
@@ -1025,7 +1010,7 @@
                                 android:layout_height="match_parent"
                                 android:fontFamily="cursive"
                                 android:gravity="center"
-                                android:text="6:00"
+                                android:text="@string/time_6"
                                 android:textColor="@color/Gray_50"
                                 android:textSize="24sp"
                                 android:textStyle="bold" />
@@ -1033,9 +1018,8 @@
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="180px"
-                            android:layout_weight="3"
                             android:background="@drawable/style_underline_gray_50"
                             android:orientation="horizontal">
 
@@ -1051,9 +1035,8 @@
                         android:orientation="horizontal">
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="100dp"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"
                             android:orientation="horizontal">
 
 
@@ -1062,17 +1045,17 @@
                                 android:layout_height="match_parent"
                                 android:fontFamily="cursive"
                                 android:gravity="center_vertical|end"
+                                android:paddingStart="10dp"
                                 android:paddingEnd="10dp"
-                                android:text="30"
+                                android:text="@string/time_half"
                                 android:textColor="@color/Gray_50"
                                 android:textSize="18sp"
                                 android:textStyle="bold" />
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="180px"
-                            android:layout_weight="3"
                             android:background="@drawable/style_underline_dashed_gray_50"
                             android:orientation="horizontal">
 
@@ -1108,9 +1091,8 @@
                         android:orientation="horizontal">
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="100dp"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"
                             android:orientation="horizontal">
 
                             <TextView
@@ -1118,7 +1100,7 @@
                                 android:layout_height="match_parent"
                                 android:fontFamily="cursive"
                                 android:gravity="center"
-                                android:text="7:00"
+                                android:text="@string/time_7"
                                 android:textColor="@color/Gray_50"
                                 android:textSize="24sp"
                                 android:textStyle="bold" />
@@ -1126,9 +1108,8 @@
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="180px"
-                            android:layout_weight="3"
                             android:background="@drawable/style_underline_gray_50"
                             android:orientation="horizontal">
 
@@ -1144,9 +1125,8 @@
                         android:orientation="horizontal">
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="100dp"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"
                             android:orientation="horizontal">
 
 
@@ -1155,17 +1135,17 @@
                                 android:layout_height="match_parent"
                                 android:fontFamily="cursive"
                                 android:gravity="center_vertical|end"
+                                android:paddingStart="10dp"
                                 android:paddingEnd="10dp"
-                                android:text="30"
+                                android:text="@string/time_half"
                                 android:textColor="@color/Gray_50"
                                 android:textSize="18sp"
                                 android:textStyle="bold" />
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="180px"
-                            android:layout_weight="3"
                             android:background="@drawable/style_underline_dashed_gray_50"
                             android:orientation="horizontal">
 
@@ -1201,9 +1181,8 @@
                         android:orientation="horizontal">
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="100dp"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"
                             android:orientation="horizontal">
 
                             <TextView
@@ -1211,7 +1190,7 @@
                                 android:layout_height="match_parent"
                                 android:fontFamily="cursive"
                                 android:gravity="center"
-                                android:text="8:00"
+                                android:text="@string/time_8"
                                 android:textColor="@color/Gray_50"
                                 android:textSize="24sp"
                                 android:textStyle="bold" />
@@ -1219,9 +1198,8 @@
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="180px"
-                            android:layout_weight="3"
                             android:background="@drawable/style_underline_gray_50"
                             android:orientation="horizontal" />
 
@@ -1234,9 +1212,8 @@
                         android:orientation="horizontal">
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="100dp"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"
                             android:orientation="horizontal">
 
 
@@ -1245,17 +1222,17 @@
                                 android:layout_height="match_parent"
                                 android:fontFamily="cursive"
                                 android:gravity="center_vertical|end"
+                                android:paddingStart="10dp"
                                 android:paddingEnd="10dp"
-                                android:text="30"
+                                android:text="@string/time_half"
                                 android:textColor="@color/Gray_50"
                                 android:textSize="18sp"
                                 android:textStyle="bold" />
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="180px"
-                            android:layout_weight="3"
                             android:background="@drawable/style_underline_dashed_gray_50"
                             android:orientation="horizontal">
 
@@ -1291,9 +1268,8 @@
                         android:orientation="horizontal">
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="100dp"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"
                             android:orientation="horizontal">
 
                             <TextView
@@ -1301,7 +1277,7 @@
                                 android:layout_height="match_parent"
                                 android:fontFamily="cursive"
                                 android:gravity="center"
-                                android:text="9:00"
+                                android:text="@string/time_9"
                                 android:textColor="@color/Gray_50"
                                 android:textSize="24sp"
                                 android:textStyle="bold" />
@@ -1309,9 +1285,8 @@
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="180px"
-                            android:layout_weight="3"
                             android:background="@drawable/style_underline_gray_50"
                             android:orientation="horizontal">
 
@@ -1327,9 +1302,8 @@
                         android:orientation="horizontal">
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="100dp"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"
                             android:orientation="horizontal">
 
 
@@ -1338,17 +1312,17 @@
                                 android:layout_height="match_parent"
                                 android:fontFamily="cursive"
                                 android:gravity="center_vertical|end"
+                                android:paddingStart="10dp"
                                 android:paddingEnd="10dp"
-                                android:text="30"
+                                android:text="@string/time_half"
                                 android:textColor="@color/Gray_50"
                                 android:textSize="18sp"
                                 android:textStyle="bold" />
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="180px"
-                            android:layout_weight="3"
                             android:background="@drawable/style_underline_dashed_gray_50"
                             android:orientation="horizontal">
 
@@ -1384,9 +1358,8 @@
                         android:orientation="horizontal">
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="100dp"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"
                             android:orientation="horizontal">
 
                             <TextView
@@ -1394,7 +1367,7 @@
                                 android:layout_height="match_parent"
                                 android:fontFamily="cursive"
                                 android:gravity="center"
-                                android:text="10:00"
+                                android:text="@string/time_10"
                                 android:textColor="@color/Gray_50"
                                 android:textSize="24sp"
                                 android:textStyle="bold" />
@@ -1402,9 +1375,8 @@
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="180px"
-                            android:layout_weight="3"
                             android:background="@drawable/style_underline_gray_50"
                             android:orientation="horizontal">
 
@@ -1420,9 +1392,8 @@
                         android:orientation="horizontal">
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="100dp"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"
                             android:orientation="horizontal">
 
 
@@ -1431,17 +1402,17 @@
                                 android:layout_height="match_parent"
                                 android:fontFamily="cursive"
                                 android:gravity="center_vertical|end"
+                                android:paddingStart="10dp"
                                 android:paddingEnd="10dp"
-                                android:text="30"
+                                android:text="@string/time_half"
                                 android:textColor="@color/Gray_50"
                                 android:textSize="18sp"
                                 android:textStyle="bold" />
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="180px"
-                            android:layout_weight="3"
                             android:background="@drawable/style_underline_dashed_gray_50"
                             android:orientation="horizontal">
 
@@ -1477,9 +1448,8 @@
                         android:orientation="horizontal">
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="100dp"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"
                             android:orientation="horizontal">
 
                             <TextView
@@ -1487,7 +1457,7 @@
                                 android:layout_height="match_parent"
                                 android:fontFamily="cursive"
                                 android:gravity="center"
-                                android:text="11:00"
+                                android:text="@string/time_11"
                                 android:textColor="@color/Gray_50"
                                 android:textSize="24sp"
                                 android:textStyle="bold" />
@@ -1495,9 +1465,8 @@
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="180px"
-                            android:layout_weight="3"
                             android:background="@drawable/style_underline_gray_50"
                             android:orientation="horizontal">
 
@@ -1513,9 +1482,8 @@
                         android:orientation="horizontal">
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="100dp"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"
                             android:orientation="horizontal">
 
 
@@ -1524,17 +1492,17 @@
                                 android:layout_height="match_parent"
                                 android:fontFamily="cursive"
                                 android:gravity="center_vertical|end"
+                                android:paddingStart="10dp"
                                 android:paddingEnd="10dp"
-                                android:text="30"
+                                android:text="@string/time_half"
                                 android:textColor="@color/Gray_50"
                                 android:textSize="18sp"
                                 android:textStyle="bold" />
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="180px"
-                            android:layout_weight="3"
                             android:background="@drawable/style_underline_dashed_gray_50"
                             android:orientation="horizontal">
 
@@ -1570,9 +1538,8 @@
                         android:orientation="horizontal">
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="100dp"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"
                             android:orientation="horizontal">
 
                             <TextView
@@ -1580,7 +1547,7 @@
                                 android:layout_height="match_parent"
                                 android:fontFamily="cursive"
                                 android:gravity="center"
-                                android:text="12:00"
+                                android:text="@string/time_12"
                                 android:textColor="@color/Gray_50"
                                 android:textSize="24sp"
                                 android:textStyle="bold" />
@@ -1588,9 +1555,8 @@
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="180px"
-                            android:layout_weight="3"
                             android:background="@drawable/style_underline_gray_50"
                             android:orientation="horizontal">
 
@@ -1606,9 +1572,8 @@
                         android:orientation="horizontal">
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="100dp"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"
                             android:orientation="horizontal">
 
 
@@ -1617,17 +1582,17 @@
                                 android:layout_height="match_parent"
                                 android:fontFamily="cursive"
                                 android:gravity="center_vertical|end"
+                                android:paddingStart="10dp"
                                 android:paddingEnd="10dp"
-                                android:text="30"
+                                android:text="@string/time_half"
                                 android:textColor="@color/Gray_50"
                                 android:textSize="18sp"
                                 android:textStyle="bold" />
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="180px"
-                            android:layout_weight="3"
                             android:background="@drawable/style_underline_dashed_gray_50"
                             android:orientation="horizontal">
 
@@ -1663,9 +1628,8 @@
                         android:orientation="horizontal">
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="100dp"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"
                             android:orientation="horizontal">
 
                             <TextView
@@ -1673,7 +1637,7 @@
                                 android:layout_height="match_parent"
                                 android:fontFamily="cursive"
                                 android:gravity="center"
-                                android:text="13:00"
+                                android:text="@string/time_13"
                                 android:textColor="@color/Gray_50"
                                 android:textSize="24sp"
                                 android:textStyle="bold" />
@@ -1681,9 +1645,8 @@
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="180px"
-                            android:layout_weight="3"
                             android:background="@drawable/style_underline_gray_50"
                             android:orientation="horizontal">
 
@@ -1699,9 +1662,8 @@
                         android:orientation="horizontal">
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="100dp"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"
                             android:orientation="horizontal">
 
 
@@ -1710,17 +1672,17 @@
                                 android:layout_height="match_parent"
                                 android:fontFamily="cursive"
                                 android:gravity="center_vertical|end"
+                                android:paddingStart="10dp"
                                 android:paddingEnd="10dp"
-                                android:text="30"
+                                android:text="@string/time_half"
                                 android:textColor="@color/Gray_50"
                                 android:textSize="18sp"
                                 android:textStyle="bold" />
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="180px"
-                            android:layout_weight="3"
                             android:background="@drawable/style_underline_dashed_gray_50"
                             android:orientation="horizontal">
 
@@ -1756,9 +1718,8 @@
                         android:orientation="horizontal">
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="100dp"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"
                             android:orientation="horizontal">
 
                             <TextView
@@ -1766,7 +1727,7 @@
                                 android:layout_height="match_parent"
                                 android:fontFamily="cursive"
                                 android:gravity="center"
-                                android:text="14:00"
+                                android:text="@string/time_14"
                                 android:textColor="@color/Gray_50"
                                 android:textSize="24sp"
                                 android:textStyle="bold" />
@@ -1774,9 +1735,8 @@
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="180px"
-                            android:layout_weight="3"
                             android:background="@drawable/style_underline_gray_50"
                             android:orientation="horizontal">
 
@@ -1792,9 +1752,8 @@
                         android:orientation="horizontal">
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="100dp"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"
                             android:orientation="horizontal">
 
 
@@ -1803,17 +1762,17 @@
                                 android:layout_height="match_parent"
                                 android:fontFamily="cursive"
                                 android:gravity="center_vertical|end"
+                                android:paddingStart="10dp"
                                 android:paddingEnd="10dp"
-                                android:text="30"
+                                android:text="@string/time_half"
                                 android:textColor="@color/Gray_50"
                                 android:textSize="18sp"
                                 android:textStyle="bold" />
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="180px"
-                            android:layout_weight="3"
                             android:background="@drawable/style_underline_dashed_gray_50"
                             android:orientation="horizontal">
 
@@ -1849,9 +1808,8 @@
                         android:orientation="horizontal">
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="100dp"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"
                             android:orientation="horizontal">
 
                             <TextView
@@ -1859,7 +1817,7 @@
                                 android:layout_height="match_parent"
                                 android:fontFamily="cursive"
                                 android:gravity="center"
-                                android:text="15:00"
+                                android:text="@string/time_15"
                                 android:textColor="@color/Gray_50"
                                 android:textSize="24sp"
                                 android:textStyle="bold" />
@@ -1867,9 +1825,8 @@
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="180px"
-                            android:layout_weight="3"
                             android:background="@drawable/style_underline_gray_50"
                             android:orientation="horizontal">
 
@@ -1885,9 +1842,8 @@
                         android:orientation="horizontal">
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="100dp"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"
                             android:orientation="horizontal">
 
 
@@ -1896,17 +1852,17 @@
                                 android:layout_height="match_parent"
                                 android:fontFamily="cursive"
                                 android:gravity="center_vertical|end"
+                                android:paddingStart="10dp"
                                 android:paddingEnd="10dp"
-                                android:text="30"
+                                android:text="@string/time_half"
                                 android:textColor="@color/Gray_50"
                                 android:textSize="18sp"
                                 android:textStyle="bold" />
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="180px"
-                            android:layout_weight="3"
                             android:background="@drawable/style_underline_dashed_gray_50"
                             android:orientation="horizontal">
 
@@ -1942,9 +1898,8 @@
                         android:orientation="horizontal">
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="100dp"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"
                             android:orientation="horizontal">
 
                             <TextView
@@ -1952,7 +1907,7 @@
                                 android:layout_height="match_parent"
                                 android:fontFamily="cursive"
                                 android:gravity="center"
-                                android:text="16:00"
+                                android:text="@string/time_16"
                                 android:textColor="@color/Gray_50"
                                 android:textSize="24sp"
                                 android:textStyle="bold" />
@@ -1960,9 +1915,8 @@
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="180px"
-                            android:layout_weight="3"
                             android:background="@drawable/style_underline_gray_50"
                             android:orientation="horizontal">
 
@@ -1978,9 +1932,8 @@
                         android:orientation="horizontal">
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="100dp"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"
                             android:orientation="horizontal">
 
 
@@ -1989,17 +1942,17 @@
                                 android:layout_height="match_parent"
                                 android:fontFamily="cursive"
                                 android:gravity="center_vertical|end"
+                                android:paddingStart="10dp"
                                 android:paddingEnd="10dp"
-                                android:text="30"
+                                android:text="@string/time_half"
                                 android:textColor="@color/Gray_50"
                                 android:textSize="18sp"
                                 android:textStyle="bold" />
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="180px"
-                            android:layout_weight="3"
                             android:background="@drawable/style_underline_dashed_gray_50"
                             android:orientation="horizontal">
 
@@ -2035,9 +1988,8 @@
                         android:orientation="horizontal">
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="100dp"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"
                             android:orientation="horizontal">
 
                             <TextView
@@ -2045,7 +1997,7 @@
                                 android:layout_height="match_parent"
                                 android:fontFamily="cursive"
                                 android:gravity="center"
-                                android:text="17:00"
+                                android:text="@string/time_17"
                                 android:textColor="@color/Gray_50"
                                 android:textSize="24sp"
                                 android:textStyle="bold" />
@@ -2053,9 +2005,8 @@
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="180px"
-                            android:layout_weight="3"
                             android:background="@drawable/style_underline_gray_50"
                             android:orientation="horizontal">
 
@@ -2071,9 +2022,8 @@
                         android:orientation="horizontal">
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="100dp"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"
                             android:orientation="horizontal">
 
 
@@ -2082,17 +2032,17 @@
                                 android:layout_height="match_parent"
                                 android:fontFamily="cursive"
                                 android:gravity="center_vertical|end"
+                                android:paddingStart="10dp"
                                 android:paddingEnd="10dp"
-                                android:text="30"
+                                android:text="@string/time_half"
                                 android:textColor="@color/Gray_50"
                                 android:textSize="18sp"
                                 android:textStyle="bold" />
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="180px"
-                            android:layout_weight="3"
                             android:background="@drawable/style_underline_dashed_gray_50"
                             android:orientation="horizontal">
 
@@ -2128,9 +2078,8 @@
                         android:orientation="horizontal">
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="100dp"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"
                             android:orientation="horizontal">
 
                             <TextView
@@ -2138,7 +2087,7 @@
                                 android:layout_height="match_parent"
                                 android:fontFamily="cursive"
                                 android:gravity="center"
-                                android:text="18:00"
+                                android:text="@string/time_18"
                                 android:textColor="@color/Gray_50"
                                 android:textSize="24sp"
                                 android:textStyle="bold" />
@@ -2146,9 +2095,8 @@
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="180px"
-                            android:layout_weight="3"
                             android:background="@drawable/style_underline_gray_50"
                             android:orientation="horizontal">
 
@@ -2164,9 +2112,8 @@
                         android:orientation="horizontal">
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="100dp"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"
                             android:orientation="horizontal">
 
 
@@ -2175,17 +2122,17 @@
                                 android:layout_height="match_parent"
                                 android:fontFamily="cursive"
                                 android:gravity="center_vertical|end"
+                                android:paddingStart="10dp"
                                 android:paddingEnd="10dp"
-                                android:text="30"
+                                android:text="@string/time_half"
                                 android:textColor="@color/Gray_50"
                                 android:textSize="18sp"
                                 android:textStyle="bold" />
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="180px"
-                            android:layout_weight="3"
                             android:background="@drawable/style_underline_dashed_gray_50"
                             android:orientation="horizontal">
 
@@ -2221,9 +2168,8 @@
                         android:orientation="horizontal">
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="100dp"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"
                             android:orientation="horizontal">
 
                             <TextView
@@ -2231,7 +2177,7 @@
                                 android:layout_height="match_parent"
                                 android:fontFamily="cursive"
                                 android:gravity="center"
-                                android:text="19:00"
+                                android:text="@string/time_19"
                                 android:textColor="@color/Gray_50"
                                 android:textSize="24sp"
                                 android:textStyle="bold" />
@@ -2239,9 +2185,8 @@
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="180px"
-                            android:layout_weight="3"
                             android:background="@drawable/style_underline_gray_50"
                             android:orientation="horizontal">
 
@@ -2257,9 +2202,8 @@
                         android:orientation="horizontal">
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="100dp"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"
                             android:orientation="horizontal">
 
 
@@ -2268,17 +2212,17 @@
                                 android:layout_height="match_parent"
                                 android:fontFamily="cursive"
                                 android:gravity="center_vertical|end"
+                                android:paddingStart="10dp"
                                 android:paddingEnd="10dp"
-                                android:text="30"
+                                android:text="@string/time_half"
                                 android:textColor="@color/Gray_50"
                                 android:textSize="18sp"
                                 android:textStyle="bold" />
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="180px"
-                            android:layout_weight="3"
                             android:background="@drawable/style_underline_dashed_gray_50"
                             android:orientation="horizontal">
 
@@ -2314,9 +2258,8 @@
                         android:orientation="horizontal">
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="100dp"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"
                             android:orientation="horizontal">
 
                             <TextView
@@ -2324,7 +2267,7 @@
                                 android:layout_height="match_parent"
                                 android:fontFamily="cursive"
                                 android:gravity="center"
-                                android:text="20:00"
+                                android:text="@string/time_20"
                                 android:textColor="@color/Gray_50"
                                 android:textSize="24sp"
                                 android:textStyle="bold" />
@@ -2332,9 +2275,8 @@
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="180px"
-                            android:layout_weight="3"
                             android:background="@drawable/style_underline_gray_50"
                             android:orientation="horizontal">
 
@@ -2350,9 +2292,8 @@
                         android:orientation="horizontal">
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="100dp"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"
                             android:orientation="horizontal">
 
 
@@ -2361,17 +2302,17 @@
                                 android:layout_height="match_parent"
                                 android:fontFamily="cursive"
                                 android:gravity="center_vertical|end"
+                                android:paddingStart="10dp"
                                 android:paddingEnd="10dp"
-                                android:text="30"
+                                android:text="@string/time_half"
                                 android:textColor="@color/Gray_50"
                                 android:textSize="18sp"
                                 android:textStyle="bold" />
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="180px"
-                            android:layout_weight="3"
                             android:background="@drawable/style_underline_dashed_gray_50"
                             android:orientation="horizontal">
 
@@ -2407,9 +2348,8 @@
                         android:orientation="horizontal">
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="100dp"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"
                             android:orientation="horizontal">
 
                             <TextView
@@ -2417,7 +2357,7 @@
                                 android:layout_height="match_parent"
                                 android:fontFamily="cursive"
                                 android:gravity="center"
-                                android:text="21:00"
+                                android:text="@string/time_21"
                                 android:textColor="@color/Gray_50"
                                 android:textSize="24sp"
                                 android:textStyle="bold" />
@@ -2425,9 +2365,8 @@
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="180px"
-                            android:layout_weight="3"
                             android:background="@drawable/style_underline_gray_50"
                             android:orientation="horizontal">
 
@@ -2443,9 +2382,8 @@
                         android:orientation="horizontal">
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="100dp"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"
                             android:orientation="horizontal">
 
 
@@ -2454,17 +2392,17 @@
                                 android:layout_height="match_parent"
                                 android:fontFamily="cursive"
                                 android:gravity="center_vertical|end"
+                                android:paddingStart="10dp"
                                 android:paddingEnd="10dp"
-                                android:text="30"
+                                android:text="@string/time_half"
                                 android:textColor="@color/Gray_50"
                                 android:textSize="18sp"
                                 android:textStyle="bold" />
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="180px"
-                            android:layout_weight="3"
                             android:background="@drawable/style_underline_dashed_gray_50"
                             android:orientation="horizontal">
 
@@ -2500,9 +2438,8 @@
                         android:orientation="horizontal">
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="100dp"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"
                             android:orientation="horizontal">
 
                             <TextView
@@ -2510,7 +2447,7 @@
                                 android:layout_height="match_parent"
                                 android:fontFamily="cursive"
                                 android:gravity="center"
-                                android:text="22:00"
+                                android:text="@string/time_22"
                                 android:textColor="@color/Gray_50"
                                 android:textSize="24sp"
                                 android:textStyle="bold" />
@@ -2518,9 +2455,8 @@
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="180px"
-                            android:layout_weight="3"
                             android:background="@drawable/style_underline_gray_50"
                             android:orientation="horizontal">
 
@@ -2536,9 +2472,8 @@
                         android:orientation="horizontal">
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="100dp"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"
                             android:orientation="horizontal">
 
 
@@ -2547,17 +2482,17 @@
                                 android:layout_height="match_parent"
                                 android:fontFamily="cursive"
                                 android:gravity="center_vertical|end"
+                                android:paddingStart="10dp"
                                 android:paddingEnd="10dp"
-                                android:text="30"
+                                android:text="@string/time_half"
                                 android:textColor="@color/Gray_50"
                                 android:textSize="18sp"
                                 android:textStyle="bold" />
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="180px"
-                            android:layout_weight="3"
                             android:background="@drawable/style_underline_dashed_gray_50"
                             android:orientation="horizontal">
 
@@ -2593,9 +2528,8 @@
                         android:orientation="horizontal">
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="100dp"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"
                             android:orientation="horizontal">
 
                             <TextView
@@ -2603,7 +2537,7 @@
                                 android:layout_height="match_parent"
                                 android:fontFamily="cursive"
                                 android:gravity="center"
-                                android:text="23:00"
+                                android:text="@string/time_23"
                                 android:textColor="@color/Gray_50"
                                 android:textSize="24sp"
                                 android:textStyle="bold" />
@@ -2611,9 +2545,8 @@
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="180px"
-                            android:layout_weight="3"
                             android:background="@drawable/style_underline_gray_50"
                             android:orientation="horizontal">
 
@@ -2629,9 +2562,8 @@
                         android:orientation="horizontal">
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="100dp"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"
                             android:orientation="horizontal">
 
 
@@ -2640,17 +2572,17 @@
                                 android:layout_height="match_parent"
                                 android:fontFamily="cursive"
                                 android:gravity="center_vertical|end"
+                                android:paddingStart="10dp"
                                 android:paddingEnd="10dp"
-                                android:text="30"
+                                android:text="@string/time_half"
                                 android:textColor="@color/Gray_50"
                                 android:textSize="18sp"
                                 android:textStyle="bold" />
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="180px"
-                            android:layout_weight="3"
                             android:background="@drawable/style_underline_dashed_gray_50"
                             android:orientation="horizontal">
 

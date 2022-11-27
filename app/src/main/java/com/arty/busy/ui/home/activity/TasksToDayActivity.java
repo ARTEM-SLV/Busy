@@ -66,7 +66,7 @@ public class TasksToDayActivity extends Activity {
             }
         });
 
-        setInvisibleAllBtnTask();
+        setGoneAllBtnTask();
 
         @SuppressLint("SimpleDateFormat")
         DateFormat df = new SimpleDateFormat("EEEE dd MMM.");
@@ -161,13 +161,13 @@ public class TasksToDayActivity extends Activity {
     }
 
     @SuppressLint("DiscouragedApi")
-    private void setInvisibleAllBtnTask(){
+    private void setGoneAllBtnTask(){
         int btnID;
 
         for (int hour = 0; hour < 24; hour++) {
             btnID = this.getResources().getIdentifier("btnHour" + (hour) + "_TTD", "id", getPackageName());
             Button btnTask = findViewById(btnID);
-            btnTask.setVisibility(View.INVISIBLE);
+            btnTask.setVisibility(View.GONE);
         }
     }
 
