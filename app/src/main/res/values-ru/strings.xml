@@ -23,5 +23,6 @@
     <string name="cd_price">цена</string>
     <string name="cd_plus">плюс</string>
     <string name="cd_minus">минус</string>
+    <string name="cd_add_task">добавить задачу</string>
     <!--   content description -->
 </resources>

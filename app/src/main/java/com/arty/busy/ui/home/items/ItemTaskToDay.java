@@ -1,24 +1,38 @@
 package com.arty.busy.ui.home.items;
 
-public class ItemTasksToDay {
+import java.io.Serializable;
+
+public class ItemTaskToDay implements Serializable {
+    private int id_task;
     private String time;
     private String services;
-    private String servicesShort;
     private String client;
     private double price;
     private int duration;
     private boolean done;
     private boolean paid;
 
-    public ItemTasksToDay() {
+    public ItemTaskToDay() {
+        this.id_task = 0;
         this.time = "00:00";
         this.services = "";
-        this.servicesShort = "";
         this.client = "";
         this.price = 0.0d;
         this.duration = 0;
         this.done = false;
         this.paid = false;
+    }
+
+    public int getId_task() {
+        return id_task;
+    }
+
+    public void setId_task(int id_task) {
+        if (id_task < 0){
+            id_task = 0;
+        }
+
+        this.id_task = id_task;
     }
 
     public String getTime() {
@@ -35,14 +49,6 @@ public class ItemTasksToDay {
 
     public void setServices(String services) {
         this.services = services;
-    }
-
-    public String getServicesShort() {
-        return servicesShort;
-    }
-
-    public void setServicesShort(String servicesShort) {
-        this.servicesShort = servicesShort;
     }
 
     public String getClient() {

@@ -9,6 +9,7 @@
     android:minWidth="300dp"
     tools:context=".ui.home.activity.TaskActivity">
 
+
     <TextView
         android:id="@+id/tvTime_T"
         android:layout_width="wrap_content"
@@ -32,6 +33,7 @@
         android:contentDescription="@string/cd_ok"
         android:minWidth="48dp"
         android:minHeight="48dp"
+        android:onClick="onOkClick"
         android:src="@drawable/ic_ok_24"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -46,11 +48,12 @@
         android:contentDescription="@string/cd_cancel"
         android:minWidth="48dp"
         android:minHeight="48dp"
+        android:onClick="onCancelClick"
         android:src="@drawable/ic_close_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
+    <TextView
         android:id="@+id/etService_T"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -63,15 +66,16 @@
         android:hint="@string/cd_service"
         android:inputType="none"
         android:minHeight="48dp"
+        android:onClick="onServiceClick"
         android:paddingStart="10dp"
         android:paddingEnd="10dp"
-        android:textColor="@color/DarkBlue"
+        android:textColor="@color/DarkSlateGray"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvTime_T" />
 
-    <EditText
+    <TextView
         android:id="@+id/etCustomer_T"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -84,47 +88,14 @@
         android:hint="@string/cd_customer"
         android:inputType="none"
         android:minHeight="48dp"
+        android:onClick="onCustomerClick"
         android:paddingStart="10dp"
         android:paddingEnd="10dp"
-        android:textColor="@color/DarkBlue"
+        android:textColor="@color/DarkSlateGray"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etService_T" />
-
-    <ImageButton
-        android:id="@+id/btnPlus_T"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:background="@android:color/transparent"
-        android:contentDescription="@string/cd_plus"
-        android:minWidth="48dp"
-        android:minHeight="48dp"
-        android:src="@drawable/ic_add_24"
-        android:visibility="gone"
-        app:layout_constraintEnd_toStartOf="@+id/etSum_T"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        app:tint="@color/DarkSlateGray" />
-
-    <EditText
-        android:id="@+id/etSum_T"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:autofillHints=""
-        android:background="@android:color/transparent"
-        android:fontFamily="casual"
-        android:gravity="center"
-        android:hint="@string/cd_price"
-        android:inputType="number"
-        android:minHeight="48dp"
-        android:textColor="@color/DarkSlateGray"
-        android:textSize="32sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        tools:text="1550" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -141,8 +112,7 @@
 
 
         <CheckBox
-            android:id="@+id/checkBox3"
-            style="@style/Widget.AppCompat.CompoundButton.CheckBox"
+            android:id="@+id/checkBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:buttonTint="@color/DarkSlateGray"
@@ -152,7 +122,6 @@
 
         <CheckBox
             android:id="@+id/checkBox2"
-            style="@android:style/Widget.Holo.Light.CompoundButton.CheckBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:buttonTint="@color/DarkSlateGray"
@@ -161,15 +130,38 @@
             android:textColor="@color/DarkSlateGray" />
 
         <CheckBox
-            android:id="@+id/checkBox"
-            style="@android:style/Widget.Material.CompoundButton.CheckBox"
+            android:id="@+id/checkBox3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:buttonTint="@color/DarkSlateGray"
             android:minHeight="48dp"
             android:text="CheckBox"
             android:textColor="@color/DarkSlateGray" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
     </LinearLayout>
+
+    <EditText
+        android:id="@+id/etPrice_T"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:autofillHints=""
+        android:background="@android:color/transparent"
+        android:digits="0123456789"
+        android:fontFamily="casual"
+        android:gravity="center"
+        android:hint="@string/cd_price"
+        android:inputType="numberDecimal"
+        android:minHeight="48dp"
+        android:textColor="@color/DarkSlateGray"
+        android:textSize="32sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        tools:text="1550" />
 
     <CheckBox
         android:id="@+id/cbDone_T"
@@ -179,7 +171,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:buttonTint="@color/DarkSlateGray"
-        android:fontFamily="@font/lnky"
+        android:fontFamily="@font/margot"
         android:minHeight="48dp"
         android:text="@string/cd_done"
         android:textColor="@color/DarkSlateGray"
@@ -187,7 +179,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etSum_T" />
+        app:layout_constraintTop_toBottomOf="@+id/etPrice_T" />
 
     <CheckBox
         android:id="@+id/cbPaid_T"
@@ -197,7 +189,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:buttonTint="@color/DarkSlateGray"
-        android:fontFamily="@font/lnky"
+        android:fontFamily="@font/margot"
         android:minHeight="48dp"
         android:text="@string/cd_paid"
         android:textColor="@color/DarkSlateGray"
@@ -205,20 +197,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cbDone_T" />
-
-    <ImageButton
-        android:id="@+id/imageButton4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:background="@android:color/transparent"
-        android:contentDescription="@string/cd_minus"
-        android:minWidth="48dp"
-        android:minHeight="48dp"
-        android:src="@drawable/ic_remove_24"
-        android:visibility="gone"
-        app:layout_constraintStart_toEndOf="@+id/etSum_T"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        app:tint="@color/DarkSlateGray" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,8 +2,10 @@ package com.arty.busy.ui.home.activity;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
@@ -14,19 +16,21 @@ import android.widget.TextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.arty.busy.App;
+import com.arty.busy.Constants;
 import com.arty.busy.R;
 import com.arty.busy.Settings;
 import com.arty.busy.date.MyDate;
 import com.arty.busy.date.Time;
-import com.arty.busy.ui.home.items.ItemTasksToDay;
+import com.arty.busy.ui.home.items.ItemTaskToDay;
 
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 public class TasksToDayActivity extends Activity {
-    List<ItemTasksToDay> listTasksToDay;
+    List<ItemTaskToDay> listTasksToDay;
 
     private long currDate;
     private TextView tvDate;
@@ -37,6 +41,8 @@ public class TasksToDayActivity extends Activity {
     private int posY;
 
     private Time currTime;
+
+    private Dialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +81,6 @@ public class TasksToDayActivity extends Activity {
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             currDate = extras.getLong("Date");
-
             tvDate.setText(df.format(currDate));
         }
 
@@ -128,7 +133,7 @@ public class TasksToDayActivity extends Activity {
         setListTasksToDay();
 
         for (int i = 0; i < listTasksToDay.size(); i++) {
-            ItemTasksToDay itemTaskToDay = listTasksToDay.get(i);
+            ItemTaskToDay itemTaskToDay = listTasksToDay.get(i);
 
             duration = itemTaskToDay.getDuration();
 
@@ -145,11 +150,13 @@ public class TasksToDayActivity extends Activity {
             int currResColor = getColor(R.color.Black);
             if (itemTaskToDay.isDone()){
                 currResColor = getColor(R.color.Green);
-            } else if (crossedTimesOfTasks(timeStart, timeEnd, i)){
-                currResColor = getColor(R.color.Brown);
             } else if (isNextTask(timeStart)){
                 currResColor = getColor(R.color.Navy);
                 setPosStart(hour);
+            }
+
+            if (crossedTimesOfTasks(timeStart, timeEnd, i)) {
+                currResColor = getColor(R.color.Brown);
             }
 
             @SuppressLint("DiscouragedApi")
@@ -169,6 +176,7 @@ public class TasksToDayActivity extends Activity {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(TasksToDayActivity.this, TaskActivity.class);
+                    intent.putExtra(Constants.ITEM_TASK_TO_DAY, itemTaskToDay);
                     startActivity(intent);
                 }
             });
@@ -190,7 +198,7 @@ public class TasksToDayActivity extends Activity {
         boolean res = false;
 
         if (currDate == MyDate.getCurrentStartDate().getTime()) {
-            for (ItemTasksToDay itemTaskToDay : listTasksToDay) {
+            for (ItemTaskToDay itemTaskToDay : listTasksToDay) {
                 String sTime = itemTaskToDay.getTime();
                 Time t = MyDate.parseStringToTime(sTime);
 
@@ -209,7 +217,7 @@ public class TasksToDayActivity extends Activity {
         boolean res = false;
 
         if (index > 0){
-            ItemTasksToDay itemTaskToDay = listTasksToDay.get(index-1);
+            ItemTaskToDay itemTaskToDay = listTasksToDay.get(index-1);
             String sTime = itemTaskToDay.getTime();
             Time timeEndLastTask = MyDate.parseStringToTime(sTime);
             timeEndLastTask.addTime(itemTaskToDay.getDuration());
@@ -217,7 +225,7 @@ public class TasksToDayActivity extends Activity {
             res = res || timeStart.compareTo(timeEndLastTask) == -1;
         }
         if (index+1 < listTasksToDay.size()){
-            ItemTasksToDay itemTaskToDay = listTasksToDay.get(index+1);
+            ItemTaskToDay itemTaskToDay = listTasksToDay.get(index+1);
             String sTime = itemTaskToDay.getTime();
             Time timeStartNextTask = MyDate.parseStringToTime(sTime);
 

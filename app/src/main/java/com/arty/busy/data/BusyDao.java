@@ -11,7 +11,7 @@ import com.arty.busy.models.Customer;
 import com.arty.busy.models.Service;
 import com.arty.busy.models.Task;
 import com.arty.busy.ui.home.items.ItemTaskList;
-import com.arty.busy.ui.home.items.ItemTasksToDay;
+import com.arty.busy.ui.home.items.ItemTaskToDay;
 
 import java.util.List;
 
@@ -29,9 +29,9 @@ public interface BusyDao {
     List<ItemTaskList> getTaskList(long dateBeginning, long dateEnding);
 
     @Query("SELECT " +
+                "tasks.uid as id_task, " +
                 "tasks.time as time, " +
                 "services.title as services, " +
-                "services.short_title as servicesShort, " +
                 "customers.first_name || ' ' || customers.last_name  as client, " +
                 "services.price as price, " +
                 "services.duration as duration, " +
@@ -42,13 +42,16 @@ public interface BusyDao {
                 "LEFT OUTER JOIN Customer as customers ON tasks.id_customer = customers.uid " +
             "WHERE tasks.day = :day " +
             "ORDER BY tasks.day")
-    List<ItemTasksToDay> getTasksToDay(long day);
+    List<ItemTaskToDay> getTasksToDay(long day);
 
 //
 //    @Query("SELECT * FROM Task WHERE date = :date")
 //    List<Task> findByDate(long date);
 
     // Tasks
+    @Query("SELECT * FROM Task WHERE uid =:uid")
+    Task getTaskByID(int uid);
+
     @Query("SELECT day FROM Task GROUP BY day")
     List<Long> getTaskDates();
 

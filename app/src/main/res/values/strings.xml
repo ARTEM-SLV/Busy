@@ -51,5 +51,6 @@
     <string name="cd_price">price</string>
     <string name="cd_plus">plus</string>
     <string name="cd_minus">minus</string>
+    <string name="cd_add_task">add task</string>
     <!--   content description -->
 </resources>

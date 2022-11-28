@@ -18,11 +18,12 @@
         android:layout_marginEnd="30dp"
         android:layout_marginBottom="30dp"
         android:clickable="true"
-        android:contentDescription="@string/app_name"
+        android:contentDescription="@string/cd_add_task"
         android:src="@drawable/ic_add_24"
         app:backgroundTint="@color/Salmon"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="ImageContrastCheck" />
 
     <TextView
         android:id="@+id/tvTestDate_TTD"
@@ -65,8 +66,8 @@
                 android:background="@drawable/style_frame_azure"
                 android:gravity="start"
                 android:paddingStart="15dp"
-                android:paddingEnd="5dp"
                 android:paddingTop="5dp"
+                android:paddingEnd="5dp"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

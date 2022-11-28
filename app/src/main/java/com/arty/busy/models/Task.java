@@ -13,7 +13,7 @@ import java.util.Objects;
 @Entity(indices = {
         @Index(value = {"day"})}
 )
-public class Task implements Parcelable {
+public class Task implements Parcelable  {
     @PrimaryKey(autoGenerate = true)
     public int uid;
 
