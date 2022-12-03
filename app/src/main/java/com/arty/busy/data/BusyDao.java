@@ -10,8 +10,8 @@ import androidx.room.Update;
 import com.arty.busy.models.Customer;
 import com.arty.busy.models.Service;
 import com.arty.busy.models.Task;
+import com.arty.busy.ui.home.items.ItemTaskInfo;
 import com.arty.busy.ui.home.items.ItemTaskList;
-import com.arty.busy.ui.home.items.ItemTaskToDay;
 
 import java.util.List;
 
@@ -31,29 +31,23 @@ public interface BusyDao {
     @Query("SELECT " +
                 "tasks.uid as id_task, " +
                 "tasks.time as time, " +
-                "services.title as services, " +
-                "customers.first_name || ' ' || customers.last_name  as client, " +
-                "services.price as price, " +
-                "services.duration as duration, " +
                 "tasks.done as done, " +
-                "tasks.paid as paid " +
+                "services.title as services, " +
+                "services.duration as duration, " +
+                "customers.first_name || ' ' || customers.last_name  as client " +
             "FROM Task as tasks " +
                 "LEFT OUTER JOIN Service as services ON tasks.id_service = services.uid " +
                 "LEFT OUTER JOIN Customer as customers ON tasks.id_customer = customers.uid " +
             "WHERE tasks.day = :day " +
             "ORDER BY tasks.day")
-    List<ItemTaskToDay> getTasksToDay(long day);
-
-//
-//    @Query("SELECT * FROM Task WHERE date = :date")
-//    List<Task> findByDate(long date);
+    List<ItemTaskInfo> getTasksInfoByDay(long day);
 
     // Tasks
     @Query("SELECT * FROM Task WHERE uid =:uid")
     Task getTaskByID(int uid);
 
-    @Query("SELECT day FROM Task GROUP BY day")
-    List<Long> getTaskDates();
+    @Query("SELECT * FROM Task GROUP BY day")
+    List<Task> getTasksByDay();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertTaskList(List<Task> taskList);
@@ -65,6 +59,12 @@ public interface BusyDao {
     void deleteTaskList(Task task);
 
     // Services
+    @Query("SELECT * FROM Service")
+    List<Service> getAllServices();
+
+    @Query("SELECT * FROM Service WHERE uid =:uid")
+    Service getServiceByID(int uid);
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertServiceList(List<Service> serviceList);
 
@@ -75,6 +75,12 @@ public interface BusyDao {
     void deleteServiceList(Service service);
 
     // Customers
+    @Query("SELECT * FROM Customer")
+    List<Customer> getAllCustomers();
+
+    @Query("SELECT * FROM Customer WHERE uid =:uid")
+    Customer getCustomerByID(int uid);
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertCustomerList(List<Customer> customerList);
 

@@ -6,22 +6,9 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:background="@color/DarkSeaGreen"
-    android:minWidth="300dp"
+    android:minWidth="350dp"
     tools:context=".ui.home.activity.TaskActivity">
 
-
-    <TextView
-        android:id="@+id/tvTime_T"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:fontFamily="casual"
-        android:textColor="@color/DarkSlateGray"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="9:00" />
 
     <ImageButton
         android:id="@+id/btnOk_T"
@@ -54,15 +41,50 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/tvTime_T"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/style_stroke_dark_slate_gray"
+        android:drawableEnd="@drawable/ic_chevron_right_24"
+        android:fontFamily="casual"
+        android:gravity="start|center_vertical"
+        android:hint="@string/set_time"
+        android:onClick="onTimeClick"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:textColor="@color/DarkSlateGray"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/btnPostpone_T"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnOk_T"
+        tools:ignore="UseCompatTextViewDrawableXml" />
+
+    <ImageButton
+        android:id="@+id/btnPostpone_T"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/style_stroke_dark_slate_gray"
+        android:contentDescription="@string/postpone"
+        android:onClick="onPostponeClock"
+        android:src="@drawable/ic_shortcut_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnCancel_T" />
+
+    <TextView
         android:id="@+id/etService_T"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
-        android:autofillHints=""
         android:background="@drawable/style_stroke_dark_slate_gray"
         android:drawableEnd="@drawable/ic_chevron_right_24"
+        android:gravity="center_vertical"
         android:hint="@string/cd_service"
         android:inputType="none"
         android:minHeight="48dp"
@@ -73,18 +95,19 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvTime_T" />
+        app:layout_constraintTop_toBottomOf="@+id/tvTime_T"
+        tools:ignore="UseCompatTextViewDrawableXml" />
 
     <TextView
         android:id="@+id/etCustomer_T"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:autofillHints=""
         android:background="@drawable/style_stroke_dark_slate_gray"
         android:drawableEnd="@drawable/ic_chevron_right_24"
+        android:gravity="center_vertical"
         android:hint="@string/cd_customer"
         android:inputType="none"
         android:minHeight="48dp"
@@ -95,10 +118,11 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etService_T" />
+        app:layout_constraintTop_toBottomOf="@+id/etService_T"
+        tools:ignore="UseCompatTextViewDrawableXml" />
 
     <LinearLayout
-        android:id="@+id/linearLayout"
+        android:id="@+id/checksContainer_T"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -108,40 +132,7 @@
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etCustomer_T">
-
-
-        <CheckBox
-            android:id="@+id/checkBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:buttonTint="@color/DarkSlateGray"
-            android:minHeight="48dp"
-            android:text="CheckBox"
-            android:textColor="@color/DarkSlateGray" />
-
-        <CheckBox
-            android:id="@+id/checkBox2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:buttonTint="@color/DarkSlateGray"
-            android:minHeight="48dp"
-            android:text="CheckBox"
-            android:textColor="@color/DarkSlateGray" />
-
-        <CheckBox
-            android:id="@+id/checkBox3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:buttonTint="@color/DarkSlateGray"
-            android:minHeight="48dp"
-            android:text="CheckBox"
-            android:textColor="@color/DarkSlateGray" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </LinearLayout>
+        app:layout_constraintTop_toBottomOf="@+id/etCustomer_T" />
 
     <EditText
         android:id="@+id/etPrice_T"
@@ -160,13 +151,13 @@
         android:textSize="32sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:layout_constraintTop_toBottomOf="@+id/checksContainer_T"
         tools:text="1550" />
 
     <CheckBox
         android:id="@+id/cbDone_T"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
@@ -176,15 +167,14 @@
         android:text="@string/cd_done"
         android:textColor="@color/DarkSlateGray"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintEnd_toStartOf="@+id/btnCancelTask_T"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etPrice_T" />
 
     <CheckBox
         android:id="@+id/cbPaid_T"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
@@ -194,8 +184,21 @@
         android:text="@string/cd_paid"
         android:textColor="@color/DarkSlateGray"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnCancelTask_T"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cbDone_T" />
+
+    <ImageButton
+        android:id="@+id/btnCancelTask_T"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/cancel_task"
+        android:onClick="onCancelTaskClick"
+        android:padding="10dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_block_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

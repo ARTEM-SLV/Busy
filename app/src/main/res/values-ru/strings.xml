@@ -12,6 +12,7 @@
 
     <!--    -->
     <string name="total">всего</string>
+    <string name="time">Время:</string>
 
     <!--   content description -->
     <string name="cd_cancel">отменить</string>
@@ -24,5 +25,8 @@
     <string name="cd_plus">плюс</string>
     <string name="cd_minus">минус</string>
     <string name="cd_add_task">добавить задачу</string>
+    <string name="postpone">перенести</string>
+    <string name="set_time">укажите время</string>
+    <string name="cancel_task">отменить задачу</string>
     <!--   content description -->
 </resources>

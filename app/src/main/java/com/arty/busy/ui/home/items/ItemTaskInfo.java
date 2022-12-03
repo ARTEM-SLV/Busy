@@ -2,25 +2,25 @@ package com.arty.busy.ui.home.items;
 
 import java.io.Serializable;
 
-public class ItemTaskToDay implements Serializable {
+public class ItemTaskInfo implements Serializable {
     private int id_task;
     private String time;
     private String services;
     private String client;
-    private double price;
+//    private double price;
     private int duration;
     private boolean done;
-    private boolean paid;
+//    private boolean paid;
 
-    public ItemTaskToDay() {
+    public ItemTaskInfo() {
         this.id_task = 0;
         this.time = "00:00";
         this.services = "";
         this.client = "";
-        this.price = 0.0d;
-        this.duration = 0;
+//        this.price = 0.0d;
+//        this.duration = 0;
         this.done = false;
-        this.paid = false;
+//        this.paid = false;
     }
 
     public int getId_task() {
@@ -59,16 +59,16 @@ public class ItemTaskToDay implements Serializable {
         this.client = client;
     }
 
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        if (price < 0)
-            this.price = 0;
-        else
-            this.price = price;
-    }
+//    public double getPrice() {
+//        return price;
+//    }
+//
+//    public void setPrice(double price) {
+//        if (price < 0)
+//            this.price = 0;
+//        else
+//            this.price = price;
+//    }
 
     public int getDuration() {
         return duration;
@@ -89,11 +89,11 @@ public class ItemTaskToDay implements Serializable {
         this.done = done;
     }
 
-    public boolean isPaid() {
-        return paid;
-    }
-
-    public void setPaid(boolean paid) {
-        this.paid = paid;
-    }
+//    public boolean isPaid() {
+//        return paid;
+//    }
+//
+//    public void setPaid(boolean paid) {
+//        this.paid = paid;
+//    }
 }

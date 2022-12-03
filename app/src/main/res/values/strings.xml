@@ -1,5 +1,5 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!--   numbers -->
+    <!--   special symbols -->
     <string name="time_half" translatable="false">30</string>
     <string name="time_zero" translatable="false">00:00</string>
     <string name="time_1" translatable="false">1:00</string>
@@ -25,7 +25,9 @@
     <string name="time_21" translatable="false">21:00</string>
     <string name="time_22" translatable="false">22:00</string>
     <string name="time_23" translatable="false">23:00</string>
-    <!--   numbers -->
+
+    <string name="hyphen" translatable="false">-</string>
+    <!--   special symbols -->
 
     <string name="app_name">Busy</string>
     <string name="title_home">Diary</string>
@@ -40,17 +42,21 @@
 
     <!--    -->
     <string name="total">total</string>
+    <string name="time">Time:</string>
 
     <!--   content description -->
     <string name="cd_cancel">cancellation</string>
     <string name="cd_ok">to accept</string>
     <string name="cd_service">service</string>
     <string name="cd_customer">customer</string>
-    <string name="cd_done">is done</string>
-    <string name="cd_paid">is paid</string>
+    <string name="cd_done">done</string>
+    <string name="cd_paid">paid</string>
     <string name="cd_price">price</string>
     <string name="cd_plus">plus</string>
     <string name="cd_minus">minus</string>
     <string name="cd_add_task">add task</string>
+    <string name="postpone">postpone</string>
+    <string name="set_time">set time</string>
+    <string name="cancel_task">cancel task</string>
     <!--   content description -->
 </resources>

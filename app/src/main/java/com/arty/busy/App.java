@@ -106,7 +106,7 @@ public class App extends Application {
         Calendar calendar = Calendar.getInstance();
         MyDate.setStartDay(calendar);
         int uid = 0;
-        for (int i = 0; i < 3000; i++) {
+        for (int i = 0; i < 100; i++) {
             Date dt; // = calendar.getTime();
             Date dd = MyDate.getStartDay(calendar);
 
@@ -127,6 +127,7 @@ public class App extends Application {
                 task.uid = uid;
                 task.day = dd.getTime();
                 task.time = MyDate.timeFormat24.format(dt);
+                task.price = 500.00;
                 task.id_customer = randomNum;
                 task.id_service = randomNum;
 

@@ -3,6 +3,7 @@ package com.arty.busy.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Index;
@@ -29,6 +30,9 @@ public class Task implements Parcelable  {
     @ColumnInfo(name = "time")
     public String time;
 
+    @ColumnInfo(name = "price")
+    public double price;
+
     @ColumnInfo(name = "done")
     public boolean done;
 
@@ -44,6 +48,7 @@ public class Task implements Parcelable  {
         id_customer = in.readInt();
         day = in.readLong();
         time = in.readString();
+        price = in.readDouble();
         done = in.readByte() != 0;
         paid = in.readByte() != 0;
     }
@@ -65,14 +70,13 @@ public class Task implements Parcelable  {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Task task = (Task) o;
-        return uid == task.uid && id_service == task.id_service && id_customer == task.id_customer && day == task.day && time == task.time && done == task.done;
+        return uid == task.uid && id_service == task.id_service && id_customer == task.id_customer && day == task.day && Double.compare(task.price, price) == 0 && done == task.done && paid == task.paid && time.equals(task.time);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(uid, id_service, id_customer, day, time, done);
+        return Objects.hash(uid, id_service, id_customer, day, time, price, done, paid);
     }
-
 
     @Override
     public int describeContents() {
@@ -80,12 +84,13 @@ public class Task implements Parcelable  {
     }
 
     @Override
-    public void writeToParcel(Parcel dest, int flags) {
+    public void writeToParcel(@NonNull Parcel dest, int flags) {
         dest.writeInt(uid);
         dest.writeInt(id_service);
         dest.writeInt(id_customer);
         dest.writeLong(day);
         dest.writeString(time);
+        dest.writeDouble(price);
         dest.writeByte((byte) (done ? 1 : 0));
         dest.writeByte((byte) (paid ? 1 : 0));
     }

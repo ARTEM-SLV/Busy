@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
@@ -21,16 +20,15 @@ import com.arty.busy.R;
 import com.arty.busy.Settings;
 import com.arty.busy.date.MyDate;
 import com.arty.busy.date.Time;
-import com.arty.busy.ui.home.items.ItemTaskToDay;
+import com.arty.busy.ui.home.items.ItemTaskInfo;
 
-import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 public class TasksToDayActivity extends Activity {
-    List<ItemTaskToDay> listTasksToDay;
+    List<ItemTaskInfo> taskInfoList;
 
     private long currDate;
     private TextView tvDate;
@@ -118,7 +116,7 @@ public class TasksToDayActivity extends Activity {
     }
 
     private void setListTasksToDay(){
-        listTasksToDay = App.getInstance().getBusyDao().getTasksToDay(currDate);
+        taskInfoList = App.getInstance().getBusyDao().getTasksInfoByDay(currDate);
     }
 
     @SuppressLint("SetTextI18n")
@@ -132,12 +130,12 @@ public class TasksToDayActivity extends Activity {
         setCurrTime();
         setListTasksToDay();
 
-        for (int i = 0; i < listTasksToDay.size(); i++) {
-            ItemTaskToDay itemTaskToDay = listTasksToDay.get(i);
+        for (int i = 0; i < taskInfoList.size(); i++) {
+            ItemTaskInfo itemTaskInfo = taskInfoList.get(i);
 
-            duration = itemTaskToDay.getDuration();
+            duration = itemTaskInfo.getDuration();
 
-            String sTimeStart = itemTaskToDay.getTime();
+            String sTimeStart = itemTaskInfo.getTime();
             timeStart = MyDate.parseStringToTime(sTimeStart);
 
             timeEnd = MyDate.parseStringToTime(sTimeStart);
@@ -148,7 +146,7 @@ public class TasksToDayActivity extends Activity {
             minute = timeStart.getMinute();
 
             int currResColor = getColor(R.color.Black);
-            if (itemTaskToDay.isDone()){
+            if (itemTaskInfo.isDone()){
                 currResColor = getColor(R.color.Green);
             } else if (isNextTask(timeStart)){
                 currResColor = getColor(R.color.Navy);
@@ -168,16 +166,14 @@ public class TasksToDayActivity extends Activity {
             btnTask.setLayoutParams(btnParams);
             btnTask.setHeight(duration*6);
 
-            btnTask.setText(sTimeStart + " - " + sTimeEnd + "\n" + itemTaskToDay.getClient() + "\n" + itemTaskToDay.getServices());
+            btnTask.setText(sTimeStart + " - " + sTimeEnd + "\n" + itemTaskInfo.getClient() + "\n" + itemTaskInfo.getServices());
             btnTask.setTextColor(currResColor);
             btnTask.setVisibility(View.VISIBLE);
 
             btnTask.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(TasksToDayActivity.this, TaskActivity.class);
-                    intent.putExtra(Constants.ITEM_TASK_TO_DAY, itemTaskToDay);
-                    startActivity(intent);
+                    openTask(itemTaskInfo);
                 }
             });
         }
@@ -198,8 +194,8 @@ public class TasksToDayActivity extends Activity {
         boolean res = false;
 
         if (currDate == MyDate.getCurrentStartDate().getTime()) {
-            for (ItemTaskToDay itemTaskToDay : listTasksToDay) {
-                String sTime = itemTaskToDay.getTime();
+            for (ItemTaskInfo itemTaskInfo : taskInfoList) {
+                String sTime = itemTaskInfo.getTime();
                 Time t = MyDate.parseStringToTime(sTime);
 
                 if (t.compareTo(currTime) == 1) {
@@ -217,21 +213,33 @@ public class TasksToDayActivity extends Activity {
         boolean res = false;
 
         if (index > 0){
-            ItemTaskToDay itemTaskToDay = listTasksToDay.get(index-1);
-            String sTime = itemTaskToDay.getTime();
+            ItemTaskInfo itemTaskInfo = taskInfoList.get(index-1);
+            String sTime = itemTaskInfo.getTime();
             Time timeEndLastTask = MyDate.parseStringToTime(sTime);
-            timeEndLastTask.addTime(itemTaskToDay.getDuration());
+            timeEndLastTask.addTime(itemTaskInfo.getDuration());
 
-            res = res || timeStart.compareTo(timeEndLastTask) == -1;
+            res = timeStart.compareTo(timeEndLastTask) == -1;
         }
-        if (index+1 < listTasksToDay.size()){
-            ItemTaskToDay itemTaskToDay = listTasksToDay.get(index+1);
-            String sTime = itemTaskToDay.getTime();
+        if (index+1 < taskInfoList.size()){
+            ItemTaskInfo itemTaskInfo = taskInfoList.get(index+1);
+            String sTime = itemTaskInfo.getTime();
             Time timeStartNextTask = MyDate.parseStringToTime(sTime);
 
             res = res || timeEnd.compareTo(timeStartNextTask) == 1;
         }
 
         return res;
+    }
+
+    public void onAddClick(View v){
+        openTask(null);
+    }
+
+    private void openTask(ItemTaskInfo itemTaskInfo){
+        Intent intent = new Intent(TasksToDayActivity.this, TaskActivity.class);
+        if (itemTaskInfo != null){
+            intent.putExtra(Constants.ITEM_TASK_TO_DAY, itemTaskInfo);
+        }
+        startActivity(intent);
     }
 }
