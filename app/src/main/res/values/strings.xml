@@ -43,6 +43,9 @@
     <!--    -->
     <string name="total">total</string>
     <string name="time">Time:</string>
+    <string name="hour">h.</string>
+    <string name="minute">m.</string>
+    <string name="duration">duration</string>
 
     <!--   content description -->
     <string name="cd_cancel">cancellation</string>

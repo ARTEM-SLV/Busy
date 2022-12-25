@@ -1,5 +1,7 @@
 package com.arty.busy.date;
 
+import java.text.DecimalFormat;
+
 public class Time {
     private byte hour;
     private byte minute;
@@ -9,6 +11,13 @@ public class Time {
         this.minute = 0;
     }
 
+    public Time(int minutes){
+        this.hour = 0;
+        this.minute = 0;
+
+        this.addTime(minutes);
+    }
+
     public Time(byte hour, byte minute) {
         this.hour = hour;
         this.minute = minute;
@@ -16,6 +25,10 @@ public class Time {
 
     public byte getHour() {
         return this.hour;
+    }
+
+    public String getHourS() {
+        return new DecimalFormat( "00" ).format(this.hour);
     }
 
     public void setHour(byte hour) {
@@ -31,6 +44,10 @@ public class Time {
         return this.minute;
     }
 
+    public String getMinuteS() {
+        return new DecimalFormat( "00" ).format(this.minute);
+    }
+
     public void setMinute(byte minute) {
         if(minute < 0){
             this.minute = 0;
@@ -38,6 +55,10 @@ public class Time {
             this.minute = 59;
         } else
             this.minute = minute;
+    }
+
+    public String getTimeS(){
+        return this.getHourS() + ":" + getMinuteS();
     }
 
     public int compareTo(Time t){

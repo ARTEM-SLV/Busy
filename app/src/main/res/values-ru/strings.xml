@@ -13,6 +13,9 @@
     <!--    -->
     <string name="total">всего</string>
     <string name="time">Время:</string>
+    <string name="hour">ч.</string>
+    <string name="minute">м.</string>
+    <string name="duration">длительность</string>
 
     <!--   content description -->
     <string name="cd_cancel">отменить</string>

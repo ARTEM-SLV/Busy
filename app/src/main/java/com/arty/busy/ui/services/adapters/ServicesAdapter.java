@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.arty.busy.R;
+import com.arty.busy.date.Time;
 import com.arty.busy.models.Service;
 
 import java.util.ArrayList;
@@ -43,7 +44,7 @@ public class ServicesAdapter extends RecyclerView.Adapter<ServicesAdapter.Servic
         return listOfServices.size();
     }
 
-    static class ServicesViewHolder extends RecyclerView.ViewHolder {
+    class ServicesViewHolder extends RecyclerView.ViewHolder {
         TextView tvShortTitle = itemView.findViewById(R.id.tvShortTitle_LOS);
         TextView tvTitle = itemView.findViewById(R.id.tvTitle_LOS);
         TextView tvPrice = itemView.findViewById(R.id.tvPrice_LOS);
@@ -57,8 +58,22 @@ public class ServicesAdapter extends RecyclerView.Adapter<ServicesAdapter.Servic
             tvShortTitle.setText(service.short_title);
             tvTitle.setText(service.title);
             tvPrice.setText(Double.toString(service.price));
-            tvDuration.setText(Integer.toString(service.duration));
+            tvDuration.setText(getTimeDuration(service.duration));
         }
+    }
+
+    private String getTimeDuration(int duration){
+//        StringBuilder res = new StringBuilder("");
+
+        Time time = new Time(duration);
+//        res.append(time.getHourS());
+//        res.append(" ");
+//        res.append(context.getResources().getString(R.string.hour));
+//        res.append(time.getMinuteS());
+//        res.append(" ");
+//        res.append(context.getResources().getString(R.string.minute));
+
+        return time.getTimeS();
     }
 
     @SuppressLint("NotifyDataSetChanged")
