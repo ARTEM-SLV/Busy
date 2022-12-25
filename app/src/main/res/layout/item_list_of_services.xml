@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:orientation="horizontal"
+    android:padding="5dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/style_stroke_dark_slate_gray"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="10"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:id="@+id/tvShortTitle_LOS"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/style_oval_lavender"
+                android:fontFamily="@font/lnky"
+                android:gravity="center"
+                android:textAllCaps="false"
+                android:textColor="@color/DarkSlateGray"
+                android:textSize="20sp"
+                tools:text="МК" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="30"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvTitle_LOS"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/style_oval_cornsilk"
+                android:gravity="start|center_vertical"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                android:textColor="@color/DarkSlateGray"
+                android:textSize="20sp"
+                android:typeface="monospace"
+                tools:text="Массаж классика" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="15"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvPrice_LOS"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:gravity="center_vertical|end"
+                    android:paddingStart="2dp"
+                    android:paddingEnd="10dp"
+                    android:textColor="@color/DarkSlateGray"
+                    android:textSize="16sp"
+                    tools:text="1000" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvDuration_LOS"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:gravity="center_vertical|end"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:textColor="@color/DarkSlateGray"
+                    android:textSize="16sp"
+                    tools:text="30 мин." />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -48,7 +48,6 @@ public class HomeFragment extends Fragment {
 
         listOfDaysAdapter = new ListOfDaysAdapter(context);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context, RecyclerView.VERTICAL, false);
-
         final RecyclerView listOfDays = binding.homeListOfDays;
         listOfDays.setLayoutManager(linearLayoutManager);
         listOfDays.setAdapter(listOfDaysAdapter);

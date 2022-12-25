@@ -1,5 +1,6 @@
 package com.arty.busy.ui.services;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,8 +10,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.arty.busy.databinding.FragmentServicesBinding;
+import com.arty.busy.ui.services.adapters.ServicesAdapter;
 
 public class ServicesFragment extends Fragment {
 
@@ -23,9 +27,16 @@ public class ServicesFragment extends Fragment {
 
         binding = FragmentServicesBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+        Context context = container.getContext();
 
-        final TextView textView = binding.textServices;
-        servicesViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        ServicesAdapter servicesAdapter = new ServicesAdapter(context);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context, RecyclerView.VERTICAL, false);
+        final RecyclerView listOfDays = binding.servicesList;
+        listOfDays.setLayoutManager(linearLayoutManager);
+        listOfDays.setAdapter(servicesAdapter);
+
+        servicesViewModel.getListOfServices().observe(getViewLifecycleOwner(), servicesAdapter::updateListOfServices);
+
         return root;
     }
 

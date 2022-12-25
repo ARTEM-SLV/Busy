@@ -7,7 +7,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -28,7 +27,7 @@ import com.arty.busy.ui.home.items.ItemTaskInfo;
 public class TaskActivity extends Activity {
     private boolean modified;
     private ItemTaskInfo itemTaskInfo;
-    private Task task;
+    private Task currentTask;
     private Customer customer;
     private Service service;
 
@@ -38,7 +37,7 @@ public class TaskActivity extends Activity {
     private CheckBox cbPaid;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Window w = getWindow();
         w.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION|View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
@@ -52,6 +51,9 @@ public class TaskActivity extends Activity {
     private void init(){
         setModified(false);
 
+        initCheckBoxDone();
+        initCheckBoxPaid();
+
         busyDao = App.getInstance().getBusyDao();
 
         Intent intent = getIntent();
@@ -59,9 +61,6 @@ public class TaskActivity extends Activity {
             itemTaskInfo = (ItemTaskInfo) intent.getSerializableExtra(Constants.ITEM_TASK_TO_DAY);
             setData();
         }
-
-        initCheckBoxDone();
-        initCheckBoxPaid();
     }
 
     private void setVisibilityView(){
@@ -96,27 +95,27 @@ public class TaskActivity extends Activity {
         });
     }
 
-    private void setModified(boolean value){
-        modified = value;
+    private void setModified(boolean isModified){
+        modified = isModified;
     }
 
     private void setData(){
         if (itemTaskInfo == null)
             return;
 
-        task = App.getInstance().getBusyDao().getTaskByID(itemTaskInfo.getId_task());
+        currentTask = busyDao.getTaskByID(itemTaskInfo.getId_task());
 
-        setServiceForView(task.id_service);
-        setCustomerForView(task.id_customer);
-        setPriceForView(task.price);
+        setServiceForView(currentTask.id_service);
+        setCustomerForView(currentTask.id_customer);
+        setPriceForView(currentTask.price);
 
-        Time timeEnd = MyDate.parseStringToTime(task.time);
+        Time timeEnd = MyDate.parseStringToTime(currentTask.time);
         timeEnd.addTime(service.duration);
         String sTimeEnd = MyDate.parseTimeToString(timeEnd);
-        setTimeForView(task.time, sTimeEnd);
+        setTimeForView(currentTask.time, sTimeEnd);
 
-        cbDone.setChecked(task.done);
-        cbPaid.setChecked(task.paid);
+        cbDone.setChecked(currentTask.done);
+        cbPaid.setChecked(currentTask.paid);
     }
 
     private void updateDataTask(){

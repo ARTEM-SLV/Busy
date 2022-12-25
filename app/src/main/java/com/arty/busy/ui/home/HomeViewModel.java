@@ -15,7 +15,6 @@ import java.util.Date;
 import java.util.List;
 
 public class HomeViewModel extends ViewModel {
-    private MutableLiveData<List<ItemListOfDays>> mListOfDays;
     private long startDate, endDate;
 
     public LiveData<List<ItemListOfDays>> getListOfDays(int direction) {
@@ -40,7 +39,7 @@ public class HomeViewModel extends ViewModel {
         }
 
 
-        mListOfDays = new MutableLiveData<>();
+        MutableLiveData<List<ItemListOfDays>> mListOfDays = new MutableLiveData<>();
         mListOfDays.setValue(listOfDays);
 
         return mListOfDays;

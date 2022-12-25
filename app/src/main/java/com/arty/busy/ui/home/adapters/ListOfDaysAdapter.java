@@ -27,8 +27,8 @@ import java.util.Date;
 import java.util.List;
 
 public class ListOfDaysAdapter extends RecyclerView.Adapter<ListOfDaysAdapter.ViewHolderLOD> {
-    private Context context;
-    private List<ItemListOfDays> listOfDaysArr;
+    private final Context context;
+    private final List<ItemListOfDays> listOfDaysArr;
 
     public ListOfDaysAdapter(Context context) {
         this.context = context;
@@ -58,17 +58,17 @@ public class ListOfDaysAdapter extends RecyclerView.Adapter<ListOfDaysAdapter.Vi
     }
 
     static class ViewHolderLOD extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private Context context;
-        private List<ItemListOfDays> listOfDaysArr;
+        private final Context context;
+        private final List<ItemListOfDays> listOfDaysArr;
 
-        private LinearLayout containerMain_LOD;
-        private LinearLayout containerRight_LOD;
-        private TextView tvDay;
-        private TextView tvCountTasks;
-        private ImageView icoThisDay;
+        private final LinearLayout containerMain_LOD;
+        private final LinearLayout containerRight_LOD;
+        private final TextView tvDay;
+        private final TextView tvCountTasks;
+        private final ImageView icoThisDay;
 //        private LinearLayout containerLeft_LOD;
 
-        private Date currentDate;
+        private final Date currentDate;
 
         @SuppressLint("SimpleDateFormat")
         DateFormat df = new SimpleDateFormat("E. dd.MM");
@@ -99,6 +99,7 @@ public class ListOfDaysAdapter extends RecyclerView.Adapter<ListOfDaysAdapter.Vi
             String totalS = res.getString(R.string.total);
             int totalI = listTitlesService.size();
             if (totalI == 0 ){
+                @SuppressLint("UseCompatLoadingForDrawables")
                 Drawable drawableFree = context.getDrawable(R.drawable.free);
                 containerRight_LOD.setForeground(drawableFree);
             } else containerRight_LOD.setForeground(null);
@@ -164,6 +165,7 @@ public class ListOfDaysAdapter extends RecyclerView.Adapter<ListOfDaysAdapter.Vi
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void loadData(List<ItemListOfDays> listOfDays){
         listOfDaysArr.clear();
         listOfDaysArr.addAll(listOfDays);
@@ -171,11 +173,13 @@ public class ListOfDaysAdapter extends RecyclerView.Adapter<ListOfDaysAdapter.Vi
         notifyDataSetChanged();
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void addNewDataOnTop(List<ItemListOfDays> listOfDays) {
         listOfDaysArr.addAll(0, listOfDays);
         notifyDataSetChanged();
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void addNewDataOnBot(List<ItemListOfDays> listOfDays) {
         listOfDaysArr.addAll(this.listOfDaysArr.size(), listOfDays);
         notifyDataSetChanged();

@@ -21,7 +21,9 @@
         android:contentDescription="@string/cd_add_task"
         android:onClick="onAddClick"
         android:src="@drawable/ic_add_24"
+        android:tint="@color/Azure"
         app:backgroundTint="@color/Salmon"
+        app:backgroundTintMode="add"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         tools:ignore="ImageContrastCheck" />

@@ -15,8 +15,7 @@
         android:theme="@style/Theme.Busy">
         <activity
             android:name=".ui.home.activity.TaskActivity"
-            android:exported="false"
-            android:theme="@style/Theme.AppCompat.Dialog">
+            android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value=""/>

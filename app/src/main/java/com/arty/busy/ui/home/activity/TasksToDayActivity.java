@@ -2,7 +2,6 @@ package com.arty.busy.ui.home.activity;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -39,8 +38,6 @@ public class TasksToDayActivity extends Activity {
     private int posY;
 
     private Time currTime;
-
-    private Dialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
