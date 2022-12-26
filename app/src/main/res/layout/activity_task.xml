@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:background="@color/DarkSeaGreen"
+    android:background="@color/Beige"
     tools:context=".ui.home.activity.TaskActivity">
 
 
@@ -68,34 +68,11 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:background="@drawable/style_stroke_dark_slate_gray"
-        android:contentDescription="@string/postpone"
+        android:contentDescription="@string/cd_postpone"
         android:onClick="onPostponeClock"
         android:src="@drawable/ic_shortcut_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnCancel_T" />
-
-    <TextView
-        android:id="@+id/etService_T"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        android:background="@drawable/style_stroke_dark_slate_gray"
-        android:drawableEnd="@drawable/ic_chevron_right_24"
-        android:gravity="center_vertical"
-        android:hint="@string/cd_service"
-        android:inputType="none"
-        android:minHeight="48dp"
-        android:onClick="onServiceClick"
-        android:paddingStart="10dp"
-        android:paddingEnd="10dp"
-        android:textColor="@color/DarkSlateGray"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvTime_T"
-        tools:ignore="UseCompatTextViewDrawableXml" />
 
     <TextView
         android:id="@+id/etCustomer_T"
@@ -117,7 +94,30 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etService_T"
+        app:layout_constraintTop_toBottomOf="@+id/tvTime_T"
+        tools:ignore="UseCompatTextViewDrawableXml" />
+
+    <TextView
+        android:id="@+id/etService_T"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/style_stroke_dark_slate_gray"
+        android:drawableEnd="@drawable/ic_chevron_right_24"
+        android:gravity="center_vertical"
+        android:hint="@string/cd_service"
+        android:inputType="none"
+        android:minHeight="48dp"
+        android:onClick="onServiceClick"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:textColor="@color/DarkSlateGray"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etCustomer_T"
         tools:ignore="UseCompatTextViewDrawableXml" />
 
     <TableLayout
@@ -133,7 +133,7 @@
         android:stretchColumns="*"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etCustomer_T">
+        app:layout_constraintTop_toBottomOf="@+id/etService_T">
 
         <TableRow
             android:layout_width="match_parent"
@@ -345,7 +345,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:background="@android:color/transparent"
-        android:contentDescription="@string/cancel_task"
+        android:contentDescription="@string/cd_cancel_task"
         android:onClick="onCancelTaskClick"
         android:padding="10dp"
         android:scaleType="fitXY"

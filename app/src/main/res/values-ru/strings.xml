@@ -10,12 +10,17 @@
     <string name="male">Мужской</string>
     <string name="female">Женский</string>
 
-    <!--    -->
+    <!--  titles  -->
     <string name="total">всего</string>
     <string name="time">Время:</string>
     <string name="hour">ч.</string>
     <string name="minute">м.</string>
     <string name="duration">длительность</string>
+    <!--  titles  -->
+
+    <!--   hints -->
+    <string name="set_time">укажите время</string>
+    <!--   hints -->
 
     <!--   content description -->
     <string name="cd_cancel">отменить</string>
@@ -28,8 +33,8 @@
     <string name="cd_plus">плюс</string>
     <string name="cd_minus">минус</string>
     <string name="cd_add_task">добавить задачу</string>
-    <string name="postpone">перенести</string>
-    <string name="set_time">укажите время</string>
-    <string name="cancel_task">отменить задачу</string>
+    <string name="cd_add_service">добавить услугу</string>
+    <string name="cd_postpone">перенести</string>
+    <string name="cd_cancel_task">отменить задачу</string>
     <!--   content description -->
 </resources>

@@ -40,12 +40,17 @@
     <string name="male">Male</string>
     <string name="female">Female</string>
 
-    <!--    -->
+    <!--  titles  -->
     <string name="total">total</string>
     <string name="time">Time:</string>
     <string name="hour">h.</string>
     <string name="minute">m.</string>
     <string name="duration">duration</string>
+    <!--  titles  -->
+
+    <!--   hints -->
+    <string name="set_time">set time</string>
+    <!--   hints -->
 
     <!--   content description -->
     <string name="cd_cancel">cancellation</string>
@@ -58,8 +63,8 @@
     <string name="cd_plus">plus</string>
     <string name="cd_minus">minus</string>
     <string name="cd_add_task">add task</string>
-    <string name="postpone">postpone</string>
-    <string name="set_time">set time</string>
-    <string name="cancel_task">cancel task</string>
+    <string name="cd_add_service">add service</string>
+    <string name="cd_postpone">postpone</string>
+    <string name="cd_cancel_task">cancel task</string>
     <!--   content description -->
 </resources>
