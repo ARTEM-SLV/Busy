@@ -63,15 +63,7 @@ public class ServicesAdapter extends RecyclerView.Adapter<ServicesAdapter.Servic
     }
 
     private String getTimeDuration(int duration){
-//        StringBuilder res = new StringBuilder("");
-
         Time time = new Time(duration);
-//        res.append(time.getHourS());
-//        res.append(" ");
-//        res.append(context.getResources().getString(R.string.hour));
-//        res.append(time.getMinuteS());
-//        res.append(" ");
-//        res.append(context.getResources().getString(R.string.minute));
 
         return time.getTimeS();
     }
