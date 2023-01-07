@@ -20,14 +20,17 @@ public class Customer implements Parcelable {
     @ColumnInfo(name = "last_name")
     public String last_name;
 
-    @ColumnInfo(name = "number")
-    public String number;
+    @ColumnInfo(name = "phone")
+    public String phone;
 
     @ColumnInfo(name = "sex")
     public String sex;
 
     @ColumnInfo(name = "age")
     public int age;
+
+    @ColumnInfo(name = "picture")
+    public String picture;
 
     public Customer() {
     }
@@ -36,9 +39,10 @@ public class Customer implements Parcelable {
         uid = in.readInt();
         first_name = in.readString();
         last_name = in.readString();
-        number = in.readString();
+        phone = in.readString();
         sex = in.readString();
         age = in.readInt();
+        picture = in.readString();
     }
 
     public static final Creator<Customer> CREATOR = new Creator<Customer>() {
@@ -58,12 +62,16 @@ public class Customer implements Parcelable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Customer that = (Customer) o;
-        return uid == that.uid && age == that.age && Objects.equals(first_name, that.first_name) && Objects.equals(last_name, that.last_name) && Objects.equals(number, that.number) && Objects.equals(sex, that.sex);
+        return uid == that.uid && age == that.age && Objects.equals(first_name, that.first_name)
+                && Objects.equals(last_name, that.last_name)
+                && Objects.equals(phone, that.phone)
+                && Objects.equals(sex, that.sex)
+                && Objects.equals(picture, that.picture);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(uid, first_name, last_name, number, sex, age);
+        return Objects.hash(uid, first_name, last_name, phone, sex, age, picture);
     }
 
     @Override
@@ -76,8 +84,9 @@ public class Customer implements Parcelable {
         dest.writeInt(uid);
         dest.writeString(first_name);
         dest.writeString(last_name);
-        dest.writeString(number);
+        dest.writeString(phone);
         dest.writeString(sex);
         dest.writeInt(age);
+        dest.writeString(picture);
     }
 }

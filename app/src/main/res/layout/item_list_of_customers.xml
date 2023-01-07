@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:orientation="horizontal"
+    android:padding="5dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/style_stroke_dark_slate_gray"
+        android:baselineAligned="false"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        tools:ignore="UselessParent">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/picture_LOC"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:background="@drawable/style_oval_cornsilk"
+                android:gravity="center"
+                android:orientation="horizontal"
+                tools:ignore="UselessParent">
+
+                <TextView
+                    android:id="@+id/tvPicture_LOC"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:autoSizeTextType="uniform"
+                    android:gravity="center"
+                    android:textColor="@color/DarkCyan"
+                    android:typeface="monospace"
+                    tools:text="ИВК" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/name_LOC"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvName_LOC"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="20"
+                android:gravity="start|center_vertical"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:textColor="@color/DarkSlateGray"
+                android:textSize="24sp"
+                android:typeface="monospace"
+                tools:text="Иван Васильевич Казанцев"
+                tools:ignore="NestedWeights">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/tvPhone_LOC"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="8"
+                android:gravity="bottom|end"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:textColor="#00796B"
+                android:textSize="16sp"
+                android:typeface="sans"
+                tools:text="+7 (925) 123-45-67" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

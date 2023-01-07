@@ -66,5 +66,6 @@
     <string name="cd_add_service">add service</string>
     <string name="cd_postpone">postpone</string>
     <string name="cd_cancel_task">cancel task</string>
+    <string name="cd_add_customer">add customer</string>
     <!--   content description -->
 </resources>

@@ -11,7 +11,7 @@ import java.util.List;
 
 public class ServicesViewModel extends ViewModel {
 
-    private MutableLiveData<List<Service>> mListOfServices;
+    private final MutableLiveData<List<Service>> mListOfServices;
 
     public ServicesViewModel() {
         List<Service> listOfServices = App.getInstance().getBusyDao().getAllServices();

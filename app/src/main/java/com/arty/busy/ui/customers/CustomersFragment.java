@@ -1,5 +1,6 @@
 package com.arty.busy.ui.customers;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,8 +10,13 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.arty.busy.databinding.FragmentCustomersBinding;
+import com.arty.busy.models.Customer;
+import com.arty.busy.ui.customers.adapters.CustomersAdapter;
+import com.arty.busy.ui.services.adapters.ServicesAdapter;
 
 public class CustomersFragment extends Fragment {
 
@@ -23,9 +29,16 @@ public class CustomersFragment extends Fragment {
 
         binding = FragmentCustomersBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+        Context context = container.getContext();
 
-        final TextView textView = binding.textCustomers;
-        customersViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        CustomersAdapter customersAdapter = new CustomersAdapter(context);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context, RecyclerView.VERTICAL, false);
+        final RecyclerView listOfCustomers = binding.customersListC;
+        listOfCustomers.setLayoutManager(linearLayoutManager);
+        listOfCustomers.setAdapter(customersAdapter);
+
+        customersViewModel.getListOfCustomers().observe(getViewLifecycleOwner(), customersAdapter::updateListOfCustomers);
+
         return root;
     }
 

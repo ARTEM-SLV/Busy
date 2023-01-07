@@ -209,6 +209,7 @@ public class App extends Application {
         customer1.uid = 1;
         customer1.first_name = "Женя";
         customer1.last_name = "Иванова";
+        customer1.phone = "+7(925) 123-45-67";
         customer1.sex = String.valueOf(Sex.female); //getString(R.string.female);
         customer1.age = 25;
         customerList.add(customer1);
@@ -217,6 +218,7 @@ public class App extends Application {
         customer2.uid = 2;
         customer2.first_name = "Максим";
         customer2.last_name = "Петров";
+        customer2.phone = "+7(925)987-65-43";
         customer2.sex = String.valueOf(Sex.female); //getString(R.string.female);
         customer2.age = 25;
         customerList.add(customer2);
@@ -225,6 +227,7 @@ public class App extends Application {
         customer3.uid = 3;
         customer3.first_name = "Наташа";
         customer3.last_name = "Романова";
+        customer3.phone = "8(925)077-25-70";
         customer3.sex = String.valueOf(Sex.female); //getString(R.string.female);
         customer3.age = 25;
         customerList.add(customer3);
@@ -233,6 +236,7 @@ public class App extends Application {
         customer4.uid = 4;
         customer4.first_name = "Ванда";
         customer4.last_name = "Максимова";
+        customer4.phone = "89151234567";
         customer4.sex = String.valueOf(Sex.female); //getString(R.string.female);
         customer4.age = 25;
         customerList.add(customer4);
@@ -241,6 +245,7 @@ public class App extends Application {
         customer5.uid = 5;
         customer5.first_name = "Полина";
         customer5.last_name = "Гага";
+        customer5.phone = "+7(910)777-66-55";
         customer5.sex = String.valueOf(Sex.female); //getString(R.string.female);
         customer5.age = 25;
         customerList.add(customer5);

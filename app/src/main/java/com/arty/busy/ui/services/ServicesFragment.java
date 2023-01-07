@@ -31,9 +31,9 @@ public class ServicesFragment extends Fragment {
 
         ServicesAdapter servicesAdapter = new ServicesAdapter(context);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context, RecyclerView.VERTICAL, false);
-        final RecyclerView listOfDays = binding.servicesListS;
-        listOfDays.setLayoutManager(linearLayoutManager);
-        listOfDays.setAdapter(servicesAdapter);
+        final RecyclerView listOfServices = binding.servicesListS;
+        listOfServices.setLayoutManager(linearLayoutManager);
+        listOfServices.setAdapter(servicesAdapter);
 
         servicesViewModel.getListOfServices().observe(getViewLifecycleOwner(), servicesAdapter::updateListOfServices);
 

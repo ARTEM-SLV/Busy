@@ -54,7 +54,8 @@ public class ServicesAdapter extends RecyclerView.Adapter<ServicesAdapter.Servic
             super(itemView);
         }
 
-        public void setData(Service service){
+        @SuppressLint("SetTextI18n")
+        public void setData(@NonNull Service service){
             tvShortTitle.setText(service.short_title);
             tvTitle.setText(service.title);
             tvPrice.setText(Double.toString(service.price));
