@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.arty.busy.date.MyDate;
 import com.arty.busy.R;
 import com.arty.busy.ui.home.items.ItemListOfDays;
-import com.arty.busy.ui.home.activity.TasksToDayActivity;
+import com.arty.busy.ui.home.fragments.TasksToDayFragment;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -159,7 +159,7 @@ public class ListOfDaysAdapter extends RecyclerView.Adapter<ListOfDaysAdapter.Vi
 
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent(context, TasksToDayActivity.class);
+            Intent intent = new Intent(context, TasksToDayFragment.class);
             intent.putExtra("Date", listOfDaysArr.get(getAdapterPosition()).getDate().getTime());
             context.startActivity(intent);
         }

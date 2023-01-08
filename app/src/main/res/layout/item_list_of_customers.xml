@@ -36,8 +36,9 @@
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:autoSizeTextType="uniform"
+                    android:fontFamily="@font/lnky"
                     android:gravity="center"
-                    android:textColor="@color/DarkCyan"
+                    android:textColor="@color/SteelBlue"
                     android:typeface="monospace"
                     tools:text="ИВК" />
             </LinearLayout>
@@ -62,8 +63,8 @@
                 android:textColor="@color/DarkSlateGray"
                 android:textSize="24sp"
                 android:typeface="monospace"
-                tools:text="Иван Васильевич Казанцев"
-                tools:ignore="NestedWeights">
+                tools:ignore="NestedWeights"
+                tools:text="Иван Васильевич Казанцев">
 
             </TextView>
 
@@ -72,10 +73,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="8"
-                android:gravity="bottom|end"
+                android:gravity="bottom|start"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
-                android:textColor="#00796B"
+                android:textColor="@color/DarkSlateGray"
                 android:textSize="16sp"
                 android:typeface="sans"
                 tools:text="+7 (925) 123-45-67" />

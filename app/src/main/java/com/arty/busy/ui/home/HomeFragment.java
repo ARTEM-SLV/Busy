@@ -3,11 +3,9 @@ package com.arty.busy.ui.home;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -17,14 +15,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.arty.busy.Constants;
-import com.arty.busy.R;
 import com.arty.busy.databinding.FragmentHomeBinding;
 import com.arty.busy.ui.home.adapters.ListOfDaysAdapter;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class HomeFragment extends Fragment {
 

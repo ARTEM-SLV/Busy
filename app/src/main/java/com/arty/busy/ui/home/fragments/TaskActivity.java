@@ -1,6 +1,5 @@
-package com.arty.busy.ui.home.activity;
+package com.arty.busy.ui.home.fragments;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -13,6 +12,9 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+
 import com.arty.busy.App;
 import com.arty.busy.Constants;
 import com.arty.busy.R;
@@ -22,9 +24,10 @@ import com.arty.busy.date.Time;
 import com.arty.busy.models.Customer;
 import com.arty.busy.models.Service;
 import com.arty.busy.models.Task;
+import com.arty.busy.ui.customers.CustomersFragment;
 import com.arty.busy.ui.home.items.ItemTaskInfo;
 
-public class TaskActivity extends Activity {
+public class TaskActivity extends AppCompatActivity {
     private boolean modified;
     private ItemTaskInfo itemTaskInfo;
     private Task currentTask;
@@ -190,11 +193,22 @@ public class TaskActivity extends Activity {
 
     }
 
-    public void onServiceClick(View v){
+    public void onCustomerClick(View v){
         setModified(true);
+
+        ConstraintLayout containerElements = findViewById(R.id.containerElements_T);
+        containerElements.setVisibility(View.INVISIBLE);
+
+        Bundle bundle = new Bundle();
+        bundle.putInt("some_int", 0); // for example
+
+        getSupportFragmentManager().beginTransaction()
+                .setReorderingAllowed(true)
+                .add(R.id.mainContainer_T, CustomersFragment.class, bundle)
+                .commit();
     }
 
-    public void onCustomerClick(View v){
+    public void onServiceClick(View v){
         setModified(true);
     }
 

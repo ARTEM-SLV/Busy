@@ -1,4 +1,4 @@
-package com.arty.busy.ui.home.activity;
+package com.arty.busy.ui.home.fragments;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -26,7 +26,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-public class TasksToDayActivity extends Activity {
+public class TasksToDayFragment extends Activity {
     List<ItemTaskInfo> taskInfoList;
 
     private long currDate;
@@ -233,7 +233,7 @@ public class TasksToDayActivity extends Activity {
     }
 
     private void openTask(ItemTaskInfo itemTaskInfo){
-        Intent intent = new Intent(TasksToDayActivity.this, TaskActivity.class);
+        Intent intent = new Intent(TasksToDayFragment.this, TaskActivity.class);
         if (itemTaskInfo != null){
             intent.putExtra(Constants.ITEM_TASK_TO_DAY, itemTaskInfo);
         }

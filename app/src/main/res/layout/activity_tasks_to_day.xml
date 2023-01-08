@@ -8,7 +8,7 @@
     android:background="@color/AliceBlue"
     android:paddingStart="5dp"
     android:paddingEnd="5dp"
-    tools:context=".ui.home.activity.TasksToDayActivity">
+    tools:context=".ui.home.fragments.TasksToDayFragment">
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

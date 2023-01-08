@@ -2,355 +2,366 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainContainer_T"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="center"
-    android:background="@color/Beige"
-    tools:context=".ui.home.activity.TaskActivity">
+    tools:context=".ui.home.fragments.TaskActivity">
 
-
-    <ImageButton
-        android:id="@+id/btnOk_T"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@android:color/transparent"
-        android:contentDescription="@string/cd_ok"
-        android:minWidth="48dp"
-        android:minHeight="48dp"
-        android:onClick="onOkClick"
-        android:src="@drawable/ic_ok_24"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageButton
-        android:id="@+id/btnCancel_T"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:background="@android:color/transparent"
-        android:contentDescription="@string/cd_cancel"
-        android:minWidth="48dp"
-        android:minHeight="48dp"
-        android:onClick="onCancelClick"
-        android:src="@drawable/ic_close_24"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tvTime_T"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:background="@drawable/style_stroke_dark_slate_gray"
-        android:drawableEnd="@drawable/ic_chevron_right_24"
-        android:fontFamily="casual"
-        android:gravity="start|center_vertical"
-        android:hint="@string/set_time"
-        android:onClick="onTimeClick"
-        android:paddingStart="10dp"
-        android:paddingEnd="10dp"
-        android:textColor="@color/DarkSlateGray"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@+id/btnPostpone_T"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnOk_T"
-        tools:ignore="UseCompatTextViewDrawableXml" />
-
-    <ImageButton
-        android:id="@+id/btnPostpone_T"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:background="@drawable/style_stroke_dark_slate_gray"
-        android:contentDescription="@string/cd_postpone"
-        android:onClick="onPostponeClock"
-        android:src="@drawable/ic_shortcut_24"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnCancel_T" />
-
-    <TextView
-        android:id="@+id/etCustomer_T"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:background="@drawable/style_stroke_dark_slate_gray"
-        android:drawableEnd="@drawable/ic_chevron_right_24"
-        android:gravity="center_vertical"
-        android:hint="@string/cd_customer"
-        android:inputType="none"
-        android:minHeight="48dp"
-        android:onClick="onCustomerClick"
-        android:paddingStart="10dp"
-        android:paddingEnd="10dp"
-        android:textColor="@color/DarkSlateGray"
-        android:textSize="20sp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/containerElements_T"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:background="@color/Azure"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvTime_T"
-        tools:ignore="UseCompatTextViewDrawableXml" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/etService_T"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        android:background="@drawable/style_stroke_dark_slate_gray"
-        android:drawableEnd="@drawable/ic_chevron_right_24"
-        android:gravity="center_vertical"
-        android:hint="@string/cd_service"
-        android:inputType="none"
-        android:minHeight="48dp"
-        android:onClick="onServiceClick"
-        android:paddingStart="10dp"
-        android:paddingEnd="10dp"
-        android:textColor="@color/DarkSlateGray"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etCustomer_T"
-        tools:ignore="UseCompatTextViewDrawableXml" />
+        <ImageButton
+            android:id="@+id/btnOk_T"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/cd_ok"
+            android:minWidth="48dp"
+            android:minHeight="48dp"
+            android:onClick="onOkClick"
+            android:src="@drawable/ic_ok_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TableLayout
-        android:id="@+id/tabServices_T"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:background="@drawable/style_stroke_dark_slate_gray"
-        android:padding="10dp"
-        android:shrinkColumns="*"
-        android:stretchColumns="*"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etService_T">
+        <ImageButton
+            android:id="@+id/btnCancel_T"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/cd_cancel"
+            android:minWidth="48dp"
+            android:minHeight="48dp"
+            android:onClick="onCancelClick"
+            android:src="@drawable/ic_close_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp">
+        <TextView
+            android:id="@+id/tvTime_T"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/style_stroke_dark_slate_gray"
+            android:drawableEnd="@drawable/ic_chevron_right_24"
+            android:fontFamily="casual"
+            android:gravity="start|center_vertical"
+            android:hint="@string/set_time"
+            android:onClick="onTimeClick"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:textColor="@color/DarkSlateGray"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toStartOf="@+id/btnPostpone_T"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnOk_T"
+            tools:ignore="UseCompatTextViewDrawableXml" />
 
-            <LinearLayout
+        <ImageButton
+            android:id="@+id/btnPostpone_T"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/style_stroke_dark_slate_gray"
+            android:contentDescription="@string/cd_postpone"
+            android:onClick="onPostponeClock"
+            android:src="@drawable/ic_shortcut_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnCancel_T" />
+
+        <TextView
+            android:id="@+id/etCustomer_T"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/style_stroke_dark_slate_gray"
+            android:drawableEnd="@drawable/ic_chevron_right_24"
+            android:gravity="center_vertical"
+            android:hint="@string/cd_customer"
+            android:inputType="none"
+            android:minHeight="48dp"
+            android:onClick="onCustomerClick"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:textColor="@color/DarkSlateGray"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvTime_T"
+            tools:ignore="UseCompatTextViewDrawableXml" />
+
+        <TextView
+            android:id="@+id/etService_T"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/style_stroke_dark_slate_gray"
+            android:drawableEnd="@drawable/ic_chevron_right_24"
+            android:gravity="center_vertical"
+            android:hint="@string/cd_service"
+            android:inputType="none"
+            android:minHeight="48dp"
+            android:onClick="onServiceClick"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:textColor="@color/DarkSlateGray"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etCustomer_T"
+            tools:ignore="UseCompatTextViewDrawableXml" />
+
+        <TableLayout
+            android:id="@+id/tabServices_T"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/style_stroke_dark_slate_gray"
+            android:padding="10dp"
+            android:shrinkColumns="*"
+            android:stretchColumns="*"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etService_T">
+
+            <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp">
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
                     android:orientation="horizontal">
 
-                    <ImageButton
-                        android:id="@+id/imageButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:background="@android:color/transparent"
-                        android:src="@drawable/ic_add_24"
-                        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <ImageButton
+                            android:id="@+id/imageButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:background="@android:color/transparent"
+                            android:src="@drawable/ic_add_24"
+                            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="4"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="bottom|center_horizontal"
+                            android:text="Включить"
+                            android:textColor="@color/DarkSlateGray"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="0dp"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="bottom|center_horizontal"
+                    android:text="Время"
+                    android:textColor="@color/DarkSlateGray"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="bottom|center_horizontal"
+                    android:text="Цена"
+                    android:textColor="@color/DarkSlateGray"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <CheckBox
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_weight="4"
-                    android:orientation="horizontal">
+                    android:buttonTint="@color/DarkSlateGray"
+                    android:text="Подготовка"
+                    android:textColor="@color/DarkSlateGray"
+                    tools:ignore="TouchTargetSizeCheck" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="bottom|center_horizontal"
-                        android:text="Включить"
-                        android:textColor="@color/DarkSlateGray"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="20 мин"
+                    android:textColor="@color/DarkSlateGray" />
 
-            </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="0 руб."
+                    android:textColor="@color/DarkSlateGray" />
+            </TableRow>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="bottom|center_horizontal"
-                android:text="Время"
-                android:textColor="@color/DarkSlateGray"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="bottom|center_horizontal"
-                android:text="Цена"
-                android:textColor="@color/DarkSlateGray"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-        </TableRow>
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:buttonTint="@color/DarkSlateGray"
+                    android:text="Основная"
+                    android:textColor="@color/DarkSlateGray"
+                    tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck" />
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="2 часа"
+                    android:textColor="@color/DarkSlateGray" />
 
-            <CheckBox
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:buttonTint="@color/DarkSlateGray"
-                android:text="Подготовка"
-                android:textColor="@color/DarkSlateGray"
-                tools:ignore="TouchTargetSizeCheck" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="1500 руб."
+                    android:textColor="@color/DarkSlateGray" />
+            </TableRow>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="20 мин"
-                android:textColor="@color/DarkSlateGray" />
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="0 руб."
-                android:textColor="@color/DarkSlateGray" />
-        </TableRow>
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:buttonTint="@color/DarkSlateGray"
+                    android:text="Снятие"
+                    android:textColor="@color/DarkSlateGray"
+                    tools:ignore="TouchTargetSizeCheck" />
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="30 мин."
+                    android:textColor="@color/DarkSlateGray" />
 
-            <CheckBox
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:buttonTint="@color/DarkSlateGray"
-                android:text="Основная"
-                android:textColor="@color/DarkSlateGray"
-                tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="300 руб."
+                    android:textColor="@color/DarkSlateGray" />
+            </TableRow>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="2 часа"
-                android:textColor="@color/DarkSlateGray" />
+        </TableLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="1500 руб."
-                android:textColor="@color/DarkSlateGray" />
-        </TableRow>
+        <EditText
+            android:id="@+id/etPrice_T"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:autofillHints=""
+            android:background="@android:color/transparent"
+            android:digits="0123456789"
+            android:fontFamily="casual"
+            android:gravity="center"
+            android:hint="@string/cd_price"
+            android:inputType="numberDecimal"
+            android:minHeight="48dp"
+            android:textColor="@color/DarkSlateGray"
+            android:textSize="32sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tabServices_T"
+            tools:text="1550" />
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <CheckBox
+            android:id="@+id/cbDone_T"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="8dp"
+            android:buttonTint="@color/DarkSlateGray"
+            android:fontFamily="@font/margot"
+            android:minHeight="48dp"
+            android:text="@string/cd_done"
+            android:textColor="@color/DarkSlateGray"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@+id/cbPaid_T"
+            app:layout_constraintEnd_toStartOf="@+id/btnCancelTask_T"
+            app:layout_constraintStart_toStartOf="parent" />
 
-            <CheckBox
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:buttonTint="@color/DarkSlateGray"
-                android:text="Снятие"
-                android:textColor="@color/DarkSlateGray"
-                tools:ignore="TouchTargetSizeCheck" />
+        <CheckBox
+            android:id="@+id/cbPaid_T"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="8dp"
+            android:buttonTint="@color/DarkSlateGray"
+            android:fontFamily="@font/margot"
+            android:minHeight="48dp"
+            android:text="@string/cd_paid"
+            android:textColor="@color/DarkSlateGray"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btnCancelTask_T"
+            app:layout_constraintStart_toStartOf="parent" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="30 мин."
-                android:textColor="@color/DarkSlateGray" />
+        <ImageButton
+            android:id="@+id/btnCancelTask_T"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/cd_cancel_task"
+            android:onClick="onCancelTaskClick"
+            android:padding="10dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_block_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="300 руб."
-                android:textColor="@color/DarkSlateGray" />
-        </TableRow>
-
-    </TableLayout>
-
-    <EditText
-        android:id="@+id/etPrice_T"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:autofillHints=""
-        android:background="@android:color/transparent"
-        android:digits="0123456789"
-        android:fontFamily="casual"
-        android:gravity="center"
-        android:hint="@string/cd_price"
-        android:inputType="numberDecimal"
-        android:minHeight="48dp"
-        android:textColor="@color/DarkSlateGray"
-        android:textSize="32sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tabServices_T"
-        tools:text="1550" />
-
-    <CheckBox
-        android:id="@+id/cbDone_T"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="8dp"
-        android:buttonTint="@color/DarkSlateGray"
-        android:fontFamily="@font/margot"
-        android:minHeight="48dp"
-        android:text="@string/cd_done"
-        android:textColor="@color/DarkSlateGray"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/cbPaid_T"
-        app:layout_constraintEnd_toStartOf="@+id/btnCancelTask_T"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <CheckBox
-        android:id="@+id/cbPaid_T"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="8dp"
-        android:buttonTint="@color/DarkSlateGray"
-        android:fontFamily="@font/margot"
-        android:minHeight="48dp"
-        android:text="@string/cd_paid"
-        android:textColor="@color/DarkSlateGray"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btnCancelTask_T"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <ImageButton
-        android:id="@+id/btnCancelTask_T"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:background="@android:color/transparent"
-        android:contentDescription="@string/cd_cancel_task"
-        android:onClick="onCancelTaskClick"
-        android:padding="10dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/ic_block_24"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
