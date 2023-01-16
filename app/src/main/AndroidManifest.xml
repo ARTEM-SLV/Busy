@@ -14,15 +14,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Busy">
         <activity
-            android:name=".ui.home.fragments.TaskActivity"
+            android:name=".ui.home.TaskActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value=""/>
         </activity>
-        <activity
-            android:name=".ui.home.fragments.TasksToDayFragment"
-            android:exported="false" />
+<!--        <activity-->
+<!--            android:name=".ui.home.fragments.TasksToDayFragment"-->
+<!--            android:exported="false" />-->
         <activity
             android:name=".MainActivity"
             android:exported="true"

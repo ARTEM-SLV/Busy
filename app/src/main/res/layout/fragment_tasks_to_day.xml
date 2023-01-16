@@ -8,7 +8,7 @@
     android:background="@color/AliceBlue"
     android:paddingStart="5dp"
     android:paddingEnd="5dp"
-    tools:context=".ui.home.fragments.TasksToDayFragment">
+    tools:context=".ui.home.TasksToDayFragment">
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -19,7 +19,6 @@
         android:layout_marginBottom="30dp"
         android:clickable="true"
         android:contentDescription="@string/cd_add_task"
-        android:onClick="onAddClick"
         android:src="@drawable/ic_add_24"
         android:tint="@color/Azure"
         app:backgroundTint="@color/Salmon"

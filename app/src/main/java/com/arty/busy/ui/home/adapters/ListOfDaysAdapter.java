@@ -2,9 +2,9 @@ package com.arty.busy.ui.home.adapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,12 +13,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.arty.busy.date.MyDate;
 import com.arty.busy.R;
 import com.arty.busy.ui.home.items.ItemListOfDays;
-import com.arty.busy.ui.home.fragments.TasksToDayFragment;
+import com.arty.busy.ui.home.TasksToDayFragment;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -28,10 +30,12 @@ import java.util.List;
 
 public class ListOfDaysAdapter extends RecyclerView.Adapter<ListOfDaysAdapter.ViewHolderLOD> {
     private final Context context;
+    private final FragmentManager fragmentManager;
     private final List<ItemListOfDays> listOfDaysArr;
 
-    public ListOfDaysAdapter(Context context) {
+    public ListOfDaysAdapter(Context context, FragmentManager fragmentManager) {
         this.context = context;
+        this.fragmentManager = fragmentManager;
         listOfDaysArr = new ArrayList<>();
     }
 
@@ -40,7 +44,7 @@ public class ListOfDaysAdapter extends RecyclerView.Adapter<ListOfDaysAdapter.Vi
     public ViewHolderLOD onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(context).inflate(R.layout.item_list_of_days, viewGroup, false);
 
-        return new ViewHolderLOD(view, context, listOfDaysArr);
+        return new ViewHolderLOD(view, context, listOfDaysArr, fragmentManager);
     }
 
     @Override
@@ -59,6 +63,7 @@ public class ListOfDaysAdapter extends RecyclerView.Adapter<ListOfDaysAdapter.Vi
 
     static class ViewHolderLOD extends RecyclerView.ViewHolder implements View.OnClickListener {
         private final Context context;
+        private final FragmentManager fragmentManager;
         private final List<ItemListOfDays> listOfDaysArr;
 
         private final LinearLayout containerMain_LOD;
@@ -73,9 +78,10 @@ public class ListOfDaysAdapter extends RecyclerView.Adapter<ListOfDaysAdapter.Vi
         @SuppressLint("SimpleDateFormat")
         DateFormat df = new SimpleDateFormat("E. dd.MM");
 
-        public ViewHolderLOD(@NonNull View view, Context context, List<ItemListOfDays> listOfDaysArr) {
+        public ViewHolderLOD(@NonNull View view, Context context, List<ItemListOfDays> listOfDaysArr, FragmentManager fragmentManager) {
             super(view);
             this.context = context;
+            this.fragmentManager = fragmentManager;
             this.listOfDaysArr = listOfDaysArr;
 
             containerMain_LOD = view.findViewById(R.id.containerMain_LOD);
@@ -159,9 +165,19 @@ public class ListOfDaysAdapter extends RecyclerView.Adapter<ListOfDaysAdapter.Vi
 
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent(context, TasksToDayFragment.class);
-            intent.putExtra("Date", listOfDaysArr.get(getAdapterPosition()).getDate().getTime());
-            context.startActivity(intent);
+//            Intent intent = new Intent(context, TasksToDayFragment.class);
+//            intent.putExtra("Date", listOfDaysArr.get(getAdapterPosition()).getDate().getTime());
+//            context.startActivity(intent);
+
+            Bundle bundle = new Bundle();
+            bundle.putLong("Date", listOfDaysArr.get(getAdapterPosition()).getDate().getTime());
+
+            fragmentManager.beginTransaction()
+                    .setReorderingAllowed(true)
+                    .add(R.id.nav_host_fragment_activity_main, TasksToDayFragment.class, bundle)
+                    .addToBackStack(null)
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_MATCH_ACTIVITY_OPEN)
+                    .commit();
         }
     }
 

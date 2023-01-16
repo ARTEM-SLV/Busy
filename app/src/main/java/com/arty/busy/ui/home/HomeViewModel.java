@@ -6,8 +6,11 @@ import androidx.lifecycle.ViewModel;
 
 import com.arty.busy.App;
 import com.arty.busy.Constants;
+import com.arty.busy.Settings;
 import com.arty.busy.date.MyDate;
+import com.arty.busy.date.Time;
 import com.arty.busy.ui.home.items.ItemListOfDays;
+import com.arty.busy.ui.home.items.ItemTaskInfo;
 import com.arty.busy.ui.home.items.ItemTaskList;
 
 import java.util.ArrayList;
@@ -75,5 +78,19 @@ public class HomeViewModel extends ViewModel {
             itemListOfDays.setTitlesService(titlesService);
             listOfDays.add(itemListOfDays);
         }
+    }
+
+    public List<ItemTaskInfo> getListTasksToDay(long date){
+        List<ItemTaskInfo> taskInfoList = App.getInstance().getBusyDao().getTasksInfoByDay(date);
+
+        return taskInfoList;
+    }
+
+    public int getPosStartTasks(int time){
+        return time*360 + time*12;
+    }
+
+    public Time getCurrentTime(){
+        return MyDate.getTime(new Date());
     }
 }

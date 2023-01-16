@@ -1,4 +1,4 @@
-package com.arty.busy.ui.home.fragments;
+package com.arty.busy.ui.home;
 
 import android.content.Intent;
 import android.graphics.Color;

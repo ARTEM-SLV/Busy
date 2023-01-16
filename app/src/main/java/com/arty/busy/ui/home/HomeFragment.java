@@ -25,7 +25,7 @@ public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
     private ListOfDaysAdapter listOfDaysAdapter;
-    private Context context;
+    private Context containerContext;
     private HomeViewModel homeViewModel;
     public boolean isLoadingUP = true, isLoadingDown = true;
 
@@ -39,10 +39,10 @@ public class HomeFragment extends Fragment {
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-        context = container.getContext();
+        containerContext = container.getContext();
 
-        listOfDaysAdapter = new ListOfDaysAdapter(context);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context, RecyclerView.VERTICAL, false);
+        listOfDaysAdapter = new ListOfDaysAdapter(containerContext, getParentFragmentManager());
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(containerContext, RecyclerView.VERTICAL, false);
         final RecyclerView listOfDays = binding.homeListOfDays;
         listOfDays.setLayoutManager(linearLayoutManager);
         listOfDays.setAdapter(listOfDaysAdapter);
