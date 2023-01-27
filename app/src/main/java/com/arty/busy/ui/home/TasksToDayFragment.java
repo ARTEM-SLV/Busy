@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -21,6 +22,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.arty.busy.Constants;
 import com.arty.busy.R;
 import com.arty.busy.Settings;
+import com.arty.busy.databinding.FragmentTasksToDayBinding;
 import com.arty.busy.date.MyDate;
 import com.arty.busy.date.Time;
 import com.arty.busy.ui.home.items.ItemTaskInfo;
@@ -75,8 +77,8 @@ public class TasksToDayFragment extends Fragment {
     }
 
     private void init(){
-//        int lineID;
-//        LinearLayout linerHours;
+        int lineID;
+        LinearLayout linerHours;
         tvDate = (TextView) binding.tvTestDateTTD; //findViewById(R.id.tvTestDate_TTD);
         constraintLayout = (ConstraintLayout) binding.constraintTTD; //findViewById(R.id.constraint_TTD);
         scrollView = (ScrollView) binding.scrollTTD; //findViewById(R.id.scroll_TTD);
@@ -124,21 +126,21 @@ public class TasksToDayFragment extends Fragment {
             }
         });
 
-//        if (Settings.TIME_BEGINNING != -1 || Settings.TIME_ENDING != -1) {
-//            for (int h = 0; h < 24; h++) {
-//                lineID = this.getResources().getIdentifier("hour" + (h) + "_TTD", "id", getPackageName());
-//                linerHours = findViewById(lineID);
-//
-////                if (Settings.TIME_BEGINNING != -1 && h < Settings.TIME_BEGINNING || Settings.TIME_ENDING != -1 && h > Settings.TIME_ENDING)
-////                    linerHours.setBackgroundResource(R.color.Gray_20);
-//
-//                if (h == Settings.TIME_BEGINNING)
-//                    linerHours.setBackgroundResource(R.drawable.style_topline_salmon);
-//
-//                if (h == Settings.TIME_ENDING)
-//                    linerHours.setBackgroundResource(R.drawable.style_bottomline_salmon);
-//            }
-//        }
+        if (Settings.TIME_BEGINNING != -1 || Settings.TIME_ENDING != -1) {
+            for (int h = 0; h < 24; h++) {
+                lineID = this.getResources().getIdentifier("hour" + (h) + "_TTD", "id", context.getPackageName());
+                linerHours = binding.getRoot().findViewById(lineID);
+
+//                if (Settings.TIME_BEGINNING != -1 && h < Settings.TIME_BEGINNING || Settings.TIME_ENDING != -1 && h > Settings.TIME_ENDING)
+//                    linerHours.setBackgroundResource(R.color.Gray_20);
+
+                if (h == Settings.TIME_BEGINNING)
+                    linerHours.setBackgroundResource(R.drawable.style_topline_salmon);
+
+                if (h == Settings.TIME_ENDING)
+                    linerHours.setBackgroundResource(R.drawable.style_bottomline_salmon);
+            }
+        }
     }
 
     private void setPosStart(int time){
