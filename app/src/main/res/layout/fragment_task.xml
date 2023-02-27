@@ -5,14 +5,14 @@
     android:id="@+id/mainContainer_T"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.home.TaskActivity">
+    tools:context=".ui.home.TaskFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/containerElements_T"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:background="@color/Azure"
+        android:background="@color/AliceBlue"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,7 +28,6 @@
             android:contentDescription="@string/cd_ok"
             android:minWidth="48dp"
             android:minHeight="48dp"
-            android:onClick="onOkClick"
             android:src="@drawable/ic_ok_24"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -43,7 +42,6 @@
             android:contentDescription="@string/cd_cancel"
             android:minWidth="48dp"
             android:minHeight="48dp"
-            android:onClick="onCancelClick"
             android:src="@drawable/ic_close_24"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -60,7 +58,6 @@
             android:fontFamily="casual"
             android:gravity="start|center_vertical"
             android:hint="@string/set_time"
-            android:onClick="onTimeClick"
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
             android:textColor="@color/DarkSlateGray"
@@ -84,7 +81,7 @@
             app:layout_constraintTop_toBottomOf="@+id/btnCancel_T" />
 
         <TextView
-            android:id="@+id/etCustomer_T"
+            android:id="@+id/txCustomer_T"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_marginStart="8dp"
@@ -96,7 +93,6 @@
             android:hint="@string/cd_customer"
             android:inputType="none"
             android:minHeight="48dp"
-            android:onClick="onCustomerClick"
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
             android:textColor="@color/DarkSlateGray"
@@ -107,7 +103,7 @@
             tools:ignore="UseCompatTextViewDrawableXml" />
 
         <TextView
-            android:id="@+id/etService_T"
+            android:id="@+id/txService_T"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_marginStart="8dp"
@@ -119,14 +115,13 @@
             android:hint="@string/cd_service"
             android:inputType="none"
             android:minHeight="48dp"
-            android:onClick="onServiceClick"
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
             android:textColor="@color/DarkSlateGray"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etCustomer_T"
+            app:layout_constraintTop_toBottomOf="@+id/txCustomer_T"
             tools:ignore="UseCompatTextViewDrawableXml" />
 
         <TableLayout
@@ -140,9 +135,10 @@
             android:padding="10dp"
             android:shrinkColumns="*"
             android:stretchColumns="*"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etService_T">
+            app:layout_constraintTop_toBottomOf="@+id/txService_T">
 
             <TableRow
                 android:layout_width="match_parent"

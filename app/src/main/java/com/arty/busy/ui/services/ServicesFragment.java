@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.arty.busy.Constants;
 import com.arty.busy.databinding.FragmentServicesBinding;
 import com.arty.busy.ui.services.adapters.ServicesAdapter;
 
@@ -27,13 +28,22 @@ public class ServicesFragment extends Fragment {
 
         binding = FragmentServicesBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-        Context context = container.getContext();
 
-        ServicesAdapter servicesAdapter = new ServicesAdapter(context);
+        Context context = container.getContext();
+        int uid = -1;
+        try {
+            uid = requireArguments().getInt(Constants.ID_SERVICE, -1);
+        } catch (IllegalStateException e){
+            // nothing do
+        }
+
+        ServicesAdapter servicesAdapter = new ServicesAdapter(context, uid);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context, RecyclerView.VERTICAL, false);
         final RecyclerView listOfServices = binding.servicesListS;
         listOfServices.setLayoutManager(linearLayoutManager);
         listOfServices.setAdapter(servicesAdapter);
+
+
 
         servicesViewModel.getListOfServices().observe(getViewLifecycleOwner(), servicesAdapter::updateListOfServices);
 

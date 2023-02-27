@@ -29,13 +29,14 @@ import java.util.Date;
 import java.util.List;
 
 public class ListOfDaysAdapter extends RecyclerView.Adapter<ListOfDaysAdapter.ViewHolderLOD> {
-    private final Context context;
-    private final FragmentManager fragmentManager;
-    private final List<ItemListOfDays> listOfDaysArr;
+    @SuppressLint("StaticFieldLeak")
+    protected static Context context;
+    protected static List<ItemListOfDays> listOfDaysArr;
+    protected static FragmentManager fragmentManager;
 
     public ListOfDaysAdapter(Context context, FragmentManager fragmentManager) {
-        this.context = context;
-        this.fragmentManager = fragmentManager;
+        ListOfDaysAdapter.context = context;
+        ListOfDaysAdapter.fragmentManager = fragmentManager;
         listOfDaysArr = new ArrayList<>();
     }
 
@@ -44,7 +45,7 @@ public class ListOfDaysAdapter extends RecyclerView.Adapter<ListOfDaysAdapter.Vi
     public ViewHolderLOD onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(context).inflate(R.layout.item_list_of_days, viewGroup, false);
 
-        return new ViewHolderLOD(view, context, listOfDaysArr, fragmentManager);
+        return new ViewHolderLOD(view);
     }
 
     @Override
@@ -62,10 +63,6 @@ public class ListOfDaysAdapter extends RecyclerView.Adapter<ListOfDaysAdapter.Vi
     }
 
     static class ViewHolderLOD extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private final Context context;
-        private final FragmentManager fragmentManager;
-        private final List<ItemListOfDays> listOfDaysArr;
-
         private final LinearLayout containerMain_LOD;
         private final LinearLayout containerRight_LOD;
         private final TextView tvDay;
@@ -78,11 +75,8 @@ public class ListOfDaysAdapter extends RecyclerView.Adapter<ListOfDaysAdapter.Vi
         @SuppressLint("SimpleDateFormat")
         DateFormat df = new SimpleDateFormat("E. dd.MM");
 
-        public ViewHolderLOD(@NonNull View view, Context context, List<ItemListOfDays> listOfDaysArr, FragmentManager fragmentManager) {
+        public ViewHolderLOD(@NonNull View view) {
             super(view);
-            this.context = context;
-            this.fragmentManager = fragmentManager;
-            this.listOfDaysArr = listOfDaysArr;
 
             containerMain_LOD = view.findViewById(R.id.containerMain_LOD);
             containerRight_LOD = view.findViewById(R.id.containerRight_LOD);
@@ -165,10 +159,6 @@ public class ListOfDaysAdapter extends RecyclerView.Adapter<ListOfDaysAdapter.Vi
 
         @Override
         public void onClick(View v) {
-//            Intent intent = new Intent(context, TasksToDayFragment.class);
-//            intent.putExtra("Date", listOfDaysArr.get(getAdapterPosition()).getDate().getTime());
-//            context.startActivity(intent);
-
             Bundle bundle = new Bundle();
             bundle.putLong("Date", listOfDaysArr.get(getAdapterPosition()).getDate().getTime());
 
@@ -178,6 +168,7 @@ public class ListOfDaysAdapter extends RecyclerView.Adapter<ListOfDaysAdapter.Vi
                     .addToBackStack(null)
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                     .commit();
+
         }
     }
 
@@ -197,7 +188,7 @@ public class ListOfDaysAdapter extends RecyclerView.Adapter<ListOfDaysAdapter.Vi
 
     @SuppressLint("NotifyDataSetChanged")
     public void addNewDataOnBot(List<ItemListOfDays> listOfDays) {
-        listOfDaysArr.addAll(this.listOfDaysArr.size(), listOfDays);
+        listOfDaysArr.addAll(listOfDaysArr.size(), listOfDays);
         notifyDataSetChanged();
     }
 

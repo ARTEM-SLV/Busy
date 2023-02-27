@@ -7,8 +7,12 @@ import androidx.lifecycle.ViewModel;
 import com.arty.busy.App;
 import com.arty.busy.Constants;
 import com.arty.busy.Settings;
+import com.arty.busy.data.BusyDao;
 import com.arty.busy.date.MyDate;
 import com.arty.busy.date.Time;
+import com.arty.busy.models.Customer;
+import com.arty.busy.models.Service;
+import com.arty.busy.models.Task;
 import com.arty.busy.ui.home.items.ItemListOfDays;
 import com.arty.busy.ui.home.items.ItemTaskInfo;
 import com.arty.busy.ui.home.items.ItemTaskList;
@@ -19,6 +23,11 @@ import java.util.List;
 
 public class HomeViewModel extends ViewModel {
     private long startDate, endDate;
+    private BusyDao busyDao;
+
+    public HomeViewModel() {
+        this.busyDao = App.getInstance().getBusyDao();
+    }
 
     public LiveData<List<ItemListOfDays>> getListOfDays(int direction) {
         List<ItemListOfDays> listOfDays = new ArrayList<>();
@@ -52,7 +61,7 @@ public class HomeViewModel extends ViewModel {
         long dateBeginning = referenceDate + MyDate.DAY*beforeDays;
         long dateEnding = referenceDate + MyDate.DAY*afterDays;
 
-        List<ItemTaskList> taskList = App.getInstance().getBusyDao().getTaskList(dateBeginning, dateEnding);
+        List<ItemTaskList> taskList = busyDao.getTaskList(dateBeginning, dateEnding);
 
         for (long day = dateBeginning; day <= dateEnding; day+=MyDate.DAY) {
             ItemListOfDays itemListOfDays = new ItemListOfDays();
@@ -81,7 +90,7 @@ public class HomeViewModel extends ViewModel {
     }
 
     public List<ItemTaskInfo> getListTasksToDay(long date){
-        List<ItemTaskInfo> taskInfoList = App.getInstance().getBusyDao().getTasksInfoByDay(date);
+        List<ItemTaskInfo> taskInfoList = busyDao.getTasksInfoByDay(date);
 
         return taskInfoList;
     }
@@ -92,5 +101,35 @@ public class HomeViewModel extends ViewModel {
 
     public Time getCurrentTime(){
         return MyDate.getTime(new Date());
+    }
+
+    public Task getTask(int uid){
+        return busyDao.getTaskByID(uid);
+    }
+
+    public Service getService(int uid){
+        return busyDao.getServiceByID(uid);
+    }
+
+    public Customer getCustomer(int uid){
+        return busyDao.getCustomerByID(uid);
+    }
+
+    public String getCustomerName(Customer customer){
+        StringBuilder nameCustomer = new StringBuilder("");
+        nameCustomer.append(customer.first_name);
+        nameCustomer.append(" ");
+        nameCustomer.append(customer.last_name);
+
+        return nameCustomer.toString();
+    }
+
+    public String getViewOfTime(String timeStart, String timeEnd){
+        StringBuilder sbTime = new StringBuilder("");
+        sbTime.append(timeStart);
+        sbTime.append(" - ");
+        sbTime.append(timeEnd);
+
+        return sbTime.toString();
     }
 }

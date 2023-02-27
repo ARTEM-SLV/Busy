@@ -5,6 +5,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,11 +19,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ServicesAdapter extends RecyclerView.Adapter<ServicesAdapter.ServicesViewHolder> {
-    private Context context;
-    private List<Service> listOfServices;
+    @SuppressLint("StaticFieldLeak")
+    protected Context context;
+    protected List<Service> listOfServices;
+    protected int uid;
 
-    public ServicesAdapter(Context context) {
+    public ServicesAdapter(Context context, int uid) {
         this.context = context;
+        this.uid = uid;
         listOfServices = new ArrayList<>();
     }
 
@@ -45,10 +49,11 @@ public class ServicesAdapter extends RecyclerView.Adapter<ServicesAdapter.Servic
     }
 
     class ServicesViewHolder extends RecyclerView.ViewHolder {
-        TextView tvShortTitle = itemView.findViewById(R.id.tvShortTitle_LOS);
-        TextView tvTitle = itemView.findViewById(R.id.tvTitle_LOS);
-        TextView tvPrice = itemView.findViewById(R.id.tvPrice_LOS);
-        TextView tvDuration = itemView.findViewById(R.id.tvDuration_LOS);
+        private final TextView tvShortTitle = itemView.findViewById(R.id.tvShortTitle_LOS);
+        private final TextView tvTitle = itemView.findViewById(R.id.tvTitle_LOS);
+        private final TextView tvPrice = itemView.findViewById(R.id.tvPrice_LOS);
+        private final TextView tvDuration = itemView.findViewById(R.id.tvDuration_LOS);
+        private final LinearLayout mainLayout = itemView.findViewById(R.id.mainLayout_S);
 
         public ServicesViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -60,6 +65,9 @@ public class ServicesAdapter extends RecyclerView.Adapter<ServicesAdapter.Servic
             tvTitle.setText(service.title);
             tvPrice.setText(Double.toString(service.price));
             tvDuration.setText(getTimeDuration(service.duration));
+            if (service.uid == uid){
+                mainLayout.setBackgroundResource(R.drawable.style_stroke_green);
+            } else mainLayout.setBackgroundResource(R.drawable.style_stroke_dark_slate_gray);
         }
     }
 

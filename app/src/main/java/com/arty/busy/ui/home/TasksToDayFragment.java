@@ -17,14 +17,17 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.arty.busy.ActivityForFragments;
 import com.arty.busy.Constants;
 import com.arty.busy.R;
 import com.arty.busy.Settings;
 import com.arty.busy.databinding.FragmentTasksToDayBinding;
 import com.arty.busy.date.MyDate;
 import com.arty.busy.date.Time;
+import com.arty.busy.ui.customers.CustomersFragment;
 import com.arty.busy.ui.home.items.ItemTaskInfo;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -36,6 +39,7 @@ public class TasksToDayFragment extends Fragment {
     private FragmentTasksToDayBinding binding;
     private Context context;
     private HomeViewModel homeViewModel;
+    private View root;
 
     List<ItemTaskInfo> taskInfoList;
 
@@ -66,7 +70,7 @@ public class TasksToDayFragment extends Fragment {
                 new ViewModelProvider(this, (ViewModelProvider.Factory) new ViewModelProvider.NewInstanceFactory()).get(HomeViewModel.class);
 
         binding = FragmentTasksToDayBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
+        root = binding.getRoot();
         context = getContext();
 
         setPosStart(Settings.TIME_BEGINNING);
@@ -129,7 +133,7 @@ public class TasksToDayFragment extends Fragment {
         if (Settings.TIME_BEGINNING != -1 || Settings.TIME_ENDING != -1) {
             for (int h = 0; h < 24; h++) {
                 lineID = this.getResources().getIdentifier("hour" + (h) + "_TTD", "id", context.getPackageName());
-                linerHours = binding.getRoot().findViewById(lineID);
+                linerHours = root.findViewById(lineID);
 
 //                if (Settings.TIME_BEGINNING != -1 && h < Settings.TIME_BEGINNING || Settings.TIME_ENDING != -1 && h > Settings.TIME_ENDING)
 //                    linerHours.setBackgroundResource(R.color.Gray_20);
@@ -198,7 +202,7 @@ public class TasksToDayFragment extends Fragment {
 
             @SuppressLint("DiscouragedApi")
             int btnID = this.getResources().getIdentifier("btnHour" + (hour) + "_TTD", "id", context.getPackageName());
-            Button btnTask = binding.getRoot().findViewById(btnID);
+            Button btnTask = root.findViewById(btnID);
 
             ConstraintLayout.LayoutParams btnParams = (ConstraintLayout.LayoutParams) btnTask.getLayoutParams();
             btnParams.setMargins(0, minute*6, 0, 0);
@@ -224,7 +228,7 @@ public class TasksToDayFragment extends Fragment {
 
         for (int hour = 0; hour < 24; hour++) {
             btnID = this.getResources().getIdentifier("btnHour" + (hour) + "_TTD", "id", context.getPackageName());
-            Button btnTask = binding.getRoot().findViewById(btnID);
+            Button btnTask = root.findViewById(btnID);
             btnTask.setVisibility(View.GONE);
         }
     }
@@ -271,10 +275,22 @@ public class TasksToDayFragment extends Fragment {
     }
 
     private void openTask(ItemTaskInfo itemTaskInfo){
-        Intent intent = new Intent(context, TaskActivity.class);
+        Intent intent = new Intent(context, ActivityForFragments.class);
         if (itemTaskInfo != null){
-            intent.putExtra(Constants.ITEM_TASK_TO_DAY, itemTaskInfo);
+            intent.putExtra(Constants.ID_TASK, itemTaskInfo.getId_task());
         }
         startActivity(intent);
+
+//        Bundle bundle = new Bundle();
+//        if (itemTaskInfo != null)
+//            bundle.putInt(Constants.ID_TASK, itemTaskInfo.getId_task());
+//         else bundle.putInt(Constants.ID_TASK, -1);
+//
+//        getParentFragmentManager().beginTransaction()
+//                .setReorderingAllowed(true)
+//                .add(R.id.nav_host_fragment_activity_main, TaskFragment.class, bundle)
+//                .addToBackStack(null)
+//                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+//                .commit();
     }
 }
