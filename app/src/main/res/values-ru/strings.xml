@@ -36,6 +36,11 @@
     <string name="cd_add_service">добавить услугу</string>
     <string name="cd_postpone">перенести</string>
     <string name="cd_cancel_task">отменить задачу</string>
-    <string name="cd_add_customer">add customer</string>
+    <string name="cd_add_customer">добавить клиента</string>
+    <string name="cd_first_name">имя</string>
+    <string name="cd_last_name">фамилия</string>
+    <string name="cd_phone">телефон</string>
+    <string name="cd_age">возраст</string>
+    <string name="cd_sex">пол</string>
     <!--   content description -->
 </resources>

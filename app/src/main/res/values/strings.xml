@@ -67,5 +67,10 @@
     <string name="cd_postpone">postpone</string>
     <string name="cd_cancel_task">cancel task</string>
     <string name="cd_add_customer">add customer</string>
+    <string name="cd_last_name">last name</string>
+    <string name="cd_first_name">first name</string>
+    <string name="cd_phone">phone</string>
+    <string name="cd_age">age</string>
+    <string name="cd_sex">sex</string>
     <!--   content description -->
 </resources>

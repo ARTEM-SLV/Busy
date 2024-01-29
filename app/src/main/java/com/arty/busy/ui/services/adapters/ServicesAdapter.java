@@ -53,7 +53,7 @@ public class ServicesAdapter extends RecyclerView.Adapter<ServicesAdapter.Servic
         private final TextView tvTitle = itemView.findViewById(R.id.tvTitle_LOS);
         private final TextView tvPrice = itemView.findViewById(R.id.tvPrice_LOS);
         private final TextView tvDuration = itemView.findViewById(R.id.tvDuration_LOS);
-        private final LinearLayout mainLayout = itemView.findViewById(R.id.mainLayout_S);
+        private final LinearLayout mainLayout = itemView.findViewById(R.id.mainLayout_LOS);
 
         public ServicesViewHolder(@NonNull View itemView) {
             super(itemView);

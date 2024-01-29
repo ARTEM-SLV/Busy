@@ -78,7 +78,7 @@ public class TaskFragment extends Fragment {
                 updateDataTask();
             }
 
-            backToLastFragment();
+            finishActivityForFragment();
         });
 
         // setOnClickListener for btn Cansel
@@ -87,7 +87,7 @@ public class TaskFragment extends Fragment {
             if (modified){
 
             }else
-                backToLastFragment();
+                finishActivityForFragment();
         });
 
         // setOnClickListener for text view Time
@@ -108,7 +108,7 @@ public class TaskFragment extends Fragment {
 
             getParentFragmentManager().beginTransaction()
                     .setReorderingAllowed(true)
-                    .add(R.id.nav_host_fragment_activity_main, CustomersFragment.class, bundle)
+                    .add(R.id.container_for_fragments, CustomersFragment.class, bundle)
                     .addToBackStack(null)
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                     .commit();
@@ -126,7 +126,7 @@ public class TaskFragment extends Fragment {
 
             getParentFragmentManager().beginTransaction()
                     .setReorderingAllowed(true)
-                    .add(R.id.nav_host_fragment_activity_main, ServicesFragment.class, bundle)
+                    .add(R.id.container_for_fragments, ServicesFragment.class, bundle)
                     .addToBackStack(null)
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                     .commit();
@@ -242,64 +242,10 @@ public class TaskFragment extends Fragment {
         tvTime.setText(homeViewModel.getViewOfTime(timeStart, timeEnd));
     }
 
-//    public void onOkClick(View v){
-//        if (modified){
-//            updateDataTask();
-//        }
-//
-//        finishFragment();
-////        finish();
-//    }
-//
-//    public void onCancelClick(View v){
-//        if (modified){
-//
-//        } else finishFragment();//finish();
-//    }
-
-    private void backToLastFragment(){
-        getParentFragmentManager().popBackStack();
+    private void finishActivityForFragment(){
+//        getParentFragmentManager().popBackStack();
+//        getParentFragmentManager().beginTransaction().remove(this).commit();
+        getActivity().finish();
     }
-
-    public void onCancelTaskClick(View v){
-
-    }
-
-    public void onTimeClick(View v){
-
-    }
-
-    public void onPostponeClock(View view) {
-
-    }
-
-//    public void onCustomerClick(View v){
-//        setModified(true);
-//
-//        ConstraintLayout containerElements = root.findViewById(R.id.containerElements_T);
-//        containerElements.setVisibility(View.INVISIBLE);
-//
-//        Bundle bundle = new Bundle();
-//        bundle.putInt("some_int", 0); // for example
-//
-//        getParentFragmentManager().beginTransaction()
-//                .setReorderingAllowed(true)
-//                .add(R.id.nav_host_fragment_activity_main, CustomersFragment.class, bundle)
-//                .addToBackStack(null)
-//                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-//                .commit();
-//    }
-
-//    public void onServiceClick(View v){
-//        setModified(true);
-//    }
-
-//    public void onDoneClick(Void v){
-//        setModified(true);
-//    }
-//
-//    public void onPaidClick(Void v){
-//        setModified(true);
-//    }
 
 }

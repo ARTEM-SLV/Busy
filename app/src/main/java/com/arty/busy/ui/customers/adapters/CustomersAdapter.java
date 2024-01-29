@@ -5,6 +5,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -20,9 +21,11 @@ import java.util.List;
 public class CustomersAdapter extends RecyclerView.Adapter<CustomersAdapter.CustomersViewHolder> {
     private Context context;
     private List<Customer> listOfCustomers;
+    protected int uid;
 
-    public CustomersAdapter(Context context) {
+    public CustomersAdapter(Context context, int uid) {
         this.context = context;
+        this.uid = uid;
         this.listOfCustomers = new ArrayList<>();
     }
 
@@ -45,9 +48,10 @@ public class CustomersAdapter extends RecyclerView.Adapter<CustomersAdapter.Cust
     }
 
     class CustomersViewHolder extends RecyclerView.ViewHolder {
-        TextView tvName = itemView.findViewById(R.id.tvName_LOC);
-        TextView tvPhone = itemView.findViewById(R.id.tvPhone_LOC);
-        TextView tvPicture = itemView.findViewById(R.id.tvPicture_LOC);
+        private final TextView tvName = itemView.findViewById(R.id.tvName_LOC);
+        private final TextView tvPhone = itemView.findViewById(R.id.tvPhone_LOC);
+        private final TextView tvPicture = itemView.findViewById(R.id.tvPicture_LOC);
+        private final LinearLayout mainLayout = itemView.findViewById(R.id.mainLayout_LOC);
 
         public CustomersViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -60,6 +64,9 @@ public class CustomersAdapter extends RecyclerView.Adapter<CustomersAdapter.Cust
             if (customer.picture == null){
                 tvPicture.setText(customer.first_name.charAt(0) + "" + customer.last_name.charAt(0));
             }
+            if (customer.uid == uid){
+                mainLayout.setBackgroundResource(R.drawable.style_stroke_green);
+            } else mainLayout.setBackgroundResource(R.drawable.style_stroke_dark_slate_gray);
         }
     }
 

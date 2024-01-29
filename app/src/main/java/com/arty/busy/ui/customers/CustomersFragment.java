@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.arty.busy.Constants;
 import com.arty.busy.databinding.FragmentCustomersBinding;
 import com.arty.busy.models.Customer;
 import com.arty.busy.ui.customers.adapters.CustomersAdapter;
@@ -31,7 +32,13 @@ public class CustomersFragment extends Fragment {
         View root = binding.getRoot();
         Context context = container.getContext();
 
-        CustomersAdapter customersAdapter = new CustomersAdapter(context);
+        Bundle arguments = getArguments();
+        int uid = -1;
+        if (arguments != null){
+            uid = arguments.getInt(Constants.ID_CUSTOMER, -1);
+        }
+
+        CustomersAdapter customersAdapter = new CustomersAdapter(context, uid);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context, RecyclerView.VERTICAL, false);
         final RecyclerView listOfCustomers = binding.customersListC;
         listOfCustomers.setLayoutManager(linearLayoutManager);

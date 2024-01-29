@@ -28,13 +28,12 @@ public class ServicesFragment extends Fragment {
 
         binding = FragmentServicesBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-
         Context context = container.getContext();
+
+        Bundle arguments = getArguments();
         int uid = -1;
-        try {
-            uid = requireArguments().getInt(Constants.ID_SERVICE, -1);
-        } catch (IllegalStateException e){
-            // nothing do
+        if (arguments != null){
+            uid = arguments.getInt(Constants.ID_SERVICE, -1);
         }
 
         ServicesAdapter servicesAdapter = new ServicesAdapter(context, uid);
