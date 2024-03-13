@@ -171,5 +171,8 @@
 
     <color name="Gray_20">#33808080</color>
     <color name="Gray_50">#80808080</color>
+    <color name="Green_20">#20C4EFC6</color>
+    <color name="Green_40">#40C4EFC6</color>
+    <color name="DarkOliveGreen_60">#60556B2F</color>
 
 </resources>

@@ -9,11 +9,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.arty.busy.R;
 import com.arty.busy.models.Customer;
-import com.arty.busy.models.Service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,8 +65,8 @@ public class CustomersAdapter extends RecyclerView.Adapter<CustomersAdapter.Cust
                 tvPicture.setText(customer.first_name.charAt(0) + "" + customer.last_name.charAt(0));
             }
             if (customer.uid == uid){
-                mainLayout.setBackgroundResource(R.drawable.style_stroke_green);
-            } else mainLayout.setBackgroundResource(R.drawable.style_stroke_dark_slate_gray);
+                mainLayout.setForeground(ContextCompat.getDrawable(context, R.drawable.style_radial_green_transparent));
+            } else mainLayout.setForeground(null);
         }
     }
 

@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.arty.busy.R;
@@ -66,8 +67,8 @@ public class ServicesAdapter extends RecyclerView.Adapter<ServicesAdapter.Servic
             tvPrice.setText(Double.toString(service.price));
             tvDuration.setText(getTimeDuration(service.duration));
             if (service.uid == uid){
-                mainLayout.setBackgroundResource(R.drawable.style_stroke_green);
-            } else mainLayout.setBackgroundResource(R.drawable.style_stroke_dark_slate_gray);
+                mainLayout.setForeground(ContextCompat.getDrawable(context, R.drawable.style_radial_green_transparent));
+            } else mainLayout.setForeground(null);
         }
     }
 
