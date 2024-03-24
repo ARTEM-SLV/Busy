@@ -1,6 +1,7 @@
 package com.arty.busy.ui.home.adapters;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
@@ -14,13 +15,14 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.arty.busy.date.MyDate;
+import com.arty.busy.Constants;
 import com.arty.busy.R;
+import com.arty.busy.date.MyDate;
 import com.arty.busy.ui.home.items.ItemListOfDays;
-import com.arty.busy.ui.home.TasksToDayFragment;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -30,11 +32,14 @@ import java.util.List;
 
 public class ListOfDaysAdapter extends RecyclerView.Adapter<ListOfDaysAdapter.ViewHolderLOD> {
     @SuppressLint("StaticFieldLeak")
+    protected static Activity parentActivity;
+    @SuppressLint("StaticFieldLeak")
     protected static Context context;
     protected static List<ItemListOfDays> listOfDaysArr;
     protected static FragmentManager fragmentManager;
 
-    public ListOfDaysAdapter(Context context, FragmentManager fragmentManager) {
+    public ListOfDaysAdapter(Context context, FragmentManager fragmentManager, Activity activity) {
+        parentActivity = activity;
         ListOfDaysAdapter.context = context;
         ListOfDaysAdapter.fragmentManager = fragmentManager;
         listOfDaysArr = new ArrayList<>();
@@ -160,15 +165,17 @@ public class ListOfDaysAdapter extends RecyclerView.Adapter<ListOfDaysAdapter.Vi
         @Override
         public void onClick(View v) {
             Bundle bundle = new Bundle();
-            bundle.putLong("Date", listOfDaysArr.get(getAdapterPosition()).getDate().getTime());
+            bundle.putLong(Constants.KEY_DATE, listOfDaysArr.get(getAdapterPosition()).getDate().getTime());
 
-            fragmentManager.beginTransaction()
-                    .setReorderingAllowed(true)
-                    .add(R.id.nav_host_fragment_activity_main, TasksToDayFragment.class, bundle)
-                    .addToBackStack(null)
-                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                    .commit();
+//            fragmentManager.beginTransaction()
+//                    .setReorderingAllowed(true)
+//                    .add(R.id.nav_host_fragment_activity_main, TasksToDayFragment.class, bundle)
+//                    .addToBackStack(null)
+//                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+//                    .commit();
 
+            NavController navController = Navigation.findNavController(parentActivity, R.id.nav_host_fragment_activity_main);
+            navController.navigate(R.id.navigation_tasks_to_day_new, bundle);
         }
     }
 

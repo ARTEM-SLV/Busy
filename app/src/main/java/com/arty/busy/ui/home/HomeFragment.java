@@ -41,7 +41,7 @@ public class HomeFragment extends Fragment {
         View root = binding.getRoot();
         containerContext = container.getContext();
 
-        listOfDaysAdapter = new ListOfDaysAdapter(containerContext, getParentFragmentManager());
+        listOfDaysAdapter = new ListOfDaysAdapter(containerContext, getParentFragmentManager(), getActivity());
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(containerContext, RecyclerView.VERTICAL, false);
         final RecyclerView listOfDays = binding.homeListOfDays;
         listOfDays.setLayoutManager(linearLayoutManager);

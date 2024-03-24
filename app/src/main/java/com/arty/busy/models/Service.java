@@ -66,7 +66,9 @@ public class Service implements Parcelable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Service that = (Service) o;
-        return uid == that.uid && Double.compare(that.price, price) == 0 && duration == that.duration && preparation_time == that.preparation_time && id_line_of_business == that.id_line_of_business && Objects.equals(title, that.title) && Objects.equals(short_title, that.short_title) && Objects.equals(description, that.description);
+        return uid == that.uid && Double.compare(that.price, price) == 0 && duration == that.duration && preparation_time
+                == that.preparation_time && id_line_of_business == that.id_line_of_business && Objects.equals(title, that.title)
+                && Objects.equals(short_title, that.short_title) && Objects.equals(description, that.description);
     }
 
     @Override

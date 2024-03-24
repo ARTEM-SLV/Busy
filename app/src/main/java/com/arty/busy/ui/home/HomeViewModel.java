@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel;
 
 import com.arty.busy.App;
 import com.arty.busy.Constants;
-import com.arty.busy.Settings;
 import com.arty.busy.data.BusyDao;
 import com.arty.busy.date.MyDate;
 import com.arty.busy.date.Time;
@@ -14,6 +13,7 @@ import com.arty.busy.models.Customer;
 import com.arty.busy.models.Service;
 import com.arty.busy.models.Task;
 import com.arty.busy.ui.home.items.ItemListOfDays;
+import com.arty.busy.ui.home.items.ItemTaskByHours;
 import com.arty.busy.ui.home.items.ItemTaskInfo;
 import com.arty.busy.ui.home.items.ItemTaskList;
 
@@ -93,6 +93,75 @@ public class HomeViewModel extends ViewModel {
         List<ItemTaskInfo> taskInfoList = busyDao.getTasksInfoByDay(date);
 
         return taskInfoList;
+    }
+
+    public LiveData<List<ItemTaskByHours>> getLiveListTasksToDay(long date){
+        List<ItemTaskInfo> taskInfoList = busyDao.getTasksInfoByDay(date);
+        List<ItemTaskByHours> taskByHoursList = new ArrayList<>();
+        ItemTaskByHours taskByHours;
+        Time currentTime;
+        Time timeStart;
+        Time timeEnd;
+        int duration;
+
+
+        for (byte i = 0; i < 24; i++) {
+            currentTime = new Time(i, (byte) 0);
+            taskByHours = new ItemTaskByHours();
+            taskByHours.setCurrentTime(currentTime.getTimeS());
+
+            for (ItemTaskInfo itemTaskInfo: taskInfoList) {
+                String sTimeStart = itemTaskInfo.getTime();
+                timeStart = MyDate.parseStringToTime(sTimeStart);
+
+                if (timeStart.getHour() == i) {
+                    duration = itemTaskInfo.getDuration();
+                    timeEnd = MyDate.parseStringToTime(sTimeStart);
+                    timeEnd.addTime(duration);
+                    String sTimeEnd = MyDate.parseTimeToString(timeEnd);
+
+                    taskByHours.setId_task(itemTaskInfo.getId_task());
+                    taskByHours.setTaskTime(sTimeStart + " - " + sTimeEnd);
+                    taskByHours.setServices(itemTaskInfo.getServices());
+                    taskByHours.setClient(itemTaskInfo.getClient());
+                    taskByHours.setHour(timeStart.getHour());
+                    taskByHours.setMinutes(timeStart.getMinute());
+                    taskByHours.setDuration(duration);
+                    taskByHours.setTask(true);
+                }
+            }
+
+            taskByHoursList.add(taskByHours);
+        }
+
+        MutableLiveData<List<ItemTaskByHours>> mListTaskInfo = new MutableLiveData<>();
+        mListTaskInfo.setValue(taskByHoursList);
+
+        return mListTaskInfo;
+    }
+
+    public int getPosStartListTasks(long date){
+        int result = 0;
+        Time timeStart;
+        List<ItemTaskInfo> taskInfoList = busyDao.getTasksInfoByDay(date);
+        Date currentDateStart = MyDate.getCurrentStartDate();
+        Time currentTame = MyDate.getCurrentTime();
+
+        for (ItemTaskInfo itemTaskInfo: taskInfoList) {
+            String sTimeStart = itemTaskInfo.getTime();
+            timeStart = MyDate.parseStringToTime(sTimeStart);
+            if (date == currentDateStart.getTime()){
+                if(timeStart.getHour() >= currentTame.getHour()){
+                    result = timeStart.getHour();
+                    break;
+                }
+            } else {
+                result = timeStart.getHour();
+                break;
+            }
+        }
+
+        return result;
     }
 
     public int getPosStartTasks(int time){

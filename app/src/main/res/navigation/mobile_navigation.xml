@@ -6,6 +6,16 @@
     app:startDestination="@+id/navigation_home">
 
     <fragment
+        android:id="@+id/navigation_tasks_to_day"
+        android:name="com.arty.busy.ui.home.TasksToDayFragment"
+        android:label="@string/title_settings"
+        tools:layout="@layout/fragment_tasks_to_day" />
+    <fragment
+        android:id="@+id/navigation_tasks_to_day_new"
+        android:name="com.arty.busy.ui.home.TasksToDayFragmentNew"
+        android:label="@string/title_settings"
+        tools:layout="@layout/fragment_tasks_to_day_new" />
+    <fragment
         android:id="@+id/navigation_home"
         android:name="com.arty.busy.ui.home.HomeFragment"
         android:label="@string/title_home"
@@ -34,4 +44,5 @@
         android:name="com.arty.busy.ui.settings.SettingsFragment"
         android:label="@string/title_settings"
         tools:layout="@layout/fragment_settings" />
+
 </navigation>

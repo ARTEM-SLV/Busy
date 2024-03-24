@@ -17,7 +17,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.arty.busy.ActivityForFragments;
@@ -27,7 +26,6 @@ import com.arty.busy.Settings;
 import com.arty.busy.databinding.FragmentTasksToDayBinding;
 import com.arty.busy.date.MyDate;
 import com.arty.busy.date.Time;
-import com.arty.busy.ui.customers.CustomersFragment;
 import com.arty.busy.ui.home.items.ItemTaskInfo;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -83,7 +81,7 @@ public class TasksToDayFragment extends Fragment {
     private void init(){
         int lineID;
         LinearLayout linerHours;
-        tvDate = (TextView) binding.tvTestDateTTD; //findViewById(R.id.tvTestDate_TTD);
+        tvDate = (TextView) binding.tvDateTTD; //findViewById(R.id.tvTestDate_TTD);
         constraintLayout = (ConstraintLayout) binding.constraintTTD; //findViewById(R.id.constraint_TTD);
         scrollView = (ScrollView) binding.scrollTTD; //findViewById(R.id.scroll_TTD);
 //        taskInfoList = new ArrayList<>();
@@ -110,9 +108,13 @@ public class TasksToDayFragment extends Fragment {
 //            currDate = extras.getLong("Date");
 //            tvDate.setText(df.format(currDate));
 //        }
-        currDateL = requireArguments().getLong("Date");
-        if (currDateL != 0){
-            tvDate.setText(df.format(currDateL));
+        //        currDateL = requireArguments().getLong("Date");
+        Bundle args = getArguments();
+        if (args != null) {
+            currDateL = args.getLong("Date");
+            if (currDateL != 0) {
+                tvDate.setText(df.format(currDateL));
+            }
         }
 
         tvDate.setOnClickListener(new View.OnClickListener() {

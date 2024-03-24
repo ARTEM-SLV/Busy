@@ -26,4 +26,5 @@
         android:icon="@drawable/ic_settings_24"
         android:title="@string/title_settings" />
 
+
 </menu>

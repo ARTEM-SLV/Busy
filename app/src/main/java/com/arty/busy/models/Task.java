@@ -30,6 +30,9 @@ public class Task implements Parcelable  {
     @ColumnInfo(name = "time")
     public String time;
 
+    @ColumnInfo(name = "duration")
+    public int duration;
+
     @ColumnInfo(name = "price")
     public double price;
 
@@ -48,6 +51,7 @@ public class Task implements Parcelable  {
         id_customer = in.readInt();
         day = in.readLong();
         time = in.readString();
+        duration = in.readInt();
         price = in.readDouble();
         done = in.readByte() != 0;
         paid = in.readByte() != 0;
@@ -69,13 +73,14 @@ public class Task implements Parcelable  {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Task task = (Task) o;
-        return uid == task.uid && id_service == task.id_service && id_customer == task.id_customer && day == task.day && Double.compare(task.price, price) == 0 && done == task.done && paid == task.paid && time.equals(task.time);
+        Task that = (Task) o;
+        return uid == that.uid && id_service == that.id_service && id_customer == that.id_customer && day == that.day && Double.compare(that.price, price)
+                == 0 && done == that.done && paid == that.paid && time.equals(that.time) && duration == that.duration;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(uid, id_service, id_customer, day, time, price, done, paid);
+        return Objects.hash(uid, id_service, id_customer, day, time, duration, price, done, paid);
     }
 
     @Override
@@ -90,6 +95,7 @@ public class Task implements Parcelable  {
         dest.writeInt(id_customer);
         dest.writeLong(day);
         dest.writeString(time);
+        dest.writeInt(duration);
         dest.writeDouble(price);
         dest.writeByte((byte) (done ? 1 : 0));
         dest.writeByte((byte) (paid ? 1 : 0));

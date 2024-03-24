@@ -137,6 +137,10 @@ public class MyDate {
         return calendar.getTime();
     }
 
+    public static Time getCurrentTime(){
+        return getTime(new Date());
+    }
+
     public static void addDay(Date currDate, int countDays){
         currDate = new Date(currDate.getTime() + 86400000*countDays);
     }
