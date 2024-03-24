@@ -1,10 +1,12 @@
 package com.arty.busy.ui.home;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,6 +18,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.arty.busy.Constants;
 import com.arty.busy.databinding.FragmentTasksToDayNewBinding;
 import com.arty.busy.ui.home.adapters.TasksToDayAdapter;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 public class TasksToDayFragmentNew extends Fragment {
     private FragmentTasksToDayNewBinding binding;
@@ -52,8 +57,11 @@ public class TasksToDayFragmentNew extends Fragment {
         listTasksToDay.scrollToPosition(homeViewModel.getPosStartListTasks(date));
         homeViewModel.getLiveListTasksToDay(date).observe(getViewLifecycleOwner(), tasksToDayAdapter::loadData);
 
+        @SuppressLint("SimpleDateFormat")
+        DateFormat df = new SimpleDateFormat("EEEE dd MMM.");
+        TextView tvDate = (TextView) binding.tvDateTTD;
+        tvDate.setText(df.format(date));
+
         return root;
     }
-
-
 }
