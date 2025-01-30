@@ -1,13 +1,10 @@
 package com.arty.busy;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 
-import android.app.FragmentTransaction;
 import android.os.Bundle;
-import android.view.Window;
-import android.view.WindowManager;
 
+import com.arty.busy.consts.Constants;
 import com.arty.busy.ui.home.TaskFragment;
 
 public class ActivityForFragments extends AppCompatActivity {

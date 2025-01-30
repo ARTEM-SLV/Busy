@@ -1,4 +1,4 @@
-package com.arty.busy;
+package com.arty.busy.consts;
 
 public class Constants {
     public static final int DIRECTION_BACK = -1;

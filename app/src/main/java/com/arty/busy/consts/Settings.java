@@ -1,4 +1,4 @@
-package com.arty.busy;
+package com.arty.busy.consts;
 
 public class Settings {
     public static int TIME_BEGINNING;

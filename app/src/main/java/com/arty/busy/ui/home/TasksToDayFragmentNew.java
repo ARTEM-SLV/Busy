@@ -15,7 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.arty.busy.Constants;
+import com.arty.busy.consts.Constants;
 import com.arty.busy.databinding.FragmentTasksToDayNewBinding;
 import com.arty.busy.ui.home.adapters.TasksToDayAdapter;
 

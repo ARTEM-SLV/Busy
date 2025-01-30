@@ -5,8 +5,8 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.arty.busy.App;
-import com.arty.busy.Constants;
-import com.arty.busy.data.BusyDao;
+import com.arty.busy.consts.Constants;
+import com.arty.busy.database.BusyDao;
 import com.arty.busy.date.MyDate;
 import com.arty.busy.date.Time;
 import com.arty.busy.models.Customer;
@@ -108,7 +108,7 @@ public class HomeViewModel extends ViewModel {
         for (byte i = 0; i < 24; i++) {
             currentTime = new Time(i, (byte) 0);
             taskByHours = new ItemTaskByHours();
-            taskByHours.setCurrentTime(currentTime.getTimeS());
+            taskByHours.setCurrentTime(currentTime.toString());
 
             for (ItemTaskInfo itemTaskInfo: taskInfoList) {
                 String sTimeStart = itemTaskInfo.getTime();

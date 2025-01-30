@@ -1,4 +1,4 @@
-package com.arty.busy.data;
+package com.arty.busy.database;
 
 import androidx.room.Dao;
 import androidx.room.Delete;

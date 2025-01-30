@@ -6,8 +6,10 @@ import android.preference.PreferenceManager;
 
 import androidx.room.Room;
 
-import com.arty.busy.data.AppDataBase;
-import com.arty.busy.data.BusyDao;
+import com.arty.busy.consts.Constants;
+import com.arty.busy.consts.Settings;
+import com.arty.busy.database.AppDatabase;
+import com.arty.busy.database.BusyDao;
 import com.arty.busy.date.MyDate;
 import com.arty.busy.enums.Sex;
 import com.arty.busy.models.Customer;
@@ -20,13 +22,13 @@ import java.util.Date;
 import java.util.List;
 
 public class App extends Application {
-    private AppDataBase dataBase;
+    private AppDatabase dataBase;
     private BusyDao busyDao;
     private SharedPreferences sharedPreferences;
 
     private static App instance;
 
-    public static App getInstance(){
+    public static synchronized App getInstance(){
         return instance;
     }
 
@@ -37,7 +39,7 @@ public class App extends Application {
         instance = this;
 
         dataBase = Room.databaseBuilder(getApplicationContext(),
-                AppDataBase.class, "busy_db")
+                AppDatabase.class, "busy_db")
                 .allowMainThreadQueries()
                 .build();
 
@@ -51,11 +53,11 @@ public class App extends Application {
 //        fillCustomers();      //for test
     }
 
-    public AppDataBase getDataBase() {
+    public AppDatabase getDataBase() {
         return dataBase;
     }
 
-    public void setDataBase(AppDataBase dataBase) {
+    public void setDataBase(AppDatabase dataBase) {
         this.dataBase = dataBase;
     }
 

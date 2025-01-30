@@ -1,10 +1,14 @@
 package com.arty.busy.date;
 
+import android.util.Log;
+
 import java.text.DecimalFormat;
 
 public class Time {
     private byte hour;
     private byte minute;
+
+    private final static String TAG_PARSE_STRING_TO_TIME = "Time.ParseStringToTime";
 
     public Time() {
         this.hour = 0;
@@ -21,6 +25,23 @@ public class Time {
     public Time(byte hour, byte minute) {
         this.hour = hour;
         this.minute = minute;
+    }
+
+    public Time(String timeS) {
+        String[] arrTime = timeS.split(":");
+        if (arrTime.length == 2) {
+            try{
+                this.hour = Byte.parseByte(arrTime[0]);
+            } catch (NumberFormatException exception){
+                Log.e(TAG_PARSE_STRING_TO_TIME, "failed to parse hour due to", exception);
+            }
+
+            try{
+                this.minute = Byte.parseByte(arrTime[1]);
+            } catch (NumberFormatException exception){
+                Log.e(TAG_PARSE_STRING_TO_TIME, "failed to parse minute due to", exception);
+            }
+        }
     }
 
     public byte getHour() {
@@ -57,7 +78,7 @@ public class Time {
             this.minute = minute;
     }
 
-    public String getTimeS(){
+    public String toString(){
         return this.getHourS() + ":" + getMinuteS();
     }
 
@@ -96,6 +117,14 @@ public class Time {
         }
 
         this.minute = res;
+    }
+
+    public void addTime(Time addedDate){
+        byte hour = addedDate.getHour();
+        byte minute = addedDate.getMinute();
+        int countMinutes = minute + (hour * 60);
+
+        addTime(countMinutes);
     }
 
     public void addTime(int count){

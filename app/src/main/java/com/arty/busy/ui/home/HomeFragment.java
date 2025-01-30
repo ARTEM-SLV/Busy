@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.arty.busy.Constants;
+import com.arty.busy.consts.Constants;
 import com.arty.busy.databinding.FragmentHomeBinding;
 import com.arty.busy.ui.home.adapters.ListOfDaysAdapter;
 

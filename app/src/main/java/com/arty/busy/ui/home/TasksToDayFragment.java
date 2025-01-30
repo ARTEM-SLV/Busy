@@ -20,9 +20,9 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.arty.busy.ActivityForFragments;
-import com.arty.busy.Constants;
+import com.arty.busy.consts.Constants;
 import com.arty.busy.R;
-import com.arty.busy.Settings;
+import com.arty.busy.consts.Settings;
 import com.arty.busy.databinding.FragmentTasksToDayBinding;
 import com.arty.busy.date.MyDate;
 import com.arty.busy.date.Time;

@@ -7,7 +7,7 @@
     tools:context=".CustomerActivity">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/ivPhoto_C"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -19,7 +19,7 @@
         tools:srcCompat="@tools:sample/avatars" />
 
     <EditText
-        android:id="@+id/edFirstName_C"
+        android:id="@+id/etFirstName_C"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -31,10 +31,10 @@
         android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/ivPhoto_C" />
 
     <EditText
-        android:id="@+id/edLastName_C"
+        android:id="@+id/etLastName_C"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -46,10 +46,10 @@
         android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edFirstName_C" />
+        app:layout_constraintTop_toBottomOf="@+id/etFirstName_C" />
 
     <EditText
-        android:id="@+id/edPhone_C"
+        android:id="@+id/etPhone_C"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -61,11 +61,11 @@
         android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edLastName_C"
+        app:layout_constraintTop_toBottomOf="@+id/etLastName_C"
         tools:ignore="TextFields" />
 
     <EditText
-        android:id="@+id/etAge"
+        android:id="@+id/etAge_C"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -75,13 +75,13 @@
         android:hint="@string/cd_age"
         android:inputType="numberSigned"
         android:minHeight="48dp"
-        app:layout_constraintEnd_toStartOf="@+id/etSex"
+        app:layout_constraintEnd_toStartOf="@+id/etSex_C"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edPhone_C" />
+        app:layout_constraintTop_toBottomOf="@+id/etPhone_C" />
 
     <Spinner
-        android:id="@+id/etSex"
+        android:id="@+id/etSex_C"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -93,6 +93,6 @@
         android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/etAge"
-        app:layout_constraintTop_toBottomOf="@+id/edPhone_C" />
+        app:layout_constraintStart_toEndOf="@+id/etAge_C"
+        app:layout_constraintTop_toBottomOf="@+id/etPhone_C" />
 </androidx.constraintlayout.widget.ConstraintLayout>

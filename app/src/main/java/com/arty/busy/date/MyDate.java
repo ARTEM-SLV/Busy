@@ -18,6 +18,13 @@ public class MyDate {
     public final static long DAY = 86400000;
     private final static String TAG_PARSE_STRING_TO_TIME = "MyDateError.ParseStringToTime";
 
+    public static Date getDate(int year, int month, int day){
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(year, month, day);
+
+        return calendar.getTime();
+    }
+
     @NonNull
     public static Date getStartDay(Date date){
         Calendar calendar = Calendar.getInstance();
@@ -145,10 +152,10 @@ public class MyDate {
         currDate = new Date(currDate.getTime() + 86400000*countDays);
     }
 
-    public static Time parseStringToTime(String sTime){
+    public static Time parseStringToTime(String timeS){
         Time time = new Time();
 
-        String[] arrTime = sTime.split(":");
+        String[] arrTime = timeS.split(":");
         if (arrTime.length == 2) {
             try{
                 byte hour = Byte.parseByte(arrTime[0]);

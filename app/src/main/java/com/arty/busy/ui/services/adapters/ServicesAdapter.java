@@ -75,7 +75,7 @@ public class ServicesAdapter extends RecyclerView.Adapter<ServicesAdapter.Servic
     private String getTimeDuration(int duration){
         Time time = new Time(duration);
 
-        return time.getTimeS();
+        return time.toString();
     }
 
     @SuppressLint("NotifyDataSetChanged")
