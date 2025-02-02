@@ -2,6 +2,7 @@ package com.arty.busy.ui.services.adapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.arty.busy.R;
 import com.arty.busy.date.Time;
 import com.arty.busy.models.Service;
+import com.arty.busy.ui.services.ServiceActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +43,15 @@ public class ServicesAdapter extends RecyclerView.Adapter<ServicesAdapter.Servic
 
     @Override
     public void onBindViewHolder(@NonNull ServicesViewHolder holder, int position) {
-        holder.setData(listOfServices.get(position));
+        Service service = listOfServices.get(position);
+        holder.setData(service);
+
+        // Открываем DialogActivity при клике на элемент списка
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(context, ServiceActivity.class);
+            intent.putExtra("service", service);
+            context.startActivity(intent);
+        });
     }
 
     @Override

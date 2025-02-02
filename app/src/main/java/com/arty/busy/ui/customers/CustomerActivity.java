@@ -1,4 +1,4 @@
-package com.arty.busy;
+package com.arty.busy.ui.customers;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,6 +7,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.arty.busy.R;
 import com.arty.busy.enums.Sex;
 import com.arty.busy.models.Customer;
 

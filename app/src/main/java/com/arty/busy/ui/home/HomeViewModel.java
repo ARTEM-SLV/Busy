@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel;
 import com.arty.busy.App;
 import com.arty.busy.consts.Constants;
 import com.arty.busy.database.BusyDao;
-import com.arty.busy.date.MyDate;
+import com.arty.busy.date.DateTime;
 import com.arty.busy.date.Time;
 import com.arty.busy.models.Customer;
 import com.arty.busy.models.Service;
@@ -45,7 +45,7 @@ public class HomeViewModel extends ViewModel {
                 break;
             default:
                 Date d = new Date();
-                loadDataInListOfDays(listOfDays, MyDate.getStartDay(d).getTime(), -14, 14);
+                loadDataInListOfDays(listOfDays, DateTime.getStartDay(d).getTime(), -14, 14);
                 startDate = listOfDays.get(0).getDate().getTime();
                 endDate = listOfDays.get(listOfDays.size()-1).getDate().getTime();
         }
@@ -58,12 +58,12 @@ public class HomeViewModel extends ViewModel {
     }
 
     private void loadDataInListOfDays(List<ItemListOfDays> listOfDays, long referenceDate, int beforeDays, int afterDays){
-        long dateBeginning = referenceDate + MyDate.DAY*beforeDays;
-        long dateEnding = referenceDate + MyDate.DAY*afterDays;
+        long dateBeginning = referenceDate + DateTime.DAY*beforeDays;
+        long dateEnding = referenceDate + DateTime.DAY*afterDays;
 
         List<ItemTaskList> taskList = busyDao.getTaskList(dateBeginning, dateEnding);
 
-        for (long day = dateBeginning; day <= dateEnding; day+=MyDate.DAY) {
+        for (long day = dateBeginning; day <= dateEnding; day+= DateTime.DAY) {
             ItemListOfDays itemListOfDays = new ItemListOfDays();
             itemListOfDays.setDate(new Date(day));
 
@@ -112,13 +112,13 @@ public class HomeViewModel extends ViewModel {
 
             for (ItemTaskInfo itemTaskInfo: taskInfoList) {
                 String sTimeStart = itemTaskInfo.getTime();
-                timeStart = MyDate.parseStringToTime(sTimeStart);
+                timeStart = DateTime.parseStringToTime(sTimeStart);
 
                 if (timeStart.getHour() == i) {
                     duration = itemTaskInfo.getDuration();
-                    timeEnd = MyDate.parseStringToTime(sTimeStart);
+                    timeEnd = DateTime.parseStringToTime(sTimeStart);
                     timeEnd.addTime(duration);
-                    String sTimeEnd = MyDate.parseTimeToString(timeEnd);
+                    String sTimeEnd = DateTime.parseTimeToString(timeEnd);
 
                     taskByHours.setId_task(itemTaskInfo.getId_task());
                     taskByHours.setTaskTime(sTimeStart + " - " + sTimeEnd);
@@ -144,12 +144,12 @@ public class HomeViewModel extends ViewModel {
         int result = 0;
         Time timeStart;
         List<ItemTaskInfo> taskInfoList = busyDao.getTasksInfoByDay(date);
-        Date currentDateStart = MyDate.getCurrentStartDate();
-        Time currentTame = MyDate.getCurrentTime();
+        Date currentDateStart = DateTime.getCurrentStartDate();
+        Time currentTame = DateTime.getCurrentTime();
 
         for (ItemTaskInfo itemTaskInfo: taskInfoList) {
             String sTimeStart = itemTaskInfo.getTime();
-            timeStart = MyDate.parseStringToTime(sTimeStart);
+            timeStart = DateTime.parseStringToTime(sTimeStart);
             if (date == currentDateStart.getTime()){
                 if(timeStart.getHour() >= currentTame.getHour()){
                     result = timeStart.getHour();
@@ -169,7 +169,7 @@ public class HomeViewModel extends ViewModel {
     }
 
     public Time getCurrentTime(){
-        return MyDate.getTime(new Date());
+        return DateTime.getTime(new Date());
     }
 
     public Task getTask(int uid){
@@ -193,12 +193,12 @@ public class HomeViewModel extends ViewModel {
         return nameCustomer.toString();
     }
 
-    public String getViewOfTime(String timeStart, String timeEnd){
-        StringBuilder sbTime = new StringBuilder("");
-        sbTime.append(timeStart);
-        sbTime.append(" - ");
-        sbTime.append(timeEnd);
-
-        return sbTime.toString();
-    }
+//    public String getPerformanceOfTime(String timeStart, String timeEnd){
+//        StringBuilder sbTime = new StringBuilder("");
+//        sbTime.append(timeStart);
+//        sbTime.append(" - ");
+//        sbTime.append(timeEnd);
+//
+//        return sbTime.toString();
+//    }
 }

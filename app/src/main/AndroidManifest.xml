@@ -13,7 +13,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Busy">
         <activity
-            android:name=".CustomerActivity"
+            android:name=".ui.customers.CustomerActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.services.ServiceActivity"
             android:exported="false" />
         <activity
             android:name=".ActivityForFragments"

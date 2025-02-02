@@ -79,7 +79,7 @@ public class Time {
     }
 
     public String toString(){
-        return this.getHourS() + ":" + getMinuteS();
+        return String.format("%02d", this.hour) + ":" + String.format("%02d", this.minute);
     }
 
     public int compareTo(Time t){

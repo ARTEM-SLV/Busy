@@ -21,7 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.arty.busy.consts.Constants;
 import com.arty.busy.R;
-import com.arty.busy.date.MyDate;
+import com.arty.busy.date.DateTime;
 import com.arty.busy.ui.home.items.ItemListOfDays;
 
 import java.text.DateFormat;
@@ -90,7 +90,7 @@ public class ListOfDaysAdapter extends RecyclerView.Adapter<ListOfDaysAdapter.Vi
             icoThisDay = view.findViewById(R.id.icoThisDay_LOD);
 //            containerLeft_LOD = view.findViewById(R.id.containerLeft_LOD);
 
-            currentDate = MyDate.getCurrentStartDate();
+            currentDate = DateTime.getCurrentStartDate();
 
             view.setOnClickListener(this);
         }

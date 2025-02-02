@@ -1,5 +1,6 @@
 package com.arty.busy.ui.home;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
@@ -22,8 +23,9 @@ import androidx.lifecycle.ViewModelProvider;
 import com.arty.busy.consts.Constants;
 import com.arty.busy.R;
 //import com.arty.busy.data.BusyDao;
+import com.arty.busy.databinding.FragmentServicesBinding;
 import com.arty.busy.databinding.FragmentTaskBinding;
-import com.arty.busy.date.MyDate;
+import com.arty.busy.date.DateTime;
 import com.arty.busy.date.Time;
 import com.arty.busy.models.Customer;
 import com.arty.busy.models.Service;
@@ -58,6 +60,7 @@ public class TaskFragment extends Fragment {
     private TextView tvDate;
     private TextView tvTime;
     private EditText etDuration;
+    private EditText etPrice;
     private CheckBox cbDone;
     private CheckBox cbPaid;
 
@@ -110,6 +113,7 @@ public class TaskFragment extends Fragment {
         tvTime = root.findViewById(R.id.tvTime_T);
 
         etDuration = root.findViewById(R.id.etDuration_T);
+        etPrice = root.findViewById(R.id.etPrice_T);
     }
 
     private void initCheckBoxDone(){
@@ -131,16 +135,16 @@ public class TaskFragment extends Fragment {
     }
 
     private void setOnClickListeners(){
-        setOnClickListenerForBtnOk();
-        setOnClickListenerForBtnCansel();
-        setOnClickListenerForTVCustomer();
-        setOnClickListenerForTVService();
+        setOnClickListenerBtnOk();
+        setOnClickListenerBtnCansel();
+        setOnClickListenerTVCustomer();
+        setOnClickListenerTVService();
         setOnClickListenerForTVDate();
         setOnClickListenerForTVTime();
         setOnClickListenerForETDuration();
     }
 
-    private void setOnClickListenerForBtnOk(){
+    private void setOnClickListenerBtnOk(){
         btnOk.setOnClickListener(v -> {
             if (modified){
                 updateDataTask();
@@ -150,7 +154,7 @@ public class TaskFragment extends Fragment {
         });
     }
     
-    private void setOnClickListenerForBtnCansel(){
+    private void setOnClickListenerBtnCansel(){
         btnCansel.setOnClickListener(v -> {
             if (modified){
 
@@ -158,14 +162,13 @@ public class TaskFragment extends Fragment {
                 finishActivityForFragment();
         });
 
-        // setOnClickListener for text view Time
         TextView tvTime = root.findViewById(R.id.tvTime_T);
         tvTime.setOnClickListener(v -> {
             setModified(true);
         });
     }
-    
-    private void setOnClickListenerForTVService(){
+
+    private void setOnClickListenerTVCustomer(){
         tvCustomer.setOnClickListener(v -> {
             setModified(true);
 
@@ -182,8 +185,8 @@ public class TaskFragment extends Fragment {
                     .commit();
         });
     }
-    
-    private void setOnClickListenerForTVCustomer(){
+
+    private void setOnClickListenerTVService(){
         tvService.setOnClickListener(v -> {
             setModified(true);
 
@@ -206,11 +209,11 @@ public class TaskFragment extends Fragment {
     }
 
     private void setOnClickListenerForTVTime(){
-        tvTime.setOnClickListener(v -> showTimePickerDialog(tvTime));
+        tvTime.setOnClickListener(v -> showTimePickerDialog(tvTime, true));
     }
 
     private void setOnClickListenerForETDuration() {
-        etDuration.setOnClickListener(v -> showTimePickerDialog(etDuration));
+        etDuration.setOnClickListener(v -> showTimePickerDialog(etDuration, false));
     }
 
     private void showDatePicker() {
@@ -218,26 +221,19 @@ public class TaskFragment extends Fragment {
         AtomicInteger selectedYear = new AtomicInteger();
         AtomicInteger selectedMonth = new AtomicInteger();
         AtomicInteger selectedDay = new AtomicInteger();
-//        int selectedHour;
-//        int selectedMinute;
 
         // Если уже есть дата, парсим её, иначе используем текущую
         if (!tvDate.getText().toString().isEmpty()) {
             String[] parts = tvDate.getText().toString().split(" ");
             String[] dateParts = parts[0].split("\\.");
-//            String[] timeParts = parts[1].split(":");
 
             selectedYear.set(Integer.parseInt(dateParts[2]));
             selectedMonth.set(Integer.parseInt(dateParts[1]) - 1); // В Calendar январь = 0
             selectedDay.set(Integer.parseInt(dateParts[0]));
-//            selectedHour = Integer.parseInt(timeParts[0]);
-//            selectedMinute = Integer.parseInt(timeParts[1]);
         } else {
             selectedYear.set(calendar.get(Calendar.YEAR));
             selectedMonth.set(calendar.get(Calendar.MONTH));
             selectedDay.set(calendar.get(Calendar.DAY_OF_MONTH));
-//            selectedHour = calendar.get(Calendar.HOUR_OF_DAY);
-//            selectedMinute = calendar.get(Calendar.MINUTE);
         }
 
         // Открываем DatePickerDialog
@@ -251,7 +247,7 @@ public class TaskFragment extends Fragment {
 //            showTimePickerDialog();
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
             String formattedDate
-                    = dateFormat.format(MyDate.getDate(selectedYear.get(), selectedMonth.get(), selectedDay.get()));
+                    = dateFormat.format(DateTime.getDate(selectedYear.get(), selectedMonth.get(), selectedDay.get()));
 //                    = String.format("%02d.%02d.%04d", selectedDay.get(), selectedMonth.get() + 1, selectedYear.get());
             tvDate.setText(formattedDate);
         }, selectedYear.get(), selectedMonth.get(), selectedDay.get());
@@ -259,19 +255,18 @@ public class TaskFragment extends Fragment {
         datePickerDialog.show();
     }
 
-    private void showTimePickerDialog(TextView tvTime) {
+    private void showTimePickerDialog(TextView tvTime, boolean setTimeNow) {
         int hour = 0, minute = 0;
         String currentTime = tvTime.getText().toString();
 
         if (!currentTime.isEmpty()) {
-//            String timeRange = currentTime;
             String[] timeParts = currentTime.split(" - ");
             if (timeParts.length > 0) {
                 String[] startTime = timeParts[0].split(":");
                 hour = Integer.parseInt(startTime[0]);
                 minute = Integer.parseInt(startTime[1]);
             }
-        } else {
+        } else if (setTimeNow) {
             // Если поле пустое, берем текущее время
             Calendar calendar = Calendar.getInstance();
             hour = calendar.get(Calendar.HOUR_OF_DAY);
@@ -281,7 +276,8 @@ public class TaskFragment extends Fragment {
         TimePickerDialog timePickerDialog = new TimePickerDialog(
                 root.getContext(),
                 (view, selectedHour, selectedMinute) -> {
-                    String newStartTime  = String.format("%02d:%02d", selectedHour, selectedMinute);
+                    @SuppressLint("DefaultLocale") String newStartTime
+                            = String.format("%02d:%02d", selectedHour, selectedMinute);
                     tvTime.setText(newStartTime);
                     setPerformanceTvTime();
                 },
@@ -308,19 +304,21 @@ public class TaskFragment extends Fragment {
     }
 
     private void setData(){
-        setServiceForView(currentTask.id_service);
-        setCustomerForView(currentTask.id_customer);
-        setPriceForView(currentTask.price);
+        setServiceView(currentTask.id_service);
+        setCustomerView(currentTask.id_customer);
+        setPriceView(currentTask.price);
 
-        Time timeEnd = MyDate.parseStringToTime(currentTask.time);
-        timeEnd.addTime(service.duration);
-        String sTimeEnd = MyDate.parseTimeToString(timeEnd);
-        setTimeForView(currentTask.time, sTimeEnd);
+        Time timeEnd = DateTime.parseStringToTime(currentTask.time);
+        timeEnd.addTime(currentTask.duration);
+        String sTimeEnd = DateTime.parseTimeToString(timeEnd);
+        setTimeView(currentTask.time, sTimeEnd);
+        setDurationView(currentTask.duration);
 
         cbDone.setChecked(currentTask.done);
         cbPaid.setChecked(currentTask.paid);
     }
 
+    @SuppressLint("SetTextI18n")
     private void setPerformanceTvTime(){
         String currentTime = tvTime.getText().toString();
         String durationTime = etDuration.getText().toString();
@@ -336,54 +334,50 @@ public class TaskFragment extends Fragment {
         Time timeEnd = new Time(timeStart);
         timeEnd.addTime(new Time(durationTime));
 
-        String timeText = timeStart + " - " + timeEnd.toString();
-        tvTime.setText(timeText);
+        tvTime.setText(getPerformanceOfTime(timeStart, timeEnd.toString()));
     }
 
     private void updateDataTask(){
 //        App.getInstance().getBusyDao().updateTaskList(task);
     }
 
-    private Service getService(int id){
-        return homeViewModel.getService(id);//busyDao.getServiceByID(uid);
+    private void setServiceView(int id){
+        service = homeViewModel.getService(id);
+
+        tvService.setText(service.title);
     }
 
-    private void setServiceForView(int uid){
-        service = getService(uid);
+    private void setCustomerView(int id){
+        customer = homeViewModel.getCustomer(id);;
 
-        TextView etService = root.findViewById(R.id.tvService_T);
-        etService.setText(service.title);
+        tvCustomer.setText(homeViewModel.getCustomerName(customer));
     }
 
-    private Customer getCustomer(int id){
-        return homeViewModel.getCustomer(id);//busyDao.getCustomerByID(uid);
-    }
-
-    private void setCustomerForView(int id){
-        customer = getCustomer(id);
-
-//        StringBuilder nameCustomer = new StringBuilder("");
-//        nameCustomer.append(customer.first_name);
-//        nameCustomer.append(" ");
-//        nameCustomer.append(customer.last_name);
-
-        TextView etCustomer = root.findViewById(R.id.tvCustomer_T);
-        etCustomer.setText(homeViewModel.getCustomerName(customer));
-    }
-
-    private void setPriceForView(double price){
-        EditText etPrice = root.findViewById(R.id.etPrice_T);
+    private void setPriceView(double price){
         etPrice.setText(String.valueOf(price));
     }
 
-    private void setTimeForView(String timeStart, String timeEnd){
-//        StringBuilder sbTime = new StringBuilder("");
-//        sbTime.append(timeStart);
-//        sbTime.append(" - ");
-//        sbTime.append(timeEnd);
+    @SuppressLint("SetTextI18n")
+    private void setTimeView(String timeStart, String timeEnd){
+        tvTime.setText(getPerformanceOfTime(timeStart, timeEnd));
+    }
 
-        TextView tvTime = root.findViewById(R.id.tvTime_T);
-        tvTime.setText(homeViewModel.getViewOfTime(timeStart, timeEnd));
+    private void setDurationView(int duration){
+        Time time = new Time(duration);
+
+        etDuration.setText(time.toString());
+    }
+
+    private String getPerformanceOfTime(String timeStart, String timeEnd){
+        String res;
+
+        if (timeEnd.equals(timeStart)){
+            res = timeStart;
+        } else {
+            res = timeStart + " - " + timeEnd;
+        }
+
+        return res;
     }
 
     private void finishActivityForFragment(){

@@ -24,7 +24,7 @@ import com.arty.busy.consts.Constants;
 import com.arty.busy.R;
 import com.arty.busy.consts.Settings;
 import com.arty.busy.databinding.FragmentTasksToDayBinding;
-import com.arty.busy.date.MyDate;
+import com.arty.busy.date.DateTime;
 import com.arty.busy.date.Time;
 import com.arty.busy.ui.home.items.ItemTaskInfo;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -181,11 +181,11 @@ public class TasksToDayFragment extends Fragment {
             duration = itemTaskInfo.getDuration();
 
             String sTimeStart = itemTaskInfo.getTime();
-            timeStart = MyDate.parseStringToTime(sTimeStart);
+            timeStart = DateTime.parseStringToTime(sTimeStart);
 
-            timeEnd = MyDate.parseStringToTime(sTimeStart);
+            timeEnd = DateTime.parseStringToTime(sTimeStart);
             timeEnd.addTime(duration);
-            String sTimeEnd = MyDate.parseTimeToString(timeEnd);
+            String sTimeEnd = DateTime.parseTimeToString(timeEnd);
 
             hour = timeStart.getHour();
             minute = timeStart.getMinute();
@@ -238,10 +238,10 @@ public class TasksToDayFragment extends Fragment {
     private boolean isNextTask(Time time){
         boolean res = false;
 
-        if (currDateL == MyDate.getCurrentStartDate().getTime()) {
+        if (currDateL == DateTime.getCurrentStartDate().getTime()) {
             for (ItemTaskInfo itemTaskInfo : taskInfoList) {
                 String sTime = itemTaskInfo.getTime();
-                Time t = MyDate.parseStringToTime(sTime);
+                Time t = DateTime.parseStringToTime(sTime);
 
                 if (t.compareTo(currTime) == 1) {
                     res = t.compareTo(time) == 0;
@@ -260,7 +260,7 @@ public class TasksToDayFragment extends Fragment {
         if (index > 0){
             ItemTaskInfo itemTaskInfo = taskInfoList.get(index-1);
             String sTime = itemTaskInfo.getTime();
-            Time timeEndLastTask = MyDate.parseStringToTime(sTime);
+            Time timeEndLastTask = DateTime.parseStringToTime(sTime);
             timeEndLastTask.addTime(itemTaskInfo.getDuration());
 
             res = timeStart.compareTo(timeEndLastTask) == -1;
@@ -268,7 +268,7 @@ public class TasksToDayFragment extends Fragment {
         if (index+1 < taskInfoList.size()){
             ItemTaskInfo itemTaskInfo = taskInfoList.get(index+1);
             String sTime = itemTaskInfo.getTime();
-            Time timeStartNextTask = MyDate.parseStringToTime(sTime);
+            Time timeStartNextTask = DateTime.parseStringToTime(sTime);
 
             res = res || timeEnd.compareTo(timeStartNextTask) == 1;
         }

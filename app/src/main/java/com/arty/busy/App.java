@@ -10,7 +10,7 @@ import com.arty.busy.consts.Constants;
 import com.arty.busy.consts.Settings;
 import com.arty.busy.database.AppDatabase;
 import com.arty.busy.database.BusyDao;
-import com.arty.busy.date.MyDate;
+import com.arty.busy.date.DateTime;
 import com.arty.busy.enums.Sex;
 import com.arty.busy.models.Customer;
 import com.arty.busy.models.Service;
@@ -46,11 +46,11 @@ public class App extends Application {
         busyDao = dataBase.busyDao();
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(App.this);
-//        fillWorkday();    //for test
+        fillWorkday();    //for test
         updateSettings();
 
-//        fillDataBaseForTest();    //for test
-//        fillCustomers();      //for test
+        fillDataBaseForTest();    //for test
+        fillCustomers();      //for test
     }
 
     public AppDatabase getDataBase() {
@@ -106,11 +106,11 @@ public class App extends Application {
     private void fillTasks(){
         List<Task> taskList = new ArrayList<>();
         Calendar calendar = Calendar.getInstance();
-        MyDate.setStartDay(calendar);
+        DateTime.setStartDay(calendar);
         int uid = 0;
         for (int i = 0; i < 100; i++) {
             Date dt; // = calendar.getTime();
-            Date dd = MyDate.getStartDay(calendar);
+            Date dd = DateTime.getStartDay(calendar);
 
             byte hour = 7;
             int randomJ = (int) Math.round(Math.random()*5)+1;
@@ -128,10 +128,11 @@ public class App extends Application {
                 Task task = new Task();
                 task.uid = uid;
                 task.day = dd.getTime();
-                task.time = MyDate.timeFormat24.format(dt);
+                task.time = DateTime.timeFormat24.format(dt);
                 task.price = 500.00;
                 task.id_customer = randomNum;
                 task.id_service = randomNum;
+                task.duration = 60;
 
                 taskList.add(task);
                 uid++;

@@ -9,7 +9,7 @@
     tools:context=".ui.home.TaskFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/containerElements_T"
+        android:id="@+id/containerElements_S"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
@@ -22,7 +22,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageButton
-            android:id="@+id/btnOk_T"
+            android:id="@+id/btnOk_S"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -36,7 +36,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
-            android:id="@+id/btnCancel_T"
+            android:id="@+id/btnCancel_S"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -50,7 +50,23 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tvTime_T"
+            android:id="@+id/tvShortTitle_S"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:gravity="center"
+            android:textColor="@color/DarkSlateGray"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toBottomOf="@+id/btnOk_S"
+            app:layout_constraintEnd_toStartOf="@+id/btnCancel_S"
+            app:layout_constraintStart_toEndOf="@+id/btnOk_S"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="" />
+
+        <TextView
+            android:id="@+id/tvTitle_S"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_marginStart="8dp"
@@ -60,18 +76,19 @@
             android:drawableEnd="@drawable/ic_chevron_right_24"
             android:fontFamily="casual"
             android:gravity="start|center_vertical"
-            android:hint="@string/set_time"
+            android:hint="@string/title_services"
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
             android:textColor="@color/DarkSlateGray"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnOk_T"
+            app:layout_constraintTop_toBottomOf="@+id/btnOk_S"
             tools:ignore="UseCompatTextViewDrawableXml" />
 
         <TextView
-            android:id="@+id/tvCustomer_T"
+            android:id="@+id/tvDescription_S"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_marginStart="8dp"
@@ -89,33 +106,11 @@
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvTime_T"
-            tools:ignore="UseCompatTextViewDrawableXml" />
-
-        <TextView
-            android:id="@+id/tvService_T"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:background="@drawable/style_stroke_dark_slate_gray"
-            android:drawableEnd="@drawable/ic_chevron_right_24"
-            android:gravity="center_vertical"
-            android:hint="@string/cd_service"
-            android:inputType="none"
-            android:minHeight="48dp"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            android:textColor="@color/DarkSlateGray"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvCustomer_T"
+            app:layout_constraintTop_toBottomOf="@+id/tvTitle_S"
             tools:ignore="UseCompatTextViewDrawableXml" />
 
         <LinearLayout
-            android:id="@+id/layoutDuration_T"
+            android:id="@+id/layoutDuration_S"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_marginStart="8dp"
@@ -125,10 +120,10 @@
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvService_T">
+            app:layout_constraintTop_toBottomOf="@+id/tvDescription_S">
 
             <TextView
-                android:id="@+id/tvDuration_T"
+                android:id="@+id/tvDuration_S"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -140,7 +135,7 @@
                 android:textSize="20sp" />
 
             <EditText
-                android:id="@+id/etDuration_T"
+                android:id="@+id/etDuration_S"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -157,7 +152,7 @@
         </LinearLayout>
 
         <TableLayout
-            android:id="@+id/tabServices_T"
+            android:id="@+id/tabServices_S"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -170,7 +165,7 @@
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layoutDuration_T">
+            app:layout_constraintTop_toBottomOf="@+id/layoutDuration_S">
 
             <TableRow
                 android:layout_width="match_parent"
@@ -320,7 +315,7 @@
         </TableLayout>
 
         <LinearLayout
-            android:id="@+id/layoutPrice_T"
+            android:id="@+id/layoutPrice_S"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_marginStart="8dp"
@@ -330,10 +325,10 @@
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tabServices_T">
+            app:layout_constraintTop_toBottomOf="@+id/tabServices_S">
 
             <TextView
-                android:id="@+id/tvPrice_T"
+                android:id="@+id/tvPrice_S"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -345,7 +340,7 @@
                 android:textSize="20sp" />
 
             <EditText
-                android:id="@+id/etPrice_T"
+                android:id="@+id/etPrice_S"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -364,44 +359,10 @@
                 tools:text="1550" />
         </LinearLayout>
 
-        <CheckBox
-            android:id="@+id/cbDone_T"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginBottom="8dp"
-            android:buttonTint="@color/DarkSlateGray"
-            android:fontFamily="@font/margot"
-            android:minHeight="48dp"
-            android:text="@string/cd_done"
-            android:textColor="@color/DarkSlateGray"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toTopOf="@+id/cbPaid_T"
-            app:layout_constraintEnd_toStartOf="@+id/btnCancelTask_T"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <CheckBox
-            android:id="@+id/cbPaid_T"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginBottom="8dp"
-            android:buttonTint="@color/DarkSlateGray"
-            android:fontFamily="@font/margot"
-            android:minHeight="48dp"
-            android:text="@string/cd_paid"
-            android:textColor="@color/DarkSlateGray"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/btnCancelTask_T"
-            app:layout_constraintStart_toStartOf="parent" />
-
         <ImageButton
-            android:id="@+id/btnCancelTask_T"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:id="@+id/btnCancelTask_S"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             android:background="@android:color/transparent"
@@ -409,25 +370,9 @@
             android:onClick="onCancelTaskClick"
             android:padding="10dp"
             android:scaleType="fitXY"
-            android:src="@android:drawable/ic_menu_delete"
+            android:src="@drawable/ic_block_24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
-
-        <TextView
-            android:id="@+id/tvDate_T"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:gravity="center"
-            android:textColor="@color/DarkSlateGray"
-            android:textSize="30sp"
-            app:layout_constraintBottom_toBottomOf="@+id/btnOk_T"
-            app:layout_constraintEnd_toStartOf="@+id/btnCancel_T"
-            app:layout_constraintStart_toEndOf="@+id/btnOk_T"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="10 july 2025" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

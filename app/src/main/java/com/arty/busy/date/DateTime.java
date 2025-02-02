@@ -10,7 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class MyDate {
+public class DateTime {
     @SuppressLint("SimpleDateFormat")
     public final static DateFormat timeFormat24 = new SimpleDateFormat("HH:mm");
     @SuppressLint("SimpleDateFormat")
@@ -151,6 +151,10 @@ public class MyDate {
     public static void addDay(Date currDate, int countDays){
         currDate = new Date(currDate.getTime() + 86400000*countDays);
     }
+
+//    public static Time parseIntToTime(){
+//
+//    }
 
     public static Time parseStringToTime(String timeS){
         Time time = new Time();

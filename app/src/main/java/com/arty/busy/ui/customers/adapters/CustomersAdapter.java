@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,11 +12,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.arty.busy.CustomerActivity;
+import com.arty.busy.ui.customers.CustomerActivity;
 import com.arty.busy.R;
 import com.arty.busy.models.Customer;
 
@@ -64,7 +61,7 @@ public class CustomersAdapter extends RecyclerView.Adapter<CustomersAdapter.Cust
         return listOfCustomers.size();
     }
 
-    class CustomersViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class CustomersViewHolder extends RecyclerView.ViewHolder {
         private final TextView tvName = itemView.findViewById(R.id.tvName_LOC);
         private final TextView tvPhone = itemView.findViewById(R.id.tvPhone_LOC);
         private final TextView tvPicture = itemView.findViewById(R.id.tvPicture_LOC);
@@ -84,15 +81,6 @@ public class CustomersAdapter extends RecyclerView.Adapter<CustomersAdapter.Cust
             if (customer.uid == uid){
                 mainLayout.setForeground(ContextCompat.getDrawable(context, R.drawable.style_radial_green_transparent));
             } else mainLayout.setForeground(null);
-        }
-
-        @Override
-        public void onClick(View v) {
-            Bundle bundle = new Bundle();
-//            bundle.putLong(Constants.KEY_DATE, listOfCustomers.get(getAdapterPosition()).getDate().getTime());
-
-            NavController navController = Navigation.findNavController(parentActivity, R.id.nav_host_fragment_activity_main);
-            navController.navigate(R.id.navigation_customers, bundle);
         }
     }
 
