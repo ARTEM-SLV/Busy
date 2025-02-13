@@ -46,11 +46,11 @@ public class App extends Application {
         busyDao = dataBase.busyDao();
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(App.this);
-        fillWorkday();    //for test
+//        fillWorkday();    //for test
         updateSettings();
 
-        fillDataBaseForTest();    //for test
-        fillCustomers();      //for test
+//        fillDataBaseForTest();    //for test
+//        fillCustomers();      //for test
     }
 
     public AppDatabase getDataBase() {

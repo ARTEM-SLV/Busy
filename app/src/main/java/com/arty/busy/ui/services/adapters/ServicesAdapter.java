@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.arty.busy.R;
 import com.arty.busy.date.Time;
 import com.arty.busy.models.Service;
-import com.arty.busy.ui.services.ServiceActivity;
+import com.arty.busy.ui.services.activity.ServiceActivity;
 
 import java.util.ArrayList;
 import java.util.List;

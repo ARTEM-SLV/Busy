@@ -16,7 +16,9 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:background="@color/AliceBlue"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -355,6 +357,7 @@
                 android:fontFamily="casual"
                 android:gravity="end"
                 android:hint="@string/cd_price"
+                android:imeOptions="actionDone"
                 android:inputType="numberDecimal"
                 android:minHeight="48dp"
                 android:paddingStart="10dp"

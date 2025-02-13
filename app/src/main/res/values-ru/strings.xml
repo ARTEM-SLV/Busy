@@ -5,6 +5,7 @@
     <string name="title_services">Услуги</string>
     <string name="title_count" >Подсчет</string>
     <string name="title_settings" >Настройки</string>
+    <string name="title_description">Описание…</string>
 
     <!--    enum sex values-->
     <string name="male">Мужской</string>

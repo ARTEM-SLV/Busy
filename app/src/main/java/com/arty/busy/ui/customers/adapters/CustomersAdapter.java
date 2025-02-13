@@ -14,7 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.arty.busy.ui.customers.CustomerActivity;
+import com.arty.busy.ui.customers.activity.CustomerActivity;
 import com.arty.busy.R;
 import com.arty.busy.models.Customer;
 

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="CustomDialogTheme" parent="Theme.MaterialComponents.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@drawable/style_stroke_transparent</item>
+        <item name="android:windowMinWidthMajor">80%</item>  <!-- 80% ширины экрана -->
+        <item name="android:windowMinWidthMinor">60%</item>  <!-- 60% высоты экрана -->
+    </style>
+</resources>

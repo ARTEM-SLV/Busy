@@ -2,70 +2,69 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/mainContainer_T"
+    android:id="@+id/mainContainer_S"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="5dp"
-    tools:context=".ui.home.TaskFragment">
+    android:background="@color/Azure"
+    tools:context=".ui.services.activity.ServiceActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/containerElements_S"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:background="@color/AliceBlue"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageButton
-            android:id="@+id/btnOk_S"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:background="@android:color/transparent"
-            android:contentDescription="@string/cd_ok"
-            android:minWidth="48dp"
-            android:minHeight="48dp"
-            android:src="@drawable/ic_ok_24"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageButton
-            android:id="@+id/btnCancel_S"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:background="@android:color/transparent"
-            android:contentDescription="@string/cd_cancel"
-            android:minWidth="48dp"
-            android:minHeight="48dp"
-            android:src="@drawable/ic_close_24"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/tvShortTitle_S"
+        <LinearLayout
+            android:id="@+id/LayoutHead_S"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="50dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:gravity="center"
-            android:textColor="@color/DarkSlateGray"
-            android:textSize="30sp"
-            app:layout_constraintBottom_toBottomOf="@+id/btnOk_S"
-            app:layout_constraintEnd_toStartOf="@+id/btnCancel_S"
-            app:layout_constraintStart_toEndOf="@+id/btnOk_S"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="" />
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
+            <ImageButton
+                android:id="@+id/btnOk_S"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/cd_ok"
+                android:minWidth="48dp"
+                android:minHeight="48dp"
+                android:src="@drawable/ic_ok_24" />
+
+            <TextView
+                android:id="@+id/tvHeadTitle_S"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="10"
+                android:gravity="center"
+                android:textColor="@color/DarkSlateGray"
+                android:textSize="20sp"
+                tools:text="" />
+
+            <ImageButton
+                android:id="@+id/btnCancel_S"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/cd_cancel"
+                android:minWidth="48dp"
+                android:minHeight="48dp"
+                android:src="@drawable/ic_close_24" />
+
+        </LinearLayout>
+
+        <EditText
             android:id="@+id/tvTitle_S"
             android:layout_width="0dp"
             android:layout_height="50dp"
@@ -73,36 +72,41 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:background="@drawable/style_stroke_dark_slate_gray"
-            android:drawableEnd="@drawable/ic_chevron_right_24"
-            android:fontFamily="casual"
             android:gravity="start|center_vertical"
             android:hint="@string/title_services"
+            android:imeOptions="actionDone"
+            android:inputType="text"
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
             android:textColor="@color/DarkSlateGray"
-            android:textSize="24sp"
+            android:textColorHint="@color/DarkSlateGray"
+            android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnOk_S"
+            app:layout_constraintTop_toBottomOf="@+id/LayoutHead_S"
             tools:ignore="UseCompatTextViewDrawableXml" />
 
-        <TextView
+        <EditText
             android:id="@+id/tvDescription_S"
             android:layout_width="0dp"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:background="@drawable/style_stroke_dark_slate_gray"
-            android:drawableEnd="@drawable/ic_chevron_right_24"
-            android:gravity="center_vertical"
-            android:hint="@string/cd_customer"
-            android:inputType="none"
+            android:gravity="top"
+            android:hint="@string/title_description"
+            android:imeOptions="actionDone"
+            android:inputType="textMultiLine"
+            android:lines="5"
             android:minHeight="48dp"
+            android:minLines="5"
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
+            android:scrollbars="vertical"
             android:textColor="@color/DarkSlateGray"
+            android:textColorHint="@color/DarkSlateGray"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -143,6 +147,7 @@
                 android:focusable="false"
                 android:fontFamily="casual"
                 android:gravity="end"
+                android:imeOptions="actionDone"
                 android:inputType="time"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
@@ -350,6 +355,7 @@
                 android:fontFamily="casual"
                 android:gravity="end"
                 android:hint="@string/cd_price"
+                android:imeOptions="actionDone"
                 android:inputType="numberDecimal"
                 android:minHeight="48dp"
                 android:paddingStart="10dp"
@@ -361,8 +367,8 @@
 
         <ImageButton
             android:id="@+id/btnCancelTask_S"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             android:background="@android:color/transparent"
@@ -370,7 +376,7 @@
             android:onClick="onCancelTaskClick"
             android:padding="10dp"
             android:scaleType="fitXY"
-            android:src="@drawable/ic_block_24"
+            android:src="@android:drawable/ic_menu_delete"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
