@@ -1,6 +1,7 @@
 package com.arty.busy.ui.home;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
@@ -23,7 +24,6 @@ import androidx.lifecycle.ViewModelProvider;
 import com.arty.busy.consts.Constants;
 import com.arty.busy.R;
 //import com.arty.busy.data.BusyDao;
-import com.arty.busy.databinding.FragmentServicesBinding;
 import com.arty.busy.databinding.FragmentTaskBinding;
 import com.arty.busy.date.DateTime;
 import com.arty.busy.date.Time;
@@ -150,16 +150,24 @@ public class TaskFragment extends Fragment {
                 updateDataTask();
             }
 
-            finishActivityForFragment();
+            finishThisActivity();
         });
     }
     
     private void setOnClickListenerBtnCansel(){
         btnCansel.setOnClickListener(v -> {
             if (modified){
+                new AlertDialog.Builder(getActivity(), R.style.AlertDialogTheme)
+                        .setMessage(R.string.q_cancel)
+                        .setPositiveButton(R.string.cd_yes, (dialog, which) -> {
+                            finishThisActivity();
+                        })
+                        .setNegativeButton(R.string.cd_no, (dialog, which) -> {
 
+                        })
+                        .show();
             }else
-                finishActivityForFragment();
+                finishThisActivity();
         });
 
         TextView tvTime = root.findViewById(R.id.tvTime_T);
@@ -299,8 +307,8 @@ public class TaskFragment extends Fragment {
         }
     }
 
-    private void setModified(boolean isModified){
-        modified = isModified;
+    private void setModified(boolean modified){
+        this.modified = modified;
     }
 
     private void setData(){
@@ -380,7 +388,7 @@ public class TaskFragment extends Fragment {
         return res;
     }
 
-    private void finishActivityForFragment(){
+    private void finishThisActivity(){
 //        getParentFragmentManager().popBackStack();
 //        getParentFragmentManager().beginTransaction().remove(this).commit();
         getActivity().finish();

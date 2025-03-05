@@ -1,12 +1,21 @@
 package com.arty.busy.ui.customers.activity;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.DisplayMetrics;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -14,9 +23,15 @@ import com.arty.busy.R;
 import com.arty.busy.enums.Sex;
 import com.arty.busy.models.Customer;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+
 public class CustomerActivity extends AppCompatActivity {
-    ArrayAdapter<String> adapter;
-    Spinner sex;
+    private ActivityResultLauncher<Intent> imagePickerLauncher;
+    private ArrayAdapter<String> adapter;
+    private Spinner sex;
+    private ImageView ivPhoto;
+    private byte[] imageData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,11 +42,12 @@ public class CustomerActivity extends AppCompatActivity {
         setWindowParam();
 
         setSexValues();
-
         Customer customer = getIntent().getParcelableExtra("customer");
         if (customer != null){
             setData(customer);
         }
+
+        setOnClickListeners();
     }
 
     private void setWindowParam(){
@@ -85,5 +101,58 @@ public class CustomerActivity extends AppCompatActivity {
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, items);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sex.setAdapter(adapter);
+    }
+
+    private void setOnClickListeners(){
+        ImageButton btnOk = findViewById(R.id.btnOk_C);
+        btnOk.setOnClickListener(v -> {
+            finish();
+        });
+
+        ImageButton btnCancel = findViewById(R.id.btnCancel_C);
+        btnCancel.setOnClickListener(v -> {
+            finish();
+        });
+
+        ImageButton btnDeleteTask = findViewById(R.id.btnDeleteTask_C);
+        btnDeleteTask.setOnClickListener(v -> {
+
+        });
+
+        imagePickerLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
+                        Uri imageUri = result.getData().getData();
+                        handleImageSelection(imageUri);
+                    }
+                }
+        );
+
+        ivPhoto = findViewById(R.id.ivPhoto_C);
+        ivPhoto.setOnClickListener(v -> openGallery());
+    }
+
+    private void openGallery() {
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        imagePickerLauncher.launch(intent);
+    }
+
+    // Метод для обработки выбранного изображения
+    private void handleImageSelection(Uri imageUri) {
+        try {
+            Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
+            ivPhoto.setImageBitmap(bitmap);
+            imageData = convertBitmapToByteArray(bitmap); // Конвертируем в byte[]
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Метод для конвертации Bitmap в byte[]
+    private byte[] convertBitmapToByteArray(Bitmap bitmap) {
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        return stream.toByteArray();
     }
 }

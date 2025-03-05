@@ -43,5 +43,11 @@
     <string name="cd_phone">телефон</string>
     <string name="cd_age">возраст</string>
     <string name="cd_sex">пол</string>
+    <string name="cd_yes">да</string>
+    <string name="cd_no">нет</string>
     <!--   content description -->
+
+    <!--   question -->
+    <string name="q_cancel">Данные были изменены!\nОтменить изменения?</string>
+    <!--   question -->
 </resources>

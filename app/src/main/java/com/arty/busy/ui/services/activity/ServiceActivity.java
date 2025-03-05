@@ -1,18 +1,26 @@
 package com.arty.busy.ui.services.activity;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.arty.busy.R;
+import com.arty.busy.models.Customer;
+import com.arty.busy.models.Service;
 
 public class ServiceActivity extends AppCompatActivity {
 //    ArrayAdapter<String> adapter;
+    private boolean modified;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -21,6 +29,13 @@ public class ServiceActivity extends AppCompatActivity {
         setContentView(R.layout.activity_service);
 
         setWindowParam();
+
+        Service service = getIntent().getParcelableExtra("service");
+        if (service != null){
+            setData(service);
+        }
+
+        setOnClickListeners();
     }
 
     private void setWindowParam(){
@@ -48,5 +63,51 @@ public class ServiceActivity extends AppCompatActivity {
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
         return metrics.heightPixels;
+    }
+
+    private void setData(Service service){
+        TextView title = findViewById(R.id.tvTitle_S);
+        title.setText(service.title);
+
+        TextView description = findViewById(R.id.tvDescription_S);
+        description.setText(service.description);
+
+        TextView duration = findViewById(R.id.etDuration_S);
+        duration.setText(Integer.toString(service.duration));
+
+        TextView price = findViewById(R.id.etPrice_S);
+        price.setText(Double.toString(service.price));
+    }
+
+    private void setOnClickListeners(){
+        ImageButton btnOk = findViewById(R.id.btnOk_S);
+        btnOk.setOnClickListener(v -> {
+            if (modified) {
+
+            }
+
+            finish();
+        });
+
+        ImageButton btnCancel = findViewById(R.id.btnCancel_S);
+        btnCancel.setOnClickListener(v -> {
+            if (modified) {
+                new AlertDialog.Builder(this)
+                        .setMessage(R.string.q_cancel)
+                        .setPositiveButton(R.string.cd_yes, (dialog, which) -> {
+                            finish();
+                        })
+                        .setNegativeButton(R.string.cd_no, (dialog, which) -> {
+
+                        }).show();
+            } else {
+                finish();
+            }
+        });
+
+        ImageButton btnDeleteTask = findViewById(R.id.btnDeleteTask_S);
+        btnDeleteTask.setOnClickListener(v -> {
+
+        });
     }
 }

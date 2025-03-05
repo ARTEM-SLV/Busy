@@ -35,7 +35,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageButton
-                android:id="@+id/btnOk_С"
+                android:id="@+id/btnOk_C"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_weight="1"
@@ -56,7 +56,7 @@
                 tools:text="" />
 
             <ImageButton
-                android:id="@+id/btnCancel_С"
+                android:id="@+id/btnCancel_C"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_weight="1"
@@ -70,13 +70,13 @@
 
         <ImageView
             android:id="@+id/ivPhoto_C"
-            android:layout_width="160dp"
-            android:layout_height="160dp"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
             android:layout_marginTop="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/layoutHead_C"
-            tools:srcCompat="@tools:sample/avatars" />
+            app:srcCompat="@drawable/ic_man" />
 
         <EditText
             android:id="@+id/etFirstName_C"
@@ -178,6 +178,21 @@
                 android:textColor="@color/DarkSlateGray"
                 android:textColorHint="@color/DarkSlateGray" />
         </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/btnDeleteTask_C"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/cd_cancel_task"
+            android:onClick="onCancelTaskClick"
+            android:padding="10dp"
+            android:scaleType="fitXY"
+            android:src="@android:drawable/ic_menu_delete"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

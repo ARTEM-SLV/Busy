@@ -73,5 +73,11 @@
     <string name="cd_phone">phone</string>
     <string name="cd_age">age</string>
     <string name="cd_sex">sex</string>
+    <string name="cd_yes">yes</string>
+    <string name="cd_no">no</string>
     <!--   content description -->
+
+    <!--   question -->
+    <string name="q_cancel">Data has been changed!\nCancel changes?</string>
+    <!--   question -->
 </resources>
