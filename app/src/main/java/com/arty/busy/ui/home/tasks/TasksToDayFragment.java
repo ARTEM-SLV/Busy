@@ -1,6 +1,7 @@
-package com.arty.busy.ui.home;
+package com.arty.busy.ui.home.tasks;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +14,8 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -26,6 +29,7 @@ import com.arty.busy.consts.Settings;
 import com.arty.busy.databinding.FragmentTasksToDayBinding;
 import com.arty.busy.date.DateTime;
 import com.arty.busy.date.Time;
+import com.arty.busy.ui.home.HomeViewModel;
 import com.arty.busy.ui.home.items.ItemTaskInfo;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -48,8 +52,9 @@ public class TasksToDayFragment extends Fragment {
 
     private int posStart;
     private int posY;
-
     private Time currTime;
+
+    private ActivityResultLauncher<Intent> taskLauncher;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -99,7 +104,7 @@ public class TasksToDayFragment extends Fragment {
             }
         });
 
-        setGoneAllBtnTask();
+//        setGoneAllBtnTask();
 
         @SuppressLint("SimpleDateFormat")
         DateFormat df = new SimpleDateFormat("EEEE dd MMM.");
@@ -147,6 +152,13 @@ public class TasksToDayFragment extends Fragment {
                     linerHours.setBackgroundResource(R.drawable.style_bottomline_salmon);
             }
         }
+
+        taskLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                fillTasksData();
+            }
+        );
     }
 
     private void setPosStart(int time){
@@ -172,6 +184,7 @@ public class TasksToDayFragment extends Fragment {
         byte    hour;
         byte    minute;
 
+        setGoneAllBtnTask();
         setCurrTime();
         setListTasksToDay();
 
@@ -277,11 +290,17 @@ public class TasksToDayFragment extends Fragment {
     }
 
     private void openTask(ItemTaskInfo itemTaskInfo){
+//        Intent intent = new Intent(context, ActivityForFragments.class);
+//        if (itemTaskInfo != null){
+//            intent.putExtra(Constants.ID_TASK, itemTaskInfo.getId_task());
+//        }
+//        startActivity(intent);
+
         Intent intent = new Intent(context, ActivityForFragments.class);
         if (itemTaskInfo != null){
             intent.putExtra(Constants.ID_TASK, itemTaskInfo.getId_task());
         }
-        startActivity(intent);
+        taskLauncher.launch(intent);
 
 //        Bundle bundle = new Bundle();
 //        if (itemTaskInfo != null)

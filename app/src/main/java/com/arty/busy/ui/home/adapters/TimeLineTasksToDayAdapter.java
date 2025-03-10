@@ -7,11 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.arty.busy.ActivityForFragments;
@@ -22,14 +20,14 @@ import com.arty.busy.ui.home.items.ItemTaskByHours;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TasksToDayAdapter extends RecyclerView.Adapter<TasksToDayAdapter.ViewHolderTTD>{
+public class TimeLineTasksToDayAdapter extends RecyclerView.Adapter<TimeLineTasksToDayAdapter.ViewHolderTTD>{
     @SuppressLint("StaticFieldLeak")
     protected static Context context;
-    protected static List<ItemTaskByHours> tasksByHours;
+    private final List<ItemTaskByHours> tasksByHours;
 
-    public TasksToDayAdapter(Context context, FragmentManager fragmentManager) {
-        TasksToDayAdapter.context = context;
-        TasksToDayAdapter.tasksByHours = new ArrayList<>();
+    public TimeLineTasksToDayAdapter(Context context) {
+        TimeLineTasksToDayAdapter.context = context;
+        this.tasksByHours = new ArrayList<>();
     }
 
     @NonNull
@@ -57,34 +55,34 @@ public class TasksToDayAdapter extends RecyclerView.Adapter<TasksToDayAdapter.Vi
             super(itemView);
 
             tvDate = itemView.findViewById(R.id.tvHourITT);
-            btnTask = itemView.findViewById(R.id.btnHour_ITT);
+//            btnTask = itemView.findViewById(R.id.btnHour_ITT);
         }
 
         @SuppressLint("SetTextI18n")
         public void setData(ItemTaskByHours itemTaskByHours){
             tvDate.setText(itemTaskByHours.getCurrentTime());
 
-            if (itemTaskByHours.isTask()){
-                FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) btnTask.getLayoutParams();
-                params.topMargin = itemTaskByHours.getMinutes() * 6;
-                params.height = itemTaskByHours.getDuration() * 6;
-
-                btnTask.setLayoutParams(params);
-                btnTask.setText(itemTaskByHours.getTaskTime() + "\n"
-                        + itemTaskByHours.getClient() + "\n"
-                        + itemTaskByHours.getServices());
-
-                btnTask.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        openTask(itemTaskByHours.getId_task());
-                    }
-                });
-
-                btnTask.setVisibility(View.VISIBLE);
-            } else {
-                btnTask.setVisibility(View.INVISIBLE);
-            }
+//            if (itemTaskByHours.isTask()){
+//                FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) btnTask.getLayoutParams();
+//                params.topMargin = itemTaskByHours.getMinutes() * 6;
+//                params.height = itemTaskByHours.getDuration() * 6;
+//                btnTask.setLayoutParams(params);
+//
+//                btnTask.setText(itemTaskByHours.getTaskTime() + "\n"
+//                        + itemTaskByHours.getClient() + "\n"
+//                        + itemTaskByHours.getServices());
+//
+//                btnTask.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        openTask(itemTaskByHours.getId_task());
+//                    }
+//                });
+//
+//                btnTask.setVisibility(View.VISIBLE);
+//            } else {
+//                btnTask.setVisibility(View.INVISIBLE);
+//            }
         }
 
         @Override
@@ -98,7 +96,7 @@ public class TasksToDayAdapter extends RecyclerView.Adapter<TasksToDayAdapter.Vi
         super.onViewRecycled(holder);
 
         // Операция по очистке представления, которое будет переиспользовано
-        holder.btnTask.setVisibility(View.INVISIBLE);
+//        holder.btnTask.setVisibility(View.INVISIBLE);
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -110,9 +108,9 @@ public class TasksToDayAdapter extends RecyclerView.Adapter<TasksToDayAdapter.Vi
     }
 
     private static void openTask(int id_task){
-        Intent intent = new Intent(TasksToDayAdapter.context, ActivityForFragments.class);
+        Intent intent = new Intent(TimeLineTasksToDayAdapter.context, ActivityForFragments.class);
         intent.putExtra(Constants.ID_TASK, id_task);
 
-        TasksToDayAdapter.context.startActivity(intent);
+        TimeLineTasksToDayAdapter.context.startActivity(intent);
     }
 }

@@ -193,6 +193,10 @@ public class HomeViewModel extends ViewModel {
         return nameCustomer.toString();
     }
 
+    public void updateTask(Task task){
+        new Thread(() -> busyDao.updateTaskList(task)).start();;
+    }
+
 //    public String getPerformanceOfTime(String timeStart, String timeEnd){
 //        StringBuilder sbTime = new StringBuilder("");
 //        sbTime.append(timeStart);

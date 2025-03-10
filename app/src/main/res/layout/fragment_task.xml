@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingLeft="5dp"
-    tools:context=".ui.home.TaskFragment">
+    tools:context=".ui.home.tasks.TaskFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/containerElements_T"
@@ -412,7 +412,7 @@
             android:onClick="onCancelTaskClick"
             android:padding="10dp"
             android:scaleType="fitXY"
-            android:src="@android:drawable/ic_menu_delete"
+            android:src="@drawable/ic_block_24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 

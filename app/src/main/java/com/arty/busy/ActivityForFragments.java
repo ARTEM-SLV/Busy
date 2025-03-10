@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.arty.busy.consts.Constants;
-import com.arty.busy.ui.home.TaskFragment;
+import com.arty.busy.ui.home.tasks.TaskFragment;
 
 public class ActivityForFragments extends AppCompatActivity {
 

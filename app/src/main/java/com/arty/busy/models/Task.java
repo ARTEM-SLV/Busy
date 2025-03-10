@@ -45,6 +45,18 @@ public class Task implements Parcelable  {
     public Task() {
     }
 
+    public Task(Task Task) {
+        this.uid = Task.uid;
+        this.id_service = Task.id_service;
+        this.id_customer = Task.id_customer;
+        this.day = Task.day;
+        this.time = Task.time;
+        this.duration = Task.duration;
+        this.price = Task.price;
+        this.done = Task.done;
+        this.paid = Task.paid;
+    }
+
     protected Task(Parcel in) {
         uid = in.readInt();
         id_service = in.readInt();

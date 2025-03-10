@@ -8,7 +8,7 @@
     android:background="@color/AliceBlue"
     android:paddingStart="5dp"
     android:paddingEnd="5dp"
-    tools:context=".ui.home.TasksToDayFragment">
+    tools:context=".ui.home.tasks.TasksToDayFragment">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -39,26 +39,34 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/containerTaskListBot"
-        android:layout_width="0dp"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="8dp"
-        android:orientation="vertical"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginEnd="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/containerTaskListTop">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/listTasksToDay"
+            android:id="@+id/timeLineTasksToDay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <!-- Список кнопок (поверх основного списка) -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/eventsTasksToDay"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:background="@android:color/transparent"
+            android:clipToPadding="false"
+            android:clipChildren="false"/>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
