@@ -82,6 +82,10 @@ public class Time {
         return String.format("%02d", this.hour) + ":" + String.format("%02d", this.minute);
     }
 
+    public int toInt(){
+        return hour * 60 + minute;
+    }
+
     public int compareTo(Time t){
         int res = 0;
 

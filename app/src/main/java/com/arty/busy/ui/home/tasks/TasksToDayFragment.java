@@ -1,14 +1,12 @@
 package com.arty.busy.ui.home.tasks;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -48,7 +46,6 @@ public class TasksToDayFragment extends Fragment {
     private long currDateL;
     private TextView tvDate;
     private ScrollView scrollView;
-    private ConstraintLayout constraintLayout;
 
     private int posStart;
     private int posY;
@@ -59,11 +56,6 @@ public class TasksToDayFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_tasks_to_day);
-
-//        setPosStart(Settings.TIME_BEGINNING);
-//        init();
-//        fillTasksData();
     }
 
     @Nullable
@@ -83,37 +75,22 @@ public class TasksToDayFragment extends Fragment {
         return root;
     }
 
+    @SuppressLint("DiscouragedApi")
     private void init(){
         int lineID;
         LinearLayout linerHours;
         tvDate = (TextView) binding.tvDateTTD; //findViewById(R.id.tvTestDate_TTD);
-        constraintLayout = (ConstraintLayout) binding.constraintTTD; //findViewById(R.id.constraint_TTD);
+//        ConstraintLayout constraintLayout = (ConstraintLayout) binding.constraintTTD; //findViewById(R.id.constraint_TTD);
         scrollView = (ScrollView) binding.scrollTTD; //findViewById(R.id.scroll_TTD);
 //        taskInfoList = new ArrayList<>();
 
-        scrollView.post(new Runnable() {
-            @Override
-            public void run() {
-                scrollView.scrollTo(0, posStart);
-            }
-        });
-        scrollView.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
-            @Override
-            public void onScrollChanged() {
-                posY = scrollView.getScrollY();
-            }
-        });
+        scrollView.post(() -> scrollView.scrollTo(0, posStart));
+        scrollView.getViewTreeObserver().addOnScrollChangedListener(() -> posY = scrollView.getScrollY());
 
 //        setGoneAllBtnTask();
 
         @SuppressLint("SimpleDateFormat")
         DateFormat df = new SimpleDateFormat("EEEE dd MMM.");
-//        Bundle extras = getIntent().getExtras();
-//        if (extras != null) {
-//            currDate = extras.getLong("Date");
-//            tvDate.setText(df.format(currDate));
-//        }
-        //        currDateL = requireArguments().getLong("Date");
         Bundle args = getArguments();
         if (args != null) {
             currDateL = args.getLong("Date");
@@ -122,28 +99,15 @@ public class TasksToDayFragment extends Fragment {
             }
         }
 
-        tvDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                scrollView.smoothScrollBy(0, posStart - posY);
-            }
-        });
+        tvDate.setOnClickListener(v -> scrollView.smoothScrollBy(0, posStart - posY));
 
         FloatingActionButton btnAdd = (FloatingActionButton) binding.fabAddTTD;
-        btnAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openTask(null);
-            }
-        });
+        btnAdd.setOnClickListener(v -> openTask(null));
 
         if (Settings.TIME_BEGINNING != -1 || Settings.TIME_ENDING != -1) {
             for (int h = 0; h < 24; h++) {
                 lineID = this.getResources().getIdentifier("hour" + (h) + "_TTD", "id", context.getPackageName());
                 linerHours = root.findViewById(lineID);
-
-//                if (Settings.TIME_BEGINNING != -1 && h < Settings.TIME_BEGINNING || Settings.TIME_ENDING != -1 && h > Settings.TIME_ENDING)
-//                    linerHours.setBackgroundResource(R.color.Gray_20);
 
                 if (h == Settings.TIME_BEGINNING)
                     linerHours.setBackgroundResource(R.drawable.style_topline_salmon);
@@ -155,9 +119,7 @@ public class TasksToDayFragment extends Fragment {
 
         taskLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
-            result -> {
-                fillTasksData();
-            }
+            result -> fillTasksData()
         );
     }
 
@@ -167,12 +129,10 @@ public class TasksToDayFragment extends Fragment {
     }
 
     private void setCurrTime(){
-//        currTime = MyDate.getTime(new Date());
         currTime = homeViewModel.getCurrentTime();
     }
 
     private void setListTasksToDay(){
-//        taskInfoList = App.getInstance().getBusyDao().getTasksInfoByDay(currDateL);
         taskInfoList = homeViewModel.getListTasksToDay(currDateL);
     }
 
@@ -228,12 +188,7 @@ public class TasksToDayFragment extends Fragment {
             btnTask.setTextColor(currResColor);
             btnTask.setVisibility(View.VISIBLE);
 
-            btnTask.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    openTask(itemTaskInfo);
-                }
-            });
+            btnTask.setOnClickListener(v -> openTask(itemTaskInfo));
         }
     }
 
@@ -290,12 +245,6 @@ public class TasksToDayFragment extends Fragment {
     }
 
     private void openTask(ItemTaskInfo itemTaskInfo){
-//        Intent intent = new Intent(context, ActivityForFragments.class);
-//        if (itemTaskInfo != null){
-//            intent.putExtra(Constants.ID_TASK, itemTaskInfo.getId_task());
-//        }
-//        startActivity(intent);
-
         Intent intent = new Intent(context, ActivityForFragments.class);
         if (itemTaskInfo != null){
             intent.putExtra(Constants.ID_TASK, itemTaskInfo.getId_task());

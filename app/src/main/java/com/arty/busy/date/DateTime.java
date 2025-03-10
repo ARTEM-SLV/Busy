@@ -26,6 +26,19 @@ public class DateTime {
     }
 
     @NonNull
+    public static Date getStartDay(int year, int month, int day){
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(year, month, day);
+
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+
+        return calendar.getTime();
+    }
+
+    @NonNull
     public static Date getStartDay(Date date){
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
@@ -48,6 +61,19 @@ public class DateTime {
         cloneCalendar.set(Calendar.MILLISECOND, 0);
 
         return cloneCalendar.getTime();
+    }
+
+    @NonNull
+    public static Date getEndDay(int year, int month, int day){
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(year, month, day);
+
+        calendar.set(Calendar.HOUR_OF_DAY, 23);
+        calendar.set(Calendar.MINUTE, 59);
+        calendar.set(Calendar.SECOND, 59);
+        calendar.set(Calendar.MILLISECOND, 999);
+
+        return calendar.getTime();
     }
 
     @NonNull

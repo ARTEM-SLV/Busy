@@ -95,6 +95,7 @@ public class ListOfDaysAdapter extends RecyclerView.Adapter<ListOfDaysAdapter.Vi
             view.setOnClickListener(this);
         }
 
+        @SuppressLint("SetTextI18n")
         public void setData(ItemListOfDays itemTaskList){
             tvDay.setText(df.format(itemTaskList.getDate()));
             Resources res = context.getResources();
@@ -118,11 +119,8 @@ public class ListOfDaysAdapter extends RecyclerView.Adapter<ListOfDaysAdapter.Vi
             } else containerMain_LOD.setBackgroundResource(R.drawable.style_radial_green);
 
             if (currentDate.equals(itemTaskList.getDate())){
-//                Drawable drawableStroke = context.getDrawable(R.drawable.style_stroke_darkblue);
-//                containerMain_LOD.setForeground(drawableStroke);
                 icoThisDay.setVisibility(View.VISIBLE);
             } else {
-//                containerMain_LOD.setForeground(null);
                 icoThisDay.setVisibility(View.INVISIBLE);
             }
 
@@ -138,11 +136,11 @@ public class ListOfDaysAdapter extends RecyclerView.Adapter<ListOfDaysAdapter.Vi
                 String time = listTimeService.get(i);
                 String title = listTitlesService.get(i);
 
-                int idTime = res.getIdentifier("tvTask" + nom + "Time", "id", context.getPackageName());
+                @SuppressLint("DiscouragedApi") int idTime = res.getIdentifier("tvTask" + nom + "Time", "id", context.getPackageName());
                 TextView tvTaskTime = itemView.findViewById(idTime);
                 tvTaskTime.setText(time);
 
-                int idService = res.getIdentifier("tvTask" + nom, "id", context.getPackageName());
+                @SuppressLint("DiscouragedApi") int idService = res.getIdentifier("tvTask" + nom, "id", context.getPackageName());
                 TextView tvTask = itemView.findViewById(idService);
                 tvTask.setText(title);
             }
@@ -152,11 +150,11 @@ public class ListOfDaysAdapter extends RecyclerView.Adapter<ListOfDaysAdapter.Vi
 
         private void cleanTvTask(Resources res){
             for (int i = 1; i <= 10; i++) {
-                int idTime = res.getIdentifier("tvTask" + i + "Time", "id", context.getPackageName());
+                @SuppressLint("DiscouragedApi") int idTime = res.getIdentifier("tvTask" + i + "Time", "id", context.getPackageName());
                 TextView tvTaskTime = itemView.findViewById(idTime);
                 tvTaskTime.setText("");
 
-                int idService = res.getIdentifier("tvTask" + i, "id", context.getPackageName());
+                @SuppressLint("DiscouragedApi") int idService = res.getIdentifier("tvTask" + i, "id", context.getPackageName());
                 TextView tvTask = itemView.findViewById(idService);
                 tvTask.setText("");
             }
@@ -166,13 +164,6 @@ public class ListOfDaysAdapter extends RecyclerView.Adapter<ListOfDaysAdapter.Vi
         public void onClick(View v) {
             Bundle bundle = new Bundle();
             bundle.putLong(Constants.KEY_DATE, listOfDaysArr.get(getAdapterPosition()).getDate().getTime());
-
-//            fragmentManager.beginTransaction()
-//                    .setReorderingAllowed(true)
-//                    .add(R.id.nav_host_fragment_activity_main, TasksToDayFragment.class, bundle)
-//                    .addToBackStack(null)
-//                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-//                    .commit();
 
             NavController navController = Navigation.findNavController(parentActivity, R.id.nav_host_fragment_activity_main);
             navController.navigate(R.id.navigation_tasks_to_day_new, bundle);

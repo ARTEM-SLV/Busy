@@ -9,6 +9,7 @@ import androidx.room.Entity;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
+import java.util.Date;
 import java.util.Objects;
 
 @Entity(indices = {
@@ -111,5 +112,12 @@ public class Task implements Parcelable  {
         dest.writeDouble(price);
         dest.writeByte((byte) (done ? 1 : 0));
         dest.writeByte((byte) (paid ? 1 : 0));
+    }
+
+    public String toString(){
+        String res = "|uid: " + uid + "|id_service: " + id_service + "|id_customer: " + id_customer
+                + "|day: " + new Date(day) + "|time: " + time + "|duration: " + duration + "|price: " + price;
+
+        return res;
     }
 }

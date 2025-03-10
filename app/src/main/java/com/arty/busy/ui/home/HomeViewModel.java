@@ -1,5 +1,7 @@
 package com.arty.busy.ui.home;
 
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -194,15 +196,12 @@ public class HomeViewModel extends ViewModel {
     }
 
     public void updateTask(Task task){
-        new Thread(() -> busyDao.updateTaskList(task)).start();;
+        try {
+            new Thread(() -> busyDao.updateTaskList(task)).start();
+            Log.d("Database", "Task updated: " + task.uid);
+            Log.d("Task", task.toString());
+        } catch (Exception e) {
+            Log.e("DatabaseError", "Failed to update task", e);
+        }
     }
-
-//    public String getPerformanceOfTime(String timeStart, String timeEnd){
-//        StringBuilder sbTime = new StringBuilder("");
-//        sbTime.append(timeStart);
-//        sbTime.append(" - ");
-//        sbTime.append(timeEnd);
-//
-//        return sbTime.toString();
-//    }
 }

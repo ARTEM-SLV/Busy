@@ -33,7 +33,7 @@ public interface BusyDao {
                 "tasks.time as time, " +
                 "tasks.done as done, " +
                 "services.title as services, " +
-                "services.duration as duration, " +
+                "tasks.duration as duration, " +
                 "customers.first_name || ' ' || customers.last_name  as client " +
             "FROM Task as tasks " +
                 "LEFT OUTER JOIN Service as services ON tasks.id_service = services.uid " +

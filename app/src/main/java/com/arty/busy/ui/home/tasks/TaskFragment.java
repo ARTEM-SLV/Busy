@@ -1,18 +1,17 @@
 package com.arty.busy.ui.home.tasks;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -24,10 +23,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
-//import com.arty.busy.App;
 import com.arty.busy.consts.Constants;
 import com.arty.busy.R;
-//import com.arty.busy.data.BusyDao;
 import com.arty.busy.databinding.FragmentTaskBinding;
 import com.arty.busy.date.DateTime;
 import com.arty.busy.date.Time;
@@ -42,23 +39,16 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
-//import com.arty.busy.ui.home.items.ItemTaskInfo;
 
 public class TaskFragment extends Fragment {
     private FragmentTaskBinding binding;
-//    private Context context;
+    private Context context;
     private HomeViewModel homeViewModel;
-    private View root;
-
-//    private boolean modified;
-//    private ItemTaskInfo itemTaskInfo;
     private Task currentTask, modifiedTask;
     private Customer customer;
     private Service service;
-
-//    private BusyDao busyDao;
-
     private ImageButton btnOk;
     private ImageButton btnCansel;
     private TextView tvCustomer;
@@ -69,7 +59,6 @@ public class TaskFragment extends Fragment {
     private EditText etPrice;
     private CheckBox cbDone;
     private CheckBox cbPaid;
-
     private SimpleDateFormat dateFormat;
     private Date currDay;
 
@@ -85,8 +74,8 @@ public class TaskFragment extends Fragment {
                 new ViewModelProvider(this, (ViewModelProvider.Factory) new ViewModelProvider.NewInstanceFactory()).get(HomeViewModel.class);
 
         binding = FragmentTaskBinding.inflate(inflater, container, false);
-        root = binding.getRoot();
-//        context = getContext();
+        View root = binding.getRoot();
+        context = root.getContext();
 
         init();
         setData();
@@ -97,7 +86,6 @@ public class TaskFragment extends Fragment {
     }
 
     private void init(){
-//        setModified(false);
         dateFormat = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
 
         initViews();
@@ -106,36 +94,30 @@ public class TaskFragment extends Fragment {
     }
 
     private void initViews(){
-        cbDone = root.findViewById(R.id.cbDone_T);
-        cbPaid = root.findViewById(R.id.cbPaid_T);
+        cbDone = binding.cbDoneT;
+        cbPaid = binding.cbPaidT;
 
-        btnOk = root.findViewById(R.id.btnOk_T);
-        btnCansel = root.findViewById(R.id.btnCancel_T);
+        btnOk = binding.btnOkT;
+        btnCansel = binding.btnCancelT;
 
-        tvCustomer = root.findViewById(R.id.tvCustomer_T);
-        tvService = root.findViewById(R.id.tvService_T);
-        tvDate = root.findViewById(R.id.tvDate_T);
-        tvTime = root.findViewById(R.id.tvTime_T);
+        tvCustomer = binding.tvCustomerT;
+        tvService = binding.tvServiceT;
+        tvDate = binding.tvDateT;
+        tvTime = binding.tvTimeT;
 
-        etDuration = root.findViewById(R.id.etDuration_T);
-        etPrice = root.findViewById(R.id.etPrice_T);
+        etDuration = binding.etDurationT;
+        etPrice = binding.etPriceT;
     }
 
     private void initCheckBoxDone(){
-        cbDone.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                setModified(true);
-            }
+        cbDone.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            modifiedTask.done = isChecked;
         });
     }
 
     private void initCheckBoxPaid(){
-        cbPaid.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                setModified(true);
-            }
+        cbPaid.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            modifiedTask.paid = isChecked;
         });
     }
 
@@ -174,46 +156,23 @@ public class TaskFragment extends Fragment {
         setOnClickListenerForTVDate();
         setOnClickListenerForTVTime();
         setOnClickListenerForETDuration();
+        setOnClickListenerForETPrice();
     }
 
     private void setOnClickListenerBtnOk(){
-        btnOk.setOnClickListener(v -> {
-//            if (modified){
-//                updateDataTask();
-//            }
-//
-//            finishThisActivity();
-            beforeFinishActivity(false);
-        });
+        btnOk.setOnClickListener(v -> beforeFinishActivity(false));
     }
     
     private void setOnClickListenerBtnCansel(){
-        btnCansel.setOnClickListener(v -> {
-            beforeFinishActivity(true);
-//            if (modified){
-//                new AlertDialog.Builder(getActivity(), R.style.AlertDialogTheme)
-//                        .setMessage(R.string.q_cancel)
-//                        .setPositiveButton(R.string.cd_yes, (dialog, which) -> {
-//                            finishThisActivity();
-//                        })
-//                        .setNegativeButton(R.string.cd_no, (dialog, which) -> {
-//
-//                        })
-//                        .show();
-//            }else
-//                finishThisActivity();
-        });
+        btnCansel.setOnClickListener(v -> beforeFinishActivity(true));
 
-        TextView tvTime = root.findViewById(R.id.tvTime_T);
+        TextView tvTime = binding.tvTimeT;
         tvTime.setOnClickListener(v -> {
-//            setModified(true);
         });
     }
 
     private void setOnClickListenerTVCustomer(){
         tvCustomer.setOnClickListener(v -> {
-//            setModified(true);
-
             Bundle bundle = new Bundle();
             if (customer != null)
                 bundle.putInt(Constants.ID_CUSTOMER, customer.uid);
@@ -230,8 +189,6 @@ public class TaskFragment extends Fragment {
 
     private void setOnClickListenerTVService(){
         tvService.setOnClickListener(v -> {
-//            setModified(true);
-
             Bundle bundle = new Bundle();
             if (service != null)
                 bundle.putInt(Constants.ID_SERVICE, service.uid);
@@ -258,6 +215,35 @@ public class TaskFragment extends Fragment {
         etDuration.setOnClickListener(v -> showTimePickerDialog(etDuration, false));
     }
 
+    private void setOnClickListenerForETPrice(){
+        etPrice.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//                modifiedTask.price = Double.parseDouble(etPrice.getText().toString());
+            }
+
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void afterTextChanged(Editable s) {
+                String text = s.toString();
+
+                if (!text.isEmpty()) {
+//                    etPrice.removeTextChangedListener(this); // Убираем слушатель, чтобы не было зацикливания
+//                    etPrice.setText(text + ".0"); // Добавляем точку в конец
+//                    etPrice.setSelection(etPrice.getText().length()); // Устанавливаем курсор в конец
+//                    etPrice.addTextChangedListener(this); // Возвращаем слушатель
+
+                    modifiedTask.price = Double.parseDouble(text);
+                }
+            }
+        });
+    }
+
     private void showDatePicker() {
         Calendar calendar;
         AtomicInteger selectedYear = new AtomicInteger();
@@ -267,21 +253,8 @@ public class TaskFragment extends Fragment {
         // Если уже есть дата, парсим её, иначе используем текущую
         if (currDay == null) {
             calendar = Calendar.getInstance();
-//            String[] parts = tvDate.getText().toString().split(" ");
-////            String[] dateParts = parts[0].split("\\.");
-//
-//            selectedYear.set(Integer.parseInt(parts[2]));
-//            selectedMonth.set(Integer.parseInt(parts[1]) - 1); // В Calendar январь = 0
-//            selectedDay.set(Integer.parseInt(parts[0]));
-//            Calendar calendar = DateTime.getCalendar(currDay);
-//            selectedYear.set(calendar.get(currDay.getYear()));
-//            selectedMonth.set(calendar.get(currDay.getMonth()));
-//            selectedDay.set(calendar.get(currDay.getDay()));
         } else {
             calendar = DateTime.getCalendar(currDay);
-//            selectedYear.set(calendar.get(Calendar.YEAR));
-//            selectedMonth.set(calendar.get(Calendar.MONTH));
-//            selectedDay.set(calendar.get(Calendar.DAY_OF_MONTH));
         }
         selectedYear.set(calendar.get(Calendar.YEAR));
         selectedMonth.set(calendar.get(Calendar.MONTH));
@@ -289,27 +262,20 @@ public class TaskFragment extends Fragment {
 
         // Открываем DatePickerDialog
         DatePickerDialog datePickerDialog = new DatePickerDialog(
-            root.getContext(), (view, year, month, dayOfMonth) -> {
-//            selectedYear.set(year);
-//            selectedMonth.set(month);
-//            selectedDay.set(dayOfMonth);
+            context, (view, year, month, dayOfMonth) -> {
 
-//            // После выбора даты открываем TimePickerDialog
-//            showTimePickerDialog();
-            String formattedDate
-                    = dateFormat.format(DateTime.getDate(year, month, dayOfMonth));
-//                    = String.format("%02d.%02d.%04d", selectedDay.get(), selectedMonth.get() + 1, selectedYear.get());
+            String formattedDate = dateFormat.format(DateTime.getDate(year, month, dayOfMonth));
             tvDate.setText(formattedDate);
-            currDay = DateTime.getDate(year, month, dayOfMonth);
+            currDay = DateTime.getStartDay(year, month, dayOfMonth);
             modifiedTask.day = currDay.getTime();
         }, selectedYear.get(), selectedMonth.get(), selectedDay.get());
 
         datePickerDialog.show();
     }
 
-    private void showTimePickerDialog(TextView tvTime, boolean setTimeNow) {
+    private void showTimePickerDialog(TextView textView, boolean setTimeNow) {
         int hour = 0, minute = 0;
-        String currentTime = tvTime.getText().toString();
+        String currentTime = textView.getText().toString();
 
         if (!currentTime.isEmpty()) {
             String[] timeParts = currentTime.split(" - ");
@@ -326,11 +292,11 @@ public class TaskFragment extends Fragment {
         }
 
         TimePickerDialog timePickerDialog = new TimePickerDialog(
-                root.getContext(),
+                context,
                 (view, selectedHour, selectedMinute) -> {
                     @SuppressLint("DefaultLocale") String newStartTime
                             = String.format("%02d:%02d", selectedHour, selectedMinute);
-                    tvTime.setText(newStartTime);
+                    textView.setText(newStartTime);
                     setPerformanceTvTime();
                 },
                 hour, minute, true // true - 24-часовой формат
@@ -340,25 +306,18 @@ public class TaskFragment extends Fragment {
     }
 
     private void setVisibilityView(){
-//        ImageButton btnPostpone = root.findViewById(R.id.btnPostpone_T);
-        ImageButton btnCancelTask = root.findViewById(R.id.btnCancelTask_T);
+        ImageButton btnCancelTask = binding.btnCancelTaskT;
         if (currentTask == null){
-//            btnPostpone.setVisibility(View.GONE);
             btnCancelTask.setVisibility(View.INVISIBLE);
         } else {
-//            btnPostpone.setVisibility(View.VISIBLE);
             btnCancelTask.setVisibility(View.VISIBLE);
         }
     }
 
-//    private void setModified(boolean modified){
-//        this.modified = modified;
-//    }
-
     @SuppressLint("SetTextI18n")
     private void setPerformanceTvTime(){
         String currentTime = tvTime.getText().toString();
-        String durationTime = etDuration.getText().toString();
+        String duration = etDuration.getText().toString();
         String timeStart;
 
         String[] timeParts = currentTime.split(" - ");
@@ -369,24 +328,21 @@ public class TaskFragment extends Fragment {
         }
 
         Time timeEnd = new Time(timeStart);
-        timeEnd.addTime(new Time(durationTime));
+        Time timeDuration = new Time(duration);
+        timeEnd.addTime(timeDuration);
 
         tvTime.setText(getPerformanceOfTime(timeStart, timeEnd.toString()));
-    }
-
-    private void updateDataTask(){
-//        App.getInstance().getBusyDao().updateTaskList(task);
+        modifiedTask.time = timeStart;
+        modifiedTask.duration = timeDuration.toInt();
     }
 
     private void setServiceView(int id){
         service = homeViewModel.getService(id);
-
         tvService.setText(service.title);
     }
 
     private void setCustomerView(int id){
-        customer = homeViewModel.getCustomer(id);;
-
+        customer = homeViewModel.getCustomer(id);
         tvCustomer.setText(homeViewModel.getCustomerName(customer));
     }
 
@@ -433,17 +389,6 @@ public class TaskFragment extends Fragment {
     }
 
     private void beforeFinishActivity(boolean isClosing){
-//        Task.Builder taskBuilder = new Task.Builder();
-//        modifiedTask = taskBuilder.setDay(Long.getLong(tvDate.getText().toString()))
-//                .build();
-
-//        Intent resultIntent = new Intent();
-//        resultIntent.putExtra("dataChanged", isClosing);
-////        getParentFragmentManager().setFragmentResult("dataChanged", resultIntent);
-//        Bundle result = new Bundle();
-//        result.putBoolean("dataChanged", isClosing);
-//        getParentFragmentManager().setFragmentResult("requestKey", result);
-
         if (isClosing) {
             if (!currentTask.equals(modifiedTask)) {
                 showDialogCloseFragment();
@@ -451,7 +396,9 @@ public class TaskFragment extends Fragment {
                 finishThisActivity();
             }
         } else {
-            homeViewModel.updateTask(modifiedTask);
+            if (!currentTask.equals(modifiedTask)){
+                homeViewModel.updateTask(modifiedTask);
+            }
             finishThisActivity();
         }
     }
@@ -459,14 +406,18 @@ public class TaskFragment extends Fragment {
     private void showDialogCloseFragment(){
         new AlertDialog.Builder(getActivity(), R.style.AlertDialogTheme)
                 .setMessage(R.string.q_cancel)
-                .setPositiveButton(R.string.cd_yes, (dialog, which) -> {
-                    finishThisActivity();
-                })
+                .setPositiveButton(R.string.cd_yes, (dialog, which) -> finishThisActivity())
                 .setNegativeButton(R.string.cd_no, (dialog, which) -> dialog.dismiss())
                 .show();
     }
 
     private void finishThisActivity(){
-        getActivity().finish();
+        Objects.requireNonNull(getActivity()).finish();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 }
