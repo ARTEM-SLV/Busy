@@ -3,6 +3,7 @@ package com.arty.busy.ui.services.adapters;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,24 +14,29 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.arty.busy.OnFragmentCloseListener;
 import com.arty.busy.R;
 import com.arty.busy.date.Time;
 import com.arty.busy.models.Service;
+import com.arty.busy.ui.customers.activity.CustomerActivity;
 import com.arty.busy.ui.services.activity.ServiceActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ServicesAdapter extends RecyclerView.Adapter<ServicesAdapter.ServicesViewHolder> {
-    @SuppressLint("StaticFieldLeak")
+    private OnFragmentCloseListener closeListener;
     protected Context context;
     protected List<Service> listOfServices;
     protected int uid;
+    private boolean isChoice;
 
-    public ServicesAdapter(Context context, int uid) {
+    public ServicesAdapter(Context context, int uid, boolean isChoice, OnFragmentCloseListener closeListener) {
         this.context = context;
         this.uid = uid;
-        listOfServices = new ArrayList<>();
+        this.listOfServices = new ArrayList<>();
+        this.isChoice = isChoice;
+        this.closeListener = closeListener;
     }
 
     @NonNull
@@ -48,9 +54,17 @@ public class ServicesAdapter extends RecyclerView.Adapter<ServicesAdapter.Servic
 
         // Открываем DialogActivity при клике на элемент списка
         holder.itemView.setOnClickListener(v -> {
-            Intent intent = new Intent(context, ServiceActivity.class);
-            intent.putExtra("service", service);
-            context.startActivity(intent);
+            if (isChoice){
+                if (closeListener != null) {
+                    Bundle result = new Bundle();
+                    result.putParcelable("service", service);
+                    closeListener.closeFragment(result); // Закрываем фрагмент
+                }
+            } else {
+                Intent intent = new Intent(context, ServiceActivity.class);
+                intent.putExtra("service", service);
+                context.startActivity(intent);
+            }
         });
     }
 

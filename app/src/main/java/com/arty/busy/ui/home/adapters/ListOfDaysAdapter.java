@@ -166,7 +166,7 @@ public class ListOfDaysAdapter extends RecyclerView.Adapter<ListOfDaysAdapter.Vi
             bundle.putLong(Constants.KEY_DATE, listOfDaysArr.get(getAdapterPosition()).getDate().getTime());
 
             NavController navController = Navigation.findNavController(parentActivity, R.id.nav_host_fragment_activity_main);
-            navController.navigate(R.id.navigation_tasks_to_day_new, bundle);
+            navController.navigate(R.id.navigation_tasks_to_day, bundle);
         }
     }
 

@@ -89,4 +89,9 @@ public class Customer implements Parcelable {
         dest.writeInt(age);
         dest.writeString(picture);
     }
+
+    @Override
+    public String toString(){
+        return first_name + " " + last_name;
+    }
 }

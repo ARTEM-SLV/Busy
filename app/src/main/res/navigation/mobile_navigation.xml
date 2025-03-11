@@ -6,15 +6,20 @@
     app:startDestination="@+id/navigation_home">
 
     <fragment
+        android:id="@+id/navigation_task"
+        android:name="com.arty.busy.ui.home.tasks.TaskFragment"
+        android:label="@string/title_settings"
+        tools:layout="@layout/fragment_task" />
+    <fragment
         android:id="@+id/navigation_tasks_to_day"
         android:name="com.arty.busy.ui.home.tasks.TasksToDayFragment"
         android:label="@string/title_settings"
         tools:layout="@layout/fragment_tasks_to_day" />
-    <fragment
-        android:id="@+id/navigation_tasks_to_day_new"
-        android:name="com.arty.busy.ui.home.tasks.TasksToDayFragment"
-        android:label="@string/title_settings"
-        tools:layout="@layout/fragment_tasks_to_day_new" />
+<!--    <fragment-->
+<!--        android:id="@+id/navigation_tasks_to_day_new"-->
+<!--        android:name="com.arty.busy.ui.home.tasks.TasksToDayFragment"-->
+<!--        android:label="@string/title_settings"-->
+<!--        tools:layout="@layout/fragment_tasks_to_day_new" />-->
     <fragment
         android:id="@+id/navigation_home"
         android:name="com.arty.busy.ui.home.HomeFragment"
@@ -35,7 +40,7 @@
 
     <fragment
         android:id="@+id/navigation_count"
-        android:name="com.arty.busy.ui.count.CountFragment"
+        android:name="com.arty.busy.ui.accounting.AccountFragment"
         android:label="@string/title_count"
         tools:layout="@layout/fragment_count" />
 

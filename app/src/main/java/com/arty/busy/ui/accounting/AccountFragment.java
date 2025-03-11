@@ -1,4 +1,4 @@
-package com.arty.busy.ui.count;
+package com.arty.busy.ui.accounting;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,22 +11,21 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.arty.busy.databinding.FragmentCountBinding;
-import com.arty.busy.databinding.FragmentCustomersBinding;
 
-public class CountFragment extends Fragment {
+public class AccountFragment extends Fragment {
 
     private FragmentCountBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        CountViewModel countViewModel =
-                new ViewModelProvider(this, (ViewModelProvider.Factory) new ViewModelProvider.NewInstanceFactory()).get(CountViewModel.class);
+        AccountViewModel accountViewModel =
+                new ViewModelProvider(this, (ViewModelProvider.Factory) new ViewModelProvider.NewInstanceFactory()).get(AccountViewModel.class);
 
         binding = FragmentCountBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         final TextView textView = binding.textCount;
-        countViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        accountViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 

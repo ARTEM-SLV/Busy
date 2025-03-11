@@ -15,7 +15,7 @@ import java.util.Objects;
 @Entity(indices = {
         @Index(value = {"day"})}
 )
-public class Task implements Parcelable  {
+public class Task implements Parcelable {
     @PrimaryKey(autoGenerate = true)
     public int uid;
 
@@ -44,6 +44,15 @@ public class Task implements Parcelable  {
     public boolean paid;
 
     public Task() {
+        this.uid = 0;
+        this.id_service = 0;
+        this.id_customer = 0;
+        this.day = 0;
+        this.time = "";
+        this.duration = 0;
+        this.price = 0;
+        this.done = false;
+        this.paid = false;
     }
 
     public Task(Task Task) {

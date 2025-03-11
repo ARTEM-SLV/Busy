@@ -14,11 +14,12 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.arty.busy.OnFragmentCloseListener;
 import com.arty.busy.consts.Constants;
 import com.arty.busy.databinding.FragmentServicesBinding;
 import com.arty.busy.ui.services.adapters.ServicesAdapter;
 
-public class ServicesFragment extends Fragment {
+public class ServicesFragment extends Fragment implements OnFragmentCloseListener {
 
     private FragmentServicesBinding binding;
 
@@ -33,11 +34,13 @@ public class ServicesFragment extends Fragment {
 
         Bundle arguments = getArguments();
         int uid = -1;
+        boolean isChoice = false;
         if (arguments != null){
             uid = arguments.getInt(Constants.ID_SERVICE, -1);
+            isChoice = arguments.getBoolean("isChoice");
         }
 
-        ServicesAdapter servicesAdapter = new ServicesAdapter(context, uid);
+        ServicesAdapter servicesAdapter = new ServicesAdapter(context, uid, isChoice, this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context, RecyclerView.VERTICAL, false);
         final RecyclerView listOfServices = binding.servicesListS;
         listOfServices.setLayoutManager(linearLayoutManager);
@@ -46,6 +49,12 @@ public class ServicesFragment extends Fragment {
         servicesViewModel.getListOfServices().observe(getViewLifecycleOwner(), servicesAdapter::updateListOfServices);
 
         return root;
+    }
+
+    @Override
+    public void closeFragment(Bundle result) {
+        getParentFragmentManager().setFragmentResult("service", result);
+        requireActivity().getSupportFragmentManager().popBackStack(); // Закрываем фрагмент
     }
 
     @Override

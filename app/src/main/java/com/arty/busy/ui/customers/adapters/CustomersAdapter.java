@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.arty.busy.OnFragmentCloseListener;
 import com.arty.busy.ui.customers.activity.CustomerActivity;
 import com.arty.busy.R;
 import com.arty.busy.models.Customer;
@@ -22,17 +24,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CustomersAdapter extends RecyclerView.Adapter<CustomersAdapter.CustomersViewHolder> {
-    @SuppressLint("StaticFieldLeak")
-    protected static Activity parentActivity;
+//    @SuppressLint("StaticFieldLeak")
+//    protected static Activity parentActivity;
+    private OnFragmentCloseListener closeListener;
     private Context context;
     private List<Customer> listOfCustomers;
-    protected int uid;
+    private int uid;
+    private boolean isChoice;
 
-    public CustomersAdapter(Context context, int uid, Activity activity) {
-        parentActivity = activity;
+    public CustomersAdapter(Context context, int uid, boolean isChoice, OnFragmentCloseListener closeListener) {
+//        parentActivity = activity;
         this.context = context;
         this.uid = uid;
         this.listOfCustomers = new ArrayList<>();
+        this.isChoice = isChoice;
+        this.closeListener = closeListener;
     }
 
     @NonNull
@@ -50,9 +56,18 @@ public class CustomersAdapter extends RecyclerView.Adapter<CustomersAdapter.Cust
 
         // Открываем DialogActivity при клике на элемент списка
         holder.itemView.setOnClickListener(v -> {
-            Intent intent = new Intent(context, CustomerActivity.class);
-            intent.putExtra("customer", customer);
-            context.startActivity(intent);
+            if (isChoice){
+                if (closeListener != null) {
+                    Bundle result = new Bundle();
+                    result.putInt("uid", customer.uid);
+                    result.putString("name", customer.toString());
+                    closeListener.closeFragment(result); // Закрываем фрагмент
+                }
+            } else {
+                Intent intent = new Intent(context, CustomerActivity.class);
+                intent.putExtra("customer", customer);
+                context.startActivity(intent);
+            }
         });
     }
 

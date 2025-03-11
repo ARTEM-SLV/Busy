@@ -11,10 +11,9 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
@@ -43,24 +42,28 @@ import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class TaskFragment extends Fragment {
+    private boolean isNew = false;
     private FragmentTaskBinding binding;
     private Context context;
     private HomeViewModel homeViewModel;
     private Task currentTask, modifiedTask;
     private Customer customer;
     private Service service;
-    private ImageButton btnOk;
-    private ImageButton btnCansel;
-    private TextView tvCustomer;
-    private TextView tvService;
-    private TextView tvDate;
-    private TextView tvTime;
-    private EditText etDuration;
-    private EditText etPrice;
-    private CheckBox cbDone;
-    private CheckBox cbPaid;
+//    private ImageButton btnOk;
+//    private ImageButton btnCansel;
+//    private TextView tvCustomer;
+//    private TextView tvService;
+//    private TextView tvDate;
+//    private TextView tvTime;
+//    private EditText etDuration;
+//    private EditText etPrice;
+//    private CheckBox cbDone;
+//    private CheckBox cbPaid;
     private SimpleDateFormat dateFormat;
     private Date currDay;
+
+    private long currDate = 0;
+    private int idTask = -1;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -82,57 +85,70 @@ public class TaskFragment extends Fragment {
         setVisibilityView();
         setOnClickListeners();
 
+        setDataFromFragment();
+
         return root;
     }
 
     private void init(){
         dateFormat = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
 
-        initViews();
+//        initViews();
         initCheckBoxDone();
         initCheckBoxPaid();
     }
 
-    private void initViews(){
-        cbDone = binding.cbDoneT;
-        cbPaid = binding.cbPaidT;
-
-        btnOk = binding.btnOkT;
-        btnCansel = binding.btnCancelT;
-
-        tvCustomer = binding.tvCustomerT;
-        tvService = binding.tvServiceT;
-        tvDate = binding.tvDateT;
-        tvTime = binding.tvTimeT;
-
-        etDuration = binding.etDurationT;
-        etPrice = binding.etPriceT;
-    }
+//    private void initViews(){
+//        cbDone = binding.cbDoneT;
+//        cbPaid = binding.cbPaidT;
+//
+//        btnOk = binding.btnOkT;
+//        btnCansel = binding.btnCancelT;
+//
+//        tvCustomer = binding.tvCustomerT;
+//        tvService = binding.tvServiceT;
+//        tvDate = binding.tvDateT;
+//        tvTime = binding.tvTimeT;
+//
+//        etDuration = binding.etDurationT;
+//        etPrice = binding.etPriceT;
+//    }
 
     private void initCheckBoxDone(){
-        cbDone.setOnCheckedChangeListener((buttonView, isChecked) -> {
+        binding.cbDoneT.setOnCheckedChangeListener((buttonView, isChecked) -> {
             modifiedTask.done = isChecked;
         });
     }
 
     private void initCheckBoxPaid(){
-        cbPaid.setOnCheckedChangeListener((buttonView, isChecked) -> {
+        binding.cbPaidT.setOnCheckedChangeListener((buttonView, isChecked) -> {
             modifiedTask.paid = isChecked;
         });
     }
 
     private void setData(){
-        int idTask = requireArguments().getInt(Constants.ID_TASK);
+        Bundle arguments = Objects.requireNonNull(getActivity()).getIntent().getExtras();
+        if (arguments != null){
+            currDate = arguments.getLong(Constants.KEY_DATE);
+            idTask = arguments.getInt(Constants.ID_TASK);
+        }
+
+        currDay = new Date(currDate);
+        String formattedDate = dateFormat.format(DateTime.getCalendar(currDay).getTime());
+        binding.tvDateT.setText(formattedDate);
+
         if (idTask == -1){
+            currentTask = new Task();
+            currentTask.day = currDate;
+            modifiedTask = new Task(currentTask);
+            isNew = true;
+            binding.btnCancelTaskT.setVisibility(View.INVISIBLE);
+
             return;
         }
 
         currentTask = homeViewModel.getTask(idTask);
         modifiedTask = new Task(currentTask);
-
-        currDay = new Date(currentTask.day);
-        String formattedDate = dateFormat.format(DateTime.getCalendar(currDay).getTime());
-        tvDate.setText(formattedDate);
 
         Time timeEnd = DateTime.parseStringToTime(currentTask.time);
         timeEnd.addTime(currentTask.duration);
@@ -144,8 +160,8 @@ public class TaskFragment extends Fragment {
         setCustomerView(currentTask.id_customer);
         setPriceView(currentTask.price);
 
-        cbDone.setChecked(currentTask.done);
-        cbPaid.setChecked(currentTask.paid);
+        binding.cbDoneT.setChecked(currentTask.done);
+        binding.cbPaidT.setChecked(currentTask.paid);
     }
 
     private void setOnClickListeners(){
@@ -160,11 +176,11 @@ public class TaskFragment extends Fragment {
     }
 
     private void setOnClickListenerBtnOk(){
-        btnOk.setOnClickListener(v -> beforeFinishActivity(false));
+        binding.btnOkT.setOnClickListener(v -> beforeFinishActivity(false));
     }
     
     private void setOnClickListenerBtnCansel(){
-        btnCansel.setOnClickListener(v -> beforeFinishActivity(true));
+        binding.btnCancelT.setOnClickListener(v -> beforeFinishActivity(true));
 
         TextView tvTime = binding.tvTimeT;
         tvTime.setOnClickListener(v -> {
@@ -172,11 +188,12 @@ public class TaskFragment extends Fragment {
     }
 
     private void setOnClickListenerTVCustomer(){
-        tvCustomer.setOnClickListener(v -> {
+        binding.tvCustomerT.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
             if (customer != null)
                 bundle.putInt(Constants.ID_CUSTOMER, customer.uid);
             else bundle.putInt(Constants.ID_CUSTOMER, -1);
+            bundle.putBoolean("isChoice", true);
 
             getParentFragmentManager().beginTransaction()
                     .setReorderingAllowed(true)
@@ -188,11 +205,12 @@ public class TaskFragment extends Fragment {
     }
 
     private void setOnClickListenerTVService(){
-        tvService.setOnClickListener(v -> {
+        binding.tvServiceT.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
             if (service != null)
                 bundle.putInt(Constants.ID_SERVICE, service.uid);
             else bundle.putInt(Constants.ID_SERVICE, -1);
+            bundle.putBoolean("isChoice", true);
 
             getParentFragmentManager().beginTransaction()
                     .setReorderingAllowed(true)
@@ -204,19 +222,19 @@ public class TaskFragment extends Fragment {
     }
 
     private void setOnClickListenerForTVDate(){
-        tvDate.setOnClickListener(v -> showDatePicker());
+        binding.tvDateT.setOnClickListener(v -> showDatePicker());
     }
 
     private void setOnClickListenerForTVTime(){
-        tvTime.setOnClickListener(v -> showTimePickerDialog(tvTime, true));
+        binding.tvTimeT.setOnClickListener(v -> showTimePickerDialog(binding.tvTimeT, true));
     }
 
     private void setOnClickListenerForETDuration() {
-        etDuration.setOnClickListener(v -> showTimePickerDialog(etDuration, false));
+        binding.etDurationT.setOnClickListener(v -> showTimePickerDialog(binding.etDurationT, false));
     }
 
     private void setOnClickListenerForETPrice(){
-        etPrice.addTextChangedListener(new TextWatcher() {
+        binding.etPriceT.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -224,7 +242,7 @@ public class TaskFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-//                modifiedTask.price = Double.parseDouble(etPrice.getText().toString());
+
             }
 
             @SuppressLint("SetTextI18n")
@@ -233,14 +251,25 @@ public class TaskFragment extends Fragment {
                 String text = s.toString();
 
                 if (!text.isEmpty()) {
-//                    etPrice.removeTextChangedListener(this); // Убираем слушатель, чтобы не было зацикливания
-//                    etPrice.setText(text + ".0"); // Добавляем точку в конец
-//                    etPrice.setSelection(etPrice.getText().length()); // Устанавливаем курсор в конец
-//                    etPrice.addTextChangedListener(this); // Возвращаем слушатель
-
                     modifiedTask.price = Double.parseDouble(text);
                 }
             }
+        });
+    }
+
+    private void setDataFromFragment(){
+        getParentFragmentManager().setFragmentResultListener("customer", this, (requestKey, result) -> {
+            binding.tvCustomerT.setText(result.getString("name"));
+            modifiedTask.id_customer = result.getInt("uid");
+        });
+
+        getParentFragmentManager().setFragmentResultListener("service", this, (requestKey, result) -> {
+            service = result.getParcelable(requestKey);
+//            binding.tvServiceT.setText(result.getString(serviceNew.title));
+            modifiedTask.id_service = service.uid;
+            binding.tvServiceT.setText(service.title);
+            setDurationView(service.duration);
+            setPriceView(service.price);
         });
     }
 
@@ -265,7 +294,7 @@ public class TaskFragment extends Fragment {
             context, (view, year, month, dayOfMonth) -> {
 
             String formattedDate = dateFormat.format(DateTime.getDate(year, month, dayOfMonth));
-            tvDate.setText(formattedDate);
+            binding.tvDateT.setText(formattedDate);
             currDay = DateTime.getStartDay(year, month, dayOfMonth);
             modifiedTask.day = currDay.getTime();
         }, selectedYear.get(), selectedMonth.get(), selectedDay.get());
@@ -316,8 +345,8 @@ public class TaskFragment extends Fragment {
 
     @SuppressLint("SetTextI18n")
     private void setPerformanceTvTime(){
-        String currentTime = tvTime.getText().toString();
-        String duration = etDuration.getText().toString();
+        String currentTime = binding.tvTimeT.getText().toString();
+        String duration = binding.etDurationT.getText().toString();
         String timeStart;
 
         String[] timeParts = currentTime.split(" - ");
@@ -331,34 +360,33 @@ public class TaskFragment extends Fragment {
         Time timeDuration = new Time(duration);
         timeEnd.addTime(timeDuration);
 
-        tvTime.setText(getPerformanceOfTime(timeStart, timeEnd.toString()));
+        binding.tvTimeT.setText(getPerformanceOfTime(timeStart, timeEnd.toString()));
         modifiedTask.time = timeStart;
         modifiedTask.duration = timeDuration.toInt();
     }
 
     private void setServiceView(int id){
         service = homeViewModel.getService(id);
-        tvService.setText(service.title);
+        binding.tvServiceT.setText(service.title);
     }
 
     private void setCustomerView(int id){
         customer = homeViewModel.getCustomer(id);
-        tvCustomer.setText(homeViewModel.getCustomerName(customer));
+        binding.tvCustomerT.setText(homeViewModel.getCustomerName(customer));
     }
 
     private void setPriceView(double price){
-        etPrice.setText(String.valueOf(price));
+        binding.etPriceT.setText(String.valueOf(price));
     }
 
     @SuppressLint("SetTextI18n")
     private void setTimeView(String timeStart, String timeEnd){
-        tvTime.setText(getPerformanceOfTime(timeStart, timeEnd));
+        binding.tvTimeT.setText(getPerformanceOfTime(timeStart, timeEnd));
     }
 
     private void setDurationView(int duration){
         Time time = new Time(duration);
-
-        etDuration.setText(time.toString());
+        binding.etDurationT.setText(time.toString());
     }
 
     private String getPerformanceOfTime(String timeStart, String timeEnd){
@@ -397,10 +425,28 @@ public class TaskFragment extends Fragment {
             }
         } else {
             if (!currentTask.equals(modifiedTask)){
+                if (!checkFilling()){
+                    return;
+                }
                 homeViewModel.updateTask(modifiedTask);
             }
             finishThisActivity();
         }
+    }
+
+    private boolean checkFilling(){
+        boolean result = true;
+
+        if (modifiedTask.time == ""){
+            showMessage("Не заполнено время");
+            return false;
+        }
+
+        return result;
+    }
+
+    private void showMessage(String msg){
+        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
     }
 
     private void showDialogCloseFragment(){

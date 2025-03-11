@@ -18,7 +18,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import com.arty.busy.ActivityForFragments;
 import com.arty.busy.consts.Constants;
@@ -34,16 +37,15 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Objects;
 
 public class TasksToDayFragment extends Fragment {
     private FragmentTasksToDayBinding binding;
     private Context context;
     private HomeViewModel homeViewModel;
     private View root;
-
     List<ItemTaskInfo> taskInfoList;
-
-    private long currDateL;
+    private long currDate;
     private TextView tvDate;
     private ScrollView scrollView;
 
@@ -80,22 +82,18 @@ public class TasksToDayFragment extends Fragment {
         int lineID;
         LinearLayout linerHours;
         tvDate = (TextView) binding.tvDateTTD; //findViewById(R.id.tvTestDate_TTD);
-//        ConstraintLayout constraintLayout = (ConstraintLayout) binding.constraintTTD; //findViewById(R.id.constraint_TTD);
         scrollView = (ScrollView) binding.scrollTTD; //findViewById(R.id.scroll_TTD);
-//        taskInfoList = new ArrayList<>();
 
         scrollView.post(() -> scrollView.scrollTo(0, posStart));
         scrollView.getViewTreeObserver().addOnScrollChangedListener(() -> posY = scrollView.getScrollY());
 
-//        setGoneAllBtnTask();
-
         @SuppressLint("SimpleDateFormat")
         DateFormat df = new SimpleDateFormat("EEEE dd MMM.");
-        Bundle args = getArguments();
-        if (args != null) {
-            currDateL = args.getLong("Date");
-            if (currDateL != 0) {
-                tvDate.setText(df.format(currDateL));
+        Bundle arguments = getArguments();
+        if (arguments != null) {
+            currDate = arguments.getLong("Date");
+            if (currDate != 0) {
+                tvDate.setText(df.format(currDate));
             }
         }
 
@@ -133,7 +131,7 @@ public class TasksToDayFragment extends Fragment {
     }
 
     private void setListTasksToDay(){
-        taskInfoList = homeViewModel.getListTasksToDay(currDateL);
+        taskInfoList = homeViewModel.getListTasksToDay(currDate);
     }
 
     @SuppressLint("SetTextI18n")
@@ -206,7 +204,7 @@ public class TasksToDayFragment extends Fragment {
     private boolean isNextTask(Time time){
         boolean res = false;
 
-        if (currDateL == DateTime.getCurrentStartDate().getTime()) {
+        if (currDate == DateTime.getCurrentStartDate().getTime()) {
             for (ItemTaskInfo itemTaskInfo : taskInfoList) {
                 String sTime = itemTaskInfo.getTime();
                 Time t = DateTime.parseStringToTime(sTime);
@@ -248,19 +246,35 @@ public class TasksToDayFragment extends Fragment {
         Intent intent = new Intent(context, ActivityForFragments.class);
         if (itemTaskInfo != null){
             intent.putExtra(Constants.ID_TASK, itemTaskInfo.getId_task());
+        } else {
+            intent.putExtra(Constants.ID_TASK, -1);
         }
+        intent.putExtra(Constants.KEY_DATE, currDate);
         taskLauncher.launch(intent);
 
 //        Bundle bundle = new Bundle();
 //        if (itemTaskInfo != null)
 //            bundle.putInt(Constants.ID_TASK, itemTaskInfo.getId_task());
-//         else bundle.putInt(Constants.ID_TASK, -1);
+//        else bundle.putInt(Constants.ID_TASK, -1);
+//        bundle.putLong(Constants.KEY_DATE, currDate);
+//        getParentFragmentManager().setFragmentResult("bundle", bundle);
+//        taskLauncher.launch(intent);
+
 //
+//        NavController navController = Navigation.findNavController(Objects.requireNonNull(getActivity()), R.id.nav_host_fragment_activity_main);
+//        navController.navigate(R.id.navigation_task, bundle);
+
 //        getParentFragmentManager().beginTransaction()
 //                .setReorderingAllowed(true)
-//                .add(R.id.nav_host_fragment_activity_main, TaskFragment.class, bundle)
+//                .add(R.id.container_for_fragments, TaskFragment.class, bundle)
 //                .addToBackStack(null)
 //                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
 //                .commit();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 }
