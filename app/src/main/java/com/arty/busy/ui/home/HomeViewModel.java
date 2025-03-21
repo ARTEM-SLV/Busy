@@ -31,6 +31,23 @@ public class HomeViewModel extends ViewModel {
         this.busyDao = App.getInstance().getBusyDao();
     }
 
+    public LiveData<List<ItemListOfDays>> getListOfDays(Date d) {
+        List<ItemListOfDays> listOfDays = new ArrayList<>();
+
+        if (d == null){
+            d = new Date();
+        }
+
+        loadDataInListOfDays(listOfDays, DateTime.getStartDay(d).getTime(), -14, 14);
+        startDate = listOfDays.get(0).getDate().getTime();
+        endDate = listOfDays.get(listOfDays.size()-1).getDate().getTime();
+
+        MutableLiveData<List<ItemListOfDays>> mListOfDays = new MutableLiveData<>();
+        mListOfDays.setValue(listOfDays);
+
+        return mListOfDays;
+    }
+
     public LiveData<List<ItemListOfDays>> getListOfDays(int direction) {
         List<ItemListOfDays> listOfDays = new ArrayList<>();
 
@@ -38,17 +55,9 @@ public class HomeViewModel extends ViewModel {
             case Constants.DIRECTION_BACK:
                 loadDataInListOfDays(listOfDays, startDate, -14, -1);
                 startDate = listOfDays.get(0).getDate().getTime();
-
                 break;
             case Constants.DIRECTION_FORWARD:
                 loadDataInListOfDays(listOfDays, endDate, 1, 14);
-                endDate = listOfDays.get(listOfDays.size()-1).getDate().getTime();
-
-                break;
-            default:
-                Date d = new Date();
-                loadDataInListOfDays(listOfDays, DateTime.getStartDay(d).getTime(), -14, 14);
-                startDate = listOfDays.get(0).getDate().getTime();
                 endDate = listOfDays.get(listOfDays.size()-1).getDate().getTime();
         }
 
@@ -92,9 +101,7 @@ public class HomeViewModel extends ViewModel {
     }
 
     public List<ItemTaskInfo> getListTasksToDay(long date){
-        List<ItemTaskInfo> taskInfoList = busyDao.getTasksInfoByDay(date);
-
-        return taskInfoList;
+        return busyDao.getTasksInfoByDay(date);
     }
 
     public LiveData<List<ItemTaskByHours>> getLiveListTasksToDay(long date){

@@ -37,6 +37,7 @@ public class ListOfDaysAdapter extends RecyclerView.Adapter<ListOfDaysAdapter.Vi
     protected static Context context;
     protected static List<ItemListOfDays> listOfDaysArr;
     protected static FragmentManager fragmentManager;
+    private static Date dateSelectedElement;
 
     public ListOfDaysAdapter(Context context, FragmentManager fragmentManager, Activity activity) {
         parentActivity = activity;
@@ -63,18 +64,12 @@ public class ListOfDaysAdapter extends RecyclerView.Adapter<ListOfDaysAdapter.Vi
         return listOfDaysArr.size();
     }
 
-    public Date getDateFormListOfDaysArr(int pos) {
-        return listOfDaysArr.get(pos).getDate();
-    }
-
     static class ViewHolderLOD extends RecyclerView.ViewHolder implements View.OnClickListener {
         private final LinearLayout containerMain_LOD;
         private final LinearLayout containerRight_LOD;
         private final TextView tvDay;
         private final TextView tvCountTasks;
         private final ImageView icoThisDay;
-//        private LinearLayout containerLeft_LOD;
-
         private final Date currentDate;
 
         @SuppressLint("SimpleDateFormat")
@@ -162,8 +157,10 @@ public class ListOfDaysAdapter extends RecyclerView.Adapter<ListOfDaysAdapter.Vi
 
         @Override
         public void onClick(View v) {
+            dateSelectedElement = listOfDaysArr.get(getAdapterPosition()).getDate();
+
             Bundle bundle = new Bundle();
-            bundle.putLong(Constants.KEY_DATE, listOfDaysArr.get(getAdapterPosition()).getDate().getTime());
+            bundle.putLong(Constants.KEY_DATE, dateSelectedElement.getTime());
 
             NavController navController = Navigation.findNavController(parentActivity, R.id.nav_host_fragment_activity_main);
             navController.navigate(R.id.navigation_tasks_to_day, bundle);
@@ -194,5 +191,13 @@ public class ListOfDaysAdapter extends RecyclerView.Adapter<ListOfDaysAdapter.Vi
         listOfDaysArr.remove(pos);
         notifyItemRangeChanged(0, listOfDaysArr.size());
         notifyItemRemoved(pos);
+    }
+
+    public Date getSelectedDate(){
+        return dateSelectedElement;
+    }
+
+    public Date getDate(int position) {
+        return listOfDaysArr.get(position).getDate();
     }
 }

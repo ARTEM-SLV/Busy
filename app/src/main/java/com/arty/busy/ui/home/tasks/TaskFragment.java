@@ -11,7 +11,6 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,7 +18,6 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.arty.busy.consts.Constants;
@@ -49,19 +47,8 @@ public class TaskFragment extends Fragment {
     private Task currentTask, modifiedTask;
     private Customer customer;
     private Service service;
-//    private ImageButton btnOk;
-//    private ImageButton btnCansel;
-//    private TextView tvCustomer;
-//    private TextView tvService;
-//    private TextView tvDate;
-//    private TextView tvTime;
-//    private EditText etDuration;
-//    private EditText etPrice;
-//    private CheckBox cbDone;
-//    private CheckBox cbPaid;
     private SimpleDateFormat dateFormat;
     private Date currDay;
-
     private long currDate = 0;
     private int idTask = -1;
 
@@ -74,7 +61,7 @@ public class TaskFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         homeViewModel =
-                new ViewModelProvider(this, (ViewModelProvider.Factory) new ViewModelProvider.NewInstanceFactory()).get(HomeViewModel.class);
+                new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory()).get(HomeViewModel.class);
 
         binding = FragmentTaskBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
@@ -93,37 +80,16 @@ public class TaskFragment extends Fragment {
     private void init(){
         dateFormat = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
 
-//        initViews();
         initCheckBoxDone();
         initCheckBoxPaid();
     }
 
-//    private void initViews(){
-//        cbDone = binding.cbDoneT;
-//        cbPaid = binding.cbPaidT;
-//
-//        btnOk = binding.btnOkT;
-//        btnCansel = binding.btnCancelT;
-//
-//        tvCustomer = binding.tvCustomerT;
-//        tvService = binding.tvServiceT;
-//        tvDate = binding.tvDateT;
-//        tvTime = binding.tvTimeT;
-//
-//        etDuration = binding.etDurationT;
-//        etPrice = binding.etPriceT;
-//    }
-
     private void initCheckBoxDone(){
-        binding.cbDoneT.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            modifiedTask.done = isChecked;
-        });
+        binding.cbDoneT.setOnCheckedChangeListener((buttonView, isChecked) -> modifiedTask.done = isChecked);
     }
 
     private void initCheckBoxPaid(){
-        binding.cbPaidT.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            modifiedTask.paid = isChecked;
-        });
+        binding.cbPaidT.setOnCheckedChangeListener((buttonView, isChecked) -> modifiedTask.paid = isChecked);
     }
 
     private void setData(){
@@ -180,7 +146,7 @@ public class TaskFragment extends Fragment {
         setOnClickListenerForTVTime();
         setOnClickListenerForETDuration();
         setOnClickListenerForETPrice();
-        setOnClickListenerForИtnCancelTask();
+        setOnClickListenerForBtnCancelTask();
     }
 
     private void setOnClickListenerBtnOk(){
@@ -189,10 +155,6 @@ public class TaskFragment extends Fragment {
     
     private void setOnClickListenerBtnCansel(){
         binding.btnCancelT.setOnClickListener(v -> beforeFinishActivity(true));
-
-//        TextView tvTime = binding.tvTimeT;
-//        tvTime.setOnClickListener(v -> {
-//        });
     }
 
     private void setOnClickListenerTVCustomer(){
@@ -275,10 +237,8 @@ public class TaskFragment extends Fragment {
         });
     }
 
-    private void setOnClickListenerForИtnCancelTask(){
-        binding.btnCancelTaskT.setOnClickListener(v -> {
-            showDialogCancelTask();
-        });
+    private void setOnClickListenerForBtnCancelTask(){
+        binding.btnCancelTaskT.setOnClickListener(v -> showDialogCancelTask());
     }
 
     private void setDataFromFragment(){
@@ -467,6 +427,11 @@ public class TaskFragment extends Fragment {
 
     private boolean checkFilling(){
         boolean result = true;
+
+        if (modifiedTask.day == 0){
+            showMessage("Не указан день");
+            return false;
+        }
 
         if (Objects.equals(modifiedTask.time, "")){
             showMessage("Не заполнено время");

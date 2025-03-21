@@ -49,10 +49,13 @@ public class SettingsFragment extends Fragment {
         testBtn.setOnClickListener(v -> {
             EditText testEditText = binding.etTestTaskID;
             String text = testEditText.getText().toString();
+            text = text.replace("", "0");
             int uid = Integer.parseInt(text);
 
             Task task = settingsViewModel.testGetTaskByID(uid);
-            Log.d("Task", task.toString());
+            if (task != null){
+                Log.d("Task", task.toString());
+            }
         });
     }
 }
