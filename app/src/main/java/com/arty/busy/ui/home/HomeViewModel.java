@@ -186,22 +186,33 @@ public class HomeViewModel extends ViewModel {
         return busyDao.getCustomerByID(uid);
     }
 
-    public String getCustomerName(Customer customer){
-        StringBuilder nameCustomer = new StringBuilder("");
-        nameCustomer.append(customer.first_name);
-        nameCustomer.append(" ");
-        nameCustomer.append(customer.last_name);
-
-        return nameCustomer.toString();
+    public void insertTask(Task task){
+        try {
+            new Thread(() -> busyDao.insertTask(task)).start();
+            Log.d("Database", "Task insert: " + task.uid);
+            Log.d("Task", task.toString());
+        } catch (Exception e) {
+            Log.e("DatabaseError", "Failed to insert task", e);
+        }
     }
 
     public void updateTask(Task task){
         try {
-            new Thread(() -> busyDao.updateTaskList(task)).start();
+            new Thread(() -> busyDao.updateTask(task)).start();
             Log.d("Database", "Task updated: " + task.uid);
             Log.d("Task", task.toString());
         } catch (Exception e) {
             Log.e("DatabaseError", "Failed to update task", e);
+        }
+    }
+
+    public void deleteTask(Task task){
+        try {
+            new Thread(() -> busyDao.deleteTaskList(task)).start();
+            Log.d("Database", "Task delete: " + task.uid);
+            Log.d("Task", task.toString());
+        } catch (Exception e) {
+            Log.e("DatabaseError", "Failed to delete task", e);
         }
     }
 }

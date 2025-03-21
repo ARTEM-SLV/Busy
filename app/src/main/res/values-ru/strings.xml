@@ -12,11 +12,12 @@
     <string name="female">Женский</string>
 
     <!--  titles  -->
-    <string name="total">всего</string>
+    <string name="total">Всего</string>
     <string name="time">Время:</string>
     <string name="hour">ч.</string>
     <string name="minute">м.</string>
-    <string name="duration">длительность</string>
+    <string name="duration">Длительность</string>
+    <string name="price">Цена</string>
     <!--  titles  -->
 
     <!--   hints -->
@@ -27,6 +28,8 @@
     <string name="cd_cancel">отменить</string>
     <string name="cd_ok">принять</string>
     <string name="cd_service">услуга</string>
+    <string name="cd_short_title">ЗК</string>
+    <string name="cd_title">заголовок</string>
     <string name="cd_customer">клиент</string>
     <string name="cd_done">выполнено</string>
     <string name="cd_paid">оплачено</string>
@@ -48,6 +51,7 @@
     <!--   content description -->
 
     <!--   question -->
-    <string name="q_cancel">Данные были изменены!\nОтменить изменения?</string>
+    <string name="q_close">Данные были изменены!\nОтменить изменения?</string>
+    <string name="q_cancel">Текущая запись будет удалена!\nПродолжить?</string>
     <!--   question -->
 </resources>

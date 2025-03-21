@@ -42,11 +42,12 @@
     <string name="female">Female</string>
 
     <!--  titles  -->
-    <string name="total">total</string>
+    <string name="total">Total</string>
     <string name="time">Time:</string>
     <string name="hour">h.</string>
     <string name="minute">m.</string>
-    <string name="duration">duration</string>
+    <string name="duration">Duration</string>
+    <string name="price">Price</string>
     <!--  titles  -->
 
     <!--   hints -->
@@ -57,6 +58,8 @@
     <string name="cd_cancel">cancellation</string>
     <string name="cd_ok">to accept</string>
     <string name="cd_service">service</string>
+    <string name="cd_short_title">ST</string>
+    <string name="cd_title">title</string>
     <string name="cd_customer">customer</string>
     <string name="cd_done">done</string>
     <string name="cd_paid">paid</string>
@@ -78,6 +81,7 @@
     <!--   content description -->
 
     <!--   question -->
-    <string name="q_cancel">Data has been changed!\nCancel changes?</string>
+    <string name="q_close">Data has been changed!\nCancel changes?</string>
+    <string name="q_cancel">The current entry will be deleted.!\nContinue?</string>
     <!--   question -->
 </resources>

@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.view.menu.MenuView;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -30,6 +31,7 @@ public class ServicesAdapter extends RecyclerView.Adapter<ServicesAdapter.Servic
     protected List<Service> listOfServices;
     protected int uid;
     private boolean isChoice;
+    private LinearLayout mainLayoutBefore;
 
     public ServicesAdapter(Context context, int uid, boolean isChoice, OnFragmentCloseListener closeListener) {
         this.context = context;
@@ -55,6 +57,10 @@ public class ServicesAdapter extends RecyclerView.Adapter<ServicesAdapter.Servic
         // Открываем DialogActivity при клике на элемент списка
         holder.itemView.setOnClickListener(v -> {
             if (isChoice){
+                if (mainLayoutBefore != null){
+                    mainLayoutBefore.setForeground(null);
+                }
+                v.setForeground(ContextCompat.getDrawable(context, R.drawable.style_radial_green_transparent));
                 if (closeListener != null) {
                     Bundle result = new Bundle();
                     result.putParcelable("service", service);
@@ -92,6 +98,7 @@ public class ServicesAdapter extends RecyclerView.Adapter<ServicesAdapter.Servic
             tvDuration.setText(getTimeDuration(service.duration));
             if (service.uid == uid){
                 mainLayout.setForeground(ContextCompat.getDrawable(context, R.drawable.style_radial_green_transparent));
+                mainLayoutBefore = mainLayout;
             } else mainLayout.setForeground(null);
         }
     }

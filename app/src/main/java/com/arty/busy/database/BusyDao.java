@@ -25,7 +25,7 @@ public interface BusyDao {
             "FROM Task as tasks " +
                 "LEFT OUTER JOIN Service as services ON tasks.id_service = services.uid " +
             "WHERE tasks.day BETWEEN :dateBeginning AND :dateEnding " +
-            "ORDER BY tasks.day")
+            "ORDER BY tasks.day, tasks.time")
     List<ItemTaskList> getTaskList(long dateBeginning, long dateEnding);
 
     @Query("SELECT " +
@@ -39,7 +39,7 @@ public interface BusyDao {
                 "LEFT OUTER JOIN Service as services ON tasks.id_service = services.uid " +
                 "LEFT OUTER JOIN Customer as customers ON tasks.id_customer = customers.uid " +
             "WHERE tasks.day = :day " +
-            "ORDER BY tasks.day")
+            "ORDER BY tasks.day, tasks.time")
     List<ItemTaskInfo> getTasksInfoByDay(long day);
 
     // Tasks
@@ -52,8 +52,11 @@ public interface BusyDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertTaskList(List<Task> taskList);
 
+    @Insert
+    void insertTask(Task task);
+
     @Update
-    void updateTaskList(Task task);
+    void updateTask(Task task);
 
     @Delete
     void deleteTaskList(Task task);

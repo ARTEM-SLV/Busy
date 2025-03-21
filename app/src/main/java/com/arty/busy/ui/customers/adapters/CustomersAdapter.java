@@ -31,6 +31,7 @@ public class CustomersAdapter extends RecyclerView.Adapter<CustomersAdapter.Cust
     private List<Customer> listOfCustomers;
     private int uid;
     private boolean isChoice;
+    private LinearLayout mainLayoutBefore;
 
     public CustomersAdapter(Context context, int uid, boolean isChoice, OnFragmentCloseListener closeListener) {
 //        parentActivity = activity;
@@ -57,10 +58,13 @@ public class CustomersAdapter extends RecyclerView.Adapter<CustomersAdapter.Cust
         // Открываем DialogActivity при клике на элемент списка
         holder.itemView.setOnClickListener(v -> {
             if (isChoice){
+                if (mainLayoutBefore != null){
+                    mainLayoutBefore.setForeground(null);
+                }
+                v.setForeground(ContextCompat.getDrawable(context, R.drawable.style_radial_green_transparent));
                 if (closeListener != null) {
                     Bundle result = new Bundle();
-                    result.putInt("uid", customer.uid);
-                    result.putString("name", customer.toString());
+                    result.putParcelable("customer", customer);
                     closeListener.closeFragment(result); // Закрываем фрагмент
                 }
             } else {
@@ -95,6 +99,7 @@ public class CustomersAdapter extends RecyclerView.Adapter<CustomersAdapter.Cust
             }
             if (customer.uid == uid){
                 mainLayout.setForeground(ContextCompat.getDrawable(context, R.drawable.style_radial_green_transparent));
+                mainLayoutBefore = mainLayout;
             } else mainLayout.setForeground(null);
         }
     }

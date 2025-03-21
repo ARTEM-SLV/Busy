@@ -1,21 +1,18 @@
 package com.arty.busy.ui.services.activity;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.arty.busy.R;
-import com.arty.busy.models.Customer;
 import com.arty.busy.models.Service;
 
 public class ServiceActivity extends AppCompatActivity {
@@ -65,8 +62,12 @@ public class ServiceActivity extends AppCompatActivity {
         return metrics.heightPixels;
     }
 
+    @SuppressLint("SetTextI18n")
     private void setData(Service service){
-        TextView title = findViewById(R.id.tvTitle_S);
+        TextView shortTitle = findViewById(R.id.etShortTitle_S);
+        shortTitle.setText(service.short_title);
+
+        TextView title = findViewById(R.id.etTitle_S);
         title.setText(service.title);
 
         TextView description = findViewById(R.id.tvDescription_S);

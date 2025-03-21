@@ -82,7 +82,7 @@ public class TaskFragment extends Fragment {
 
         init();
         setData();
-        setVisibilityView();
+        setView();
         setOnClickListeners();
 
         setDataFromFragment();
@@ -137,31 +137,38 @@ public class TaskFragment extends Fragment {
         String formattedDate = dateFormat.format(DateTime.getCalendar(currDay).getTime());
         binding.tvDateT.setText(formattedDate);
 
-        if (idTask == -1){
-            currentTask = new Task();
-            currentTask.day = currDate;
+        if (currentTask == null){
+            if (idTask == -1){
+                currentTask = new Task();
+                currentTask.day = currDate;
+            } else {
+                currentTask = homeViewModel.getTask(idTask);
+            }
             modifiedTask = new Task(currentTask);
-            isNew = true;
-            binding.btnCancelTaskT.setVisibility(View.INVISIBLE);
-
-            return;
         }
+        isNew = idTask == -1;
+    }
 
-        currentTask = homeViewModel.getTask(idTask);
-        modifiedTask = new Task(currentTask);
+    private void setView(){
+        Time timeEnd = DateTime.parseStringToTime(modifiedTask.time);
+        timeEnd.addTime(modifiedTask.duration);
+        String sTimeEnd = "";
+        if (!modifiedTask.time.equals("")){
+            sTimeEnd = DateTime.parseTimeToString(timeEnd);
+        }
+        setTimeView(modifiedTask.time, sTimeEnd);
+        setDurationView(modifiedTask.duration);
 
-        Time timeEnd = DateTime.parseStringToTime(currentTask.time);
-        timeEnd.addTime(currentTask.duration);
-        String sTimeEnd = DateTime.parseTimeToString(timeEnd);
-        setTimeView(currentTask.time, sTimeEnd);
-        setDurationView(currentTask.duration);
+        setServiceView(modifiedTask.id_service);
+        setCustomerView(modifiedTask.id_customer);
+        setPriceView(modifiedTask.price);
 
-        setServiceView(currentTask.id_service);
-        setCustomerView(currentTask.id_customer);
-        setPriceView(currentTask.price);
+        binding.cbDoneT.setChecked(modifiedTask.done);
+        binding.cbPaidT.setChecked(modifiedTask.paid);
 
-        binding.cbDoneT.setChecked(currentTask.done);
-        binding.cbPaidT.setChecked(currentTask.paid);
+        if (isNew){
+            binding.btnCancelTaskT.setVisibility(View.INVISIBLE);
+        }
     }
 
     private void setOnClickListeners(){
@@ -173,6 +180,7 @@ public class TaskFragment extends Fragment {
         setOnClickListenerForTVTime();
         setOnClickListenerForETDuration();
         setOnClickListenerForETPrice();
+        setOnClickListenerForИtnCancelTask();
     }
 
     private void setOnClickListenerBtnOk(){
@@ -182,9 +190,9 @@ public class TaskFragment extends Fragment {
     private void setOnClickListenerBtnCansel(){
         binding.btnCancelT.setOnClickListener(v -> beforeFinishActivity(true));
 
-        TextView tvTime = binding.tvTimeT;
-        tvTime.setOnClickListener(v -> {
-        });
+//        TextView tvTime = binding.tvTimeT;
+//        tvTime.setOnClickListener(v -> {
+//        });
     }
 
     private void setOnClickListenerTVCustomer(){
@@ -197,9 +205,14 @@ public class TaskFragment extends Fragment {
 
             getParentFragmentManager().beginTransaction()
                     .setReorderingAllowed(true)
-                    .add(R.id.container_for_fragments, CustomersFragment.class, bundle)
+                    .setCustomAnimations(
+                            android.R.anim.fade_in,  // Анимация при входе
+                            android.R.anim.fade_out,  // Анимация при выходе
+                            android.R.anim.fade_in,  // Анимация при возврате назад
+                            android.R.anim.fade_out  // Анимация при закрытии
+                    )
+                    .replace(R.id.container_for_fragments, CustomersFragment.class, bundle)
                     .addToBackStack(null)
-                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                     .commit();
         });
     }
@@ -214,9 +227,14 @@ public class TaskFragment extends Fragment {
 
             getParentFragmentManager().beginTransaction()
                     .setReorderingAllowed(true)
-                    .add(R.id.container_for_fragments, ServicesFragment.class, bundle)
+                    .setCustomAnimations(
+                            android.R.anim.fade_in,  // Анимация при входе
+                            android.R.anim.fade_out,  // Анимация при выходе
+                            android.R.anim.fade_in,  // Анимация при возврате назад
+                            android.R.anim.fade_out  // Анимация при закрытии
+                    )
+                    .replace(R.id.container_for_fragments, ServicesFragment.class, bundle)
                     .addToBackStack(null)
-                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                     .commit();
         });
     }
@@ -257,17 +275,24 @@ public class TaskFragment extends Fragment {
         });
     }
 
+    private void setOnClickListenerForИtnCancelTask(){
+        binding.btnCancelTaskT.setOnClickListener(v -> {
+            showDialogCancelTask();
+        });
+    }
+
     private void setDataFromFragment(){
         getParentFragmentManager().setFragmentResultListener("customer", this, (requestKey, result) -> {
-            binding.tvCustomerT.setText(result.getString("name"));
-            modifiedTask.id_customer = result.getInt("uid");
+            customer = result.getParcelable(requestKey);
+            modifiedTask.id_customer = customer.uid;
+            binding.tvCustomerT.setText(customer.toString());
         });
 
         getParentFragmentManager().setFragmentResultListener("service", this, (requestKey, result) -> {
             service = result.getParcelable(requestKey);
-//            binding.tvServiceT.setText(result.getString(serviceNew.title));
             modifiedTask.id_service = service.uid;
             binding.tvServiceT.setText(service.title);
+
             setDurationView(service.duration);
             setPriceView(service.price);
         });
@@ -304,7 +329,7 @@ public class TaskFragment extends Fragment {
 
     private void showTimePickerDialog(TextView textView, boolean setTimeNow) {
         int hour = 0, minute = 0;
-        String currentTime = textView.getText().toString();
+        String currentTime = modifiedTask.time; //textView.getText().toString();
 
         if (!currentTime.isEmpty()) {
             String[] timeParts = currentTime.split(" - ");
@@ -334,15 +359,6 @@ public class TaskFragment extends Fragment {
         timePickerDialog.show();
     }
 
-    private void setVisibilityView(){
-        ImageButton btnCancelTask = binding.btnCancelTaskT;
-        if (currentTask == null){
-            btnCancelTask.setVisibility(View.INVISIBLE);
-        } else {
-            btnCancelTask.setVisibility(View.VISIBLE);
-        }
-    }
-
     @SuppressLint("SetTextI18n")
     private void setPerformanceTvTime(){
         String currentTime = binding.tvTimeT.getText().toString();
@@ -366,17 +382,28 @@ public class TaskFragment extends Fragment {
     }
 
     private void setServiceView(int id){
-        service = homeViewModel.getService(id);
+        if (id == 0 ){
+            return;
+        }
+        if (service == null){
+            service = homeViewModel.getService(id);
+        }
         binding.tvServiceT.setText(service.title);
     }
 
     private void setCustomerView(int id){
-        customer = homeViewModel.getCustomer(id);
-        binding.tvCustomerT.setText(homeViewModel.getCustomerName(customer));
+        if (id == 0 ){
+            return;
+        }
+        if (customer == null){
+            customer = homeViewModel.getCustomer(id);
+        }
+        binding.tvCustomerT.setText(customer.toString());
     }
 
     private void setPriceView(double price){
         binding.etPriceT.setText(String.valueOf(price));
+        modifiedTask.price = price;
     }
 
     @SuppressLint("SetTextI18n")
@@ -387,6 +414,7 @@ public class TaskFragment extends Fragment {
     private void setDurationView(int duration){
         Time time = new Time(duration);
         binding.etDurationT.setText(time.toString());
+        modifiedTask.duration = duration;
     }
 
     private String getPerformanceOfTime(String timeStart, String timeEnd){
@@ -417,19 +445,22 @@ public class TaskFragment extends Fragment {
     }
 
     private void beforeFinishActivity(boolean isClosing){
-        if (isClosing) {
-            if (!currentTask.equals(modifiedTask)) {
+        if (!currentTask.equals(modifiedTask)){
+            if (isClosing){
                 showDialogCloseFragment();
             } else {
-                finishThisActivity();
-            }
-        } else {
-            if (!currentTask.equals(modifiedTask)){
                 if (!checkFilling()){
                     return;
                 }
-                homeViewModel.updateTask(modifiedTask);
+                if (isNew){
+                    homeViewModel.insertTask(modifiedTask);
+                } else {
+                    homeViewModel.updateTask(modifiedTask);
+                }
+
+                finishThisActivity();
             }
+        } else {
             finishThisActivity();
         }
     }
@@ -437,7 +468,7 @@ public class TaskFragment extends Fragment {
     private boolean checkFilling(){
         boolean result = true;
 
-        if (modifiedTask.time == ""){
+        if (Objects.equals(modifiedTask.time, "")){
             showMessage("Не заполнено время");
             return false;
         }
@@ -455,6 +486,19 @@ public class TaskFragment extends Fragment {
                 .setPositiveButton(R.string.cd_yes, (dialog, which) -> finishThisActivity())
                 .setNegativeButton(R.string.cd_no, (dialog, which) -> dialog.dismiss())
                 .show();
+    }
+
+    private void showDialogCancelTask(){
+        new AlertDialog.Builder(getActivity(), R.style.AlertDialogTheme)
+                .setMessage(R.string.q_cancel)
+                .setPositiveButton(R.string.cd_yes, (dialog, which) -> DeleteTask())
+                .setNegativeButton(R.string.cd_no, (dialog, which) -> dialog.dismiss())
+                .show();
+    }
+
+    private void DeleteTask(){
+        homeViewModel.deleteTask(currentTask);
+        finishThisActivity();
     }
 
     private void finishThisActivity(){
