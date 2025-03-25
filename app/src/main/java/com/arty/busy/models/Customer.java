@@ -35,6 +35,16 @@ public class Customer implements Parcelable {
     public Customer() {
     }
 
+    public Customer(Customer customer) {
+        uid = customer.uid;
+        first_name = customer.first_name;
+        last_name = customer.last_name;
+        phone = customer.phone;
+        sex = customer.sex;
+        age = customer.age;
+        picture = customer.picture;
+    }
+
     protected Customer(Parcel in) {
         uid = in.readInt();
         first_name = in.readString();
@@ -93,5 +103,16 @@ public class Customer implements Parcelable {
     @Override
     public String toString(){
         return first_name + " " + last_name;
+    }
+
+    public String shortTitle(){
+        if (first_name == null){
+            return "";
+        }
+        if (last_name == null){
+            return String.valueOf(first_name.charAt(0));
+        }
+
+        return first_name.charAt(0) + "" + last_name.charAt(0);
     }
 }

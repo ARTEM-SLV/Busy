@@ -26,9 +26,30 @@ import java.util.List;
 public class HomeViewModel extends ViewModel {
     private long startDate, endDate;
     private BusyDao busyDao;
+    private Task currentTask, modifiedTask;
 
     public HomeViewModel() {
         this.busyDao = App.getInstance().getBusyDao();
+    }
+
+    public void getTasks(int idTask, long currDate){
+        if (currentTask == null){
+            if (idTask == -1){
+                currentTask = new Task();
+                currentTask.day = currDate;
+            } else {
+                currentTask = getTask(idTask);
+            }
+            modifiedTask = new Task(currentTask);
+        }
+    }
+
+    public Task getCurrentTask() {
+        return currentTask;
+    }
+
+    public Task getModifiedTask() {
+        return modifiedTask;
     }
 
     public LiveData<List<ItemListOfDays>> getListOfDays(Date d) {

@@ -95,7 +95,7 @@ public class CustomersAdapter extends RecyclerView.Adapter<CustomersAdapter.Cust
             tvName.setText(customer.first_name + " " + customer.last_name);
             tvPhone.setText(customer.phone);
             if (customer.picture == null){
-                tvPicture.setText(customer.first_name.charAt(0) + "" + customer.last_name.charAt(0));
+                tvPicture.setText(customer.shortTitle());
             }
             if (customer.uid == uid){
                 mainLayout.setForeground(ContextCompat.getDrawable(context, R.drawable.style_radial_green_transparent));

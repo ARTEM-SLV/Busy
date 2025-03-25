@@ -38,7 +38,7 @@
     <string name="cd_minus">минус</string>
     <string name="cd_add_task">добавить задачу</string>
     <string name="cd_add_service">добавить услугу</string>
-    <string name="cd_postpone">перенести</string>
+    <string name="cd_reschedule">перенести</string>
     <string name="cd_cancel_task">отменить задачу</string>
     <string name="cd_add_customer">добавить клиента</string>
     <string name="cd_first_name">имя</string>

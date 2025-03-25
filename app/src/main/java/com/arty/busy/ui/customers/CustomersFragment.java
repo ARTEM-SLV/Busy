@@ -1,6 +1,7 @@
 package com.arty.busy.ui.customers;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.arty.busy.OnFragmentCloseListener;
 import com.arty.busy.consts.Constants;
 import com.arty.busy.databinding.FragmentCustomersBinding;
+import com.arty.busy.ui.customers.activity.CustomerActivity;
 import com.arty.busy.ui.customers.adapters.CustomersAdapter;
 
 import java.util.Objects;
@@ -25,7 +27,7 @@ public class CustomersFragment extends Fragment implements OnFragmentCloseListen
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         CustomersViewModel customersViewModel =
-                new ViewModelProvider(this, (ViewModelProvider.Factory) new ViewModelProvider.NewInstanceFactory()).get(CustomersViewModel.class);
+                new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory()).get(CustomersViewModel.class);
 
         binding = FragmentCustomersBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
@@ -46,6 +48,12 @@ public class CustomersFragment extends Fragment implements OnFragmentCloseListen
         listOfCustomers.setAdapter(customersAdapter);
 
         customersViewModel.getListOfCustomers().observe(getViewLifecycleOwner(), customersAdapter::updateListOfCustomers);
+
+        binding.fabAddC.setOnClickListener(v -> {
+            Intent intent = new Intent(context, CustomerActivity.class);
+//            intent.putExtra("customer", customer);
+            context.startActivity(intent);
+        });
 
         return root;
     }

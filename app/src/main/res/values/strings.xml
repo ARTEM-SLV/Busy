@@ -68,7 +68,7 @@
     <string name="cd_minus">minus</string>
     <string name="cd_add_task">add task</string>
     <string name="cd_add_service">add service</string>
-    <string name="cd_postpone">postpone</string>
+    <string name="cd_reschedule">reschedule</string>
     <string name="cd_cancel_task">cancel task</string>
     <string name="cd_add_customer">add customer</string>
     <string name="cd_last_name">last name</string>

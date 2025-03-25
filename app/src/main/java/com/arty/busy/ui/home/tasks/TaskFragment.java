@@ -6,11 +6,10 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,17 +39,17 @@ import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class TaskFragment extends Fragment {
-    private boolean isNew = false;
     private FragmentTaskBinding binding;
     private Context context;
     private HomeViewModel homeViewModel;
-    private Task currentTask, modifiedTask;
     private Customer customer;
     private Service service;
     private SimpleDateFormat dateFormat;
     private Date currDay;
     private long currDate = 0;
     private int idTask = -1;
+    private Task currentTask, modifiedTask;
+    private boolean isNew = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -103,15 +102,9 @@ public class TaskFragment extends Fragment {
         String formattedDate = dateFormat.format(DateTime.getCalendar(currDay).getTime());
         binding.tvDateT.setText(formattedDate);
 
-        if (currentTask == null){
-            if (idTask == -1){
-                currentTask = new Task();
-                currentTask.day = currDate;
-            } else {
-                currentTask = homeViewModel.getTask(idTask);
-            }
-            modifiedTask = new Task(currentTask);
-        }
+        homeViewModel.getTasks(idTask, currDate);
+        currentTask = homeViewModel.getCurrentTask();
+        modifiedTask = homeViewModel.getModifiedTask();
         isNew = idTask == -1;
     }
 
@@ -134,6 +127,7 @@ public class TaskFragment extends Fragment {
 
         if (isNew){
             binding.btnCancelTaskT.setVisibility(View.INVISIBLE);
+            binding.btnReschedule.setVisibility(View.GONE);
         }
     }
 
@@ -143,6 +137,7 @@ public class TaskFragment extends Fragment {
         setOnClickListenerTVCustomer();
         setOnClickListenerTVService();
         setOnClickListenerForTVDate();
+        setOnClickListenerForBtnReschedule();
         setOnClickListenerForTVTime();
         setOnClickListenerForETDuration();
         setOnClickListenerForETPrice();
@@ -205,6 +200,10 @@ public class TaskFragment extends Fragment {
         binding.tvDateT.setOnClickListener(v -> showDatePicker());
     }
 
+    private void setOnClickListenerForBtnReschedule(){
+        binding.btnReschedule.setOnClickListener(v -> showDatePicker());
+    }
+
     private void setOnClickListenerForTVTime(){
         binding.tvTimeT.setOnClickListener(v -> showTimePickerDialog(binding.tvTimeT, true));
     }
@@ -214,31 +213,50 @@ public class TaskFragment extends Fragment {
     }
 
     private void setOnClickListenerForETPrice(){
-        binding.etPriceT.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
+        binding.etPriceT.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                String text = binding.etPriceT.getText().toString();
+                if (!text.isEmpty()){
+                    modifiedTask.price = Double.parseDouble(text);
+                }
+                return true;
             }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @SuppressLint("SetTextI18n")
-            @Override
-            public void afterTextChanged(Editable s) {
-                String text = s.toString();
-
-                if (!text.isEmpty()) {
+            return false;
+        });
+        binding.etPriceT.setOnFocusChangeListener((v, hasFocus) -> {
+            if (!hasFocus) {
+                String text = binding.etPriceT.getText().toString();
+                if (!text.isEmpty()){
                     modifiedTask.price = Double.parseDouble(text);
                 }
             }
         });
+
+//        binding.etPriceT.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//
+//            }
+//
+//            @SuppressLint("SetTextI18n")
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//                String text = s.toString();
+//
+//                if (!text.isEmpty()) {
+//                    modifiedTask.price = Double.parseDouble(text);
+//                }
+//            }
+//        });
     }
 
     private void setOnClickListenerForBtnCancelTask(){
-        binding.btnCancelTaskT.setOnClickListener(v -> showDialogCancelTask());
+        binding.btnCancelTaskT.setOnClickListener(v -> showDialogDeleteTask());
     }
 
     private void setDataFromFragment(){
@@ -288,22 +306,7 @@ public class TaskFragment extends Fragment {
     }
 
     private void showTimePickerDialog(TextView textView, boolean setTimeNow) {
-        int hour = 0, minute = 0;
-        String currentTime = modifiedTask.time; //textView.getText().toString();
-
-        if (!currentTime.isEmpty()) {
-            String[] timeParts = currentTime.split(" - ");
-            if (timeParts.length > 0) {
-                String[] startTime = timeParts[0].split(":");
-                hour = Integer.parseInt(startTime[0]);
-                minute = Integer.parseInt(startTime[1]);
-            }
-        } else if (setTimeNow) {
-            // Если поле пустое, берем текущее время
-            Calendar calendar = Calendar.getInstance();
-            hour = calendar.get(Calendar.HOUR_OF_DAY);
-            minute = calendar.get(Calendar.MINUTE);
-        }
+        Time time = new Time(modifiedTask.duration);
 
         TimePickerDialog timePickerDialog = new TimePickerDialog(
                 context,
@@ -313,7 +316,7 @@ public class TaskFragment extends Fragment {
                     textView.setText(newStartTime);
                     setPerformanceTvTime();
                 },
-                hour, minute, true // true - 24-часовой формат
+                time.getHour(), time.getMinute(), true // true - 24-часовой формат
         );
 
         timePickerDialog.show();
@@ -405,7 +408,7 @@ public class TaskFragment extends Fragment {
     }
 
     private void beforeFinishActivity(boolean isClosing){
-        if (!currentTask.equals(modifiedTask)){
+        if (!modifiedTask.equals(currentTask)){
             if (isClosing){
                 showDialogCloseFragment();
             } else {
@@ -446,15 +449,15 @@ public class TaskFragment extends Fragment {
     }
 
     private void showDialogCloseFragment(){
-        new AlertDialog.Builder(getActivity(), R.style.AlertDialogTheme)
+        new AlertDialog.Builder(context, R.style.AlertDialogTheme)
                 .setMessage(R.string.q_cancel)
                 .setPositiveButton(R.string.cd_yes, (dialog, which) -> finishThisActivity())
                 .setNegativeButton(R.string.cd_no, (dialog, which) -> dialog.dismiss())
                 .show();
     }
 
-    private void showDialogCancelTask(){
-        new AlertDialog.Builder(getActivity(), R.style.AlertDialogTheme)
+    private void showDialogDeleteTask(){
+        new AlertDialog.Builder(context, R.style.AlertDialogTheme)
                 .setMessage(R.string.q_cancel)
                 .setPositiveButton(R.string.cd_yes, (dialog, which) -> DeleteTask())
                 .setNegativeButton(R.string.cd_no, (dialog, which) -> dialog.dismiss())

@@ -68,15 +68,37 @@
 
         </LinearLayout>
 
-        <ImageView
-            android:id="@+id/ivPhoto_C"
+
+        <LinearLayout
+            android:id="@+id/layoutPhoto_C"
             android:layout_width="120dp"
             android:layout_height="120dp"
             android:layout_marginTop="16dp"
+            android:background="@drawable/style_oval_cornsilk"
+            android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layoutHead_C"
-            app:srcCompat="@drawable/ic_man" />
+            app:layout_constraintTop_toBottomOf="@+id/layoutHead_C">
+
+            <ImageView
+                android:id="@+id/ivPhoto_C"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone"
+                app:srcCompat="@drawable/ic_man" />
+
+            <TextView
+                android:id="@+id/tvPhoto_C"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/lnky"
+                android:gravity="center"
+                android:textColor="@color/SteelBlue"
+                android:textSize="40sp"
+                android:typeface="monospace"
+                tools:text="ИВК" />
+
+        </LinearLayout>
 
         <EditText
             android:id="@+id/etFirstName_C"
@@ -88,6 +110,7 @@
             android:background="@drawable/style_stroke_dark_slate_gray"
             android:ems="10"
             android:hint="@string/cd_first_name"
+            android:imeOptions="actionDone"
             android:inputType="textPersonName"
             android:minHeight="48dp"
             android:paddingStart="8dp"
@@ -96,7 +119,7 @@
             android:textColorHint="@color/DarkSlateGray"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ivPhoto_C" />
+            app:layout_constraintTop_toBottomOf="@+id/layoutPhoto_C" />
 
         <EditText
             android:id="@+id/etLastName_C"
@@ -108,6 +131,7 @@
             android:background="@drawable/style_stroke_dark_slate_gray"
             android:ems="10"
             android:hint="@string/cd_last_name"
+            android:imeOptions="actionDone"
             android:inputType="textPersonName"
             android:minHeight="48dp"
             android:paddingStart="8dp"
@@ -128,6 +152,7 @@
             android:background="@drawable/style_stroke_dark_slate_gray"
             android:ems="10"
             android:hint="@string/cd_phone"
+            android:imeOptions="actionDone"
             android:inputType="phone"
             android:minHeight="48dp"
             android:paddingStart="8dp"
@@ -157,6 +182,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:hint="@string/cd_age"
+                android:imeOptions="actionDone"
                 android:inputType="numberSigned"
                 android:minHeight="48dp"
                 android:paddingStart="8dp"
@@ -176,7 +202,8 @@
                 android:paddingStart="8dp"
                 android:paddingEnd="8dp"
                 android:textColor="@color/DarkSlateGray"
-                android:textColorHint="@color/DarkSlateGray" />
+                android:textColorHint="@color/DarkSlateGray"
+                tools:ignore="ContentDescription" />
         </LinearLayout>
 
         <ImageButton

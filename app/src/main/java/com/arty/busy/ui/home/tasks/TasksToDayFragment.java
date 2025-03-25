@@ -46,7 +46,6 @@ public class TasksToDayFragment extends Fragment {
     private View root;
     List<ItemTaskInfo> taskInfoList;
     private long currDate;
-    private TextView tvDate;
     private ScrollView scrollView;
 
     private int posStart;
@@ -81,7 +80,7 @@ public class TasksToDayFragment extends Fragment {
     private void init(){
         int lineID;
         LinearLayout linerHours;
-        tvDate = (TextView) binding.tvDateTTD; //findViewById(R.id.tvTestDate_TTD);
+        TextView tvDate = (TextView) binding.tvDateTTD; //findViewById(R.id.tvTestDate_TTD);
         scrollView = (ScrollView) binding.scrollTTD; //findViewById(R.id.scroll_TTD);
 
         scrollView.post(() -> scrollView.scrollTo(0, posStart));
@@ -163,7 +162,7 @@ public class TasksToDayFragment extends Fragment {
 
             int currResColor = context.getColor(R.color.Black);
             if (itemTaskInfo.isDone()){
-                currResColor = context.getColor(R.color.Green);
+                currResColor = context.getColor(R.color.DarkGreen);
             } else if (isNextTask(timeStart)){
                 currResColor = context.getColor(R.color.Navy);
                 setPosStart(hour);

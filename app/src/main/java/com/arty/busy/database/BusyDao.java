@@ -90,6 +90,12 @@ public interface BusyDao {
     @Update
     void updateCustomerList(Customer customer);
 
+    @Insert
+    void insertCustomer(Customer customer);
+
+    @Update
+    void updateCustomer(Customer customer);
+
     @Delete
     void deleteCustomerList(Customer customer);
 }

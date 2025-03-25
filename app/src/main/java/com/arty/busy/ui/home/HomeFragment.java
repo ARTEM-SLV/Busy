@@ -1,15 +1,11 @@
 package com.arty.busy.ui.home;
 
 import android.os.Bundle;
-import android.os.Parcelable;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.view.menu.MenuView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -18,13 +14,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.arty.busy.consts.Constants;
 import com.arty.busy.databinding.FragmentHomeBinding;
-import com.arty.busy.date.DateTime;
 import com.arty.busy.ui.home.adapters.ListOfDaysAdapter;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
+import java.util.Objects;
 
 public class HomeFragment extends Fragment {
     private RecyclerView listOfDays;
@@ -36,7 +29,7 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         homeViewModel =
-                new ViewModelProvider(this, (ViewModelProvider.Factory) new ViewModelProvider.NewInstanceFactory()).get(HomeViewModel.class);
+                new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory()).get(HomeViewModel.class);
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
@@ -46,7 +39,7 @@ public class HomeFragment extends Fragment {
         listOfDays = binding.homeListOfDays;
         listOfDays.setLayoutManager(linearLayoutManager);
         listOfDays.setAdapter(listOfDaysAdapter);
-        getItemTouchHelper().attachToRecyclerView(listOfDays);
+//        getItemTouchHelper().attachToRecyclerView(listOfDays);
 
         Date d = listOfDaysAdapter.getSelectedDate();
         homeViewModel.getListOfDays(d).observe(getViewLifecycleOwner(), listOfDaysAdapter::loadData);
@@ -80,15 +73,6 @@ public class HomeFragment extends Fragment {
                         isLoadingDown = true;
                     }
                 } else isLoadingDown = false;
-
-//                Date d = listOfDaysAdapter.getDate(positionFirstElement);
-//                Calendar calendar = DateTime.getCalendar(d);
-//                if (calendar.get(Calendar.DAY_OF_MONTH) == 1) {
-//                    String monthName = new SimpleDateFormat("MMMM yyyy", Locale.getDefault()).format(d);
-//                    Toast toast = Toast.makeText(recyclerView.getContext(), monthName, Toast.LENGTH_SHORT);
-//                    toast.setGravity(Gravity.TOP, 0, 200);
-//                    toast.show();
-//                }
             }
         });
     }
@@ -97,7 +81,7 @@ public class HomeFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        listOfDays.getLayoutManager().scrollToPosition(11);
+        Objects.requireNonNull(listOfDays.getLayoutManager()).scrollToPosition(11);
     }
 
     @Override
