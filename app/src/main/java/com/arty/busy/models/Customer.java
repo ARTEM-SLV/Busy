@@ -3,9 +3,12 @@ package com.arty.busy.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+
+import com.arty.busy.enums.Sex;
 
 import java.util.Objects;
 
@@ -33,6 +36,13 @@ public class Customer implements Parcelable {
     public String picture;
 
     public Customer() {
+        uid = 0;
+        first_name = "";
+        last_name = "";
+        phone = "";
+        sex = Sex.male.name();
+        age = 0;
+        picture = null;
     }
 
     public Customer(Customer customer) {
@@ -100,19 +110,37 @@ public class Customer implements Parcelable {
         dest.writeString(picture);
     }
 
+    @NonNull
     @Override
     public String toString(){
         return first_name + " " + last_name;
     }
 
     public String shortTitle(){
-        if (first_name == null){
-            return "";
-        }
-        if (last_name == null){
-            return String.valueOf(first_name.charAt(0));
-        }
+        StringBuffer result = new StringBuffer();
+        String[] arrFirstName;
+        String[] arrLastName;
 
-        return first_name.charAt(0) + "" + last_name.charAt(0);
+        if (first_name == null || first_name.isEmpty()){
+            return "";
+        } else {
+            arrFirstName = first_name.split(" ");
+        }
+        supplementResult(arrFirstName, result);
+
+        if (last_name == null || last_name.isEmpty()){
+            return String.valueOf(first_name.charAt(0));
+        } else {
+            arrLastName = last_name.split(" ");
+        }
+        supplementResult(arrLastName, result);
+
+        return result.toString();
+    }
+
+    private void supplementResult(@NonNull String[] arrFirstName, StringBuffer result){
+        for (String str: arrFirstName) {
+            result.append(str.charAt(0));
+        }
     }
 }

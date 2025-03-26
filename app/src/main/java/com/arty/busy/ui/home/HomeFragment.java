@@ -23,6 +23,7 @@ public class HomeFragment extends Fragment {
     private RecyclerView listOfDays;
     private FragmentHomeBinding binding;
     private ListOfDaysAdapter listOfDaysAdapter;
+    LinearLayoutManager linearLayoutManager;
     private HomeViewModel homeViewModel;
     public boolean isLoadingUP = true, isLoadingDown = true;
 
@@ -35,18 +36,30 @@ public class HomeFragment extends Fragment {
         View root = binding.getRoot();
 
         listOfDaysAdapter = new ListOfDaysAdapter(getContext(), getParentFragmentManager(), getActivity());
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
+        linearLayoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
         listOfDays = binding.homeListOfDays;
         listOfDays.setLayoutManager(linearLayoutManager);
         listOfDays.setAdapter(listOfDaysAdapter);
 //        getItemTouchHelper().attachToRecyclerView(listOfDays);
+
+//        Date d = listOfDaysAdapter.getSelectedDate();
+//        homeViewModel.getListOfDays(d).observe(getViewLifecycleOwner(), listOfDaysAdapter::loadData);
+//
+//        addOnScrollListenerRecyclerView(linearLayoutManager);
+
+        return root;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
 
         Date d = listOfDaysAdapter.getSelectedDate();
         homeViewModel.getListOfDays(d).observe(getViewLifecycleOwner(), listOfDaysAdapter::loadData);
 
         addOnScrollListenerRecyclerView(linearLayoutManager);
 
-        return root;
+        listOfDays.getLayoutManager().scrollToPosition(11);
     }
 
     private void addOnScrollListenerRecyclerView(LinearLayoutManager linearLayoutManager){
@@ -75,13 +88,6 @@ public class HomeFragment extends Fragment {
                 } else isLoadingDown = false;
             }
         });
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        Objects.requireNonNull(listOfDays.getLayoutManager()).scrollToPosition(11);
     }
 
     @Override

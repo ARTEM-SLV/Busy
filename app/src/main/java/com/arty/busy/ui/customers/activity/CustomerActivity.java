@@ -9,31 +9,35 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.DisplayMetrics;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.arty.busy.R;
 import com.arty.busy.databinding.ActivityCustomerBinding;
 import com.arty.busy.enums.Sex;
 import com.arty.busy.models.Customer;
-import com.arty.busy.ui.customers.CustomersViewModel;
+import com.arty.busy.ui.customers.viewmodel.CustomerViewModel;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 public class CustomerActivity extends AppCompatActivity {
-    private CustomersViewModel customersViewModel;
+    private CustomerViewModel customerViewModel;
     private @NonNull ActivityCustomerBinding binding;
     private ActivityResultLauncher<Intent> imagePickerLauncher;
     private ArrayAdapter<String> adapter;
@@ -42,39 +46,35 @@ public class CustomerActivity extends AppCompatActivity {
     private byte[] imageData;
     private Customer customer, modifiedCustomer;
     private boolean isNew = false;
+    private boolean isCreating = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
-//        setContentView(R.layout.activity_customer);
 
-        customersViewModel =
-                new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory()).get(CustomersViewModel.class);
+        customerViewModel =
+                new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory()).get(CustomerViewModel.class);
 
         binding = ActivityCustomerBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         setWindowParam();
 
-//        setSexValues();
-//        Customer customer = getIntent().getParcelableExtra("customer");
-
-//        setData();
-//        setOnClickListeners();
+        initSexValues();
+        setOnClickListeners();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
 
-        initSexValues();
         setData();
         setView();
 
-        setOnClickListeners();
-        setOnEditors();
-
+        if (isCreating){
+            isCreating = false;
+        }
     }
 
     private void setWindowParam(){
@@ -107,39 +107,31 @@ public class CustomerActivity extends AppCompatActivity {
     private void initSexValues(){
         String[] items = {Sex.male.name(), Sex.female.name()};
 
-//        sex = findViewById(R.id.etSex_C);
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, items);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         binding.etSexC.setAdapter(adapter);
     }
 
     private void setData(){
-        if (customer == null){
+        if (isCreating){
             customer = getIntent().getParcelableExtra("customer");
             if (customer == null){
+                customer = new Customer();
                 modifiedCustomer = new Customer();
+
+                isNew = true;
             } else {
                 modifiedCustomer = new Customer(customer);
             }
         }
-        isNew = customer == null;
     }
 
     @SuppressLint("SetTextI18n")
     private void setView(){
-//        TextView tvPhoto = findViewById(R.id.tvPhoto_C);
         binding.tvPhotoC.setText(modifiedCustomer.shortTitle());
-
-//        TextView firsName = findViewById(R.id.etFirstName_C);
         binding.etFirstNameC.setText(modifiedCustomer.first_name);
-
-//        TextView lastName = findViewById(R.id.etLastName_C);
-        binding.etFirstNameC.setText(modifiedCustomer.last_name);
-
-//        TextView phone = findViewById(R.id.etPhone_C);
+        binding.etLastNameC.setText(modifiedCustomer.last_name);
         binding.etPhoneC.setText(modifiedCustomer.phone);
-
-//        TextView age = findViewById(R.id.etAge_C);
         binding.etAgeC.setText(Integer.toString(modifiedCustomer.age));
 
         int position = adapter.getPosition(modifiedCustomer.sex);
@@ -147,21 +139,19 @@ public class CustomerActivity extends AppCompatActivity {
 
         if (isNew) {
             binding.layoutPhotoC.setVisibility(View.INVISIBLE);
+            binding.btnDeleteTaskC.setVisibility(View.INVISIBLE);
         }
     }
 
     private void setOnClickListeners(){
-//        ImageButton btnOk = findViewById(R.id.btnOk_C);
         binding.btnOkC.setOnClickListener(v -> {
             beforeFinishActivity(false);
         });
 
-//        ImageButton btnCancel = findViewById(R.id.btnCancel_C);
         binding.btnCancelC.setOnClickListener(v -> {
             beforeFinishActivity(true);
         });
 
-//        ImageButton btnDeleteTask = findViewById(R.id.btnDeleteTask_C);
         binding.btnDeleteTaskC.setOnClickListener(v -> {
             showDialogDeleteCustomer();
         });
@@ -169,10 +159,7 @@ public class CustomerActivity extends AppCompatActivity {
         binding.etSexC.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//                int position = adapter.getPosition(position);
-//                binding.etSexC.getItemAtPosition(position);
-                String selectedItem = parent.getItemAtPosition(position).toString();
-                modifiedCustomer.sex = selectedItem;
+                modifiedCustomer.sex = parent.getItemAtPosition(position).toString();
                 binding.etSexC.setSelection(position);
             }
 
@@ -191,82 +178,8 @@ public class CustomerActivity extends AppCompatActivity {
 //                    }
 //                }
 //        );
-//
 //        ivPhoto = findViewById(R.id.ivPhoto_C);
 //        ivPhoto.setOnClickListener(v -> openGallery());
-    }
-
-    private void setOnEditors(){
-        setOnEditorsForFirstName();
-        setOnEditorsForLastName();
-        setOnEditorsForPhone();
-        setOnEditorsForAge();
-    }
-
-    private void setOnEditorsForFirstName(){
-        binding.etFirstNameC.setOnEditorActionListener((v, actionId, event) -> {
-            if (actionId == EditorInfo.IME_ACTION_DONE) {
-                modifiedCustomer.first_name = binding.etFirstNameC.getText().toString();
-                return true;
-            }
-            return false;
-        });
-        binding.etFirstNameC.setOnFocusChangeListener((v, hasFocus) -> {
-            if (!hasFocus) {
-                modifiedCustomer.first_name = binding.etFirstNameC.getText().toString();
-            }
-        });
-    }
-
-    private void setOnEditorsForLastName(){
-        binding.etLastNameC.setOnEditorActionListener((v, actionId, event) -> {
-            if (actionId == EditorInfo.IME_ACTION_DONE) {
-                modifiedCustomer.last_name = binding.etLastNameC.getText().toString();
-                return true;
-            }
-            return false;
-        });
-        binding.etLastNameC.setOnFocusChangeListener((v, hasFocus) -> {
-            if (!hasFocus) {
-                modifiedCustomer.last_name = binding.etLastNameC.getText().toString();
-            }
-        });
-    }
-
-    private void setOnEditorsForPhone(){
-        binding.etPhoneC.setOnEditorActionListener((v, actionId, event) -> {
-            if (actionId == EditorInfo.IME_ACTION_DONE) {
-                modifiedCustomer.phone = binding.etPhoneC.getText().toString();
-                return true;
-            }
-            return false;
-        });
-        binding.etPhoneC.setOnFocusChangeListener((v, hasFocus) -> {
-            if (!hasFocus) {
-                modifiedCustomer.phone = binding.etPhoneC.getText().toString();
-            }
-        });
-    }
-
-    private void setOnEditorsForAge(){
-        binding.etAgeC.setOnEditorActionListener((v, actionId, event) -> {
-            if (actionId == EditorInfo.IME_ACTION_DONE) {
-                String text = binding.etAgeC.getText().toString();
-                if (!text.isEmpty()){
-                    modifiedCustomer.age = Integer.parseInt(text);
-                };
-                return true;
-            }
-            return false;
-        });
-        binding.etAgeC.setOnFocusChangeListener((v, hasFocus) -> {
-            if (!hasFocus) {
-                String text = binding.etAgeC.getText().toString();
-                if (!text.isEmpty()){
-                    modifiedCustomer.age = Integer.parseInt(text);
-                };
-            }
-        });
     }
 
     private void openGallery() {
@@ -292,60 +205,79 @@ public class CustomerActivity extends AppCompatActivity {
         return stream.toByteArray();
     }
 
-    private void beforeFinishActivity(boolean isClosing){
-        if (!modifiedCustomer.equals(customer)) {
-            if (isClosing) {
-                showDialogCloseActivity();
-            } else {
-                if (!checkFilling()) {
-                    return;
-                }
-                if (isNew) {
-                    customersViewModel.insertCustomer(modifiedCustomer);
-                } else {
-                    customersViewModel.updateCustomer(modifiedCustomer);
-                }
+    private void fillCustomerValues(){
+        modifiedCustomer.first_name = binding.etFirstNameC.getText().toString();
+        modifiedCustomer.last_name = binding.etLastNameC.getText().toString();
+        modifiedCustomer.phone = binding.etPhoneC.getText().toString();
 
-                finish();
-            }
+        String text = binding.etAgeC.getText().toString();
+        if (!text.isEmpty()){
+            modifiedCustomer.age = Integer.parseInt(text);
+        }
+    }
+
+    private void beforeFinishActivity(boolean isClosing){
+        fillCustomerValues();
+
+        if (isClosing){
+            closeActivity();
+        } else {
+            doneActivity();
+        }
+    }
+
+    private void closeActivity(){
+        if (!modifiedCustomer.equals(customer)){
+            showDialogCloseActivity();
         } else {
             finish();
         }
+    }
 
-//        if (isNew) {
-//            if (isClosing) {
-//                showDialogCloseActivity();
-//                finish();
-//            } else {
-//                customersViewModel.insertCustomer(modifiedCustomer);
-//            }
-//        } else {
-//            if (!modifiedCustomer.equals(customer)) {
-//                if (isClosing) {
-//                    showDialogCloseActivity();
-//                } else {
-//                    if (!checkFilling()) {
-//                        return;
-//                    }
-//                    if (isNew) {
-//                        customersViewModel.insertCustomer(modifiedCustomer);
-//                    } else {
-//                        customersViewModel.updateCustomer(modifiedCustomer);
-//                    }
-//
-//                    finish();
-//                }
-//            } else {
-//                finish();
-//            }
-//        }
+    private void doneActivity(){
+        if (!checkFilling()) {
+            return;
+        }
+
+        if (isNew){
+            customerViewModel.insertCustomer(modifiedCustomer);
+        } else if (!modifiedCustomer.equals(customer)) {
+            customerViewModel.updateCustomer(modifiedCustomer);
+        }
+
+        finish();
     }
 
     private boolean checkFilling(){
         boolean result = true;
 
         if (modifiedCustomer.first_name.isEmpty()){
-            showMessage("Не указан день");
+            Snackbar snackbar = Snackbar.make(binding.etFirstNameC, "", Snackbar.LENGTH_SHORT);
+            Snackbar.SnackbarLayout layout = (Snackbar.SnackbarLayout) snackbar.getView();
+            layout.setBackgroundColor(Color.TRANSPARENT);
+
+            LayoutInflater inflater = LayoutInflater.from(this);
+            View customView = inflater.inflate(R.layout.snackbar_custom, null);
+
+            // Находим `TextView` и задаем текст программно
+            TextView textView = customView.findViewById(R.id.snackbar_text);
+            textView.setText(R.string.q_first_name_not_filled);
+
+            // Очищаем стандартный текст и добавляем кастомный Layout
+            layout.removeAllViews();
+            layout.addView(customView);
+
+            snackbar.setAnchorView(binding.etFirstNameC);
+            snackbar.show();
+//            int[] location = new int[2];
+//            binding.etFirstNameC.getLocationOnScreen(location);
+//            int etFirstNameX = location[0]; // X-координата (горизонталь)
+//            int etFirstNameY = location[1];
+//
+//            Toast toast = Toast.makeText(this,  R.string.q_first_name_not_filled, Toast.LENGTH_SHORT);
+//            toast.setGravity(Gravity.TOP | Gravity.START, etFirstNameX, etFirstNameY);
+//            toast.show();
+
             return false;
         }
 
@@ -373,7 +305,7 @@ public class CustomerActivity extends AppCompatActivity {
     }
 
     private void DeleteCustomer(){
-        customersViewModel.deleteCustomer(customer);
+        customerViewModel.deleteCustomer(customer);
         finish();
     }
 }

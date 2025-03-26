@@ -34,7 +34,6 @@ public class CustomersAdapter extends RecyclerView.Adapter<CustomersAdapter.Cust
     private LinearLayout mainLayoutBefore;
 
     public CustomersAdapter(Context context, int uid, boolean isChoice, OnFragmentCloseListener closeListener) {
-//        parentActivity = activity;
         this.context = context;
         this.uid = uid;
         this.listOfCustomers = new ArrayList<>();

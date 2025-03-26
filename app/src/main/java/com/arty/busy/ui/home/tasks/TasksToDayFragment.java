@@ -63,7 +63,7 @@ public class TasksToDayFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         homeViewModel =
-                new ViewModelProvider(this, (ViewModelProvider.Factory) new ViewModelProvider.NewInstanceFactory()).get(HomeViewModel.class);
+                new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory()).get(HomeViewModel.class);
 
         binding = FragmentTasksToDayBinding.inflate(inflater, container, false);
         root = binding.getRoot();
@@ -72,6 +72,8 @@ public class TasksToDayFragment extends Fragment {
         setPosStart(Settings.TIME_BEGINNING);
         init();
         fillTasksData();
+
+        binding.btnBackTTD.setOnClickListener(v -> requireActivity().getOnBackPressedDispatcher().onBackPressed());
 
         return root;
     }
@@ -98,7 +100,7 @@ public class TasksToDayFragment extends Fragment {
 
         tvDate.setOnClickListener(v -> scrollView.smoothScrollBy(0, posStart - posY));
 
-        FloatingActionButton btnAdd = (FloatingActionButton) binding.fabAddTTD;
+        FloatingActionButton btnAdd = binding.fabAddTTD;
         btnAdd.setOnClickListener(v -> openTask(null));
 
         if (Settings.TIME_BEGINNING != -1 || Settings.TIME_ENDING != -1) {

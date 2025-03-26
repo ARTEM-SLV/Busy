@@ -18,20 +18,27 @@ import com.arty.busy.consts.Constants;
 import com.arty.busy.databinding.FragmentCustomersBinding;
 import com.arty.busy.ui.customers.activity.CustomerActivity;
 import com.arty.busy.ui.customers.adapters.CustomersAdapter;
-
-import java.util.Objects;
+import com.arty.busy.ui.customers.viewmodel.CustomersViewModel;
 
 public class CustomersFragment extends Fragment implements OnFragmentCloseListener {
     private FragmentCustomersBinding binding;
-
+    private CustomersViewModel customersViewModel;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        CustomersViewModel customersViewModel =
+        customersViewModel =
                 new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory()).get(CustomersViewModel.class);
 
         binding = FragmentCustomersBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-        Context context = container.getContext();
+
+        return root;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        Context context = getContext();
 
         Bundle arguments = getArguments();
         int uid = -1;
@@ -51,11 +58,8 @@ public class CustomersFragment extends Fragment implements OnFragmentCloseListen
 
         binding.fabAddC.setOnClickListener(v -> {
             Intent intent = new Intent(context, CustomerActivity.class);
-//            intent.putExtra("customer", customer);
             context.startActivity(intent);
         });
-
-        return root;
     }
 
     @Override

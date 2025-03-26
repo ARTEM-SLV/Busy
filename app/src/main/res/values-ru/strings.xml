@@ -27,6 +27,7 @@
     <!--   content description -->
     <string name="cd_cancel">отменить</string>
     <string name="cd_ok">принять</string>
+    <string name="cd_back">назад</string>
     <string name="cd_service">услуга</string>
     <string name="cd_short_title">ЗК</string>
     <string name="cd_title">заголовок</string>
@@ -53,5 +54,6 @@
     <!--   question -->
     <string name="q_close">Данные были изменены!\nОтменить изменения?</string>
     <string name="q_cancel">Текущая запись будет удалена!\nПродолжить?</string>
+    <string name="q_first_name_not_filled">Не заполнено имя клиента!</string>
     <!--   question -->
 </resources>
