@@ -1,6 +1,9 @@
 package com.arty.busy.date;
 
+import android.annotation.SuppressLint;
 import android.util.Log;
+
+import androidx.annotation.NonNull;
 
 import java.text.DecimalFormat;
 
@@ -61,6 +64,15 @@ public class Time {
             this.hour = hour;
     }
 
+    public void setTime(byte hour, byte minute){
+        this.hour = hour;
+        this.minute = minute;
+    }
+
+    public String getTime(){
+        return getHourS() + ":" + getMinuteS();
+    }
+
     public byte getMinute() {
         return this.minute;
     }
@@ -78,6 +90,8 @@ public class Time {
             this.minute = minute;
     }
 
+    @NonNull
+    @SuppressLint("DefaultLocale")
     public String toString(){
         return String.format("%02d", this.hour) + ":" + String.format("%02d", this.minute);
     }

@@ -26,6 +26,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.arty.busy.App;
 import com.arty.busy.R;
 import com.arty.busy.databinding.ActivityCustomerBinding;
 import com.arty.busy.enums.Sex;
@@ -252,31 +253,8 @@ public class CustomerActivity extends AppCompatActivity {
         boolean result = true;
 
         if (modifiedCustomer.first_name.isEmpty()){
-            Snackbar snackbar = Snackbar.make(binding.etFirstNameC, "", Snackbar.LENGTH_SHORT);
-            Snackbar.SnackbarLayout layout = (Snackbar.SnackbarLayout) snackbar.getView();
-            layout.setBackgroundColor(Color.TRANSPARENT);
-
-            LayoutInflater inflater = LayoutInflater.from(this);
-            View customView = inflater.inflate(R.layout.snackbar_custom, null);
-
-            // Находим `TextView` и задаем текст программно
-            TextView textView = customView.findViewById(R.id.snackbar_text);
-            textView.setText(R.string.q_first_name_not_filled);
-
-            // Очищаем стандартный текст и добавляем кастомный Layout
-            layout.removeAllViews();
-            layout.addView(customView);
-
-            snackbar.setAnchorView(binding.etFirstNameC);
-            snackbar.show();
-//            int[] location = new int[2];
-//            binding.etFirstNameC.getLocationOnScreen(location);
-//            int etFirstNameX = location[0]; // X-координата (горизонталь)
-//            int etFirstNameY = location[1];
-//
-//            Toast toast = Toast.makeText(this,  R.string.q_first_name_not_filled, Toast.LENGTH_SHORT);
-//            toast.setGravity(Gravity.TOP | Gravity.START, etFirstNameX, etFirstNameY);
-//            toast.show();
+            String msg = getString(R.string.w_first_name_not_filled);
+            App.showWarning(msg, binding.etFirstNameC, this);
 
             return false;
         }
@@ -284,8 +262,24 @@ public class CustomerActivity extends AppCompatActivity {
         return result;
     }
 
-    private void showMessage(String msg){
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+    private void showWarning(String msg, View view){
+        Snackbar snackbar = Snackbar.make(view, "", Snackbar.LENGTH_SHORT);
+        Snackbar.SnackbarLayout layout = (Snackbar.SnackbarLayout) snackbar.getView();
+        layout.setBackgroundColor(Color.TRANSPARENT);
+
+        LayoutInflater inflater = LayoutInflater.from(this);
+        View customView = inflater.inflate(R.layout.snackbar_custom, null);
+
+        // Находим `TextView` и задаем текст программно
+        TextView textView = customView.findViewById(R.id.snackbar_text);
+        textView.setText(msg);
+
+        // Очищаем стандартный текст и добавляем кастомный Layout
+        layout.removeAllViews();
+        layout.addView(customView);
+
+        snackbar.setAnchorView(view);
+        snackbar.show();
     }
 
     private void showDialogCloseActivity(){

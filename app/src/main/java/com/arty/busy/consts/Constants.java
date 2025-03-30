@@ -19,6 +19,7 @@ public class Constants {
     //-- settings constants
 
     //++ keys constants
-    public static final String KEY_DATE = "Date";
+    public static final String KEY_DATE = "date";
+    public static final String KEY_TIME = "time";
     //-- keys constants
 }

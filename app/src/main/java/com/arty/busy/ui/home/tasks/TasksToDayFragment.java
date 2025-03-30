@@ -10,18 +10,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
-import android.widget.TextView;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 
 import com.arty.busy.ActivityForFragments;
 import com.arty.busy.consts.Constants;
@@ -30,14 +24,13 @@ import com.arty.busy.consts.Settings;
 import com.arty.busy.databinding.FragmentTasksToDayBinding;
 import com.arty.busy.date.DateTime;
 import com.arty.busy.date.Time;
-import com.arty.busy.ui.home.HomeViewModel;
 import com.arty.busy.ui.home.items.ItemTaskInfo;
+import com.arty.busy.ui.home.viewmodel.HomeViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.Objects;
 
 public class TasksToDayFragment extends Fragment {
     private FragmentTasksToDayBinding binding;
@@ -46,13 +39,11 @@ public class TasksToDayFragment extends Fragment {
     private View root;
     List<ItemTaskInfo> taskInfoList;
     private long currDate;
-    private ScrollView scrollView;
+    private int scrollY;
 
     private int posStart;
     private int posY;
     private Time currTime;
-
-    private ActivityResultLauncher<Intent> taskLauncher;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -69,62 +60,69 @@ public class TasksToDayFragment extends Fragment {
         root = binding.getRoot();
         context = getContext();
 
-        setPosStart(Settings.TIME_BEGINNING);
-        init();
-        fillTasksData();
-
         binding.btnBackTTD.setOnClickListener(v -> requireActivity().getOnBackPressedDispatcher().onBackPressed());
 
         return root;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        init();
+        setData();
+        fillTasksData();
     }
 
     @SuppressLint("DiscouragedApi")
     private void init(){
         int lineID;
         LinearLayout linerHours;
-        TextView tvDate = (TextView) binding.tvDateTTD; //findViewById(R.id.tvTestDate_TTD);
-        scrollView = (ScrollView) binding.scrollTTD; //findViewById(R.id.scroll_TTD);
+        ScrollView scrollView = binding.scrollTTD;
 
-        scrollView.post(() -> scrollView.scrollTo(0, posStart));
+        if (scrollY > 0){
+            scrollView.post(() -> scrollView.scrollTo(0, scrollY));
+        } else {
+            scrollView.post(() -> scrollView.scrollTo(0, posStart));
+        }
         scrollView.getViewTreeObserver().addOnScrollChangedListener(() -> posY = scrollView.getScrollY());
 
         @SuppressLint("SimpleDateFormat")
         DateFormat df = new SimpleDateFormat("EEEE dd MMM.");
         Bundle arguments = getArguments();
         if (arguments != null) {
-            currDate = arguments.getLong("Date");
+            currDate = arguments.getLong(Constants.KEY_DATE);
             if (currDate != 0) {
-                tvDate.setText(df.format(currDate));
+                binding.tvDateTTD.setText(df.format(currDate));
             }
         }
-
-        tvDate.setOnClickListener(v -> scrollView.smoothScrollBy(0, posStart - posY));
+        binding.tvDateTTD.setOnClickListener(v -> scrollView.smoothScrollBy(0, posStart - posY));
 
         FloatingActionButton btnAdd = binding.fabAddTTD;
-        btnAdd.setOnClickListener(v -> openTask(null));
+        btnAdd.setOnClickListener(v -> openTask(-1, "00:00"));
 
-        if (Settings.TIME_BEGINNING != -1 || Settings.TIME_ENDING != -1) {
-            for (int h = 0; h < 24; h++) {
-                lineID = this.getResources().getIdentifier("hour" + (h) + "_TTD", "id", context.getPackageName());
-                linerHours = root.findViewById(lineID);
+        for (byte h = 0; h < 24; h++) {
+            lineID = this.getResources().getIdentifier("hour" + (h) + "_TTD", "id", context.getPackageName());
+            linerHours = root.findViewById(lineID);
 
-                if (h == Settings.TIME_BEGINNING)
-                    linerHours.setBackgroundResource(R.drawable.style_topline_salmon);
+            if (h == Settings.TIME_BEGINNING)
+                linerHours.setBackgroundResource(R.drawable.style_topline_salmon);
 
-                if (h == Settings.TIME_ENDING)
-                    linerHours.setBackgroundResource(R.drawable.style_bottomline_salmon);
-            }
+            if (h == Settings.TIME_ENDING)
+                linerHours.setBackgroundResource(R.drawable.style_bottomline_salmon);
         }
+    }
 
-        taskLauncher = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(),
-            result -> fillTasksData()
-        );
+    private void setData(){
+        setPosStart(Settings.TIME_BEGINNING);
+        setIdForBtnTask();
+        setGoneAllBtnTask();
+        setCurrTime();
+        setListTasksToDay();
     }
 
     private void setPosStart(int time){
-//        posStart = time*360 + time*12;
-        posStart = homeViewModel.getPosStartTasks(time);
+        posStart = time*360 + time*12;
     }
 
     private void setCurrTime(){
@@ -142,10 +140,6 @@ public class TasksToDayFragment extends Fragment {
         int     duration;
         byte    hour;
         byte    minute;
-
-        setGoneAllBtnTask();
-        setCurrTime();
-        setListTasksToDay();
 
         for (int i = 0; i < taskInfoList.size(); i++) {
             ItemTaskInfo itemTaskInfo = taskInfoList.get(i);
@@ -174,30 +168,55 @@ public class TasksToDayFragment extends Fragment {
                 currResColor = context.getColor(R.color.Brown);
             }
 
-            @SuppressLint("DiscouragedApi")
-            int btnID = this.getResources().getIdentifier("btnHour" + (hour) + "_TTD", "id", context.getPackageName());
-            Button btnTask = root.findViewById(btnID);
+            Button btnTask = root.findViewById(hour);
+
+            btnTask.setOnClickListener(v -> {
+                openTask(itemTaskInfo.getId_task(), itemTaskInfo.getTime());
+                scrollY = binding.scrollTTD.getScrollY(); // Текущая прокрутка ScrollView
+            });
+            btnTask.setText(sTimeStart + " - " + sTimeEnd + "\n" + itemTaskInfo.getClient() + "\n" + itemTaskInfo.getServices());
+            btnTask.setTextColor(currResColor);
 
             ConstraintLayout.LayoutParams btnParams = (ConstraintLayout.LayoutParams) btnTask.getLayoutParams();
             btnParams.setMargins(0, minute*6, 0, 0);
             btnTask.setLayoutParams(btnParams);
             btnTask.setHeight(duration*6);
 
-            btnTask.setText(sTimeStart + " - " + sTimeEnd + "\n" + itemTaskInfo.getClient() + "\n" + itemTaskInfo.getServices());
-            btnTask.setTextColor(currResColor);
             btnTask.setVisibility(View.VISIBLE);
-
-            btnTask.setOnClickListener(v -> openTask(itemTaskInfo));
         }
     }
 
-    @SuppressLint("DiscouragedApi")
-    private void setGoneAllBtnTask(){
-        int btnID;
+    @SuppressLint("ResourceType")
+    private void setIdForBtnTask(){
+        binding.btnHour0TTD.setId(0);
+        binding.btnHour1TTD.setId(1);
+        binding.btnHour2TTD.setId(2);
+        binding.btnHour3TTD.setId(3);
+        binding.btnHour4TTD.setId(4);
+        binding.btnHour5TTD.setId(5);
+        binding.btnHour6TTD.setId(6);
+        binding.btnHour7TTD.setId(7);
+        binding.btnHour8TTD.setId(8);
+        binding.btnHour9TTD.setId(9);
+        binding.btnHour10TTD.setId(10);
+        binding.btnHour11TTD.setId(11);
+        binding.btnHour12TTD.setId(12);
+        binding.btnHour13TTD.setId(13);
+        binding.btnHour14TTD.setId(14);
+        binding.btnHour15TTD.setId(15);
+        binding.btnHour16TTD.setId(16);
+        binding.btnHour17TTD.setId(17);
+        binding.btnHour18TTD.setId(18);
+        binding.btnHour19TTD.setId(19);
+        binding.btnHour20TTD.setId(20);
+        binding.btnHour21TTD.setId(21);
+        binding.btnHour22TTD.setId(22);
+        binding.btnHour23TTD.setId(23);
+    }
 
+    private void setGoneAllBtnTask(){
         for (int hour = 0; hour < 24; hour++) {
-            btnID = this.getResources().getIdentifier("btnHour" + (hour) + "_TTD", "id", context.getPackageName());
-            Button btnTask = root.findViewById(btnID);
+            Button btnTask = root.findViewById(hour);
             btnTask.setVisibility(View.GONE);
         }
     }
@@ -243,34 +262,15 @@ public class TasksToDayFragment extends Fragment {
         return res;
     }
 
-    private void openTask(ItemTaskInfo itemTaskInfo){
+    private void openTask(int id_task, String time){
         Intent intent = new Intent(context, ActivityForFragments.class);
-        if (itemTaskInfo != null){
-            intent.putExtra(Constants.ID_TASK, itemTaskInfo.getId_task());
-        } else {
-            intent.putExtra(Constants.ID_TASK, -1);
-        }
         intent.putExtra(Constants.KEY_DATE, currDate);
-        taskLauncher.launch(intent);
+        intent.putExtra(Constants.ID_TASK, id_task);
+        intent.putExtra(Constants.KEY_TIME, time);
 
-//        Bundle bundle = new Bundle();
-//        if (itemTaskInfo != null)
-//            bundle.putInt(Constants.ID_TASK, itemTaskInfo.getId_task());
-//        else bundle.putInt(Constants.ID_TASK, -1);
-//        bundle.putLong(Constants.KEY_DATE, currDate);
-//        getParentFragmentManager().setFragmentResult("bundle", bundle);
+        startActivity(intent);
+
 //        taskLauncher.launch(intent);
-
-//
-//        NavController navController = Navigation.findNavController(Objects.requireNonNull(getActivity()), R.id.nav_host_fragment_activity_main);
-//        navController.navigate(R.id.navigation_task, bundle);
-
-//        getParentFragmentManager().beginTransaction()
-//                .setReorderingAllowed(true)
-//                .add(R.id.container_for_fragments, TaskFragment.class, bundle)
-//                .addToBackStack(null)
-//                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-//                .commit();
     }
 
     @Override

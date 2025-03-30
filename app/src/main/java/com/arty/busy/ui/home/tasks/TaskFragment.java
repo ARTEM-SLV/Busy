@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
@@ -19,6 +18,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.arty.busy.App;
 import com.arty.busy.consts.Constants;
 import com.arty.busy.R;
 import com.arty.busy.databinding.FragmentTaskBinding;
@@ -28,7 +28,7 @@ import com.arty.busy.models.Customer;
 import com.arty.busy.models.Service;
 import com.arty.busy.models.Task;
 import com.arty.busy.ui.customers.CustomersFragment;
-import com.arty.busy.ui.home.HomeViewModel;
+import com.arty.busy.ui.home.viewmodel.TaskViewModel;
 import com.arty.busy.ui.services.ServicesFragment;
 
 import java.text.SimpleDateFormat;
@@ -41,13 +41,11 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class TaskFragment extends Fragment {
     private FragmentTaskBinding binding;
     private Context context;
-    private HomeViewModel homeViewModel;
+    private TaskViewModel taskViewModel;
     private Customer customer;
     private Service service;
     private SimpleDateFormat dateFormat;
     private Date currDay;
-    private long currDate = 0;
-    private int idTask = -1;
     private Task currentTask, modifiedTask;
     private boolean isNew = false;
 
@@ -59,12 +57,19 @@ public class TaskFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        homeViewModel =
-                new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory()).get(HomeViewModel.class);
+        taskViewModel =
+                new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory()).get(TaskViewModel.class);
 
         binding = FragmentTaskBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         context = root.getContext();
+
+        return root;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
 
         init();
         setData();
@@ -72,8 +77,6 @@ public class TaskFragment extends Fragment {
         setOnClickListeners();
 
         setDataFromFragment();
-
-        return root;
     }
 
     private void init(){
@@ -92,19 +95,25 @@ public class TaskFragment extends Fragment {
     }
 
     private void setData(){
+        long currDate = 0;
+        String time = "00:00";
+        int idTask = -1;
+
         Bundle arguments = Objects.requireNonNull(getActivity()).getIntent().getExtras();
         if (arguments != null){
             currDate = arguments.getLong(Constants.KEY_DATE);
             idTask = arguments.getInt(Constants.ID_TASK);
+            time = arguments.getString(Constants.KEY_TIME);
         }
 
         currDay = new Date(currDate);
         String formattedDate = dateFormat.format(DateTime.getCalendar(currDay).getTime());
         binding.tvDateT.setText(formattedDate);
 
-        homeViewModel.getTasks(idTask, currDate);
-        currentTask = homeViewModel.getCurrentTask();
-        modifiedTask = homeViewModel.getModifiedTask();
+        taskViewModel.getTasks(idTask, currDate, time);
+        currentTask = taskViewModel.getCurrentTask();
+        modifiedTask = taskViewModel.getModifiedTask();
+
         isNew = idTask == -1;
     }
 
@@ -205,11 +214,11 @@ public class TaskFragment extends Fragment {
     }
 
     private void setOnClickListenerForTVTime(){
-        binding.tvTimeT.setOnClickListener(v -> showTimePickerDialog(binding.tvTimeT, true));
+        binding.tvTimeT.setOnClickListener(v -> showTimePickerDialog(binding.tvTimeT, modifiedTask.time));
     }
 
     private void setOnClickListenerForETDuration() {
-        binding.etDurationT.setOnClickListener(v -> showTimePickerDialog(binding.etDurationT, false));
+        binding.etDurationT.setOnClickListener(v -> showTimePickerDialog(binding.etDurationT, binding.etDurationT.getText().toString()));
     }
 
     private void setOnClickListenerForETPrice(){
@@ -231,28 +240,6 @@ public class TaskFragment extends Fragment {
                 }
             }
         });
-
-//        binding.etPriceT.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int before, int count) {
-//
-//            }
-//
-//            @SuppressLint("SetTextI18n")
-//            @Override
-//            public void afterTextChanged(Editable s) {
-//                String text = s.toString();
-//
-//                if (!text.isEmpty()) {
-//                    modifiedTask.price = Double.parseDouble(text);
-//                }
-//            }
-//        });
     }
 
     private void setOnClickListenerForBtnCancelTask(){
@@ -305,8 +292,8 @@ public class TaskFragment extends Fragment {
         datePickerDialog.show();
     }
 
-    private void showTimePickerDialog(TextView textView, boolean setTimeNow) {
-        Time time = new Time(modifiedTask.duration);
+    private void showTimePickerDialog(TextView textView, String sTime) {
+        Time time = new Time(sTime);
 
         TimePickerDialog timePickerDialog = new TimePickerDialog(
                 context,
@@ -349,7 +336,7 @@ public class TaskFragment extends Fragment {
             return;
         }
         if (service == null){
-            service = homeViewModel.getService(id);
+            service = taskViewModel.getService(id);
         }
         binding.tvServiceT.setText(service.title);
     }
@@ -359,7 +346,7 @@ public class TaskFragment extends Fragment {
             return;
         }
         if (customer == null){
-            customer = homeViewModel.getCustomer(id);
+            customer = taskViewModel.getCustomer(id);
         }
         binding.tvCustomerT.setText(customer.toString());
     }
@@ -408,44 +395,65 @@ public class TaskFragment extends Fragment {
     }
 
     private void beforeFinishActivity(boolean isClosing){
-        if (!modifiedTask.equals(currentTask)){
-            if (isClosing){
-                showDialogCloseFragment();
-            } else {
-                if (!checkFilling()){
-                    return;
-                }
-                if (isNew){
-                    homeViewModel.insertTask(modifiedTask);
-                } else {
-                    homeViewModel.updateTask(modifiedTask);
-                }
+        modifiedTask.price = Double.parseDouble(binding.etPriceT.getText().toString());
 
-                finishThisActivity();
-            }
+        if (isClosing){
+            closeActivity();
+        } else {
+            doneActivity();
+        }
+    }
+
+    private void closeActivity(){
+        if (!modifiedTask.equals(currentTask)){
+            showDialogCloseFragment();
         } else {
             finishThisActivity();
         }
+    }
+
+    private void doneActivity(){
+        if (!checkFilling()) {
+            return;
+        }
+
+        if (isNew){
+            taskViewModel.insertTask(modifiedTask);
+        } else if (!modifiedTask.equals(currentTask)) {
+            taskViewModel.updateTask(modifiedTask);
+        }
+
+        finishThisActivity();
     }
 
     private boolean checkFilling(){
         boolean result = true;
 
         if (modifiedTask.day == 0){
-            showMessage("Не указан день");
+            String msg = getString(R.string.w_day_not_specified);
+            App.showWarning(msg, binding.tvDateT, context);
             return false;
         }
 
-        if (Objects.equals(modifiedTask.time, "")){
-            showMessage("Не заполнено время");
+        if (Objects.equals(modifiedTask.time, "00:00")){
+            String msg = getString(R.string.w_time_not_filled);
+            App.showWarning(msg, binding.tvTimeT, context);
+            return false;
+        }
+
+        if (modifiedTask.id_customer <= 0){
+            String msg = getString(R.string.w_client_is_not_filled);
+            App.showWarning(msg, binding.tvCustomerT, context);
+            return false;
+        }
+
+        if (modifiedTask.id_service <= 0){
+            String msg = getString(R.string.w_service_is_not_filled);
+            App.showWarning(msg, binding.tvServiceT, context);
             return false;
         }
 
         return result;
-    }
-
-    private void showMessage(String msg){
-        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
     }
 
     private void showDialogCloseFragment(){
@@ -465,7 +473,7 @@ public class TaskFragment extends Fragment {
     }
 
     private void DeleteTask(){
-        homeViewModel.deleteTask(currentTask);
+        taskViewModel.deleteTask(currentTask);
         finishThisActivity();
     }
 

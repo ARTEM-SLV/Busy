@@ -1,8 +1,13 @@
 package com.arty.busy;
 
 import android.app.Application;
+import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.preference.PreferenceManager;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.TextView;
 
 import androidx.room.Room;
 
@@ -15,6 +20,7 @@ import com.arty.busy.enums.Sex;
 import com.arty.busy.models.Customer;
 import com.arty.busy.models.Service;
 import com.arty.busy.models.Task;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -88,7 +94,27 @@ public class App extends Application {
 
         editor.putBoolean(Constants.KEY_TIME_24_HOURS_FORMAT_DATE, Settings.TIME_24_HOURS_FORMAT_DATE);
 
-        editor.commit();
+        editor.apply();
+    }
+
+    public static void showWarning(String msg, View view, Context context){
+        Snackbar snackbar = Snackbar.make(view, "", Snackbar.LENGTH_SHORT);
+        Snackbar.SnackbarLayout layout = (Snackbar.SnackbarLayout) snackbar.getView();
+        layout.setBackgroundColor(Color.TRANSPARENT);
+
+        LayoutInflater inflater = LayoutInflater.from(context);
+        View customView = inflater.inflate(R.layout.snackbar_custom, null);
+
+        // Находим `TextView` и задаем текст программно
+        TextView textView = customView.findViewById(R.id.snackbar_text);
+        textView.setText(msg);
+
+        // Очищаем стандартный текст и добавляем кастомный Layout
+        layout.removeAllViews();
+        layout.addView(customView);
+
+        snackbar.setAnchorView(view);
+        snackbar.show();
     }
 
     //++ For test

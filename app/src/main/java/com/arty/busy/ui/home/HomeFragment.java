@@ -15,9 +15,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.arty.busy.consts.Constants;
 import com.arty.busy.databinding.FragmentHomeBinding;
 import com.arty.busy.ui.home.adapters.ListOfDaysAdapter;
+import com.arty.busy.ui.home.viewmodel.HomeViewModel;
 
 import java.util.Date;
-import java.util.Objects;
 
 public class HomeFragment extends Fragment {
     private RecyclerView listOfDays;

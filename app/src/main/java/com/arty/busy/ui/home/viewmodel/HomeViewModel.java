@@ -1,4 +1,4 @@
-package com.arty.busy.ui.home;
+package com.arty.busy.ui.home.viewmodel;
 
 import android.util.Log;
 
@@ -32,11 +32,12 @@ public class HomeViewModel extends ViewModel {
         this.busyDao = App.getInstance().getBusyDao();
     }
 
-    public void getTasks(int idTask, long currDate){
+    public void getTasks(int idTask, long currDate, String time){
         if (currentTask == null){
             if (idTask == -1){
                 currentTask = new Task();
                 currentTask.day = currDate;
+                currentTask.time = time;
             } else {
                 currentTask = getTask(idTask);
             }
@@ -192,10 +193,6 @@ public class HomeViewModel extends ViewModel {
         }
 
         return result;
-    }
-
-    public int getPosStartTasks(int time){
-        return time*360 + time*12;
     }
 
     public Time getCurrentTime(){
