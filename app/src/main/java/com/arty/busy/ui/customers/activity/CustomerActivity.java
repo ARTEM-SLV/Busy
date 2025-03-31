@@ -14,7 +14,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.DisplayMetrics;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -24,14 +23,13 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.arty.busy.App;
 import com.arty.busy.R;
 import com.arty.busy.databinding.ActivityCustomerBinding;
 import com.arty.busy.enums.Sex;
 import com.arty.busy.models.Customer;
-import com.arty.busy.ui.customers.viewmodel.CustomerViewModel;
+import com.arty.busy.ui.customers.viewmodels.CustomerViewModel;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.io.ByteArrayOutputStream;

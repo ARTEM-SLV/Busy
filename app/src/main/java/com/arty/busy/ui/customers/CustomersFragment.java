@@ -18,7 +18,7 @@ import com.arty.busy.consts.Constants;
 import com.arty.busy.databinding.FragmentCustomersBinding;
 import com.arty.busy.ui.customers.activity.CustomerActivity;
 import com.arty.busy.ui.customers.adapters.CustomersAdapter;
-import com.arty.busy.ui.customers.viewmodel.CustomersViewModel;
+import com.arty.busy.ui.customers.viewmodels.CustomersViewModel;
 
 public class CustomersFragment extends Fragment implements OnFragmentCloseListener {
     private FragmentCustomersBinding binding;

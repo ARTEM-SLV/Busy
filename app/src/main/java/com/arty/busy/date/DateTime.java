@@ -1,6 +1,5 @@
 package com.arty.busy.date;
 
-import android.annotation.SuppressLint;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -9,12 +8,11 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 public class DateTime {
-    @SuppressLint("SimpleDateFormat")
-    public final static DateFormat timeFormat24 = new SimpleDateFormat("HH:mm");
-    @SuppressLint("SimpleDateFormat")
-    public final static DateFormat timeFormat = new SimpleDateFormat("h:mm a");
+    public final static DateFormat timeFormat24 = new SimpleDateFormat("HH:mm",  Locale.getDefault());
+    public final static DateFormat timeFormat = new SimpleDateFormat("h:mm a",  Locale.getDefault());
     public final static long DAY = 86400000;
     private final static String TAG_PARSE_STRING_TO_TIME = "MyDateError.ParseStringToTime";
 
@@ -170,8 +168,8 @@ public class DateTime {
         return calendar.getTime();
     }
 
-    public static Time getCurrentTime(){
-        return getTime(new Date());
+    public static Date getCurrentTime(){
+        return new Date();
     }
 
     public static void addDay(Date currDate, int countDays){

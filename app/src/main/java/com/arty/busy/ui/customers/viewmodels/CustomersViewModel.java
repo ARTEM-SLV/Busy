@@ -1,4 +1,4 @@
-package com.arty.busy.ui.customers.viewmodel;
+package com.arty.busy.ui.customers.viewmodels;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

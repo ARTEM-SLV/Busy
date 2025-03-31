@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.arty.busy.consts.Constants;
 import com.arty.busy.databinding.FragmentHomeBinding;
 import com.arty.busy.ui.home.adapters.ListOfDaysAdapter;
-import com.arty.busy.ui.home.viewmodel.HomeViewModel;
+import com.arty.busy.ui.home.viewmodels.HomeViewModel;
 
 import java.util.Date;
 
@@ -54,12 +54,16 @@ public class HomeFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
+        int position = 11;
+
         Date d = listOfDaysAdapter.getSelectedDate();
         homeViewModel.getListOfDays(d).observe(getViewLifecycleOwner(), listOfDaysAdapter::loadData);
 
         addOnScrollListenerRecyclerView(linearLayoutManager);
 
-        listOfDays.getLayoutManager().scrollToPosition(11);
+        if (listOfDays != null && listOfDays.getLayoutManager() != null) {
+            listOfDays.getLayoutManager().scrollToPosition(position);
+        }
     }
 
     private void addOnScrollListenerRecyclerView(LinearLayoutManager linearLayoutManager){

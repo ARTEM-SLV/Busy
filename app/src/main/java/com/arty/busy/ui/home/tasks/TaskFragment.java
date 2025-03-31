@@ -28,7 +28,7 @@ import com.arty.busy.models.Customer;
 import com.arty.busy.models.Service;
 import com.arty.busy.models.Task;
 import com.arty.busy.ui.customers.CustomersFragment;
-import com.arty.busy.ui.home.viewmodel.TaskViewModel;
+import com.arty.busy.ui.home.viewmodels.TaskViewModel;
 import com.arty.busy.ui.services.ServicesFragment;
 
 import java.text.SimpleDateFormat;

@@ -42,7 +42,8 @@
     <string name="female">Female</string>
 
     <!--  titles  -->
-    <string name="total">Total</string>
+    <string name="total">Total:</string>
+    <string name="total_with_count">Total: %d</string>
     <string name="time">Time:</string>
     <string name="hour">h.</string>
     <string name="minute">m.</string>

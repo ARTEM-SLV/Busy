@@ -3,17 +3,15 @@ package com.arty.busy.ui.home.adapters;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -21,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.arty.busy.consts.Constants;
 import com.arty.busy.R;
+import com.arty.busy.databinding.ItemListOfDaysBinding;
 import com.arty.busy.date.DateTime;
 import com.arty.busy.ui.home.items.ItemListOfDays;
 
@@ -29,34 +28,49 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class ListOfDaysAdapter extends RecyclerView.Adapter<ListOfDaysAdapter.ViewHolderLOD> {
-    @SuppressLint("StaticFieldLeak")
-    protected static Activity parentActivity;
-    @SuppressLint("StaticFieldLeak")
-    protected static Context context;
-    protected static List<ItemListOfDays> listOfDaysArr;
-    protected static FragmentManager fragmentManager;
+    protected Activity activity;
+    protected Context context;
+    protected List<ItemListOfDays> listOfDaysArr;
+    protected FragmentManager fragmentManager;
     private static Date dateSelectedElement;
 
     public ListOfDaysAdapter(Context context, FragmentManager fragmentManager, Activity activity) {
-        parentActivity = activity;
-        ListOfDaysAdapter.context = context;
-        ListOfDaysAdapter.fragmentManager = fragmentManager;
-        listOfDaysArr = new ArrayList<>();
+        this.activity = activity;
+        this.context = context;
+        this.fragmentManager = fragmentManager;
+        this.listOfDaysArr = new ArrayList<>();
     }
 
     @NonNull
     @Override
-    public ViewHolderLOD onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_list_of_days, viewGroup, false);
-
-        return new ViewHolderLOD(view);
+    public ViewHolderLOD onCreateViewHolder(@NonNull ViewGroup parent, int i) {
+        ItemListOfDaysBinding binding = ItemListOfDaysBinding.inflate(
+                LayoutInflater.from(parent.getContext()),
+                parent,
+                false
+        );
+        return new ViewHolderLOD(binding);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolderLOD viewHolderLOD, int i) {
-        viewHolderLOD.setData(listOfDaysArr.get(i));
+    public void onBindViewHolder(@NonNull ViewHolderLOD viewHolderLOD, int position) {
+        ItemListOfDays item = listOfDaysArr.get(position);
+        viewHolderLOD.bind(item, context);
+
+        viewHolderLOD.itemView.setOnClickListener(v -> {
+            // Используем контекст для навигации
+            dateSelectedElement = listOfDaysArr.get(viewHolderLOD.getAdapterPosition()).getDate();
+
+            Bundle bundle = new Bundle();
+            bundle.putLong(Constants.KEY_DATE, dateSelectedElement.getTime());
+
+            // Используем контекст для получения NavController
+            NavController navController = Navigation.findNavController((Activity) context, R.id.nav_host_fragment_activity_main);
+            navController.navigate(R.id.navigation_tasks_to_day, bundle);
+        });
     }
 
     @Override
@@ -64,64 +78,45 @@ public class ListOfDaysAdapter extends RecyclerView.Adapter<ListOfDaysAdapter.Vi
         return listOfDaysArr.size();
     }
 
-    static class ViewHolderLOD extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private final LinearLayout containerMain_LOD;
-        private final LinearLayout containerRight_LOD;
-        private final TextView tvDay;
-        private final TextView tvCountTasks;
-        private final ImageView icoThisDay;
+    static class ViewHolderLOD extends RecyclerView.ViewHolder {
+        private final ItemListOfDaysBinding binding;
         private final Date currentDate;
+        DateFormat df = new SimpleDateFormat("E. dd.MM",  Locale.getDefault());
 
-        @SuppressLint("SimpleDateFormat")
-        DateFormat df = new SimpleDateFormat("E. dd.MM");
-
-        public ViewHolderLOD(@NonNull View view) {
-            super(view);
-
-            containerMain_LOD = view.findViewById(R.id.containerMain_LOD);
-            containerRight_LOD = view.findViewById(R.id.containerRight_LOD);
-            tvDay = view.findViewById(R.id.tvDay_LOD);
-            tvCountTasks = view.findViewById(R.id.tvCountTasks_LOD);
-            icoThisDay = view.findViewById(R.id.icoThisDay_LOD);
-//            containerLeft_LOD = view.findViewById(R.id.containerLeft_LOD);
+        public ViewHolderLOD(ItemListOfDaysBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
 
             currentDate = DateTime.getCurrentStartDate();
-
-            view.setOnClickListener(this);
         }
 
-        @SuppressLint("SetTextI18n")
-        public void setData(ItemListOfDays itemTaskList){
-            tvDay.setText(df.format(itemTaskList.getDate()));
-            Resources res = context.getResources();
+        public void bind(ItemListOfDays itemTaskList, Context context){
+            binding.tvDayLOD.setText(df.format(itemTaskList.getDate()));
             List<String> listTimeService = itemTaskList.getTimeService();
             List<String> listTitlesService = itemTaskList.getTitlesService();
 
-            String totalS = res.getString(R.string.total);
-            int totalI = listTitlesService.size();
-            if (totalI == 0 ){
-                @SuppressLint("UseCompatLoadingForDrawables")
-                Drawable drawableFree = context.getDrawable(R.drawable.free);
-                containerRight_LOD.setForeground(drawableFree);
-            } else containerRight_LOD.setForeground(null);
+            int total = listTitlesService.size();
+            if (total == 0 ){
+                Drawable drawableFree = AppCompatResources.getDrawable(context, R.drawable.free);
+                binding.containerRightLOD.setForeground(drawableFree);
+            } else binding.containerRightLOD.setForeground(null);
 
-            cleanTvTask(res);
+            cleanTvTask();
 
-            if (totalI == 10){
-                containerMain_LOD.setBackgroundResource(R.drawable.style_radial_yellow);
-            } else if (totalI > 10){
-                containerMain_LOD.setBackgroundResource(R.drawable.style_radial_red);
-            } else containerMain_LOD.setBackgroundResource(R.drawable.style_radial_green);
+            if (total == 10){
+                binding.containerMainLOD.setBackgroundResource(R.drawable.style_radial_yellow);
+            } else if (total > 10){
+                binding.containerMainLOD.setBackgroundResource(R.drawable.style_radial_red);
+            } else binding.containerMainLOD.setBackgroundResource(R.drawable.style_radial_green);
 
             if (currentDate.equals(itemTaskList.getDate())){
-                icoThisDay.setVisibility(View.VISIBLE);
+                binding.icoThisDayLOD.setVisibility(View.VISIBLE);
             } else {
-                icoThisDay.setVisibility(View.INVISIBLE);
+                binding.icoThisDayLOD.setVisibility(View.INVISIBLE);
             }
 
-
             int nom;
-            for ( int i = 0; i < totalI; i++) {
+            for (int i = 0; i < total; i++) {
                 nom = i+1;
 
                 if (nom>10){
@@ -131,60 +126,95 @@ public class ListOfDaysAdapter extends RecyclerView.Adapter<ListOfDaysAdapter.Vi
                 String time = listTimeService.get(i);
                 String title = listTitlesService.get(i);
 
-                @SuppressLint("DiscouragedApi") int idTime = res.getIdentifier("tvTask" + nom + "Time", "id", context.getPackageName());
-                TextView tvTaskTime = itemView.findViewById(idTime);
-                tvTaskTime.setText(time);
+                TextView tvTask = getTaskTextView(nom);
+                if (tvTask != null){
+                    tvTask.setText(title);
+                }
 
-                @SuppressLint("DiscouragedApi") int idService = res.getIdentifier("tvTask" + nom, "id", context.getPackageName());
-                TextView tvTask = itemView.findViewById(idService);
-                tvTask.setText(title);
+                TextView tvTaskTime = getTaskTimeTextView(nom);
+                if (tvTaskTime != null){
+                    tvTaskTime.setText(time);
+                }
             }
 
-            tvCountTasks.setText(totalS + " " + (totalI));
+            binding.tvCountTasksLOD.setText(context.getString(R.string.total_with_count, total));
         }
 
-        private void cleanTvTask(Resources res){
+        private void cleanTvTask(){
             for (int i = 1; i <= 10; i++) {
-                @SuppressLint("DiscouragedApi") int idTime = res.getIdentifier("tvTask" + i + "Time", "id", context.getPackageName());
-                TextView tvTaskTime = itemView.findViewById(idTime);
-                tvTaskTime.setText("");
+                TextView tvTask = getTaskTextView(i); //binding.getRoot().findViewById(2000 + i);
+                if (tvTask != null){
+                    tvTask.setText("");
+                }
 
-                @SuppressLint("DiscouragedApi") int idService = res.getIdentifier("tvTask" + i, "id", context.getPackageName());
-                TextView tvTask = itemView.findViewById(idService);
-                tvTask.setText("");
+                TextView tvTaskTime = getTaskTimeTextView(i);
+                if (tvTaskTime != null){
+                    tvTaskTime.setText("");
+                }
             }
         }
 
-        @Override
-        public void onClick(View v) {
-            dateSelectedElement = listOfDaysArr.get(getAdapterPosition()).getDate();
-
-            Bundle bundle = new Bundle();
-            bundle.putLong(Constants.KEY_DATE, dateSelectedElement.getTime());
-
-            NavController navController = Navigation.findNavController(parentActivity, R.id.nav_host_fragment_activity_main);
-            navController.navigate(R.id.navigation_tasks_to_day, bundle);
+        private TextView getTaskTextView(int position) {
+            switch (position) {
+                case 1: return binding.tvTask1;
+                case 2: return binding.tvTask2;
+                case 3: return binding.tvTask3;
+                case 4: return binding.tvTask4;
+                case 5: return binding.tvTask5;
+                case 6: return binding.tvTask6;
+                case 7: return binding.tvTask7;
+                case 8: return binding.tvTask8;
+                case 9: return binding.tvTask9;
+                case 10: return binding.tvTask10;
+                default: return null;
+            }
         }
+        private TextView getTaskTimeTextView(int position) {
+            switch (position) {
+                case 1: return binding.tvTask1Time;
+                case 2: return binding.tvTask2Time;
+                case 3: return binding.tvTask3Time;
+                case 4: return binding.tvTask4Time;
+                case 5: return binding.tvTask5Time;
+                case 6: return binding.tvTask6Time;
+                case 7: return binding.tvTask7Time;
+                case 8: return binding.tvTask8Time;
+                case 9: return binding.tvTask9Time;
+                case 10: return binding.tvTask10Time;
+                default:return null;
+            }
+        }
+
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     public void loadData(List<ItemListOfDays> listOfDays){
+        // Запоминаем старую длину списка для использования в методах notify
+        int oldSize = listOfDaysArr.size();
+
+        // Очищаем текущий список и добавляем новые данные
         listOfDaysArr.clear();
         listOfDaysArr.addAll(listOfDays);
 
-        notifyDataSetChanged();
+        // Уведомляем адаптер о том, что данные изменились
+        if (oldSize == 0) {
+            // Если список был пуст, добавляем все новые элементы
+            notifyItemRangeInserted(0, listOfDaysArr.size());
+        } else {
+            // Если данные обновились, просто обновляем весь диапазон
+            notifyItemRangeChanged(0, listOfDaysArr.size());
+        }
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     public void addNewDataOnTop(List<ItemListOfDays> listOfDays) {
         listOfDaysArr.addAll(0, listOfDays);
-        notifyDataSetChanged();
+        notifyItemRangeInserted(0, listOfDays.size()); //notifyDataSetChanged();
     }
 
     @SuppressLint("NotifyDataSetChanged")
     public void addNewDataOnBot(List<ItemListOfDays> listOfDays) {
+        int startPos = listOfDaysArr.size();
         listOfDaysArr.addAll(listOfDaysArr.size(), listOfDays);
-        notifyDataSetChanged();
+        notifyItemRangeInserted(startPos, listOfDays.size()); //notifyDataSetChanged();
     }
 
     public void removeElement(int pos){
@@ -195,9 +225,5 @@ public class ListOfDaysAdapter extends RecyclerView.Adapter<ListOfDaysAdapter.Vi
 
     public Date getSelectedDate(){
         return dateSelectedElement;
-    }
-
-    public Date getDate(int position) {
-        return listOfDaysArr.get(position).getDate();
     }
 }

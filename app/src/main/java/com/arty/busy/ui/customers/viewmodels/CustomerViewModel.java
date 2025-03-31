@@ -1,4 +1,4 @@
-package com.arty.busy.ui.customers.viewmodel;
+package com.arty.busy.ui.customers.viewmodels;
 
 import android.util.Log;
 

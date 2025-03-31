@@ -13,6 +13,7 @@
 
     <!--  titles  -->
     <string name="total">Всего</string>
+    <string name="total_with_count">Всего: %d</string>
     <string name="time">Время:</string>
     <string name="hour">ч.</string>
     <string name="minute">м.</string>
