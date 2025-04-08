@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.arty.busy.OnFragmentCloseListener;
+import com.arty.busy.R;
 import com.arty.busy.consts.Constants;
 import com.arty.busy.databinding.FragmentCustomersBinding;
 import com.arty.busy.ui.customers.activity.CustomerActivity;
@@ -29,9 +30,8 @@ public class CustomersFragment extends Fragment implements OnFragmentCloseListen
                 new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory()).get(CustomersViewModel.class);
 
         binding = FragmentCustomersBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
 
-        return root;
+        return binding.getRoot();
     }
 
     @Override
@@ -56,10 +56,20 @@ public class CustomersFragment extends Fragment implements OnFragmentCloseListen
 
         customersViewModel.getListOfCustomers().observe(getViewLifecycleOwner(), customersAdapter::updateListOfCustomers);
 
-        binding.fabAddC.setOnClickListener(v -> {
-            Intent intent = new Intent(context, CustomerActivity.class);
-            context.startActivity(intent);
-        });
+        if (isChoice) {
+            binding.fabAddC.setImageResource(R.drawable.ic_back_24);
+            binding.fabAddC.setOnClickListener(v -> {
+                requireActivity().getOnBackPressedDispatcher().onBackPressed();
+            });
+        } else {
+            binding.fabAddC.setImageResource(R.drawable.ic_add_24);
+            binding.fabAddC.setOnClickListener(v -> {
+                Intent intent = new Intent(context, CustomerActivity.class);
+                if (context != null) {
+                    context.startActivity(intent);
+                }
+            });
+        }
     }
 
     @Override

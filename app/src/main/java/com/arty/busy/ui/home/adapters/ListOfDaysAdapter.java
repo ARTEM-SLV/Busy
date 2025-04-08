@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -110,9 +111,24 @@ public class ListOfDaysAdapter extends RecyclerView.Adapter<ListOfDaysAdapter.Vi
             } else binding.containerMainLOD.setBackgroundResource(R.drawable.style_radial_green);
 
             if (currentDate.equals(itemTaskList.getDate())){
+                binding.mainLayoutLOD.setBackgroundResource(R.drawable.style_radial_dark_blue_transparent);
                 binding.icoThisDayLOD.setVisibility(View.VISIBLE);
             } else {
+                binding.mainLayoutLOD.setBackground(null);
                 binding.icoThisDayLOD.setVisibility(View.INVISIBLE);
+            }
+            if (dateSelectedElement != null){
+                if (dateSelectedElement.equals(itemTaskList.getDate())){
+                    binding.icoThisDayLOD.setVisibility(View.VISIBLE);
+                } else {
+                    binding.icoThisDayLOD.setVisibility(View.INVISIBLE);
+                }
+            }
+
+            if (DateTime.itsSunday(itemTaskList.getDate())){
+                binding.tvDayLOD.setTextColor(ContextCompat.getColor(context, R.color.Brown));
+            } else {
+                binding.tvDayLOD.setTextColor(ContextCompat.getColor(context, R.color.SteelBlue));
             }
 
             int nom;
@@ -142,7 +158,7 @@ public class ListOfDaysAdapter extends RecyclerView.Adapter<ListOfDaysAdapter.Vi
 
         private void cleanTvTask(){
             for (int i = 1; i <= 10; i++) {
-                TextView tvTask = getTaskTextView(i); //binding.getRoot().findViewById(2000 + i);
+                TextView tvTask = getTaskTextView(i);
                 if (tvTask != null){
                     tvTask.setText("");
                 }
@@ -210,7 +226,6 @@ public class ListOfDaysAdapter extends RecyclerView.Adapter<ListOfDaysAdapter.Vi
         notifyItemRangeInserted(0, listOfDays.size()); //notifyDataSetChanged();
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     public void addNewDataOnBot(List<ItemListOfDays> listOfDays) {
         int startPos = listOfDaysArr.size();
         listOfDaysArr.addAll(listOfDaysArr.size(), listOfDays);

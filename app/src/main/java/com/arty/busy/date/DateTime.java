@@ -15,7 +15,6 @@ public class DateTime {
     public final static DateFormat timeFormat = new SimpleDateFormat("h:mm a",  Locale.getDefault());
     public final static long DAY = 86400000;
     private final static String TAG_PARSE_STRING_TO_TIME = "MyDateError.ParseStringToTime";
-
     public static Date getDate(int year, int month, int day){
         Calendar calendar = Calendar.getInstance();
         calendar.set(year, month, day);
@@ -155,6 +154,20 @@ public class DateTime {
         calendar.setTime(d);
 
         return calendar;
+    }
+
+    public static int getDayOfWeek(Date d){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(d);
+
+        return  calendar.get(Calendar.DAY_OF_WEEK);
+    }
+
+    public static boolean itsSunday(Date d){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(d);
+
+        return calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY;
     }
 
     @NonNull

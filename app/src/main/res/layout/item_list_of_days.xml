@@ -2,8 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainLayout_LOD"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/style_radial_dark_blue_transparent"
     android:gravity="center"
     android:orientation="horizontal"
     android:paddingStart="10dp"
@@ -116,8 +118,8 @@
                         android:layout_weight="2"
                         android:fontFamily="@font/margot"
                         android:gravity="center"
-                        android:textSize="16dp"
-                        android:textColor="@color/SteelBlue" />
+                        android:textColor="@color/SteelBlue"
+                        android:textSize="16dp" />
 
                     <TextView
                         android:id="@+id/tvTask2Time"
@@ -144,8 +146,8 @@
                         android:layout_weight="2"
                         android:fontFamily="@font/margot"
                         android:gravity="center"
-                        android:textSize="16dp"
-                        android:textColor="@color/SteelBlue" />
+                        android:textColor="@color/SteelBlue"
+                        android:textSize="16dp" />
 
                     <TextView
                         android:id="@+id/tvTask3Time"
@@ -154,7 +156,7 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:textColor="@color/SteelBlue"
-                        android:textSize="12dp"/>
+                        android:textSize="12dp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -171,9 +173,9 @@
                         android:layout_weight="2"
                         android:fontFamily="@font/margot"
                         android:gravity="center"
-                        android:textSize="16dp"
                         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                        android:textColor="@color/SteelBlue" />
+                        android:textColor="@color/SteelBlue"
+                        android:textSize="16dp" />
 
                     <TextView
                         android:id="@+id/tvTask4Time"
@@ -182,7 +184,7 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:textColor="@color/SteelBlue"
-                        android:textSize="12dp"/>
+                        android:textSize="12dp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -199,8 +201,8 @@
                         android:layout_weight="2"
                         android:fontFamily="@font/margot"
                         android:gravity="center"
-                        android:textSize="16dp"
-                        android:textColor="@color/SteelBlue" />
+                        android:textColor="@color/SteelBlue"
+                        android:textSize="16dp" />
 
                     <TextView
                         android:id="@+id/tvTask5Time"
@@ -209,7 +211,7 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:textColor="@color/SteelBlue"
-                        android:textSize="12dp"/>
+                        android:textSize="12dp" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -236,8 +238,8 @@
                         android:layout_weight="2"
                         android:fontFamily="@font/margot"
                         android:gravity="center"
-                        android:textSize="16dp"
-                        android:textColor="@color/SteelBlue" />
+                        android:textColor="@color/SteelBlue"
+                        android:textSize="16dp" />
 
                     <TextView
                         android:id="@+id/tvTask6Time"
@@ -246,7 +248,7 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:textColor="@color/SteelBlue"
-                        android:textSize="12dp"/>
+                        android:textSize="12dp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -263,8 +265,8 @@
                         android:layout_weight="2"
                         android:fontFamily="@font/margot"
                         android:gravity="center"
-                        android:textSize="16dp"
-                        android:textColor="@color/SteelBlue" />
+                        android:textColor="@color/SteelBlue"
+                        android:textSize="16dp" />
 
                     <TextView
                         android:id="@+id/tvTask7Time"
@@ -273,7 +275,7 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:textColor="@color/SteelBlue"
-                        android:textSize="12dp"/>
+                        android:textSize="12dp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -290,8 +292,8 @@
                         android:layout_weight="2"
                         android:fontFamily="@font/margot"
                         android:gravity="center"
-                        android:textSize="16dp"
-                        android:textColor="@color/SteelBlue" />
+                        android:textColor="@color/SteelBlue"
+                        android:textSize="16dp" />
 
                     <TextView
                         android:id="@+id/tvTask8Time"
@@ -300,7 +302,7 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:textColor="@color/SteelBlue"
-                        android:textSize="102dp"/>
+                        android:textSize="102dp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -317,8 +319,8 @@
                         android:layout_weight="2"
                         android:fontFamily="@font/margot"
                         android:gravity="center"
-                        android:textSize="16dp"
-                        android:textColor="@color/SteelBlue" />
+                        android:textColor="@color/SteelBlue"
+                        android:textSize="16dp" />
 
                     <TextView
                         android:id="@+id/tvTask9Time"
@@ -327,7 +329,7 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:textColor="@color/SteelBlue"
-                        android:textSize="12dp"/>
+                        android:textSize="12dp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -344,8 +346,8 @@
                         android:layout_weight="2"
                         android:fontFamily="@font/margot"
                         android:gravity="center"
-                        android:textSize="16dp"
-                        android:textColor="@color/SteelBlue" />
+                        android:textColor="@color/SteelBlue"
+                        android:textSize="16dp" />
 
                     <TextView
                         android:id="@+id/tvTask10Time"
@@ -354,7 +356,7 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:textColor="@color/SteelBlue"
-                        android:textSize="12dp"/>
+                        android:textSize="12dp" />
                 </LinearLayout>
 
             </LinearLayout>

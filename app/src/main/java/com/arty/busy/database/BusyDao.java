@@ -59,7 +59,7 @@ public interface BusyDao {
     void updateTask(Task task);
 
     @Delete
-    void deleteTaskList(Task task);
+    void deleteTask(Task task);
 
     // Services
     @Query("SELECT * FROM Service")
@@ -71,11 +71,14 @@ public interface BusyDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertServiceList(List<Service> serviceList);
 
+    @Insert
+    void insertService(Service service);
+
     @Update
-    void updateServiceList(Service service);
+    void updateService(Service service);
 
     @Delete
-    void deleteServiceList(Service service);
+    void deleteService(Service service);
 
     // Customers
     @Query("SELECT * FROM Customer")
@@ -87,9 +90,6 @@ public interface BusyDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertCustomerList(List<Customer> customerList);
 
-    @Update
-    void updateCustomerList(Customer customer);
-
     @Insert
     void insertCustomer(Customer customer);
 
@@ -97,6 +97,6 @@ public interface BusyDao {
     void updateCustomer(Customer customer);
 
     @Delete
-    void deleteCustomerList(Customer customer);
+    void deleteCustomer(Customer customer);
 }
 

@@ -174,5 +174,10 @@
     <color name="Green_20">#20C4EFC6</color>
     <color name="Green_40">#40C4EFC6</color>
     <color name="DarkOliveGreen_60">#60556B2F</color>
+    <color name="DarkSlateGray_50">#500F4F4F</color>
+    <color name="AliceBlue_90">#90F0F8FF</color>
+    <color name="Black_80">#80000000</color>
+    <color name="MidnightBlue_80">#80191970</color>
+    <color name="DarkBlue_40">#4000008B</color>
 
 </resources>

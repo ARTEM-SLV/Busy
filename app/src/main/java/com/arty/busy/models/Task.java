@@ -44,7 +44,7 @@ public class Task implements Parcelable {
     public boolean paid;
 
     public Task() {
-        this.uid = -1;
+        this.uid = 0;
         this.id_service = 0;
         this.id_customer = 0;
         this.day = 0;

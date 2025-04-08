@@ -109,11 +109,19 @@ public class ServicesAdapter extends RecyclerView.Adapter<ServicesAdapter.Servic
         return time.toString();
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     public void updateListOfServices(List<Service> newListOfServices){
+        int oldSize = listOfServices.size();
+
         listOfServices.clear();
         listOfServices.addAll(newListOfServices);
 
-        notifyDataSetChanged();
+        // Уведомляем адаптер о том, что данные изменились
+        if (oldSize == 0) {
+            // Если список был пуст, добавляем все новые элементы
+            notifyItemRangeInserted(0, listOfServices.size());
+        } else {
+            // Если данные обновились, просто обновляем весь диапазон
+            notifyItemRangeChanged(0, listOfServices.size());
+        }
     }
 }

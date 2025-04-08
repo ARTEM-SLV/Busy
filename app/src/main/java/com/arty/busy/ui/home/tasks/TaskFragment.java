@@ -1,12 +1,15 @@
 package com.arty.busy.ui.home.tasks;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
@@ -40,7 +43,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class TaskFragment extends Fragment {
     private FragmentTaskBinding binding;
-    private Context context;
+    private Activity activity;
     private TaskViewModel taskViewModel;
     private Customer customer;
     private Service service;
@@ -48,12 +51,14 @@ public class TaskFragment extends Fragment {
     private Date currDay;
     private Task currentTask, modifiedTask;
     private boolean isNew = false;
+    private TextWatcher textWatcher;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -61,15 +66,6 @@ public class TaskFragment extends Fragment {
                 new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory()).get(TaskViewModel.class);
 
         binding = FragmentTaskBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
-        context = root.getContext();
-
-        return root;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
 
         init();
         setData();
@@ -77,10 +73,20 @@ public class TaskFragment extends Fragment {
         setOnClickListeners();
 
         setDataFromFragment();
+
+        return binding.getRoot();
     }
 
     private void init(){
+        Context context = binding.getRoot().getContext();
+        if (context instanceof Activity) {
+            activity = (Activity) context;
+        } else {
+            activity = requireActivity();
+        }
+
         dateFormat = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
+        textWatcher = new App.MoneyTextWatcher(binding.etPriceT);
 
         initCheckBoxDone();
         initCheckBoxPaid();
@@ -141,28 +147,55 @@ public class TaskFragment extends Fragment {
     }
 
     private void setOnClickListeners(){
-        setOnClickListenerBtnOk();
-        setOnClickListenerBtnCansel();
+        setOnTouchListenerForRoot();
         setOnClickListenerTVCustomer();
         setOnClickListenerTVService();
-        setOnClickListenerForTVDate();
-        setOnClickListenerForBtnReschedule();
-        setOnClickListenerForTVTime();
-        setOnClickListenerForETDuration();
         setOnClickListenerForETPrice();
-        setOnClickListenerForBtnCancelTask();
+
+        binding.btnOkT.setOnClickListener(v -> {
+            App.hideKeyboardAndClearFocus(activity);
+            beforeFinishActivity(false);
+        });
+
+        binding.btnCloseT.setOnClickListener(v -> {
+            App.hideKeyboardAndClearFocus(activity);
+            beforeFinishActivity(true);
+        });
+
+        binding.btnReschedule.setOnClickListener(v -> {
+            App.hideKeyboardAndClearFocus(activity);
+            showDatePicker();
+        });
+
+        binding.tvTimeT.setOnClickListener(v -> {
+            App.hideKeyboardAndClearFocus(activity);
+            showTimePickerDialog(binding.tvTimeT, modifiedTask.time);
+        });
+
+        binding.etDurationT.setOnClickListener(v -> {
+            App.hideKeyboardAndClearFocus(activity);
+            showTimePickerDialog(binding.etDurationT, binding.etDurationT.getText().toString());
+        });
+
+        binding.btnCancelTaskT.setOnClickListener(v -> showDialogDeleteTask());
     }
 
-    private void setOnClickListenerBtnOk(){
-        binding.btnOkT.setOnClickListener(v -> beforeFinishActivity(false));
-    }
-    
-    private void setOnClickListenerBtnCansel(){
-        binding.btnCancelT.setOnClickListener(v -> beforeFinishActivity(true));
+    @SuppressLint("ClickableViewAccessibility")
+    private void setOnTouchListenerForRoot() {
+        binding.getRoot().setOnTouchListener((v, event) -> {
+            if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                App.hideKeyboardAndClearFocus(activity);
+
+                v.performClick();
+            }
+            return false;
+        } );
     }
 
     private void setOnClickListenerTVCustomer(){
         binding.tvCustomerT.setOnClickListener(v -> {
+            App.hideKeyboardAndClearFocus(activity);
+
             Bundle bundle = new Bundle();
             if (customer != null)
                 bundle.putInt(Constants.ID_CUSTOMER, customer.uid);
@@ -185,6 +218,8 @@ public class TaskFragment extends Fragment {
 
     private void setOnClickListenerTVService(){
         binding.tvServiceT.setOnClickListener(v -> {
+            App.hideKeyboardAndClearFocus(activity);
+
             Bundle bundle = new Bundle();
             if (service != null)
                 bundle.putInt(Constants.ID_SERVICE, service.uid);
@@ -205,45 +240,34 @@ public class TaskFragment extends Fragment {
         });
     }
 
-    private void setOnClickListenerForTVDate(){
-        binding.tvDateT.setOnClickListener(v -> showDatePicker());
-    }
-
-    private void setOnClickListenerForBtnReschedule(){
-        binding.btnReschedule.setOnClickListener(v -> showDatePicker());
-    }
-
-    private void setOnClickListenerForTVTime(){
-        binding.tvTimeT.setOnClickListener(v -> showTimePickerDialog(binding.tvTimeT, modifiedTask.time));
-    }
-
-    private void setOnClickListenerForETDuration() {
-        binding.etDurationT.setOnClickListener(v -> showTimePickerDialog(binding.etDurationT, binding.etDurationT.getText().toString()));
-    }
-
     private void setOnClickListenerForETPrice(){
         binding.etPriceT.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_DONE) {
-                String text = binding.etPriceT.getText().toString();
-                if (!text.isEmpty()){
-                    modifiedTask.price = Double.parseDouble(text);
-                }
+                App.hideKeyboardAndClearFocus(activity);
                 return true;
             }
             return false;
         });
+
         binding.etPriceT.setOnFocusChangeListener((v, hasFocus) -> {
-            if (!hasFocus) {
-                String text = binding.etPriceT.getText().toString();
-                if (!text.isEmpty()){
-                    modifiedTask.price = Double.parseDouble(text);
-                }
+            if (hasFocus) {
+                String rawText = binding.etPriceT.getText().toString()
+                        .replaceAll("[^\\d.,]", "");
+                binding.etPriceT.setText(rawText);
+
+                binding.etPriceT.post(() -> binding.etPriceT.selectAll());
+            } else {
+                binding.etPriceT.removeTextChangedListener(textWatcher);
+
+                String price = binding.etPriceT.getText().toString().replace(',', '.');
+                modifiedTask.price = Double.parseDouble(price);
+                App.formatToMoneyString(binding.etPriceT);
+
+                binding.etPriceT.addTextChangedListener(textWatcher);
             }
         });
-    }
 
-    private void setOnClickListenerForBtnCancelTask(){
-        binding.btnCancelTaskT.setOnClickListener(v -> showDialogDeleteTask());
+        binding.etPriceT.addTextChangedListener(textWatcher);
     }
 
     private void setDataFromFragment(){
@@ -281,7 +305,7 @@ public class TaskFragment extends Fragment {
 
         // Открываем DatePickerDialog
         DatePickerDialog datePickerDialog = new DatePickerDialog(
-            context, (view, year, month, dayOfMonth) -> {
+            activity, (view, year, month, dayOfMonth) -> {
 
             String formattedDate = dateFormat.format(DateTime.getDate(year, month, dayOfMonth));
             binding.tvDateT.setText(formattedDate);
@@ -296,10 +320,9 @@ public class TaskFragment extends Fragment {
         Time time = new Time(sTime);
 
         TimePickerDialog timePickerDialog = new TimePickerDialog(
-                context,
+                activity,
                 (view, selectedHour, selectedMinute) -> {
-                    @SuppressLint("DefaultLocale") String newStartTime
-                            = String.format("%02d:%02d", selectedHour, selectedMinute);
+                    String newStartTime = String.format(Locale.getDefault(),"%02d:%02d", selectedHour, selectedMinute);
                     textView.setText(newStartTime);
                     setPerformanceTvTime();
                 },
@@ -309,7 +332,6 @@ public class TaskFragment extends Fragment {
         timePickerDialog.show();
     }
 
-    @SuppressLint("SetTextI18n")
     private void setPerformanceTvTime(){
         String currentTime = binding.tvTimeT.getText().toString();
         String duration = binding.etDurationT.getText().toString();
@@ -352,11 +374,10 @@ public class TaskFragment extends Fragment {
     }
 
     private void setPriceView(double price){
-        binding.etPriceT.setText(String.valueOf(price));
+        binding.etPriceT.setText(App.getFormattedToMoney(price));
         modifiedTask.price = price;
     }
 
-    @SuppressLint("SetTextI18n")
     private void setTimeView(String timeStart, String timeEnd){
         binding.tvTimeT.setText(getPerformanceOfTime(timeStart, timeEnd));
     }
@@ -395,8 +416,6 @@ public class TaskFragment extends Fragment {
     }
 
     private void beforeFinishActivity(boolean isClosing){
-        modifiedTask.price = Double.parseDouble(binding.etPriceT.getText().toString());
-
         if (isClosing){
             closeActivity();
         } else {
@@ -431,25 +450,25 @@ public class TaskFragment extends Fragment {
 
         if (modifiedTask.day == 0){
             String msg = getString(R.string.w_day_not_specified);
-            App.showWarning(msg, binding.tvDateT, context);
+            App.showWarning(msg, binding.tvDateT, activity);
             return false;
         }
 
         if (Objects.equals(modifiedTask.time, "00:00")){
             String msg = getString(R.string.w_time_not_filled);
-            App.showWarning(msg, binding.tvTimeT, context);
+            App.showWarning(msg, binding.tvTimeT, activity);
             return false;
         }
 
         if (modifiedTask.id_customer <= 0){
             String msg = getString(R.string.w_client_is_not_filled);
-            App.showWarning(msg, binding.tvCustomerT, context);
+            App.showWarning(msg, binding.tvCustomerT, activity);
             return false;
         }
 
         if (modifiedTask.id_service <= 0){
             String msg = getString(R.string.w_service_is_not_filled);
-            App.showWarning(msg, binding.tvServiceT, context);
+            App.showWarning(msg, binding.tvServiceT, activity);
             return false;
         }
 
@@ -457,7 +476,7 @@ public class TaskFragment extends Fragment {
     }
 
     private void showDialogCloseFragment(){
-        new AlertDialog.Builder(context, R.style.AlertDialogTheme)
+        new AlertDialog.Builder(activity, R.style.AlertDialogTheme)
                 .setMessage(R.string.q_cancel)
                 .setPositiveButton(R.string.cd_yes, (dialog, which) -> finishThisActivity())
                 .setNegativeButton(R.string.cd_no, (dialog, which) -> dialog.dismiss())
@@ -465,7 +484,7 @@ public class TaskFragment extends Fragment {
     }
 
     private void showDialogDeleteTask(){
-        new AlertDialog.Builder(context, R.style.AlertDialogTheme)
+        new AlertDialog.Builder(activity, R.style.AlertDialogTheme)
                 .setMessage(R.string.q_cancel)
                 .setPositiveButton(R.string.cd_yes, (dialog, which) -> DeleteTask())
                 .setNegativeButton(R.string.cd_no, (dialog, which) -> dialog.dismiss())
@@ -478,7 +497,7 @@ public class TaskFragment extends Fragment {
     }
 
     private void finishThisActivity(){
-        Objects.requireNonNull(getActivity()).finish();
+        activity.finish();
     }
 
     @Override

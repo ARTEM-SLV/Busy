@@ -73,7 +73,7 @@ public class TaskViewModel extends ViewModel {
 
     public void deleteTask(Task task){
         try {
-            new Thread(() -> busyDao.deleteTaskList(task)).start();
+            new Thread(() -> busyDao.deleteTask(task)).start();
             Log.d("Database", "Task delete: " + task.uid);
             Log.d("Task", task.toString());
         } catch (Exception e) {

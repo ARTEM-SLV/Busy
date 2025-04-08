@@ -182,8 +182,10 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:hint="@string/cd_age"
+                android:digits="0123456789"
                 android:imeOptions="actionDone"
                 android:inputType="numberSigned"
+                android:maxLength="3"
                 android:minHeight="48dp"
                 android:paddingStart="8dp"
                 android:paddingEnd="8dp"
@@ -201,9 +203,8 @@
                 android:minHeight="48dp"
                 android:paddingStart="8dp"
                 android:paddingEnd="8dp"
-                android:textColor="@color/DarkSlateGray"
-                android:textColorHint="@color/DarkSlateGray"
-                tools:ignore="ContentDescription" />
+                android:popupBackground="@drawable/style_radial_azure"
+                android:backgroundTint="@color/DarkSlateGray"/>
         </LinearLayout>
 
         <ImageButton

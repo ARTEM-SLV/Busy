@@ -38,7 +38,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
-            android:id="@+id/btnCancel_T"
+            android:id="@+id/btnClose_T"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -358,7 +358,7 @@
                 android:id="@+id/tvPrice_T"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_weight="2"
                 android:gravity="center|left"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
@@ -373,12 +373,13 @@
                 android:layout_weight="1"
                 android:autofillHints=""
                 android:background="@android:color/transparent"
-                android:digits="0123456789"
+                android:digits="0123456789.,"
                 android:fontFamily="casual"
-                android:gravity="end"
+                android:gravity="center|end"
                 android:hint="@string/cd_price"
                 android:imeOptions="actionDone"
                 android:inputType="numberDecimal"
+                android:maxLength="12"
                 android:minHeight="48dp"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
@@ -443,7 +444,7 @@
             android:textColor="@color/DarkSlateGray"
             android:textSize="30sp"
             app:layout_constraintBottom_toBottomOf="@+id/btnOk_T"
-            app:layout_constraintEnd_toStartOf="@+id/btnCancel_T"
+            app:layout_constraintEnd_toStartOf="@+id/btnClose_T"
             app:layout_constraintStart_toEndOf="@+id/btnOk_T"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="10 july 2025" />

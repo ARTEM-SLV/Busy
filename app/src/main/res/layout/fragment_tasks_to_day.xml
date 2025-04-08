@@ -509,6 +509,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/layoutHour0_TTD"
                             android:layout_width="match_parent"
                             android:layout_height="180px"
                             android:background="@drawable/style_underline_gray_50"
@@ -542,6 +543,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/layoutHourHalf0_TTD"
                             android:layout_width="match_parent"
                             android:layout_height="180px"
                             android:background="@drawable/style_underline_dashed_gray_50"
@@ -596,6 +598,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/layoutHour1_TTD"
                             android:layout_width="match_parent"
                             android:layout_height="180px"
                             android:background="@drawable/style_underline_gray_50"
@@ -631,6 +634,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/layoutHourHalf1_TTD"
                             android:layout_width="match_parent"
                             android:layout_height="180px"
                             android:background="@drawable/style_underline_dashed_gray_50"
@@ -685,6 +689,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/layoutHour2_TTD"
                             android:layout_width="match_parent"
                             android:layout_height="180px"
                             android:background="@drawable/style_underline_gray_50"
@@ -721,6 +726,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/layoutHourHalf2_TTD"
                             android:layout_width="match_parent"
                             android:layout_height="180px"
                             android:background="@drawable/style_underline_dashed_gray_50"
@@ -775,6 +781,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/layoutHour3_TTD"
                             android:layout_width="match_parent"
                             android:layout_height="180px"
                             android:background="@drawable/style_underline_gray_50"
@@ -811,6 +818,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/layoutHourHalf3_TTD"
                             android:layout_width="match_parent"
                             android:layout_height="180px"
                             android:background="@drawable/style_underline_dashed_gray_50"
@@ -865,6 +873,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/layoutHour4_TTD"
                             android:layout_width="match_parent"
                             android:layout_height="180px"
                             android:background="@drawable/style_underline_gray_50"
@@ -901,6 +910,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/layoutHourHalf4_TTD"
                             android:layout_width="match_parent"
                             android:layout_height="180px"
                             android:background="@drawable/style_underline_dashed_gray_50"
@@ -955,6 +965,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/layoutHour5_TTD"
                             android:layout_width="match_parent"
                             android:layout_height="180px"
                             android:background="@drawable/style_underline_gray_50"
@@ -991,6 +1002,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/layoutHourHalf5_TTD"
                             android:layout_width="match_parent"
                             android:layout_height="180px"
                             android:background="@drawable/style_underline_dashed_gray_50"
@@ -1045,6 +1057,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/layoutHour6_TTD"
                             android:layout_width="match_parent"
                             android:layout_height="180px"
                             android:background="@drawable/style_underline_gray_50"
@@ -1081,6 +1094,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/layoutHourHalf6_TTD"
                             android:layout_width="match_parent"
                             android:layout_height="180px"
                             android:background="@drawable/style_underline_dashed_gray_50"
@@ -1135,6 +1149,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/layoutHour7_TTD"
                             android:layout_width="match_parent"
                             android:layout_height="180px"
                             android:background="@drawable/style_underline_gray_50"
@@ -1171,6 +1186,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/layoutHourHalf7_TTD"
                             android:layout_width="match_parent"
                             android:layout_height="180px"
                             android:background="@drawable/style_underline_dashed_gray_50"
@@ -1225,6 +1241,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/layoutHour8_TTD"
                             android:layout_width="match_parent"
                             android:layout_height="180px"
                             android:background="@drawable/style_underline_gray_50"
@@ -1258,6 +1275,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/layoutHourHalf8_TTD"
                             android:layout_width="match_parent"
                             android:layout_height="180px"
                             android:background="@drawable/style_underline_dashed_gray_50"
@@ -1312,6 +1330,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/layoutHour9_TTD"
                             android:layout_width="match_parent"
                             android:layout_height="180px"
                             android:background="@drawable/style_underline_gray_50"
@@ -1348,6 +1367,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/layoutHourHalf9_TTD"
                             android:layout_width="match_parent"
                             android:layout_height="180px"
                             android:background="@drawable/style_underline_dashed_gray_50"
@@ -1402,6 +1422,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/layoutHour10_TTD"
                             android:layout_width="match_parent"
                             android:layout_height="180px"
                             android:background="@drawable/style_underline_gray_50"
@@ -1438,6 +1459,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/layoutHourHalf10_TTD"
                             android:layout_width="match_parent"
                             android:layout_height="180px"
                             android:background="@drawable/style_underline_dashed_gray_50"
@@ -1492,6 +1514,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/layoutHour11_TTD"
                             android:layout_width="match_parent"
                             android:layout_height="180px"
                             android:background="@drawable/style_underline_gray_50"
@@ -1528,6 +1551,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/layoutHourHalf11_TTD"
                             android:layout_width="match_parent"
                             android:layout_height="180px"
                             android:background="@drawable/style_underline_dashed_gray_50"
@@ -1582,6 +1606,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/layoutHour12_TTD"
                             android:layout_width="match_parent"
                             android:layout_height="180px"
                             android:background="@drawable/style_underline_gray_50"
@@ -1618,6 +1643,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/layoutHourHalf12_TTD"
                             android:layout_width="match_parent"
                             android:layout_height="180px"
                             android:background="@drawable/style_underline_dashed_gray_50"
@@ -1672,6 +1698,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/layoutHour13_TTD"
                             android:layout_width="match_parent"
                             android:layout_height="180px"
                             android:background="@drawable/style_underline_gray_50"
@@ -1708,6 +1735,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/layoutHourHalf13_TTD"
                             android:layout_width="match_parent"
                             android:layout_height="180px"
                             android:background="@drawable/style_underline_dashed_gray_50"
@@ -1762,6 +1790,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/layoutHour14_TTD"
                             android:layout_width="match_parent"
                             android:layout_height="180px"
                             android:background="@drawable/style_underline_gray_50"
@@ -1798,6 +1827,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/layoutHourHalf14_TTD"
                             android:layout_width="match_parent"
                             android:layout_height="180px"
                             android:background="@drawable/style_underline_dashed_gray_50"
@@ -1852,6 +1882,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/layoutHour15_TTD"
                             android:layout_width="match_parent"
                             android:layout_height="180px"
                             android:background="@drawable/style_underline_gray_50"
@@ -1888,6 +1919,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/layoutHourHalf15_TTD"
                             android:layout_width="match_parent"
                             android:layout_height="180px"
                             android:background="@drawable/style_underline_dashed_gray_50"
@@ -1942,6 +1974,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/layoutHour16_TTD"
                             android:layout_width="match_parent"
                             android:layout_height="180px"
                             android:background="@drawable/style_underline_gray_50"
@@ -1978,6 +2011,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/layoutHourHalf16_TTD"
                             android:layout_width="match_parent"
                             android:layout_height="180px"
                             android:background="@drawable/style_underline_dashed_gray_50"
@@ -2032,6 +2066,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/layoutHour17_TTD"
                             android:layout_width="match_parent"
                             android:layout_height="180px"
                             android:background="@drawable/style_underline_gray_50"
@@ -2068,6 +2103,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/layoutHourHalf17_TTD"
                             android:layout_width="match_parent"
                             android:layout_height="180px"
                             android:background="@drawable/style_underline_dashed_gray_50"
@@ -2122,6 +2158,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/layoutHour18_TTD"
                             android:layout_width="match_parent"
                             android:layout_height="180px"
                             android:background="@drawable/style_underline_gray_50"
@@ -2158,6 +2195,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/layoutHourHalf18_TTD"
                             android:layout_width="match_parent"
                             android:layout_height="180px"
                             android:background="@drawable/style_underline_dashed_gray_50"
@@ -2212,6 +2250,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/layoutHour19_TTD"
                             android:layout_width="match_parent"
                             android:layout_height="180px"
                             android:background="@drawable/style_underline_gray_50"
@@ -2248,6 +2287,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/layoutHourHalf19_TTD"
                             android:layout_width="match_parent"
                             android:layout_height="180px"
                             android:background="@drawable/style_underline_dashed_gray_50"
@@ -2302,6 +2342,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/layoutHour20_TTD"
                             android:layout_width="match_parent"
                             android:layout_height="180px"
                             android:background="@drawable/style_underline_gray_50"
@@ -2338,6 +2379,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/layoutHourHalf20_TTD"
                             android:layout_width="match_parent"
                             android:layout_height="180px"
                             android:background="@drawable/style_underline_dashed_gray_50"
@@ -2392,6 +2434,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/layoutHour21_TTD"
                             android:layout_width="match_parent"
                             android:layout_height="180px"
                             android:background="@drawable/style_underline_gray_50"
@@ -2428,6 +2471,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/layoutHourHalf21_TTD"
                             android:layout_width="match_parent"
                             android:layout_height="180px"
                             android:background="@drawable/style_underline_dashed_gray_50"
@@ -2482,6 +2526,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/layoutHour22_TTD"
                             android:layout_width="match_parent"
                             android:layout_height="180px"
                             android:background="@drawable/style_underline_gray_50"
@@ -2518,6 +2563,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/layoutHourHalf22_TTD"
                             android:layout_width="match_parent"
                             android:layout_height="180px"
                             android:background="@drawable/style_underline_dashed_gray_50"
@@ -2572,6 +2618,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/layoutHour23_TTD"
                             android:layout_width="match_parent"
                             android:layout_height="180px"
                             android:background="@drawable/style_underline_gray_50"
@@ -2608,6 +2655,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/layoutHourHalf23_TTD"
                             android:layout_width="match_parent"
                             android:layout_height="180px"
                             android:background="@drawable/style_underline_dashed_gray_50"

@@ -103,11 +103,19 @@ public class CustomersAdapter extends RecyclerView.Adapter<CustomersAdapter.Cust
         }
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     public void updateListOfCustomers(List<Customer> newListOfCustomers){
+        int oldSize = listOfCustomers.size();
+
         listOfCustomers.clear();
         listOfCustomers.addAll(newListOfCustomers);
 
-        notifyDataSetChanged();
+        // Уведомляем адаптер о том, что данные изменились
+        if (oldSize == 0) {
+            // Если список был пуст, добавляем все новые элементы
+            notifyItemRangeInserted(0, listOfCustomers.size());
+        } else {
+            // Если данные обновились, просто обновляем весь диапазон
+            notifyItemRangeChanged(0, listOfCustomers.size());
+        }
     }
 }

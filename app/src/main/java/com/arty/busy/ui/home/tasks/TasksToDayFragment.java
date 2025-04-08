@@ -64,6 +64,8 @@ public class TasksToDayFragment extends Fragment {
 
         binding.btnBackTTD.setOnClickListener(v -> requireActivity().getOnBackPressedDispatcher().onBackPressed());
 
+        init();
+
         return root;
     }
 
@@ -71,15 +73,14 @@ public class TasksToDayFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        init();
+//        init();
         setData();
         fillTasksData();
     }
 
-    @SuppressLint("DiscouragedApi")
     private void init(){
-        int lineID;
-        LinearLayout linerHours;
+//        int lineID;
+//        LinearLayout linerHours;
         ScrollView scrollView = binding.scrollTTD;
 
         if (scrollY > 0){
@@ -89,7 +90,6 @@ public class TasksToDayFragment extends Fragment {
         }
         scrollView.getViewTreeObserver().addOnScrollChangedListener(() -> posY = scrollView.getScrollY());
 
-        @SuppressLint("SimpleDateFormat")
         DateFormat df = new SimpleDateFormat("EEEE dd MMM.", Locale.getDefault());
         Bundle arguments = getArguments();
         if (arguments != null) {
@@ -101,23 +101,49 @@ public class TasksToDayFragment extends Fragment {
         binding.tvDateTTD.setOnClickListener(v -> scrollView.smoothScrollBy(0, posStart - posY));
 
         FloatingActionButton btnAdd = binding.fabAddTTD;
-        btnAdd.setOnClickListener(v -> openTask(-1, "00:00"));
+        btnAdd.setOnClickListener(v -> {
+            openTask(-1, "00:00");
+            scrollY = binding.scrollTTD.getScrollY(); // Текущая прокрутка ScrollView
+        });
 
+        Time time = new Time();
+        byte m = 0;
         for (byte h = 0; h < 24; h++) {
-            lineID = this.getResources().getIdentifier("hour" + (h) + "_TTD", "id", context.getPackageName());
-            linerHours = root.findViewById(lineID);
+//            lineID = this.getResources().getIdentifier("hour" + (h) + "_TTD", "id", context.getPackageName());
+            LinearLayout linerHoursCommon = getLayoutHoursCommon(h); //root.findViewById(lineID);
 
-            if (h == Settings.TIME_BEGINNING)
-                linerHours.setBackgroundResource(R.drawable.style_topline_salmon);
+            if (linerHoursCommon != null) {
+                if (h == Settings.TIME_BEGINNING)
+                    linerHoursCommon.setBackgroundResource(R.drawable.style_topline_salmon);
 
-            if (h == Settings.TIME_ENDING)
-                linerHours.setBackgroundResource(R.drawable.style_bottomline_salmon);
+                if (h == Settings.TIME_ENDING)
+                    linerHoursCommon.setBackgroundResource(R.drawable.style_bottomline_salmon);
+            }
+
+            LinearLayout linerHours = getLayoutHours(h);
+            if (linerHours != null) {
+                time.setTime(h, m);
+                String sTime = time.getTime();
+                linerHours.setOnClickListener(v -> {
+                    openTask(-1, sTime);
+                    scrollY = binding.scrollTTD.getScrollY();
+                });
+            }
+
+            LinearLayout linerHoursHalf = getLayoutHoursHalf(h);
+            if (linerHoursHalf != null) {
+                time.addTime(30);
+                String sTime = time.getTime();
+                linerHoursHalf.setOnClickListener(v -> {
+                    openTask(-1, sTime);
+                    scrollY = binding.scrollTTD.getScrollY();
+                });
+            }
         }
     }
 
     private void setData(){
         setPosStart(Settings.TIME_BEGINNING);
-//        setIdForBtnTask();
         setGoneAllBtnTask();
         setCurrTime();
         setListTasksToDay();
@@ -170,7 +196,7 @@ public class TasksToDayFragment extends Fragment {
                 currResColor = context.getColor(R.color.Brown);
             }
 
-            Button btnTask = getButtonHour(hour); // root.findViewById(1000 + hour);
+            Button btnTask = getButtonHour(hour);
             if (btnTask == null){
                 continue;
             }
@@ -193,10 +219,100 @@ public class TasksToDayFragment extends Fragment {
 
     private void setGoneAllBtnTask(){
         for (int hour = 0; hour < 24; hour++) {
-            Button btnTask = getButtonHour(hour); //root.findViewById(1000 + hour);
+            Button btnTask = getButtonHour(hour);
             if (btnTask != null){
                 btnTask.setVisibility(View.GONE);
             }
+        }
+    }
+
+    private LinearLayout getLayoutHours(int hour){
+        switch (hour) {
+            case 0: return binding.layoutHour0TTD;
+            case 1: return binding.layoutHour1TTD;
+            case 2: return binding.layoutHour2TTD;
+            case 3: return binding.layoutHour3TTD;
+            case 4: return binding.layoutHour4TTD;
+            case 5: return binding.layoutHour5TTD;
+            case 6: return binding.layoutHour6TTD;
+            case 7: return binding.layoutHour7TTD;
+            case 8: return binding.layoutHour8TTD;
+            case 9: return binding.layoutHour9TTD;
+            case 10: return binding.layoutHour10TTD;
+            case 11: return binding.layoutHour11TTD;
+            case 12: return binding.layoutHour12TTD;
+            case 13: return binding.layoutHour13TTD;
+            case 14: return binding.layoutHour14TTD;
+            case 15: return binding.layoutHour15TTD;
+            case 16: return binding.layoutHour16TTD;
+            case 17: return binding.layoutHour17TTD;
+            case 18: return binding.layoutHour18TTD;
+            case 19: return binding.layoutHour19TTD;
+            case 20: return binding.layoutHour20TTD;
+            case 21: return binding.layoutHour21TTD;
+            case 22: return binding.layoutHour22TTD;
+            case 23: return binding.layoutHour23TTD;
+            default: return null;
+        }
+    }
+
+    private LinearLayout getLayoutHoursHalf(int hour){
+        switch (hour) {
+            case 0: return binding.layoutHourHalf0TTD;
+            case 1: return binding.layoutHourHalf1TTD;
+            case 2: return binding.layoutHourHalf2TTD;
+            case 3: return binding.layoutHourHalf3TTD;
+            case 4: return binding.layoutHourHalf4TTD;
+            case 5: return binding.layoutHourHalf5TTD;
+            case 6: return binding.layoutHourHalf6TTD;
+            case 7: return binding.layoutHourHalf7TTD;
+            case 8: return binding.layoutHourHalf8TTD;
+            case 9: return binding.layoutHourHalf9TTD;
+            case 10: return binding.layoutHourHalf10TTD;
+            case 11: return binding.layoutHourHalf11TTD;
+            case 12: return binding.layoutHourHalf12TTD;
+            case 13: return binding.layoutHourHalf13TTD;
+            case 14: return binding.layoutHourHalf14TTD;
+            case 15: return binding.layoutHourHalf15TTD;
+            case 16: return binding.layoutHourHalf16TTD;
+            case 17: return binding.layoutHourHalf17TTD;
+            case 18: return binding.layoutHourHalf18TTD;
+            case 19: return binding.layoutHourHalf19TTD;
+            case 20: return binding.layoutHourHalf20TTD;
+            case 21: return binding.layoutHourHalf21TTD;
+            case 22: return binding.layoutHourHalf22TTD;
+            case 23: return binding.layoutHourHalf23TTD;
+            default: return null;
+        }
+    }
+
+    private LinearLayout getLayoutHoursCommon(int hour){
+        switch (hour) {
+            case 0: return binding.hour0TTD;
+            case 1: return binding.hour1TTD;
+            case 2: return binding.hour2TTD;
+            case 3: return binding.hour3TTD;
+            case 4: return binding.hour4TTD;
+            case 5: return binding.hour5TTD;
+            case 6: return binding.hour6TTD;
+            case 7: return binding.hour7TTD;
+            case 8: return binding.hour8TTD;
+            case 9: return binding.hour9TTD;
+            case 10: return binding.hour10TTD;
+            case 11: return binding.hour11TTD;
+            case 12: return binding.hour12TTD;
+            case 13: return binding.hour13TTD;
+            case 14: return binding.hour14TTD;
+            case 15: return binding.hour15TTD;
+            case 16: return binding.hour16TTD;
+            case 17: return binding.hour17TTD;
+            case 18: return binding.hour18TTD;
+            case 19: return binding.hour19TTD;
+            case 20: return binding.hour20TTD;
+            case 21: return binding.hour21TTD;
+            case 22: return binding.hour22TTD;
+            case 23: return binding.hour23TTD;
+            default: return null;
         }
     }
 
@@ -278,8 +394,6 @@ public class TasksToDayFragment extends Fragment {
         intent.putExtra(Constants.KEY_TIME, time);
 
         startActivity(intent);
-
-//        taskLauncher.launch(intent);
     }
 
     @Override

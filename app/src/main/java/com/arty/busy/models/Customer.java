@@ -40,7 +40,7 @@ public class Customer implements Parcelable {
         first_name = "";
         last_name = "";
         phone = "";
-        sex = Sex.male.name();
+        sex = Sex.sex.name();
         age = 0;
         picture = null;
     }

@@ -36,6 +36,25 @@ public class Service implements Parcelable {
     public int id_line_of_business;
 
     public Service() {
+        uid = 0;
+        title = "";
+        short_title = "";
+        description = "";
+        price = 0;
+        duration = 0;
+        preparation_time = 0;
+        id_line_of_business = 0;
+    }
+
+    public Service(Service service) {
+        uid = service.uid;
+        title = service.title;
+        short_title = service.short_title;
+        description = service.description;
+        price = service.price;
+        duration = service.duration;
+        preparation_time = service.preparation_time;
+        id_line_of_business = service.id_line_of_business;
     }
 
     protected Service(Parcel in) {
@@ -49,7 +68,7 @@ public class Service implements Parcelable {
         id_line_of_business = in.readInt();
     }
 
-    public static final Creator<Service> CREATOR = new Creator<Service>() {
+    public static final Creator<Service> CREATOR = new Creator<>() {
         @Override
         public Service createFromParcel(Parcel in) {
             return new Service(in);
@@ -91,5 +110,33 @@ public class Service implements Parcelable {
         dest.writeInt(duration);
         dest.writeInt(preparation_time);
         dest.writeInt(id_line_of_business);
+    }
+
+    public String getShortTitle(){
+        StringBuilder result  = new StringBuilder();
+
+        // Разбиваем строку на слова по пробелам
+        String[] words = title.split("\\s+");
+
+        for (String word : words) {
+            if (word.isEmpty()) continue;
+
+            char firstChar = word.charAt(0);
+
+            // Если слово начинается с цифры — добавляем все цифры
+            if (Character.isDigit(word.charAt(0))) {
+                for (char c : word.toCharArray()) {
+                    result.append(Character.toUpperCase(c));
+                    if (!Character.isDigit(c)) {
+                        break;
+                    }
+                }
+            } else {
+                // Иначе добавляем первую букву
+                result.append(Character.toUpperCase(firstChar));
+            }
+        }
+
+        return result .toString();
     }
 }

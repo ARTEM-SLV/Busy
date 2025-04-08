@@ -3,7 +3,7 @@ package com.arty.busy.enums;
 import com.arty.busy.R;
 
 public enum Sex {
-    male(R.string.male), female(R.string.female);
+    sex(R.string.cd_sex), male(R.string.male), female(R.string.female);
 
     private int resID;
 

@@ -12,7 +12,6 @@ import java.util.List;
 
 public class CustomersViewModel extends ViewModel {
     private final BusyDao busyDao;
-//    private final MutableLiveData<Customer> mCustomer = new MutableLiveData<>();
 
     public CustomersViewModel() {
         busyDao = App.getInstance().getBusyDao();
@@ -26,12 +25,4 @@ public class CustomersViewModel extends ViewModel {
 
         return mListOfCustomers;
     }
-
-//    public void setCustomer(Customer customer) {
-//        mCustomer.setValue(customer);
-//    }
-//
-//    public LiveData<Customer> getCustomer() {
-//        return mCustomer;
-//    }
 }

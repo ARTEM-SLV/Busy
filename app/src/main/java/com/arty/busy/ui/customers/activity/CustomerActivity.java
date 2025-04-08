@@ -1,27 +1,34 @@
 package com.arty.busy.ui.customers.activity;
 
 import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.provider.MediaStore;
 import android.util.DisplayMetrics;
-import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.arty.busy.App;
@@ -30,17 +37,15 @@ import com.arty.busy.databinding.ActivityCustomerBinding;
 import com.arty.busy.enums.Sex;
 import com.arty.busy.models.Customer;
 import com.arty.busy.ui.customers.viewmodels.CustomerViewModel;
-import com.google.android.material.snackbar.Snackbar;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 public class CustomerActivity extends AppCompatActivity {
     private CustomerViewModel customerViewModel;
-    private @NonNull ActivityCustomerBinding binding;
+    private ActivityCustomerBinding binding;
     private ActivityResultLauncher<Intent> imagePickerLauncher;
     private ArrayAdapter<String> adapter;
-    private Spinner sex;
     private ImageView ivPhoto;
     private byte[] imageData;
     private Customer customer, modifiedCustomer;
@@ -104,10 +109,27 @@ public class CustomerActivity extends AppCompatActivity {
     }
 
     private void initSexValues(){
-        String[] items = {Sex.male.name(), Sex.female.name()};
+        String[] items = {Sex.sex.name(), Sex.male.name(), Sex.female.name()};
 
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, items);
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, items){
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                View view = super.getView(position, convertView, parent);
+                int color = ContextCompat.getColor(getContext(), R.color.DarkSlateGray);
+                ((TextView) view).setTextColor(color); // Цвет текста в Spinner (выбранный элемент)
+                return view;
+            }
+            @Override
+            public View getDropDownView(int position, View convertView, @NonNull ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                int color = ContextCompat.getColor(getContext(), R.color.DarkSlateGray);
+                ((TextView) view).setTextColor(color); // Цвет текста в выпадающем списке
+                return view;
+            }
+        };
+
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
         binding.etSexC.setAdapter(adapter);
     }
 
@@ -131,7 +153,9 @@ public class CustomerActivity extends AppCompatActivity {
         binding.etFirstNameC.setText(modifiedCustomer.first_name);
         binding.etLastNameC.setText(modifiedCustomer.last_name);
         binding.etPhoneC.setText(modifiedCustomer.phone);
-        binding.etAgeC.setText(Integer.toString(modifiedCustomer.age));
+        if (modifiedCustomer.age != 0){
+            binding.etAgeC.setText(Integer.toString(modifiedCustomer.age));
+        }
 
         int position = adapter.getPosition(modifiedCustomer.sex);
         binding.etSexC.setSelection(position);
@@ -143,17 +167,12 @@ public class CustomerActivity extends AppCompatActivity {
     }
 
     private void setOnClickListeners(){
-        binding.btnOkC.setOnClickListener(v -> {
-            beforeFinishActivity(false);
-        });
+        binding.btnOkC.setOnClickListener(v -> beforeFinishActivity(false));
+        binding.btnCancelC.setOnClickListener(v -> beforeFinishActivity(true));
+        binding.btnDeleteTaskC.setOnClickListener(v -> showDialogDeleteCustomer());
 
-        binding.btnCancelC.setOnClickListener(v -> {
-            beforeFinishActivity(true);
-        });
-
-        binding.btnDeleteTaskC.setOnClickListener(v -> {
-            showDialogDeleteCustomer();
-        });
+        setOnTouchListenerForRoot();
+        setOnClickListenerFotETAge();
 
         binding.etSexC.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -168,17 +187,58 @@ public class CustomerActivity extends AppCompatActivity {
             }
         });
 
-//        imagePickerLauncher = registerForActivityResult(
-//                new ActivityResultContracts.StartActivityForResult(),
-//                result -> {
-//                    if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
-//                        Uri imageUri = result.getData().getData();
-//                        handleImageSelection(imageUri);
-//                    }
-//                }
-//        );
-//        ivPhoto = findViewById(R.id.ivPhoto_C);
-//        ivPhoto.setOnClickListener(v -> openGallery());
+        imagePickerLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
+                        Uri imageUri = result.getData().getData();
+                        handleImageSelection(imageUri);
+                    }
+                }
+        );
+        ivPhoto = findViewById(R.id.ivPhoto_C);
+        ivPhoto.setOnClickListener(v -> openGallery());
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    private void setOnTouchListenerForRoot() {
+        binding.getRoot().setOnTouchListener((v, event) -> {
+            if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                App.hideKeyboardAndClearFocus(this);
+
+                v.performClick();
+            }
+            return false;
+        } );
+    }
+
+    private void setOnClickListenerFotETAge(){
+        binding.etAgeC.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                App.hideKeyboardAndClearFocus(this);
+                return true;
+            }
+            return false;
+        });
+
+        binding.etAgeC.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus) {
+                if (binding.etAgeC.getText().toString().equals("")) {
+                    binding.etAgeC.setText("0");
+
+                    // 1. Закрываем клавиатуру
+                    new Handler(Looper.getMainLooper()).postDelayed(() -> {
+                        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.showSoftInput(binding.etAgeC, 0);
+                    }, 100);
+                }
+                binding.etAgeC.post(() -> binding.etAgeC.selectAll());
+            } else {
+                if (binding.etAgeC.getText().toString().equals("0")) {
+                    binding.etAgeC.setText("");
+                }
+            }
+        });
     }
 
     private void openGallery() {
@@ -258,26 +318,6 @@ public class CustomerActivity extends AppCompatActivity {
         }
 
         return result;
-    }
-
-    private void showWarning(String msg, View view){
-        Snackbar snackbar = Snackbar.make(view, "", Snackbar.LENGTH_SHORT);
-        Snackbar.SnackbarLayout layout = (Snackbar.SnackbarLayout) snackbar.getView();
-        layout.setBackgroundColor(Color.TRANSPARENT);
-
-        LayoutInflater inflater = LayoutInflater.from(this);
-        View customView = inflater.inflate(R.layout.snackbar_custom, null);
-
-        // Находим `TextView` и задаем текст программно
-        TextView textView = customView.findViewById(R.id.snackbar_text);
-        textView.setText(msg);
-
-        // Очищаем стандартный текст и добавляем кастомный Layout
-        layout.removeAllViews();
-        layout.addView(customView);
-
-        snackbar.setAnchorView(view);
-        snackbar.show();
     }
 
     private void showDialogCloseActivity(){
