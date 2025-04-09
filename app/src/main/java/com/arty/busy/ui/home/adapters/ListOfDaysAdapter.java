@@ -3,6 +3,7 @@ package com.arty.busy.ui.home.adapters;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -22,7 +23,9 @@ import com.arty.busy.consts.Constants;
 import com.arty.busy.R;
 import com.arty.busy.databinding.ItemListOfDaysBinding;
 import com.arty.busy.date.DateTime;
+import com.arty.busy.ui.customers.activity.CustomerActivity;
 import com.arty.busy.ui.home.items.ItemListOfDays;
+import com.arty.busy.ui.home.tasks.TasksToDayActivity;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -62,15 +65,17 @@ public class ListOfDaysAdapter extends RecyclerView.Adapter<ListOfDaysAdapter.Vi
         viewHolderLOD.bind(item, context);
 
         viewHolderLOD.itemView.setOnClickListener(v -> {
-            // Используем контекст для навигации
             dateSelectedElement = listOfDaysArr.get(viewHolderLOD.getAdapterPosition()).getDate();
 
-            Bundle bundle = new Bundle();
-            bundle.putLong(Constants.KEY_DATE, dateSelectedElement.getTime());
+            Intent intent = new Intent(context, TasksToDayActivity.class);
+            intent.putExtra(Constants.KEY_DATE, dateSelectedElement.getTime());
+            context.startActivity(intent);
 
-            // Используем контекст для получения NavController
-            NavController navController = Navigation.findNavController((Activity) context, R.id.nav_host_fragment_activity_main);
-            navController.navigate(R.id.navigation_tasks_to_day, bundle);
+//            Bundle bundle = new Bundle();
+//            bundle.putLong(Constants.KEY_DATE, dateSelectedElement.getTime());
+//            // Используем контекст для получения NavController
+//            NavController navController = Navigation.findNavController((Activity) context, R.id.nav_host_fragment_activity_main);
+//            navController.navigate(R.id.navigation_tasks_to_day, bundle);
         });
     }
 

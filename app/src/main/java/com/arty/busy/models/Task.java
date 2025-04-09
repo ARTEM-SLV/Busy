@@ -43,28 +43,33 @@ public class Task implements Parcelable {
     @ColumnInfo(name = "paid")
     public boolean paid;
 
+    @ColumnInfo(name = "comment")
+    public String comment;
+
     public Task() {
-        this.uid = 0;
-        this.id_service = 0;
-        this.id_customer = 0;
-        this.day = 0;
-        this.time = "";
-        this.duration = 0;
-        this.price = 0;
-        this.done = false;
-        this.paid = false;
+        uid = 0;
+        id_service = 0;
+        id_customer = 0;
+        day = 0;
+        time = "";
+        duration = 0;
+        price = 0;
+        done = false;
+        paid = false;
+        comment = "";
     }
 
-    public Task(Task Task) {
-        this.uid = Task.uid;
-        this.id_service = Task.id_service;
-        this.id_customer = Task.id_customer;
-        this.day = Task.day;
-        this.time = Task.time;
-        this.duration = Task.duration;
-        this.price = Task.price;
-        this.done = Task.done;
-        this.paid = Task.paid;
+    public Task(Task task) {
+        uid = task.uid;
+        id_service = task.id_service;
+        id_customer = task.id_customer;
+        day = task.day;
+        time = task.time;
+        duration = task.duration;
+        price = task.price;
+        done = task.done;
+        paid = task.paid;
+        comment = task.comment;
     }
 
     protected Task(Parcel in) {
@@ -77,9 +82,10 @@ public class Task implements Parcelable {
         price = in.readDouble();
         done = in.readByte() != 0;
         paid = in.readByte() != 0;
+        comment = in.readString();
     }
 
-    public static final Creator<Task> CREATOR = new Creator<Task>() {
+    public static final Creator<Task> CREATOR = new Creator<>() {
         @Override
         public Task createFromParcel(Parcel in) {
             return new Task(in);
@@ -96,13 +102,15 @@ public class Task implements Parcelable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Task that = (Task) o;
-        return uid == that.uid && id_service == that.id_service && id_customer == that.id_customer && day == that.day && Double.compare(that.price, price)
-                == 0 && done == that.done && paid == that.paid && time.equals(that.time) && duration == that.duration;
+        return uid == that.uid && id_service == that.id_service && id_customer == that.id_customer
+                && day == that.day && Double.compare(that.price, price) == 0
+                && done == that.done && paid == that.paid && time.equals(that.time)
+                && duration == that.duration && comment.equals(that.comment);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(uid, id_service, id_customer, day, time, duration, price, done, paid);
+        return Objects.hash(uid, id_service, id_customer, day, time, duration, price, done, paid, comment);
     }
 
     @Override
@@ -121,12 +129,13 @@ public class Task implements Parcelable {
         dest.writeDouble(price);
         dest.writeByte((byte) (done ? 1 : 0));
         dest.writeByte((byte) (paid ? 1 : 0));
+        dest.writeString(comment);
     }
 
+    @NonNull
+    @Override
     public String toString(){
-        String res = "|uid: " + uid + "|id_service: " + id_service + "|id_customer: " + id_customer
+        return "|uid: " + uid + "|id_service: " + id_service + "|id_customer: " + id_customer
                 + "|day: " + new Date(day) + "|time: " + time + "|duration: " + duration + "|price: " + price;
-
-        return res;
     }
 }

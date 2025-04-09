@@ -225,13 +225,13 @@ public class App extends Application {
         if (text.isEmpty()) return;
 
         try {
-            // 🔹 Преобразуем строку в число
+            // Преобразуем строку в число
             NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(Locale.getDefault());
             currencyFormat.setMaximumFractionDigits(2);
             currencyFormat.setMinimumFractionDigits(2);
 
             double value = Double.parseDouble(text.replace(String.valueOf(instance.decimalSeparator), "."));
-            editText.setText(currencyFormat.format(value)); // 🔹 Отображаем в денежном формате
+            editText.setText(currencyFormat.format(value)); // Отображаем в денежном формате
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -352,7 +352,6 @@ public class App extends Application {
         service1.description = "Ресницы классика";
         service1.price = 500.00;
         service1.duration = 60;
-        service1.preparation_time = 15;
         service1.id_line_of_business = 1;
         serviceList.add(service1);
 
@@ -363,7 +362,6 @@ public class App extends Application {
         service2.description = "Ресницы 2D";
         service2.price = 500.00;
         service2.duration = 60;
-        service2.preparation_time = 15;
         service2.id_line_of_business = 1;
         serviceList.add(service2);
 
@@ -374,7 +372,6 @@ public class App extends Application {
         service3.description = "Ресницы классика";
         service3.price = 500.00;
         service3.duration = 90;
-        service3.preparation_time = 15;
         service3.id_line_of_business = 1;
         serviceList.add(service3);
 
@@ -385,7 +382,6 @@ public class App extends Application {
         service4.description = "Ресницы 5D";
         service4.price = 500.00;
         service4.duration = 120;
-        service4.preparation_time = 15;
         service4.id_line_of_business = 1;
         serviceList.add(service4);
 
@@ -396,7 +392,6 @@ public class App extends Application {
         service5.description = "Массаж спины";
         service5.price = 500.00;
         service5.duration = 60;
-        service5.preparation_time = 15;
         service5.id_line_of_business = 2;
         serviceList.add(service5);
 
@@ -412,7 +407,6 @@ public class App extends Application {
         customer1.last_name = "Иванова";
         customer1.phone = "+7(925) 123-45-67";
         customer1.sex = String.valueOf(Sex.female); //getString(R.string.female);
-        customer1.age = 25;
         customerList.add(customer1);
 
         Customer customer2 = new Customer();
@@ -421,7 +415,6 @@ public class App extends Application {
         customer2.last_name = "Петров";
         customer2.phone = "+7(925)987-65-43";
         customer2.sex = String.valueOf(Sex.female); //getString(R.string.female);
-        customer2.age = 25;
         customerList.add(customer2);
 
         Customer customer3 = new Customer();
@@ -430,7 +423,6 @@ public class App extends Application {
         customer3.last_name = "Романова";
         customer3.phone = "8(925)077-25-70";
         customer3.sex = String.valueOf(Sex.female); //getString(R.string.female);
-        customer3.age = 25;
         customerList.add(customer3);
 
         Customer customer4 = new Customer();
@@ -439,7 +431,6 @@ public class App extends Application {
         customer4.last_name = "Максимова";
         customer4.phone = "89151234567";
         customer4.sex = String.valueOf(Sex.female); //getString(R.string.female);
-        customer4.age = 25;
         customerList.add(customer4);
 
         Customer customer5 = new Customer();
@@ -448,7 +439,6 @@ public class App extends Application {
         customer5.last_name = "Гага";
         customer5.phone = "+7(910)777-66-55";
         customer5.sex = String.valueOf(Sex.female); //getString(R.string.female);
-        customer5.age = 25;
         customerList.add(customer5);
 
         this.getBusyDao().insertCustomerList(customerList);
@@ -456,7 +446,7 @@ public class App extends Application {
 
     private void fillWorkday(){
         Settings.TIME_BEGINNING = 8; // 8:00
-        Settings.TIME_ENDING = 19; // 20:00
+        Settings.TIME_ENDING = 20; // 20:00
 
         saveSettings();
     }

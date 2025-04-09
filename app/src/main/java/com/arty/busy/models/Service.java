@@ -1,5 +1,6 @@
 package com.arty.busy.models;
 
+import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -29,11 +30,11 @@ public class Service implements Parcelable {
     @ColumnInfo(name = "duration")
     public int duration;
 
-    @ColumnInfo(name = "preparation_time")
-    public int preparation_time;
-
     @ColumnInfo(name = "id_line_of_business")
     public int id_line_of_business;
+
+    @ColumnInfo(name = "not_active")
+    public boolean not_active;
 
     public Service() {
         uid = 0;
@@ -42,8 +43,8 @@ public class Service implements Parcelable {
         description = "";
         price = 0;
         duration = 0;
-        preparation_time = 0;
         id_line_of_business = 0;
+        not_active = false;
     }
 
     public Service(Service service) {
@@ -53,8 +54,8 @@ public class Service implements Parcelable {
         description = service.description;
         price = service.price;
         duration = service.duration;
-        preparation_time = service.preparation_time;
         id_line_of_business = service.id_line_of_business;
+        not_active = service.not_active;
     }
 
     protected Service(Parcel in) {
@@ -64,8 +65,8 @@ public class Service implements Parcelable {
         description = in.readString();
         price = in.readDouble();
         duration = in.readInt();
-        preparation_time = in.readInt();
         id_line_of_business = in.readInt();
+        not_active = in.readInt() != 0;
     }
 
     public static final Creator<Service> CREATOR = new Creator<>() {
@@ -85,14 +86,15 @@ public class Service implements Parcelable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Service that = (Service) o;
-        return uid == that.uid && Double.compare(that.price, price) == 0 && duration == that.duration && preparation_time
-                == that.preparation_time && id_line_of_business == that.id_line_of_business && Objects.equals(title, that.title)
-                && Objects.equals(short_title, that.short_title) && Objects.equals(description, that.description);
+        return uid == that.uid && Double.compare(that.price, price) == 0 && duration == that.duration
+                && id_line_of_business == that.id_line_of_business && Objects.equals(title, that.title)
+                && Objects.equals(short_title, that.short_title) && Objects.equals(description, that.description)
+                && not_active == that.not_active;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(uid, title, short_title, description, price, duration, preparation_time, id_line_of_business);
+        return Objects.hash(uid, title, short_title, description, price, duration, id_line_of_business, not_active);
     }
 
     @Override
@@ -108,8 +110,8 @@ public class Service implements Parcelable {
         dest.writeString(description);
         dest.writeDouble(price);
         dest.writeInt(duration);
-        dest.writeInt(preparation_time);
         dest.writeInt(id_line_of_business);
+        dest.writeInt(not_active ? 1 : 0);
     }
 
     public String getShortTitle(){

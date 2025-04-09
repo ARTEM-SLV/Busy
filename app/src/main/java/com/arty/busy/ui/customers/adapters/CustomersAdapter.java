@@ -24,11 +24,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CustomersAdapter extends RecyclerView.Adapter<CustomersAdapter.CustomersViewHolder> {
-//    @SuppressLint("StaticFieldLeak")
-//    protected static Activity parentActivity;
     private OnFragmentCloseListener closeListener;
     private Context context;
-    private List<Customer> listOfCustomers;
+    private List<Customer> listOfCustomers, filteredList;
     private int uid;
     private boolean isChoice;
     private LinearLayout mainLayoutBefore;
@@ -37,6 +35,7 @@ public class CustomersAdapter extends RecyclerView.Adapter<CustomersAdapter.Cust
         this.context = context;
         this.uid = uid;
         this.listOfCustomers = new ArrayList<>();
+        this.filteredList = new ArrayList<>();
         this.isChoice = isChoice;
         this.closeListener = closeListener;
     }
@@ -51,7 +50,7 @@ public class CustomersAdapter extends RecyclerView.Adapter<CustomersAdapter.Cust
 
     @Override
     public void onBindViewHolder(@NonNull CustomersViewHolder holder, int position) {
-        Customer customer = listOfCustomers.get(position);
+        Customer customer = filteredList.get(position);
         holder.setData(customer);
 
         // Открываем DialogActivity при клике на элемент списка
@@ -76,7 +75,7 @@ public class CustomersAdapter extends RecyclerView.Adapter<CustomersAdapter.Cust
 
     @Override
     public int getItemCount() {
-        return listOfCustomers.size();
+        return filteredList.size();
     }
 
     class CustomersViewHolder extends RecyclerView.ViewHolder {
@@ -100,6 +99,32 @@ public class CustomersAdapter extends RecyclerView.Adapter<CustomersAdapter.Cust
                 mainLayout.setForeground(ContextCompat.getDrawable(context, R.drawable.style_radial_green_transparent));
                 mainLayoutBefore = mainLayout;
             } else mainLayout.setForeground(null);
+        }
+    }
+
+    // Метод фильтрации
+    public void filter(String query) {
+        int oldSize = filteredList.size();
+        filteredList.clear();
+
+        if (query.isEmpty()) {
+            filteredList.addAll(listOfCustomers);
+        } else {
+            String lowerCaseQuery = query.toLowerCase();
+            for (Customer customer : listOfCustomers) {
+                if ((customer.first_name != null && customer.first_name.toLowerCase().contains(lowerCaseQuery)) ||
+                        (customer.last_name != null && customer.last_name.toLowerCase().contains(lowerCaseQuery)) ||
+                        (customer.phone != null && customer.phone.toLowerCase().contains(lowerCaseQuery))) {
+                    filteredList.add(customer);
+                }
+            }
+        }
+        if (oldSize == 0) {
+            // Если список был пуст, добавляем все новые элементы
+            notifyItemRangeInserted(0, listOfCustomers.size());
+        } else {
+            // Если данные обновились, просто обновляем весь диапазон
+            notifyItemRangeChanged(0, listOfCustomers.size());
         }
     }
 

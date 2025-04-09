@@ -79,7 +79,7 @@ public class ServiceActivity extends AppCompatActivity {
 
             // Устанавливаем ширину и высоту (50% ширины и 30% высоты экрана)
             layoutParams.width = (int) (getScreenWidth() * 0.9);
-            layoutParams.height = (int) (getScreenHeight() * 0.8);
+            layoutParams.height = (int) (getScreenHeight() * 0.9);
 
             window.setAttributes(layoutParams);
         }
@@ -327,5 +327,11 @@ public class ServiceActivity extends AppCompatActivity {
     private void DeleteCustomer(){
         serviceViewModel.deleteService(service);
         finish();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        binding = null;
     }
 }

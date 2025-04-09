@@ -77,10 +77,16 @@
     <string name="cd_first_name">first name</string>
     <string name="cd_phone">phone</string>
     <string name="cd_age">age</string>
+    <string name="cd_birth_date">birth date</string>
     <string name="cd_sex">sex</string>
     <string name="cd_yes">yes</string>
     <string name="cd_no">no</string>
+    <string name="cd_search">search</string>
     <!--   content description -->
+
+    <!--   texts -->
+    <string name="t_empty">There are no records</string>
+    <!--   texts -->
 
     <!--   question -->
     <string name="q_close">Data has been changed!\nCancel changes?</string>

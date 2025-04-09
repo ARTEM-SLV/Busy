@@ -47,10 +47,16 @@
     <string name="cd_last_name">фамилия</string>
     <string name="cd_phone">телефон</string>
     <string name="cd_age">возраст</string>
+    <string name="cd_birth_date">дата рождения</string>
     <string name="cd_sex">пол</string>
     <string name="cd_yes">да</string>
     <string name="cd_no">нет</string>
+    <string name="cd_search">поиск</string>
     <!--   content description -->
+
+    <!--   texts -->
+    <string name="t_empty">Записи отсутствуют</string>
+    <!--   texts -->
 
     <!--   question -->
     <string name="q_close">Данные были изменены!\nОтменить изменения?</string>

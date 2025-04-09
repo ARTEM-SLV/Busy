@@ -10,6 +10,7 @@ import androidx.room.PrimaryKey;
 
 import com.arty.busy.enums.Sex;
 
+import java.util.Calendar;
 import java.util.Objects;
 
 @Entity
@@ -29,11 +30,17 @@ public class Customer implements Parcelable {
     @ColumnInfo(name = "sex")
     public String sex;
 
-    @ColumnInfo(name = "age")
-    public int age;
+    @ColumnInfo(name = "birth_date")
+    public long birthDate;
 
     @ColumnInfo(name = "picture")
     public String picture;
+
+    @ColumnInfo(name = "not_active")
+    public boolean not_active;
+
+    @ColumnInfo(name = "comment")
+    public String comment;
 
     public Customer() {
         uid = 0;
@@ -41,8 +48,10 @@ public class Customer implements Parcelable {
         last_name = "";
         phone = "";
         sex = Sex.sex.name();
-        age = 0;
+        birthDate = 0;
         picture = null;
+        not_active = false;
+        comment = "";
     }
 
     public Customer(Customer customer) {
@@ -51,8 +60,10 @@ public class Customer implements Parcelable {
         last_name = customer.last_name;
         phone = customer.phone;
         sex = customer.sex;
-        age = customer.age;
+        birthDate = customer.birthDate;
         picture = customer.picture;
+        not_active = customer.not_active;
+        comment = customer.comment;
     }
 
     protected Customer(Parcel in) {
@@ -61,11 +72,12 @@ public class Customer implements Parcelable {
         last_name = in.readString();
         phone = in.readString();
         sex = in.readString();
-        age = in.readInt();
+        birthDate = in.readLong();
         picture = in.readString();
+        not_active = in.readInt() != 0;
     }
 
-    public static final Creator<Customer> CREATOR = new Creator<Customer>() {
+    public static final Creator<Customer> CREATOR = new Creator<>() {
         @Override
         public Customer createFromParcel(Parcel in) {
             return new Customer(in);
@@ -82,16 +94,18 @@ public class Customer implements Parcelable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Customer that = (Customer) o;
-        return uid == that.uid && age == that.age && Objects.equals(first_name, that.first_name)
+        return uid == that.uid && birthDate == that.birthDate && Objects.equals(first_name, that.first_name)
                 && Objects.equals(last_name, that.last_name)
                 && Objects.equals(phone, that.phone)
                 && Objects.equals(sex, that.sex)
-                && Objects.equals(picture, that.picture);
+                && Objects.equals(picture, that.picture)
+                && Objects.equals(comment, that.comment)
+                && not_active == that.not_active;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(uid, first_name, last_name, phone, sex, age, picture);
+        return Objects.hash(uid, first_name, last_name, phone, sex, birthDate, picture, comment, not_active);
     }
 
     @Override
@@ -106,8 +120,10 @@ public class Customer implements Parcelable {
         dest.writeString(last_name);
         dest.writeString(phone);
         dest.writeString(sex);
-        dest.writeInt(age);
+        dest.writeLong(birthDate);
         dest.writeString(picture);
+        dest.writeString(comment);
+        dest.writeInt(not_active ? 1 : 0);
     }
 
     @NonNull
@@ -142,5 +158,21 @@ public class Customer implements Parcelable {
         for (String str: arrFirstName) {
             result.append(str.charAt(0));
         }
+    }
+
+    public int getAge(){
+        Calendar birthDate = Calendar.getInstance();
+        birthDate.setTimeInMillis(this.birthDate);
+
+        Calendar today = Calendar.getInstance();
+
+        int age = today.get(Calendar.YEAR) - birthDate.get(Calendar.YEAR);
+
+        // Проверка: уже был день рождения в этом году или нет
+        if (today.get(Calendar.DAY_OF_YEAR) < birthDate.get(Calendar.DAY_OF_YEAR)) {
+            age--;
+        }
+
+        return age;
     }
 }

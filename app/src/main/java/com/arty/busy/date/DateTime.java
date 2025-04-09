@@ -60,6 +60,19 @@ public class DateTime {
         return cloneCalendar.getTime();
     }
 
+
+    public static Calendar getStartDay(long dateMillis){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(dateMillis);
+
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+
+        return calendar;
+    }
+
     @NonNull
     public static Date getEndDay(int year, int month, int day){
         Calendar calendar = Calendar.getInstance();

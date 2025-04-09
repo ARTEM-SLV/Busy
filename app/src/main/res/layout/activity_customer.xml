@@ -176,27 +176,26 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/etPhone_C">
 
-            <EditText
-                android:id="@+id/etAge_C"
+            <TextView
+                android:id="@+id/tvBirthDate_C"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="@string/cd_age"
-                android:digits="0123456789"
-                android:imeOptions="actionDone"
-                android:inputType="numberSigned"
-                android:maxLength="3"
+                android:gravity="center|start"
+                android:hint="@string/cd_birth_date"
+                android:imeOptions="actionNone"
                 android:minHeight="48dp"
                 android:paddingStart="8dp"
                 android:paddingEnd="8dp"
                 android:textColor="@color/DarkSlateGray"
-                android:textColorHint="@color/DarkSlateGray" />
+                android:textColorHint="@color/DarkSlateGray"
+                android:textSize="16sp" />
 
             <Spinner
                 android:id="@+id/etSex_C"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="2"
                 android:contentDescription="@string/cd_sex"
                 android:hint="@string/cd_sex"
                 android:inputType="textPersonName"

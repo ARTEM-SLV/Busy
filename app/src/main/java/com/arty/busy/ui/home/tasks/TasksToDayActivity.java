@@ -1,26 +1,31 @@
 package com.arty.busy.ui.home.tasks;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.arty.busy.ActivityForFragments;
-import com.arty.busy.consts.Constants;
 import com.arty.busy.R;
+import com.arty.busy.consts.Constants;
 import com.arty.busy.consts.Settings;
+import com.arty.busy.databinding.ActivityServiceBinding;
+import com.arty.busy.databinding.ActivityTasksToDayBinding;
 import com.arty.busy.databinding.FragmentTasksToDayBinding;
 import com.arty.busy.date.DateTime;
 import com.arty.busy.date.Time;
@@ -34,11 +39,11 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class TasksToDayFragment extends Fragment {
-    private FragmentTasksToDayBinding binding;
-    private Context context;
+public class TasksToDayActivity extends AppCompatActivity {
+    private ActivityTasksToDayBinding binding;
+//    private Context context;
     private HomeViewModel homeViewModel;
-    private View root;
+//    private View root;
     List<ItemTaskInfo> taskInfoList;
     private long currDate;
     private int scrollY;
@@ -50,23 +55,17 @@ public class TasksToDayFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-    }
+        supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         homeViewModel =
                 new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory()).get(HomeViewModel.class);
 
-        binding = FragmentTasksToDayBinding.inflate(inflater, container, false);
-        root = binding.getRoot();
-        context = getContext();
+        binding = ActivityTasksToDayBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        binding.btnBackTTD.setOnClickListener(v -> requireActivity().getOnBackPressedDispatcher().onBackPressed());
+        binding.btnBackTTD.setOnClickListener(v -> getOnBackPressedDispatcher().onBackPressed());
 
         init();
-
-        return root;
     }
 
     @Override
@@ -89,7 +88,7 @@ public class TasksToDayFragment extends Fragment {
         scrollView.getViewTreeObserver().addOnScrollChangedListener(() -> posY = scrollView.getScrollY());
 
         DateFormat df = new SimpleDateFormat("EEEE dd MMM.", Locale.getDefault());
-        Bundle arguments = getArguments();
+        Bundle arguments = getIntent().getExtras(); //getArguments();
         if (arguments != null) {
             currDate = arguments.getLong(Constants.KEY_DATE);
             if (currDate != 0) {
@@ -182,16 +181,16 @@ public class TasksToDayFragment extends Fragment {
             hour = timeStart.getHour();
             minute = timeStart.getMinute();
 
-            int currResColor = context.getColor(R.color.Black);
+            int currResColor = getColor(R.color.Black);
             if (itemTaskInfo.isDone()){
-                currResColor = context.getColor(R.color.DarkGreen);
+                currResColor = getColor(R.color.DarkGreen);
             } else if (isNextTask(timeStart)){
-                currResColor = context.getColor(R.color.Navy);
+                currResColor = getColor(R.color.Navy);
                 setPosStart(hour);
             }
 
             if (crossedTimesOfTasks(timeStart, timeEnd, i)) {
-                currResColor = context.getColor(R.color.Brown);
+                currResColor = getColor(R.color.Brown);
             }
 
             Button btnTask = getButtonHour(hour);
@@ -386,7 +385,7 @@ public class TasksToDayFragment extends Fragment {
     }
 
     private void openTask(int id_task, String time){
-        Intent intent = new Intent(context, ActivityForFragments.class);
+        Intent intent = new Intent(this, ActivityForFragments.class);
         intent.putExtra(Constants.KEY_DATE, currDate);
         intent.putExtra(Constants.ID_TASK, id_task);
         intent.putExtra(Constants.KEY_TIME, time);
@@ -395,8 +394,8 @@ public class TasksToDayFragment extends Fragment {
     }
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
+    public void onDestroy() {
+        super.onDestroy();
         binding = null;
     }
 }

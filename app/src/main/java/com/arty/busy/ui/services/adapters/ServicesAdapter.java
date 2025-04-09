@@ -11,7 +11,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.view.menu.MenuView;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,7 +18,6 @@ import com.arty.busy.OnFragmentCloseListener;
 import com.arty.busy.R;
 import com.arty.busy.date.Time;
 import com.arty.busy.models.Service;
-import com.arty.busy.ui.customers.activity.CustomerActivity;
 import com.arty.busy.ui.services.activity.ServiceActivity;
 
 import java.util.ArrayList;
@@ -28,7 +26,7 @@ import java.util.List;
 public class ServicesAdapter extends RecyclerView.Adapter<ServicesAdapter.ServicesViewHolder> {
     private OnFragmentCloseListener closeListener;
     protected Context context;
-    protected List<Service> listOfServices;
+    protected List<Service> listOfServices, filteredList;
     protected int uid;
     private boolean isChoice;
     private LinearLayout mainLayoutBefore;
@@ -37,6 +35,7 @@ public class ServicesAdapter extends RecyclerView.Adapter<ServicesAdapter.Servic
         this.context = context;
         this.uid = uid;
         this.listOfServices = new ArrayList<>();
+        this.filteredList = new ArrayList<>();
         this.isChoice = isChoice;
         this.closeListener = closeListener;
     }
@@ -51,7 +50,7 @@ public class ServicesAdapter extends RecyclerView.Adapter<ServicesAdapter.Servic
 
     @Override
     public void onBindViewHolder(@NonNull ServicesViewHolder holder, int position) {
-        Service service = listOfServices.get(position);
+        Service service = filteredList.get(position);
         holder.setData(service);
 
         // Открываем DialogActivity при клике на элемент списка
@@ -76,7 +75,7 @@ public class ServicesAdapter extends RecyclerView.Adapter<ServicesAdapter.Servic
 
     @Override
     public int getItemCount() {
-        return listOfServices.size();
+        return filteredList.size();
     }
 
     class ServicesViewHolder extends RecyclerView.ViewHolder {
@@ -107,6 +106,30 @@ public class ServicesAdapter extends RecyclerView.Adapter<ServicesAdapter.Servic
         Time time = new Time(duration);
 
         return time.toString();
+    }
+
+    // Метод фильтрации
+    public void filter(String query) {
+        int oldSize = filteredList.size();
+        filteredList.clear();
+
+        if (query.isEmpty()) {
+            filteredList.addAll(listOfServices);
+        } else {
+            String lowerCaseQuery = query.toLowerCase();
+            for (Service service : listOfServices) {
+                if (service.title != null && service.title.toLowerCase().contains(lowerCaseQuery)) {
+                    filteredList.add(service);
+                }
+            }
+        }
+        if (oldSize == 0) {
+            // Если список был пуст, добавляем все новые элементы
+            notifyItemRangeInserted(0, listOfServices.size());
+        } else {
+            // Если данные обновились, просто обновляем весь диапазон
+            notifyItemRangeChanged(0, listOfServices.size());
+        }
     }
 
     public void updateListOfServices(List<Service> newListOfServices){

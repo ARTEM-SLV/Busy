@@ -1,56 +1,46 @@
 package com.arty.busy.ui.customers.activity;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.net.Uri;
+import android.app.DatePickerDialog;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.provider.MediaStore;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.arty.busy.App;
 import com.arty.busy.R;
 import com.arty.busy.databinding.ActivityCustomerBinding;
+import com.arty.busy.date.DateTime;
 import com.arty.busy.enums.Sex;
 import com.arty.busy.models.Customer;
 import com.arty.busy.ui.customers.viewmodels.CustomerViewModel;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class CustomerActivity extends AppCompatActivity {
     private CustomerViewModel customerViewModel;
     private ActivityCustomerBinding binding;
-    private ActivityResultLauncher<Intent> imagePickerLauncher;
     private ArrayAdapter<String> adapter;
-    private ImageView ivPhoto;
-    private byte[] imageData;
     private Customer customer, modifiedCustomer;
     private boolean isNew = false;
     private boolean isCreating = true;
+    SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,7 +80,7 @@ public class CustomerActivity extends AppCompatActivity {
 
             // Устанавливаем ширину и высоту (50% ширины и 30% высоты экрана)
             layoutParams.width = (int) (getScreenWidth() * 0.9);
-            layoutParams.height = (int) (getScreenHeight() * 0.8);
+            layoutParams.height = (int) (getScreenHeight() * 0.9);
 
             window.setAttributes(layoutParams);
         }
@@ -153,8 +143,8 @@ public class CustomerActivity extends AppCompatActivity {
         binding.etFirstNameC.setText(modifiedCustomer.first_name);
         binding.etLastNameC.setText(modifiedCustomer.last_name);
         binding.etPhoneC.setText(modifiedCustomer.phone);
-        if (modifiedCustomer.age != 0){
-            binding.etAgeC.setText(Integer.toString(modifiedCustomer.age));
+        if (modifiedCustomer.birthDate != 0) {
+            binding.tvBirthDateC.setText(dateFormat.format(new Date(modifiedCustomer.birthDate)));
         }
 
         int position = adapter.getPosition(modifiedCustomer.sex);
@@ -186,18 +176,6 @@ public class CustomerActivity extends AppCompatActivity {
 
             }
         });
-
-        imagePickerLauncher = registerForActivityResult(
-                new ActivityResultContracts.StartActivityForResult(),
-                result -> {
-                    if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
-                        Uri imageUri = result.getData().getData();
-                        handleImageSelection(imageUri);
-                    }
-                }
-        );
-        ivPhoto = findViewById(R.id.ivPhoto_C);
-        ivPhoto.setOnClickListener(v -> openGallery());
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -213,66 +191,46 @@ public class CustomerActivity extends AppCompatActivity {
     }
 
     private void setOnClickListenerFotETAge(){
-        binding.etAgeC.setOnEditorActionListener((v, actionId, event) -> {
-            if (actionId == EditorInfo.IME_ACTION_DONE) {
-                App.hideKeyboardAndClearFocus(this);
-                return true;
-            }
-            return false;
-        });
-
-        binding.etAgeC.setOnFocusChangeListener((v, hasFocus) -> {
-            if (hasFocus) {
-                if (binding.etAgeC.getText().toString().equals("")) {
-                    binding.etAgeC.setText("0");
-
-                    // 1. Закрываем клавиатуру
-                    new Handler(Looper.getMainLooper()).postDelayed(() -> {
-                        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                        imm.showSoftInput(binding.etAgeC, 0);
-                    }, 100);
-                }
-                binding.etAgeC.post(() -> binding.etAgeC.selectAll());
-            } else {
-                if (binding.etAgeC.getText().toString().equals("0")) {
-                    binding.etAgeC.setText("");
-                }
-            }
+        binding.tvBirthDateC.setOnClickListener(v -> {
+            App.hideKeyboardAndClearFocus(this);
+            showDatePicker();
         });
     }
 
-    private void openGallery() {
-        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        imagePickerLauncher.launch(intent);
-    }
+    private void showDatePicker() {
+        Calendar calendar;
+        AtomicInteger selectedYear = new AtomicInteger();
+        AtomicInteger selectedMonth = new AtomicInteger();
+        AtomicInteger selectedDay = new AtomicInteger();
 
-    // Метод для обработки выбранного изображения
-    private void handleImageSelection(Uri imageUri) {
-        try {
-            Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
-            ivPhoto.setImageBitmap(bitmap);
-            imageData = convertBitmapToByteArray(bitmap); // Конвертируем в byte[]
-        } catch (IOException e) {
-            e.printStackTrace();
+        // Если уже есть дата, парсим её, иначе используем текущую
+        if (modifiedCustomer.birthDate == 0) {
+            calendar = Calendar.getInstance();
+        } else {
+            Date birthDate = new Date(modifiedCustomer.birthDate);
+            calendar = DateTime.getCalendar(birthDate);
         }
-    }
+        selectedYear.set(calendar.get(Calendar.YEAR));
+        selectedMonth.set(calendar.get(Calendar.MONTH));
+        selectedDay.set(calendar.get(Calendar.DAY_OF_MONTH));
 
-    // Метод для конвертации Bitmap в byte[]
-    private byte[] convertBitmapToByteArray(Bitmap bitmap) {
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-        return stream.toByteArray();
+        // Открываем DatePickerDialog
+        DatePickerDialog datePickerDialog = new DatePickerDialog(
+                this, (view, year, month, dayOfMonth) -> {
+
+            String formattedDate = dateFormat.format(DateTime.getDate(year, month, dayOfMonth));
+            binding.tvBirthDateC.setText(formattedDate);
+            Date currDay = DateTime.getStartDay(year, month, dayOfMonth);
+            modifiedCustomer.birthDate = currDay.getTime();
+        }, selectedYear.get(), selectedMonth.get(), selectedDay.get());
+
+        datePickerDialog.show();
     }
 
     private void fillCustomerValues(){
         modifiedCustomer.first_name = binding.etFirstNameC.getText().toString();
         modifiedCustomer.last_name = binding.etLastNameC.getText().toString();
         modifiedCustomer.phone = binding.etPhoneC.getText().toString();
-
-        String text = binding.etAgeC.getText().toString();
-        if (!text.isEmpty()){
-            modifiedCustomer.age = Integer.parseInt(text);
-        }
     }
 
     private void beforeFinishActivity(boolean isClosing){
@@ -339,5 +297,11 @@ public class CustomerActivity extends AppCompatActivity {
     private void DeleteCustomer(){
         customerViewModel.deleteCustomer(customer);
         finish();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        binding = null;
     }
 }
