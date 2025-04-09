@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel;
 
 import com.arty.busy.App;
 import com.arty.busy.database.BusyDao;
-import com.arty.busy.models.Customer;
 import com.arty.busy.models.Service;
 
 import java.util.List;

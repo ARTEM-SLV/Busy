@@ -1,7 +1,6 @@
 package com.arty.busy.ui.customers.adapters;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -24,11 +23,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CustomersAdapter extends RecyclerView.Adapter<CustomersAdapter.CustomersViewHolder> {
-    private OnFragmentCloseListener closeListener;
-    private Context context;
-    private List<Customer> listOfCustomers, filteredList;
-    private int uid;
-    private boolean isChoice;
+    private final OnFragmentCloseListener closeListener;
+    private final Context context;
+    private final List<Customer> listOfCustomers;
+    private final List<Customer> filteredList;
+    private final int uid;
+    private final boolean isChoice;
     private LinearLayout mainLayoutBefore;
 
     public CustomersAdapter(Context context, int uid, boolean isChoice, OnFragmentCloseListener closeListener) {

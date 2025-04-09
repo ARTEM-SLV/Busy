@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
-import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -47,11 +46,6 @@ public class ServiceActivity extends AppCompatActivity {
 
         setWindowParam();
 
-//        Service service = getIntent().getParcelableExtra("service");
-//        if (service != null){
-//            setData(service);
-//        }
-
         textWatcher = new App.MoneyTextWatcher(binding.etPriceS);
         setData();
         setView();
@@ -61,9 +55,6 @@ public class ServiceActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
-//        setData();
-//        setView();
 
         if (isCreating){
             isCreating = false;

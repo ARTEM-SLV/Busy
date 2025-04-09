@@ -13,7 +13,6 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.arty.busy.databinding.FragmentCustomersBinding;
 import com.arty.busy.databinding.FragmentSettingsBinding;
 import com.arty.busy.models.Task;
 

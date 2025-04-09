@@ -1,32 +1,23 @@
 package com.arty.busy.ui.home.tasks;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.arty.busy.ActivityForFragments;
 import com.arty.busy.R;
 import com.arty.busy.consts.Constants;
 import com.arty.busy.consts.Settings;
-import com.arty.busy.databinding.ActivityServiceBinding;
 import com.arty.busy.databinding.ActivityTasksToDayBinding;
-import com.arty.busy.databinding.FragmentTasksToDayBinding;
 import com.arty.busy.date.DateTime;
 import com.arty.busy.date.Time;
 import com.arty.busy.ui.home.items.ItemTaskInfo;
@@ -41,9 +32,7 @@ import java.util.Locale;
 
 public class TasksToDayActivity extends AppCompatActivity {
     private ActivityTasksToDayBinding binding;
-//    private Context context;
     private HomeViewModel homeViewModel;
-//    private View root;
     List<ItemTaskInfo> taskInfoList;
     private long currDate;
     private int scrollY;

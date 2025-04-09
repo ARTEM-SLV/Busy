@@ -1,11 +1,9 @@
 package com.arty.busy.ui.home.adapters;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,15 +13,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.arty.busy.consts.Constants;
 import com.arty.busy.R;
 import com.arty.busy.databinding.ItemListOfDaysBinding;
 import com.arty.busy.date.DateTime;
-import com.arty.busy.ui.customers.activity.CustomerActivity;
 import com.arty.busy.ui.home.items.ItemListOfDays;
 import com.arty.busy.ui.home.tasks.TasksToDayActivity;
 
@@ -70,12 +65,6 @@ public class ListOfDaysAdapter extends RecyclerView.Adapter<ListOfDaysAdapter.Vi
             Intent intent = new Intent(context, TasksToDayActivity.class);
             intent.putExtra(Constants.KEY_DATE, dateSelectedElement.getTime());
             context.startActivity(intent);
-
-//            Bundle bundle = new Bundle();
-//            bundle.putLong(Constants.KEY_DATE, dateSelectedElement.getTime());
-//            // Используем контекст для получения NavController
-//            NavController navController = Navigation.findNavController((Activity) context, R.id.nav_host_fragment_activity_main);
-//            navController.navigate(R.id.navigation_tasks_to_day, bundle);
         });
     }
 
@@ -228,19 +217,13 @@ public class ListOfDaysAdapter extends RecyclerView.Adapter<ListOfDaysAdapter.Vi
 
     public void addNewDataOnTop(List<ItemListOfDays> listOfDays) {
         listOfDaysArr.addAll(0, listOfDays);
-        notifyItemRangeInserted(0, listOfDays.size()); //notifyDataSetChanged();
+        notifyItemRangeInserted(0, listOfDays.size());
     }
 
     public void addNewDataOnBot(List<ItemListOfDays> listOfDays) {
         int startPos = listOfDaysArr.size();
         listOfDaysArr.addAll(listOfDaysArr.size(), listOfDays);
-        notifyItemRangeInserted(startPos, listOfDays.size()); //notifyDataSetChanged();
-    }
-
-    public void removeElement(int pos){
-        listOfDaysArr.remove(pos);
-        notifyItemRangeChanged(0, listOfDaysArr.size());
-        notifyItemRemoved(pos);
+        notifyItemRangeInserted(startPos, listOfDays.size());
     }
 
     public Date getSelectedDate(){

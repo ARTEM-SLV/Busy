@@ -24,11 +24,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ServicesAdapter extends RecyclerView.Adapter<ServicesAdapter.ServicesViewHolder> {
-    private OnFragmentCloseListener closeListener;
+    private final OnFragmentCloseListener closeListener;
     protected Context context;
     protected List<Service> listOfServices, filteredList;
     protected int uid;
-    private boolean isChoice;
+    private final boolean isChoice;
     private LinearLayout mainLayoutBefore;
 
     public ServicesAdapter(Context context, int uid, boolean isChoice, OnFragmentCloseListener closeListener) {

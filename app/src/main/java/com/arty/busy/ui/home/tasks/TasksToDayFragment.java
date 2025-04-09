@@ -38,7 +38,6 @@ public class TasksToDayFragment extends Fragment {
     private FragmentTasksToDayBinding binding;
     private Context context;
     private HomeViewModel homeViewModel;
-    private View root;
     List<ItemTaskInfo> taskInfoList;
     private long currDate;
     private int scrollY;
@@ -59,8 +58,8 @@ public class TasksToDayFragment extends Fragment {
                 new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory()).get(HomeViewModel.class);
 
         binding = FragmentTasksToDayBinding.inflate(inflater, container, false);
-        root = binding.getRoot();
-        context = getContext();
+        View root = binding.getRoot();
+        context = root.getContext();
 
         binding.btnBackTTD.setOnClickListener(v -> requireActivity().getOnBackPressedDispatcher().onBackPressed());
 

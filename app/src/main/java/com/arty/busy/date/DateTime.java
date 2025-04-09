@@ -199,12 +199,8 @@ public class DateTime {
     }
 
     public static void addDay(Date currDate, int countDays){
-        currDate = new Date(currDate.getTime() + 86400000*countDays);
+        currDate = new Date(currDate.getTime() + 86400000L *countDays);
     }
-
-//    public static Time parseIntToTime(){
-//
-//    }
 
     public static Time parseStringToTime(String timeS){
         Time time = new Time();

@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -40,12 +39,6 @@ public class HomeFragment extends Fragment {
         listOfDays = binding.homeListOfDays;
         listOfDays.setLayoutManager(linearLayoutManager);
         listOfDays.setAdapter(listOfDaysAdapter);
-//        getItemTouchHelper().attachToRecyclerView(listOfDays);
-
-//        Date d = listOfDaysAdapter.getSelectedDate();
-//        homeViewModel.getListOfDays(d).observe(getViewLifecycleOwner(), listOfDaysAdapter::loadData);
-//
-//        addOnScrollListenerRecyclerView(linearLayoutManager);
 
         return root;
     }
@@ -98,19 +91,5 @@ public class HomeFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
-    }
-
-    private ItemTouchHelper getItemTouchHelper() {
-        return new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
-            @Override
-            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-                return false;
-            }
-
-            @Override
-            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                listOfDaysAdapter.removeElement(viewHolder.getAdapterPosition());
-            }
-        });
     }
 }

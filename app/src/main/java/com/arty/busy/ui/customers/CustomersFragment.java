@@ -78,22 +78,6 @@ public class CustomersFragment extends Fragment implements OnFragmentCloseListen
     public void onResume() {
         super.onResume();
 
-//        Context context = getContext();
-//
-//        Bundle arguments = getArguments();
-//        int uid = -1;
-//        boolean isChoice = false;
-//        if (arguments != null){
-//            uid = arguments.getInt(Constants.ID_CUSTOMER, -1);
-//            isChoice = arguments.getBoolean("isChoice");
-//        }
-
-//        CustomersAdapter customersAdapter = new CustomersAdapter(context, uid, isChoice, this);
-//        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context, RecyclerView.VERTICAL, false);
-//        final RecyclerView listOfCustomers = binding.customersListC;
-//        listOfCustomers.setLayoutManager(linearLayoutManager);
-//        listOfCustomers.setAdapter(customersAdapter);
-
         customersViewModel.getListOfCustomers().observe(getViewLifecycleOwner(), customersAdapter::updateListOfCustomers);
         customersAdapter.filter("");
 
@@ -102,40 +86,6 @@ public class CustomersFragment extends Fragment implements OnFragmentCloseListen
         } else {
             binding.tvEmptyC.setVisibility(View.GONE);
         }
-
-//        if (isChoice) {
-//            binding.fabAddC.setImageResource(R.drawable.ic_back_24);
-//            binding.fabAddC.setOnClickListener(v -> {
-//                App.hideKeyboardAndClearFocus(requireActivity());
-//                requireActivity().getOnBackPressedDispatcher().onBackPressed();
-//            });
-//        } else {
-//            binding.fabAddC.setImageResource(R.drawable.ic_add_24);
-//            binding.fabAddC.setOnClickListener(v -> {
-//                App.hideKeyboardAndClearFocus(requireActivity());
-//                Intent intent = new Intent(context, CustomerActivity.class);
-//                if (context != null) {
-//                    context.startActivity(intent);
-//                }
-//            });
-//        }
-//        if (isChoice){
-//            binding.btnBackC.setOnClickListener(v -> requireActivity().getOnBackPressedDispatcher().onBackPressed());
-//            binding.btnBackC.setVisibility(View.VISIBLE);
-//        } else {
-//            binding.btnBackC.setVisibility(View.GONE);
-//        }
-//
-//        binding.fabAddC.setOnClickListener(v -> {
-//            App.hideKeyboardAndClearFocus(requireActivity());
-//            Intent intent = new Intent(context, CustomerActivity.class);
-//            if (context != null) {
-//                context.startActivity(intent);
-//            }
-//        });
-//
-//        setOnTouchListenerForCustomersList();
-//        setTextChangedListenerFotSearch(customersAdapter);
     }
 
     @SuppressLint("ClickableViewAccessibility")
