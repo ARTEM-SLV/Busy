@@ -5,6 +5,7 @@ import android.util.Log;
 import androidx.lifecycle.ViewModel;
 
 import com.arty.busy.App;
+import com.arty.busy.R;
 import com.arty.busy.database.BusyDao;
 import com.arty.busy.models.Customer;
 import com.arty.busy.models.Service;
@@ -44,11 +45,23 @@ public class TaskViewModel extends ViewModel {
     }
 
     public Service getService(int uid){
-        return busyDao.getServiceByID(uid);
+        Service service = busyDao.getServiceByID(uid);
+        if (service == null) {
+            service = new Service();
+            service.title = "<" + uid + ">" + App.getInstance().getString(R.string.w_object_not_found_in_database);
+        }
+
+        return service;
     }
 
     public Customer getCustomer(int uid){
-        return busyDao.getCustomerByID(uid);
+        Customer customer = busyDao.getCustomerByID(uid);
+        if (customer == null){
+            customer = new Customer();
+            customer.first_name = "<" + uid + ">" + App.getInstance().getString(R.string.w_object_not_found_in_database);
+        }
+
+        return customer;
     }
 
     public void insertTask(Task task){

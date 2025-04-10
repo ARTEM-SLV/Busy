@@ -22,6 +22,8 @@ import com.arty.busy.consts.Constants;
 import com.arty.busy.consts.Settings;
 import com.arty.busy.database.AppDatabase;
 import com.arty.busy.database.BusyDao;
+import com.arty.busy.models.Customer;
+import com.arty.busy.models.Service;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.text.DecimalFormatSymbols;

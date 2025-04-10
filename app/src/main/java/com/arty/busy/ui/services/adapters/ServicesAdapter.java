@@ -126,6 +126,8 @@ public class ServicesAdapter extends RecyclerView.Adapter<ServicesAdapter.Servic
         if (oldSize == 0) {
             // Если список был пуст, добавляем все новые элементы
             notifyItemRangeInserted(0, listOfServices.size());
+        } else if (oldSize > listOfServices.size()) {
+            notifyItemRemoved(oldSize);
         } else {
             // Если данные обновились, просто обновляем весь диапазон
             notifyItemRangeChanged(0, listOfServices.size());

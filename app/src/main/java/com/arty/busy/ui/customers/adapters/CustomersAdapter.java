@@ -122,6 +122,8 @@ public class CustomersAdapter extends RecyclerView.Adapter<CustomersAdapter.Cust
         if (oldSize == 0) {
             // Если список был пуст, добавляем все новые элементы
             notifyItemRangeInserted(0, listOfCustomers.size());
+        } else if (oldSize > listOfCustomers.size()) {
+            notifyItemRemoved(oldSize);
         } else {
             // Если данные обновились, просто обновляем весь диапазон
             notifyItemRangeChanged(0, listOfCustomers.size());
