@@ -92,17 +92,18 @@ public class ListOfDaysAdapter extends RecyclerView.Adapter<ListOfDaysAdapter.Vi
 
             int total = listTitlesService.size();
             if (total == 0 ){
-                Drawable drawableFree = AppCompatResources.getDrawable(context, R.drawable.free);
-                binding.containerRightLOD.setForeground(drawableFree);
-            } else binding.containerRightLOD.setForeground(null);
+//                Drawable drawableFree = AppCompatResources.getDrawable(context, R.drawable.free);
+//                binding.containerRightLOD.setForeground(drawableFree);
+                binding.containerMainLOD.setBackgroundResource(R.drawable.style_radial_green);
+            } else binding.containerMainLOD.setBackgroundResource(R.drawable.style_radial_yellow);//binding.containerRightLOD.setForeground(null);
 
             cleanTvTask();
 
-            if (total == 10){
-                binding.containerMainLOD.setBackgroundResource(R.drawable.style_radial_yellow);
-            } else if (total > 10){
-                binding.containerMainLOD.setBackgroundResource(R.drawable.style_radial_red);
-            } else binding.containerMainLOD.setBackgroundResource(R.drawable.style_radial_green);
+//            if (total == 10){
+//                binding.containerMainLOD.setBackgroundResource(R.drawable.style_radial_yellow);
+//            } else if (total > 10){
+//                binding.containerMainLOD.setBackgroundResource(R.drawable.style_radial_red);
+//            } else binding.containerMainLOD.setBackgroundResource(R.drawable.style_radial_green);
 
             if (currentDate.equals(itemTaskList.getDate())){
                 binding.mainLayoutLOD.setBackgroundResource(R.drawable.style_radial_dark_blue_transparent);

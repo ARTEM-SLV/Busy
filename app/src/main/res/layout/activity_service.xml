@@ -82,6 +82,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginEnd="8dp"
                 android:layout_weight="2"
+                android:autofillHints="@string/cd_short_title"
                 android:background="@drawable/style_stroke_dark_slate_gray"
                 android:gravity="center|center_vertical"
                 android:hint="@string/cd_short_title"
@@ -90,24 +91,24 @@
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
                 android:textColor="@color/DarkSlateGray"
-                android:textColorHint="@color/DarkSlateGray" />
+                android:textColorHint="@color/DarkSlateGray_50" />
 
             <EditText
                 android:id="@+id/etTitle_S"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="8"
+                android:autofillHints="@string/cd_short_title"
                 android:background="@drawable/style_stroke_dark_slate_gray"
                 android:gravity="start|center_vertical"
-                android:hint="@string/title_services"
+                android:hint="@string/name"
                 android:imeOptions="actionDone"
                 android:inputType="text"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
                 android:textColor="@color/DarkSlateGray"
-                android:textColorHint="@color/DarkSlateGray"
-                android:textSize="20sp"
-                tools:ignore="UseCompatTextViewDrawableXml" />
+                android:textColorHint="@color/DarkSlateGray_50"
+                android:textSize="20sp" />
         </LinearLayout>
 
         <EditText
@@ -119,7 +120,7 @@
             android:layout_marginEnd="8dp"
             android:background="@drawable/style_stroke_dark_slate_gray"
             android:gravity="top"
-            android:hint="@string/title_description"
+            android:hint="@string/description"
             android:inputType="textMultiLine"
             android:lines="3"
             android:minHeight="24dp"
@@ -128,11 +129,12 @@
             android:paddingEnd="10dp"
             android:scrollbars="vertical"
             android:textColor="@color/DarkSlateGray"
-            android:textColorHint="@color/DarkSlateGray"
+            android:textColorHint="@color/DarkSlateGray_50"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/LayoutTitle_S" />
+            app:layout_constraintTop_toBottomOf="@+id/LayoutTitle_S"
+            android:autofillHints="@string/description" />
 
         <LinearLayout
             android:id="@+id/layoutDuration_S"
@@ -142,10 +144,12 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:background="@drawable/style_stroke_dark_slate_gray"
+            android:importantForAccessibility="no"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etDescription_S">
+            app:layout_constraintTop_toBottomOf="@+id/etDescription_S"
+            tools:ignore="TextSizeCheck">
 
             <TextView
                 android:id="@+id/tvDuration_S"
@@ -164,15 +168,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:autofillHints=""
                 android:background="@android:color/transparent"
                 android:focusable="false"
                 android:fontFamily="casual"
                 android:gravity="center|end"
+                android:hint="@string/duration"
                 android:imeOptions="actionDone"
                 android:inputType="time"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
                 android:textColor="@color/DarkSlateGray"
+                android:textColorHint="@color/DarkSlateGray_50"
                 android:textSize="24sp"
                 tools:text="01:30" />
         </LinearLayout>
@@ -185,10 +192,12 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:background="@drawable/style_stroke_dark_slate_gray"
+            android:importantForAccessibility="no"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layoutDuration_S">
+            app:layout_constraintTop_toBottomOf="@+id/layoutDuration_S"
+            tools:ignore="TextSizeCheck">
 
             <TextView
                 android:id="@+id/tvPrice_S"
@@ -220,6 +229,7 @@
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
                 android:textColor="@color/DarkSlateGray"
+                android:textColorHint="@color/DarkSlateGray_50"
                 android:textSize="30sp"
                 tools:text="1550" />
         </LinearLayout>
@@ -236,7 +246,8 @@
             android:scaleType="fitXY"
             android:src="@android:drawable/ic_menu_delete"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:ignore="ImageContrastCheck" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

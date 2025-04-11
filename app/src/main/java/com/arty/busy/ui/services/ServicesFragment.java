@@ -54,11 +54,15 @@ public class ServicesFragment extends Fragment implements OnFragmentCloseListene
         listOfServices.setAdapter(servicesAdapter);
 
         if (isChoice){
-            binding.btnBackS.setOnClickListener(v -> requireActivity().getOnBackPressedDispatcher().onBackPressed());
+            binding.btnBackS.setOnClickListener(v -> requireActivity().getSupportFragmentManager().popBackStack());
             binding.btnBackS.setVisibility(View.VISIBLE);
         } else {
-            binding.btnBackS.setVisibility(View.GONE);
+            binding.btnBackS.setVisibility(View.INVISIBLE);
         }
+        
+        binding.btnAddS.setOnClickListener(v -> {
+            // TODO: 11.04.2025  
+        });
 
         binding.fabAddS.setOnClickListener(v -> {
             App.hideKeyboardAndClearFocus(requireActivity());

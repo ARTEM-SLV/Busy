@@ -21,28 +21,35 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageButton
-            android:id="@+id/btnBack_C"
+            android:id="@+id/btnAdd_C"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="11"
-            android:background="@drawable/style_stroke_dark_slate_gray"
-            android:contentDescription="@string/cd_back"
-            android:gravity="center"
-            android:src="@drawable/ic_back_24"
-            android:visibility="gone" />
+            android:layout_weight="5"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/ic_add_24"
+            android:visibility="invisible" />
 
         <TextView
             android:id="@+id/tvHeader_C"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
+            android:layout_height="match_parent"
             android:layout_weight="2"
-            android:fontFamily="@font/margot"
-            android:gravity="bottom|end"
+            android:gravity="center"
             android:text="@string/title_customers"
             android:textColor="@color/DarkSlateGray"
-            android:textSize="30sp" />
+            android:textSize="30sp"
+            android:typeface="monospace" />
+
+        <ImageButton
+            android:id="@+id/btnBack_C"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="5"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/cd_close"
+            android:gravity="center"
+            android:src="@drawable/ic_close_24" />
 
     </LinearLayout>
 

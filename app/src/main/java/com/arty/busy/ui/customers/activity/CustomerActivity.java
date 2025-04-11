@@ -1,46 +1,29 @@
 package com.arty.busy.ui.customers.activity;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.TextView;
 
 import com.arty.busy.App;
 import com.arty.busy.R;
 import com.arty.busy.databinding.ActivityCustomerBinding;
-import com.arty.busy.date.DateTime;
-import com.arty.busy.enums.Sex;
 import com.arty.busy.models.Customer;
 import com.arty.busy.ui.customers.viewmodels.CustomerViewModel;
-
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class CustomerActivity extends AppCompatActivity {
     private CustomerViewModel customerViewModel;
     private ActivityCustomerBinding binding;
-    private ArrayAdapter<String> adapter;
     private Customer customer, modifiedCustomer;
     private boolean isNew = false;
     private boolean isCreating = true;
-    SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +38,6 @@ public class CustomerActivity extends AppCompatActivity {
 
         setWindowParam();
 
-        initSexValues();
         setOnClickListeners();
     }
 
@@ -98,31 +80,6 @@ public class CustomerActivity extends AppCompatActivity {
         return metrics.heightPixels;
     }
 
-    private void initSexValues(){
-        String[] items = {Sex.sex.name(), Sex.male.name(), Sex.female.name()};
-
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, items){
-            @Override
-            public View getView(int position, View convertView, ViewGroup parent) {
-                View view = super.getView(position, convertView, parent);
-                int color = ContextCompat.getColor(getContext(), R.color.DarkSlateGray);
-                ((TextView) view).setTextColor(color); // Цвет текста в Spinner (выбранный элемент)
-                return view;
-            }
-            @Override
-            public View getDropDownView(int position, View convertView, @NonNull ViewGroup parent) {
-                View view = super.getDropDownView(position, convertView, parent);
-                int color = ContextCompat.getColor(getContext(), R.color.DarkSlateGray);
-                ((TextView) view).setTextColor(color); // Цвет текста в выпадающем списке
-                return view;
-            }
-        };
-
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        binding.etSexC.setAdapter(adapter);
-    }
-
     private void setData(){
         if (isCreating){
             customer = getIntent().getParcelableExtra("customer");
@@ -143,12 +100,6 @@ public class CustomerActivity extends AppCompatActivity {
         binding.etFirstNameC.setText(modifiedCustomer.first_name);
         binding.etLastNameC.setText(modifiedCustomer.last_name);
         binding.etPhoneC.setText(modifiedCustomer.phone);
-        if (modifiedCustomer.birthDate != 0) {
-            binding.tvBirthDateC.setText(dateFormat.format(new Date(modifiedCustomer.birthDate)));
-        }
-
-        int position = adapter.getPosition(modifiedCustomer.sex);
-        binding.etSexC.setSelection(position);
 
         if (isNew) {
             binding.layoutPhotoC.setVisibility(View.INVISIBLE);
@@ -162,20 +113,6 @@ public class CustomerActivity extends AppCompatActivity {
         binding.btnDeleteTaskC.setOnClickListener(v -> showDialogDeleteCustomer());
 
         setOnTouchListenerForRoot();
-        setOnClickListenerFotETAge();
-
-        binding.etSexC.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                modifiedCustomer.sex = parent.getItemAtPosition(position).toString();
-                binding.etSexC.setSelection(position);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -188,43 +125,6 @@ public class CustomerActivity extends AppCompatActivity {
             }
             return false;
         } );
-    }
-
-    private void setOnClickListenerFotETAge(){
-        binding.tvBirthDateC.setOnClickListener(v -> {
-            App.hideKeyboardAndClearFocus(this);
-            showDatePicker();
-        });
-    }
-
-    private void showDatePicker() {
-        Calendar calendar;
-        AtomicInteger selectedYear = new AtomicInteger();
-        AtomicInteger selectedMonth = new AtomicInteger();
-        AtomicInteger selectedDay = new AtomicInteger();
-
-        // Если уже есть дата, парсим её, иначе используем текущую
-        if (modifiedCustomer.birthDate == 0) {
-            calendar = Calendar.getInstance();
-        } else {
-            Date birthDate = new Date(modifiedCustomer.birthDate);
-            calendar = DateTime.getCalendar(birthDate);
-        }
-        selectedYear.set(calendar.get(Calendar.YEAR));
-        selectedMonth.set(calendar.get(Calendar.MONTH));
-        selectedDay.set(calendar.get(Calendar.DAY_OF_MONTH));
-
-        // Открываем DatePickerDialog
-        DatePickerDialog datePickerDialog = new DatePickerDialog(
-                this, (view, year, month, dayOfMonth) -> {
-
-            String formattedDate = dateFormat.format(DateTime.getDate(year, month, dayOfMonth));
-            binding.tvBirthDateC.setText(formattedDate);
-            Date currDay = DateTime.getStartDay(year, month, dayOfMonth);
-            modifiedCustomer.birthDate = currDay.getTime();
-        }, selectedYear.get(), selectedMonth.get(), selectedDay.get());
-
-        datePickerDialog.show();
     }
 
     private void fillCustomerValues(){

@@ -1,6 +1,5 @@
 package com.arty.busy.ui.home.tasks;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -22,10 +21,10 @@ import com.arty.busy.date.DateTime;
 import com.arty.busy.date.Time;
 import com.arty.busy.ui.home.items.ItemTaskInfo;
 import com.arty.busy.ui.home.viewmodels.HomeViewModel;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -35,10 +34,10 @@ public class TasksToDayActivity extends AppCompatActivity {
     private HomeViewModel homeViewModel;
     List<ItemTaskInfo> taskInfoList;
     private long currDate;
-    private int scrollY;
-
     private int posStart;
-    private int posY;
+    private final List<Integer> posOfTasks = new ArrayList<>();
+    private boolean onGlobalLayoutListenerAdded = false;
+    private boolean toScroll = true;
     private Time currTime;
 
     @Override
@@ -52,16 +51,14 @@ public class TasksToDayActivity extends AppCompatActivity {
         binding = ActivityTasksToDayBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        binding.btnBackTTD.setOnClickListener(v -> getOnBackPressedDispatcher().onBackPressed());
-
         init();
+        setValues();
     }
 
     @Override
     public void onResume() {
         super.onResume();
 
-//        init();
         setData();
         fillTasksData();
     }
@@ -69,34 +66,46 @@ public class TasksToDayActivity extends AppCompatActivity {
     private void init(){
         ScrollView scrollView = binding.scrollTTD;
 
-        if (scrollY > 0){
-            scrollView.post(() -> scrollView.scrollTo(0, scrollY));
-        } else {
-            scrollView.post(() -> scrollView.scrollTo(0, posStart));
-        }
-        scrollView.getViewTreeObserver().addOnScrollChangedListener(() -> posY = scrollView.getScrollY());
-
         DateFormat df = new SimpleDateFormat("EEEE dd MMM.", Locale.getDefault());
-        Bundle arguments = getIntent().getExtras(); //getArguments();
+        Bundle arguments = getIntent().getExtras();
         if (arguments != null) {
             currDate = arguments.getLong(Constants.KEY_DATE);
             if (currDate != 0) {
                 binding.tvDateTTD.setText(df.format(currDate));
             }
         }
-        binding.tvDateTTD.setOnClickListener(v -> scrollView.smoothScrollBy(0, posStart - posY));
+        binding.tvDateTTD.setOnClickListener(v -> scrollView.smoothScrollBy(0, posStart - scrollView.getScrollY()));
 
-        FloatingActionButton btnAdd = binding.fabAddTTD;
-        btnAdd.setOnClickListener(v -> {
-            openTask(-1, "00:00");
-            scrollY = binding.scrollTTD.getScrollY(); // Текущая прокрутка ScrollView
+        binding.btnBackTTD.setOnClickListener(v -> finish());
+        binding.btnAddTTD.setOnClickListener(v -> openTask(-1, "00:00"));
+
+        binding.fabUpTTD.setOnClickListener(v -> {
+            int currPos = scrollView.getScrollY();
+            int limit = posOfTasks.size() - 1;
+            for (int i = limit; i >= 0; i--) {
+                int pos = posOfTasks.get(i);
+                if (pos < currPos) {
+                    scrollView.smoothScrollBy(0, pos - currPos);
+                    return;
+                }
+            }
         });
+        binding.fabDownTTD.setOnClickListener(v -> {
+            int currPos = scrollView.getScrollY();
+            for (int pos: posOfTasks) {
+                if (pos > currPos) {
+                    scrollView.smoothScrollBy(0, pos - currPos);
+                    return;
+                }
+            }
+        });
+    }
 
+    private void setValues(){
         Time time = new Time();
         byte m = 0;
         for (byte h = 0; h < 24; h++) {
-//            lineID = this.getResources().getIdentifier("hour" + (h) + "_TTD", "id", context.getPackageName());
-            LinearLayout linerHoursCommon = getLayoutHoursCommon(h); //root.findViewById(lineID);
+            LinearLayout linerHoursCommon = getLayoutHoursCommon(h);
 
             if (linerHoursCommon != null) {
                 if (h == Settings.TIME_BEGINNING)
@@ -110,33 +119,22 @@ public class TasksToDayActivity extends AppCompatActivity {
             if (linerHours != null) {
                 time.setTime(h, m);
                 String sTime = time.getTime();
-                linerHours.setOnClickListener(v -> {
-                    openTask(-1, sTime);
-                    scrollY = binding.scrollTTD.getScrollY();
-                });
+                linerHours.setOnClickListener(v -> openTask(-1, sTime));
             }
 
             LinearLayout linerHoursHalf = getLayoutHoursHalf(h);
             if (linerHoursHalf != null) {
                 time.addTime(30);
                 String sTime = time.getTime();
-                linerHoursHalf.setOnClickListener(v -> {
-                    openTask(-1, sTime);
-                    scrollY = binding.scrollTTD.getScrollY();
-                });
+                linerHoursHalf.setOnClickListener(v -> openTask(-1, sTime));
             }
         }
     }
 
     private void setData(){
-        setPosStart(Settings.TIME_BEGINNING);
         setGoneAllBtnTask();
         setCurrTime();
         setListTasksToDay();
-    }
-
-    private void setPosStart(int time){
-        posStart = time*360 + time*12;
     }
 
     private void setCurrTime(){
@@ -145,9 +143,43 @@ public class TasksToDayActivity extends AppCompatActivity {
 
     private void setListTasksToDay(){
         taskInfoList = homeViewModel.getListTasksToDay(currDate);
+
+        binding.scrollTTD.getViewTreeObserver().addOnGlobalLayoutListener(() -> {
+            if (onGlobalLayoutListenerAdded) {
+                onGlobalLayoutListenerAdded = false;
+                return;
+            }
+
+            LinearLayout layoutStart = getLayoutHoursCommon(Settings.TIME_BEGINNING);
+            if (layoutStart == null) {
+                layoutStart = binding.hour8TTD;
+            }
+            posStart = layoutStart.getTop();
+
+            posOfTasks.clear();
+            for (ItemTaskInfo itemTaskInfo: taskInfoList) {
+                Time timeStart = DateTime.parseStringToTime(itemTaskInfo.getTime());
+
+                byte hour = timeStart.getHour();
+                LinearLayout linerHour = getLayoutHoursCommon(hour);
+
+                assert linerHour != null;
+                posOfTasks.add(linerHour.getTop());
+            }
+
+            if (posOfTasks.size() > 0) {
+                posStart = posOfTasks.get(0);
+            }
+
+            if (toScroll) {
+                binding.scrollTTD.scrollTo(0, posStart);
+            }
+
+            onGlobalLayoutListenerAdded = true;
+            toScroll = false;
+        });
     }
 
-    @SuppressLint("SetTextI18n")
     private void fillTasksData(){
         Time    timeStart;
         Time    timeEnd;
@@ -155,9 +187,8 @@ public class TasksToDayActivity extends AppCompatActivity {
         byte    hour;
         byte    minute;
 
-        for (int i = 0; i < taskInfoList.size(); i++) {
-            ItemTaskInfo itemTaskInfo = taskInfoList.get(i);
-
+        byte i = 0;
+        for (ItemTaskInfo itemTaskInfo: taskInfoList) {
             duration = itemTaskInfo.getDuration();
 
             String sTimeStart = itemTaskInfo.getTime();
@@ -175,7 +206,6 @@ public class TasksToDayActivity extends AppCompatActivity {
                 currResColor = getColor(R.color.DarkGreen);
             } else if (isNextTask(timeStart)){
                 currResColor = getColor(R.color.Navy);
-                setPosStart(hour);
             }
 
             if (crossedTimesOfTasks(timeStart, timeEnd, i)) {
@@ -187,11 +217,15 @@ public class TasksToDayActivity extends AppCompatActivity {
                 continue;
             }
 
-            btnTask.setOnClickListener(v -> {
-                openTask(itemTaskInfo.getId_task(), itemTaskInfo.getTime());
-                scrollY = binding.scrollTTD.getScrollY(); // Текущая прокрутка ScrollView
-            });
-            btnTask.setText(sTimeStart + " - " + sTimeEnd + "\n" + itemTaskInfo.getClient() + "\n" + itemTaskInfo.getServices());
+            btnTask.setOnClickListener(v -> openTask(itemTaskInfo.getId_task(), itemTaskInfo.getTime()));
+            String text = getString(
+                    R.string.task_button_text,
+                    sTimeStart,
+                    sTimeEnd,
+                    itemTaskInfo.getClient(),
+                    itemTaskInfo.getServices()
+            );
+            btnTask.setText(text);
             btnTask.setTextColor(currResColor);
 
             ConstraintLayout.LayoutParams btnParams = (ConstraintLayout.LayoutParams) btnTask.getLayoutParams();
@@ -200,6 +234,8 @@ public class TasksToDayActivity extends AppCompatActivity {
             btnTask.setHeight(duration*6);
 
             btnTask.setVisibility(View.VISIBLE);
+
+            i++;
         }
     }
 
@@ -351,7 +387,7 @@ public class TasksToDayActivity extends AppCompatActivity {
         return res;
     }
 
-    private boolean crossedTimesOfTasks(Time timeStart, Time timeEnd, int index){
+    private boolean crossedTimesOfTasks(Time timeStart, Time timeEnd, byte index){
         boolean res = false;
 
         if (index > 0){

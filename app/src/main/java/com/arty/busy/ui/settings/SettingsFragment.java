@@ -32,8 +32,6 @@ public class SettingsFragment extends Fragment {
         final TextView textView = binding.textSettings;
         settingsViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
 
-        setOnClickListenerTestBtn();
-
         return root;
     }
 
@@ -41,20 +39,5 @@ public class SettingsFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
-    }
-
-    private void setOnClickListenerTestBtn(){
-        Button testBtn = binding.testBtn;
-        testBtn.setOnClickListener(v -> {
-            EditText testEditText = binding.etTestTaskID;
-            String text = testEditText.getText().toString();
-            text = text.replace("", "0");
-            int uid = Integer.parseInt(text);
-
-            Task task = settingsViewModel.testGetTaskByID(uid);
-            if (task != null){
-                Log.d("Task", task.toString());
-            }
-        });
     }
 }

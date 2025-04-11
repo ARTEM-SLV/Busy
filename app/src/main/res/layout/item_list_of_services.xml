@@ -10,7 +10,7 @@
         android:id="@+id/mainLayout_LOS"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/style_frame_azure"
+        android:background="@drawable/style_underline_black"
         android:orientation="horizontal">
 
         <LinearLayout

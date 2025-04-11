@@ -54,11 +54,15 @@ public class CustomersFragment extends Fragment implements OnFragmentCloseListen
         listOfCustomers.setAdapter(customersAdapter);
 
         if (isChoice){
-            binding.btnBackC.setOnClickListener(v -> requireActivity().getOnBackPressedDispatcher().onBackPressed());
+            binding.btnBackC.setOnClickListener(v -> requireActivity().getSupportFragmentManager().popBackStack());
             binding.btnBackC.setVisibility(View.VISIBLE);
         } else {
-            binding.btnBackC.setVisibility(View.GONE);
+            binding.btnBackC.setVisibility(View.INVISIBLE);
         }
+
+        binding.btnAddC.setOnClickListener(v -> {
+            // TODO: 11.04.2025
+        });
 
         binding.fabAddC.setOnClickListener(v -> {
             App.hideKeyboardAndClearFocus(requireActivity());

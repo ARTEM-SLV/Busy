@@ -3,9 +3,8 @@
     <string name="title_home">Ежедневник</string>
     <string name="title_customers">Клиенты</string>
     <string name="title_services">Услуги</string>
-    <string name="title_count" >Подсчет</string>
+    <string name="title_reports" >Отчеты</string>
     <string name="title_settings" >Настройки</string>
-    <string name="title_description">Описание…</string>
 
     <!--    enum sex values-->
     <string name="male">Мужской</string>
@@ -17,8 +16,10 @@
     <string name="time">Время:</string>
     <string name="hour">ч.</string>
     <string name="minute">м.</string>
-    <string name="duration">Длительность</string>
-    <string name="price">Цена</string>
+    <string name="name">название</string>
+    <string name="description">описание…</string>
+    <string name="duration">время</string>
+    <string name="price">цена</string>
     <!--  titles  -->
 
     <!--   hints -->
@@ -29,6 +30,7 @@
     <string name="cd_cancel">отменить</string>
     <string name="cd_ok">принять</string>
     <string name="cd_back">назад</string>
+    <string name="cd_close">закрыть</string>
     <string name="cd_service">услуга</string>
     <string name="cd_short_title">ЗК</string>
     <string name="cd_title">заголовок</string>
@@ -52,15 +54,18 @@
     <string name="cd_yes">да</string>
     <string name="cd_no">нет</string>
     <string name="cd_search">поиск</string>
+    <string name="cd_upward">вверх</string>
+    <string name="cd_downward">вниз</string>
     <!--   content description -->
 
     <!--   texts -->
     <string name="t_empty">Записи отсутствуют</string>
+    <string name="task_button_text">%1$s - %2$s\n%3$s\n%4$s</string>
     <!--   texts -->
 
     <!--   question -->
     <string name="q_close">Данные были изменены!\nОтменить изменения?</string>
-    <string name="q_cancel">Текущая запись будет удалена!\nПродолжить?</string>
+    <string name="q_cancel">Изменения не будут сохранены!\nПродолжить?</string>
     <!--   question -->
 
     <!--   warnings -->

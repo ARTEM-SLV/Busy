@@ -26,7 +26,7 @@ public class CustomersAdapter extends RecyclerView.Adapter<CustomersAdapter.Cust
     private final OnFragmentCloseListener closeListener;
     private final Context context;
     private final List<Customer> listOfCustomers;
-    private final List<Customer> filteredList;
+    private List<Customer> filteredList;
     private final int uid;
     private final boolean isChoice;
     private LinearLayout mainLayoutBefore;
@@ -104,30 +104,24 @@ public class CustomersAdapter extends RecyclerView.Adapter<CustomersAdapter.Cust
 
     // Метод фильтрации
     public void filter(String query) {
-        int oldSize = filteredList.size();
-        filteredList.clear();
+        List<Customer> newFilteredList = new ArrayList<>();
 
         if (query.isEmpty()) {
-            filteredList.addAll(listOfCustomers);
+            newFilteredList.addAll(listOfCustomers);
         } else {
             String lowerCaseQuery = query.toLowerCase();
             for (Customer customer : listOfCustomers) {
                 if ((customer.first_name != null && customer.first_name.toLowerCase().contains(lowerCaseQuery)) ||
                         (customer.last_name != null && customer.last_name.toLowerCase().contains(lowerCaseQuery)) ||
                         (customer.phone != null && customer.phone.toLowerCase().contains(lowerCaseQuery))) {
-                    filteredList.add(customer);
+                    newFilteredList.add(customer);
                 }
             }
         }
-        if (oldSize == 0) {
-            // Если список был пуст, добавляем все новые элементы
-            notifyItemRangeInserted(0, listOfCustomers.size());
-        } else if (oldSize > listOfCustomers.size()) {
-            notifyItemRemoved(oldSize);
-        } else {
-            // Если данные обновились, просто обновляем весь диапазон
-            notifyItemRangeChanged(0, listOfCustomers.size());
-        }
+
+        // Обновляем текущий список безопасно
+        filteredList = newFilteredList;
+        notifyDataSetChanged();
     }
 
     public void updateListOfCustomers(List<Customer> newListOfCustomers){

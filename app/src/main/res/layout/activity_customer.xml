@@ -71,21 +71,14 @@
 
         <LinearLayout
             android:id="@+id/layoutPhoto_C"
-            android:layout_width="140dp"
-            android:layout_height="140dp"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
             android:layout_marginTop="16dp"
             android:background="@drawable/style_oval_cornsilk"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/layoutHead_C">
-
-            <ImageView
-                android:id="@+id/ivPhoto_C"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:visibility="gone"
-                app:srcCompat="@drawable/ic_man" />
 
             <TextView
                 android:id="@+id/tvPhoto_C"
@@ -107,6 +100,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
+            android:autofillHints="@string/cd_first_name"
             android:background="@drawable/style_stroke_dark_slate_gray"
             android:ems="10"
             android:hint="@string/cd_first_name"
@@ -116,7 +110,7 @@
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
             android:textColor="@color/DarkSlateGray"
-            android:textColorHint="@color/DarkSlateGray"
+            android:textColorHint="@color/DarkSlateGray_50"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/layoutPhoto_C" />
@@ -137,10 +131,11 @@
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
             android:textColor="@color/DarkSlateGray"
-            android:textColorHint="@color/DarkSlateGray"
+            android:textColorHint="@color/DarkSlateGray_50"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etFirstName_C" />
+            app:layout_constraintTop_toBottomOf="@+id/etFirstName_C"
+            android:autofillHints="@string/cd_last_name" />
 
         <EditText
             android:id="@+id/etPhone_C"
@@ -158,53 +153,12 @@
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
             android:textColor="@color/DarkSlateGray"
-            android:textColorHint="@color/DarkSlateGray"
+            android:textColorHint="@color/DarkSlateGray_50"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/etLastName_C"
-            tools:ignore="TextFields" />
-
-        <LinearLayout
-            android:id="@+id/layoutMidle_C"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"
-            android:background="@drawable/style_stroke_dark_slate_gray"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etPhone_C">
-
-            <TextView
-                android:id="@+id/tvBirthDate_C"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center|start"
-                android:hint="@string/cd_birth_date"
-                android:imeOptions="actionNone"
-                android:minHeight="48dp"
-                android:paddingStart="8dp"
-                android:paddingEnd="8dp"
-                android:textColor="@color/DarkSlateGray"
-                android:textColorHint="@color/DarkSlateGray"
-                android:textSize="16sp" />
-
-            <Spinner
-                android:id="@+id/etSex_C"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:contentDescription="@string/cd_sex"
-                android:hint="@string/cd_sex"
-                android:inputType="textPersonName"
-                android:minHeight="48dp"
-                android:paddingStart="8dp"
-                android:paddingEnd="8dp"
-                android:popupBackground="@drawable/style_radial_azure"
-                android:backgroundTint="@color/DarkSlateGray"/>
-        </LinearLayout>
+            tools:ignore="TextFields"
+            android:autofillHints="" />
 
         <ImageButton
             android:id="@+id/btnDeleteTask_C"

@@ -17,9 +17,9 @@
         android:title="@string/title_customers" />
 
     <item
-        android:id="@+id/navigation_count"
+        android:id="@+id/navigation_reports"
         android:icon="@drawable/ic_assessment_24"
-        android:title="@string/title_count" />
+        android:title="@string/title_reports" />
 
     <item
         android:id="@+id/navigation_settings"

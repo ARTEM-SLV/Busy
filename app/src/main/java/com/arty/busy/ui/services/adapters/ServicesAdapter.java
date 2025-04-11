@@ -1,6 +1,5 @@
 package com.arty.busy.ui.services.adapters;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,11 +16,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.arty.busy.OnFragmentCloseListener;
 import com.arty.busy.R;
 import com.arty.busy.date.Time;
+import com.arty.busy.models.Customer;
 import com.arty.busy.models.Service;
 import com.arty.busy.ui.services.activity.ServiceActivity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class ServicesAdapter extends RecyclerView.Adapter<ServicesAdapter.ServicesViewHolder> {
     private final OnFragmentCloseListener closeListener;
@@ -89,11 +90,10 @@ public class ServicesAdapter extends RecyclerView.Adapter<ServicesAdapter.Servic
             super(itemView);
         }
 
-        @SuppressLint("SetTextI18n")
         public void setData(@NonNull Service service){
             tvShortTitle.setText(service.short_title);
             tvTitle.setText(service.title);
-            tvPrice.setText(Double.toString(service.price));
+            tvPrice.setText(String.format(Locale.getDefault(), "%.2f", service.price));// Double.toString(service.price));
             tvDuration.setText(getTimeDuration(service.duration));
             if (service.uid == uid){
                 mainLayout.setForeground(ContextCompat.getDrawable(context, R.drawable.style_radial_green_transparent));
@@ -110,28 +110,22 @@ public class ServicesAdapter extends RecyclerView.Adapter<ServicesAdapter.Servic
 
     // Метод фильтрации
     public void filter(String query) {
-        int oldSize = filteredList.size();
-        filteredList.clear();
+        List<Service> newFilteredList = new ArrayList<>();
 
         if (query.isEmpty()) {
-            filteredList.addAll(listOfServices);
+            newFilteredList.addAll(listOfServices);
         } else {
             String lowerCaseQuery = query.toLowerCase();
             for (Service service : listOfServices) {
-                if (service.title != null && service.title.toLowerCase().contains(lowerCaseQuery)) {
-                    filteredList.add(service);
+                if ((service.title != null && service.title.toLowerCase().contains(lowerCaseQuery))) {
+                    newFilteredList.add(service);
                 }
             }
         }
-        if (oldSize == 0) {
-            // Если список был пуст, добавляем все новые элементы
-            notifyItemRangeInserted(0, listOfServices.size());
-        } else if (oldSize > listOfServices.size()) {
-            notifyItemRemoved(oldSize);
-        } else {
-            // Если данные обновились, просто обновляем весь диапазон
-            notifyItemRangeChanged(0, listOfServices.size());
-        }
+
+        // Обновляем текущий список безопасно
+        filteredList = newFilteredList;
+        notifyDataSetChanged();
     }
 
     public void updateListOfServices(List<Service> newListOfServices){
