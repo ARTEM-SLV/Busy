@@ -38,15 +38,14 @@ public class CustomerActivity extends AppCompatActivity {
 
         setWindowParam();
 
+        setData();
+        setView();
         setOnClickListeners();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-
-        setData();
-        setView();
 
         if (isCreating){
             isCreating = false;
@@ -100,6 +99,7 @@ public class CustomerActivity extends AppCompatActivity {
         binding.etFirstNameC.setText(modifiedCustomer.first_name);
         binding.etLastNameC.setText(modifiedCustomer.last_name);
         binding.etPhoneC.setText(modifiedCustomer.phone);
+        binding.cbNotActiveC.setChecked(modifiedCustomer.not_active);
 
         if (isNew) {
             binding.layoutPhotoC.setVisibility(View.INVISIBLE);
@@ -111,6 +111,8 @@ public class CustomerActivity extends AppCompatActivity {
         binding.btnOkC.setOnClickListener(v -> beforeFinishActivity(false));
         binding.btnCancelC.setOnClickListener(v -> beforeFinishActivity(true));
         binding.btnDeleteTaskC.setOnClickListener(v -> showDialogDeleteCustomer());
+
+        binding.cbNotActiveC.setOnCheckedChangeListener((buttonView, isChecked) -> modifiedCustomer.not_active = isChecked);
 
         setOnTouchListenerForRoot();
     }

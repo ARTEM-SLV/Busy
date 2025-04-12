@@ -87,7 +87,8 @@
                 android:gravity="center|center_vertical"
                 android:hint="@string/cd_short_title"
                 android:imeOptions="actionDone"
-                android:inputType="text"
+                android:inputType="text|textCapCharacters"
+                android:maxLength="4"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
                 android:textColor="@color/DarkSlateGray"
@@ -103,7 +104,7 @@
                 android:gravity="start|center_vertical"
                 android:hint="@string/name"
                 android:imeOptions="actionDone"
-                android:inputType="text"
+                android:inputType="text|textCapSentences"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
                 android:textColor="@color/DarkSlateGray"
@@ -118,10 +119,11 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
+            android:autofillHints="@string/description"
             android:background="@drawable/style_stroke_dark_slate_gray"
             android:gravity="top"
             android:hint="@string/description"
-            android:inputType="textMultiLine"
+            android:inputType="textMultiLine|textPersonName|textCapSentences"
             android:lines="3"
             android:minHeight="24dp"
             android:minLines="4"
@@ -133,8 +135,7 @@
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/LayoutTitle_S"
-            android:autofillHints="@string/description" />
+            app:layout_constraintTop_toBottomOf="@+id/LayoutTitle_S" />
 
         <LinearLayout
             android:id="@+id/layoutDuration_S"
@@ -248,6 +249,19 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             tools:ignore="ImageContrastCheck" />
+
+        <CheckBox
+            android:id="@+id/cbNotActive_S"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginBottom="16dp"
+            android:buttonTint="@color/DarkSlateGray"
+            android:text="@string/not_active"
+            android:textColor="@color/DarkSlateGray"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

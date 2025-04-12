@@ -262,6 +262,14 @@ public class App extends Application {
         return res;
     }
 
+    public static int dpToPx(Context context, float dp) {
+        return Math.round(dp * context.getResources().getDisplayMetrics().density);
+    }
+
+    public static int pxToDp(Context context, float px) {
+        return Math.round(px / context.getResources().getDisplayMetrics().density);
+    }
+
     public static void fillWorkdayDefault(){
         Settings.TIME_BEGINNING = 8; // 8:00
         Settings.TIME_ENDING = 20; // 20:00

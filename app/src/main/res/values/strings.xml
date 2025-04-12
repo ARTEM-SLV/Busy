@@ -29,33 +29,6 @@
     <string name="hyphen" translatable="false">-</string>
     <!--   special symbols -->
 
-    <string name="app_name">Busy</string>
-    <string name="title_home">Diary</string>
-    <string name="title_customers">Customers</string>
-    <string name="title_services">Services</string>
-    <string name="title_reports">Reports</string>
-    <string name="title_settings">Settings</string>
-
-    <!--    enum sex values-->
-    <string name="male">Male</string>
-    <string name="female">Female</string>
-
-    <!--  titles  -->
-    <string name="total">Total:</string>
-    <string name="total_with_count">Total: %d</string>
-    <string name="time">Time:</string>
-    <string name="hour">h.</string>
-    <string name="minute">m.</string>
-    <string name="name">name</string>
-    <string name="description">description…</string>
-    <string name="duration">duration</string>
-    <string name="price">price</string>
-    <!--  titles  -->
-
-    <!--   hints -->
-    <string name="set_time">set time</string>
-    <!--   hints -->
-
     <!--   content description -->
     <string name="cd_cancel">cancellation</string>
     <string name="cd_ok">to accept</string>
@@ -88,9 +61,37 @@
     <string name="cd_downward">downward</string>
     <!--   content description -->
 
+    <string name="app_name">Busy</string>
+    <string name="title_home">Diary</string>
+    <string name="title_customers">Customers</string>
+    <string name="title_services">Services</string>
+    <string name="title_reports">Reports</string>
+    <string name="title_settings">Settings</string>
+
+    <!--    enum sex values-->
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+
+    <!--  titles  -->
+    <string name="total">Total:</string>
+    <string name="total_with_count">Total: %d</string>
+    <string name="time">Time:</string>
+    <string name="hour">h.</string>
+    <string name="minute">m.</string>
+    <string name="name">name</string>
+    <string name="description">description…</string>
+    <string name="duration">duration</string>
+    <string name="price">price</string>
+    <string name="not_active">not active</string>
+    <!--  titles  -->
+
+    <!--   hints -->
+    <string name="set_time">set time</string>
+    <!--   hints -->
+
     <!--   texts -->
     <string name="t_empty">There are no records</string>
-    <string name="task_button_text">%1$s - %2$s\n%3$s\n%4$s</string>
+    <string name="t_task_button_text">%1$s - %2$s\n%3$s\n%4$s</string>
     <!--   texts -->
 
     <!--   question -->

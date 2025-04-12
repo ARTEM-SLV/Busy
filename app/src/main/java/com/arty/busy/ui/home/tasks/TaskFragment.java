@@ -22,6 +22,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.arty.busy.App;
+import com.arty.busy.OnFragmentCloseListener;
 import com.arty.busy.consts.Constants;
 import com.arty.busy.R;
 import com.arty.busy.databinding.FragmentTaskBinding;
@@ -52,13 +53,25 @@ public class TaskFragment extends Fragment {
     private Task currentTask, modifiedTask;
     private boolean isNew = false;
     private TextWatcher textWatcher;
+    private OnFragmentCloseListener closeListener;
+
+    // Фабричный метод для создания фрагмента с параметрами
+    public static TaskFragment newInstance(long date, int id, String time) {
+        TaskFragment fragment = new TaskFragment();
+        Bundle args = new Bundle();
+        args.putLong(Constants.KEY_DATE, date);
+        args.putInt(Constants.ID_TASK, id);
+        args.putString(Constants.KEY_TIME, time);
+        fragment.setArguments(args);
+
+        return fragment;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
-    @SuppressLint("ClickableViewAccessibility")
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -87,29 +100,18 @@ public class TaskFragment extends Fragment {
 
         dateFormat = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
         textWatcher = new App.MoneyTextWatcher(binding.etPriceT);
-
-        initCheckBoxDone();
-        initCheckBoxPaid();
-    }
-
-    private void initCheckBoxDone(){
-        binding.cbDoneT.setOnCheckedChangeListener((buttonView, isChecked) -> modifiedTask.done = isChecked);
-    }
-
-    private void initCheckBoxPaid(){
-        binding.cbPaidT.setOnCheckedChangeListener((buttonView, isChecked) -> modifiedTask.paid = isChecked);
     }
 
     private void setData(){
         long currDate = 0;
-        String time = "00:00";
         int idTask = -1;
+        String time = "00:00";
 
-        Bundle arguments = Objects.requireNonNull(getActivity()).getIntent().getExtras();
-        if (arguments != null){
-            currDate = arguments.getLong(Constants.KEY_DATE);
-            idTask = arguments.getInt(Constants.ID_TASK);
-            time = arguments.getString(Constants.KEY_TIME);
+        Bundle args = getArguments();
+        if (args != null) {
+            currDate = args.getLong(Constants.KEY_DATE);
+            idTask = args.getInt(Constants.ID_TASK);
+            time = args.getString(Constants.KEY_TIME);
         }
 
         currDay = new Date(currDate);
@@ -178,6 +180,9 @@ public class TaskFragment extends Fragment {
         });
 
         binding.btnCancelTaskT.setOnClickListener(v -> showDialogDeleteTask());
+
+        binding.cbDoneT.setOnCheckedChangeListener((buttonView, isChecked) -> modifiedTask.done = isChecked);
+        binding.cbPaidT.setOnCheckedChangeListener((buttonView, isChecked) -> modifiedTask.paid = isChecked);
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -210,7 +215,7 @@ public class TaskFragment extends Fragment {
                             android.R.anim.fade_in,  // Анимация при возврате назад
                             android.R.anim.fade_out  // Анимация при закрытии
                     )
-                    .replace(R.id.container_for_fragments, CustomersFragment.class, bundle)
+                    .replace(R.id.mainContainer_TTD, CustomersFragment.class, bundle)
                     .addToBackStack(null)
                     .commit();
         });
@@ -234,7 +239,7 @@ public class TaskFragment extends Fragment {
                             android.R.anim.fade_in,  // Анимация при возврате назад
                             android.R.anim.fade_out  // Анимация при закрытии
                     )
-                    .replace(R.id.container_for_fragments, ServicesFragment.class, bundle)
+                    .replace(R.id.mainContainer_TTD, ServicesFragment.class, bundle)
                     .addToBackStack(null)
                     .commit();
         });
@@ -408,11 +413,16 @@ public class TaskFragment extends Fragment {
                 new OnBackPressedCallback(true) {
                     @Override
                     public void handleOnBackPressed() {
-                        setEnabled(false); // Отключаем callback
                         beforeFinishActivity(true);
                     }
                 }
         );
+
+        try {
+            closeListener = (OnFragmentCloseListener) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context + " must implement OnFragmentCloseListener");
+        }
     }
 
     private void beforeFinishActivity(boolean isClosing){
@@ -427,7 +437,7 @@ public class TaskFragment extends Fragment {
         if (!modifiedTask.equals(currentTask)){
             showDialogCloseFragment();
         } else {
-            finishThisActivity();
+            closeWithResult(false);
         }
     }
 
@@ -436,13 +446,16 @@ public class TaskFragment extends Fragment {
             return;
         }
 
+        boolean update = true;
         if (isNew){
             taskViewModel.insertTask(modifiedTask);
         } else if (!modifiedTask.equals(currentTask)) {
             taskViewModel.updateTask(modifiedTask);
+        } else {
+            update = false;
         }
 
-        finishThisActivity();
+        closeWithResult(update);
     }
 
     private boolean checkFilling(){
@@ -478,7 +491,7 @@ public class TaskFragment extends Fragment {
     private void showDialogCloseFragment(){
         new AlertDialog.Builder(activity, R.style.AlertDialogTheme)
                 .setMessage(R.string.q_cancel)
-                .setPositiveButton(R.string.cd_yes, (dialog, which) -> finishThisActivity())
+                .setPositiveButton(R.string.cd_yes, (dialog, which) -> closeWithResult(false))
                 .setNegativeButton(R.string.cd_no, (dialog, which) -> dialog.dismiss())
                 .show();
     }
@@ -493,16 +506,22 @@ public class TaskFragment extends Fragment {
 
     private void DeleteTask(){
         taskViewModel.deleteTask(currentTask);
-        finishThisActivity();
+        closeWithResult(true);
     }
 
-    private void finishThisActivity(){
-        activity.finish();
+    private void closeWithResult(boolean update){
+        Bundle result = new Bundle();
+        result.putBoolean(Constants.KEY_UPDATE, update);
+
+        if (closeListener != null) {
+            closeListener.closeFragment(result);
+        }
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+        closeListener = null;
     }
 }

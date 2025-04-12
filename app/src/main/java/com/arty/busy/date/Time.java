@@ -5,6 +5,8 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.arty.busy.models.Customer;
+
 import java.text.DecimalFormat;
 
 public class Time {
@@ -16,6 +18,11 @@ public class Time {
     public Time() {
         this.hour = 0;
         this.minute = 0;
+    }
+
+    public Time(Time time) {
+        this.hour = time.hour;
+        this.minute = time.minute;
     }
 
     public Time(int minutes){
@@ -153,5 +160,13 @@ public class Time {
         if (minutes<0 & count>0)
             minutes = 0;
         this.addMinutes(minutes);
+    }
+
+    @Override
+    public boolean equals(Object o){
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Time that = (Time) o;
+        return hour == that.hour && minute == that.minute;
     }
 }

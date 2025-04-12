@@ -21,5 +21,6 @@ public class Constants {
     //++ keys constants
     public static final String KEY_DATE = "date";
     public static final String KEY_TIME = "time";
+    public static final String KEY_UPDATE = "update";
     //-- keys constants
 }

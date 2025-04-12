@@ -5,7 +5,6 @@
     android:id="@+id/mainContainer_T"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="5dp"
     tools:context=".ui.home.tasks.TaskFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -13,10 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
         android:background="@color/AliceBlue"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -154,12 +149,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:gravity="left|center"
+                android:gravity="start|center"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
                 android:text="@string/duration"
                 android:textColor="@color/DarkSlateGray"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:contentDescription="@string/duration" />
 
             <EditText
                 android:id="@+id/etDuration_T"
@@ -168,6 +164,7 @@
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
                 android:focusable="false"
+                android:hint="@string/duration"
                 android:fontFamily="casual"
                 android:gravity="end"
                 android:inputType="time"
@@ -175,171 +172,9 @@
                 android:paddingEnd="10dp"
                 android:textColor="@color/DarkSlateGray"
                 android:textSize="24sp"
-                tools:text="01:30" />
+                tools:text="01:30"
+                android:autofillHints="@string/duration" />
         </LinearLayout>
-
-        <TableLayout
-            android:id="@+id/tabServices_T"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:background="@drawable/style_stroke_dark_slate_gray"
-            android:padding="10dp"
-            android:shrinkColumns="*"
-            android:stretchColumns="*"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layoutDuration_T">
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:orientation="horizontal">
-
-                        <ImageButton
-                            android:id="@+id/imageButton"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:background="@android:color/transparent"
-                            android:src="@drawable/ic_add_24"
-                            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="4"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="bottom|center_horizontal"
-                            android:text="Включить"
-                            android:textColor="@color/DarkSlateGray"
-                            android:textSize="18sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="bottom|center_horizontal"
-                    android:text="Время"
-                    android:textColor="@color/DarkSlateGray"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="bottom|center_horizontal"
-                    android:text="Цена"
-                    android:textColor="@color/DarkSlateGray"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:buttonTint="@color/DarkSlateGray"
-                    android:text="Подготовка"
-                    android:textColor="@color/DarkSlateGray"
-                    tools:ignore="TouchTargetSizeCheck" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:text="20 мин"
-                    android:textColor="@color/DarkSlateGray" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:text="0 руб."
-                    android:textColor="@color/DarkSlateGray" />
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:buttonTint="@color/DarkSlateGray"
-                    android:text="Основная"
-                    android:textColor="@color/DarkSlateGray"
-                    tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:text="2 часа"
-                    android:textColor="@color/DarkSlateGray" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:text="1500 руб."
-                    android:textColor="@color/DarkSlateGray" />
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:buttonTint="@color/DarkSlateGray"
-                    android:text="Снятие"
-                    android:textColor="@color/DarkSlateGray"
-                    tools:ignore="TouchTargetSizeCheck" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:text="30 мин."
-                    android:textColor="@color/DarkSlateGray" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:text="300 руб."
-                    android:textColor="@color/DarkSlateGray" />
-            </TableRow>
-
-        </TableLayout>
 
         <LinearLayout
             android:id="@+id/layoutPrice_T"
@@ -352,14 +187,14 @@
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tabServices_T">
+            app:layout_constraintTop_toBottomOf="@+id/layoutDuration_T">
 
             <TextView
                 android:id="@+id/tvPrice_T"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="2"
-                android:gravity="center|left"
+                android:gravity="start|center"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
                 android:text="@string/price"
@@ -395,7 +230,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginBottom="8dp"
             android:buttonTint="@color/DarkSlateGray"
-            android:fontFamily="@font/margot"
+            android:fontFamily="sans-serif"
             android:minHeight="48dp"
             android:text="@string/cd_done"
             android:textColor="@color/DarkSlateGray"
@@ -410,7 +245,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginBottom="8dp"
             android:buttonTint="@color/DarkSlateGray"
-            android:fontFamily="@font/margot"
+            android:fontFamily="sans-serif"
             android:minHeight="48dp"
             android:text="@string/cd_paid"
             android:textColor="@color/DarkSlateGray"
@@ -426,7 +261,6 @@
             android:layout_marginBottom="8dp"
             android:background="@android:color/transparent"
             android:contentDescription="@string/cd_cancel_task"
-            android:onClick="onCancelTaskClick"
             android:padding="10dp"
             android:scaleType="fitXY"
             android:src="@drawable/ic_block_24"

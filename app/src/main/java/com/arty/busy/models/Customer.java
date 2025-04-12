@@ -75,6 +75,7 @@ public class Customer implements Parcelable {
         birthDate = in.readLong();
         picture = in.readString();
         not_active = in.readInt() != 0;
+        comment = in.readString();
     }
 
     public static final Creator<Customer> CREATOR = new Creator<>() {
@@ -105,7 +106,7 @@ public class Customer implements Parcelable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(uid, first_name, last_name, phone, sex, birthDate, picture, comment, not_active);
+        return Objects.hash(uid, first_name, last_name, phone, sex, birthDate, picture, not_active, comment);
     }
 
     @Override
@@ -122,14 +123,14 @@ public class Customer implements Parcelable {
         dest.writeString(sex);
         dest.writeLong(birthDate);
         dest.writeString(picture);
-        dest.writeString(comment);
         dest.writeInt(not_active ? 1 : 0);
+        dest.writeString(comment);
     }
 
     @NonNull
     @Override
     public String toString(){
-        return first_name + " " + last_name;
+        return last_name + " " + first_name;
     }
 
     public String shortTitle(){

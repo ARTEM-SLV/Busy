@@ -46,7 +46,7 @@ public class ServiceActivity extends AppCompatActivity {
 
         setWindowParam();
 
-        textWatcher = new App.MoneyTextWatcher(binding.etPriceS);
+        init();
         setData();
         setView();
         setOnClickListeners();
@@ -88,6 +88,11 @@ public class ServiceActivity extends AppCompatActivity {
         return metrics.heightPixels;
     }
 
+    private void init(){
+        textWatcher = new App.MoneyTextWatcher(binding.etPriceS);
+
+    }
+
     private void setData(){
         if (isCreating){
             service = getIntent().getParcelableExtra("service");
@@ -106,6 +111,7 @@ public class ServiceActivity extends AppCompatActivity {
         binding.etShortTitleS.setText(service.short_title);
         binding.etTitleS.setText(service.title);
         binding.etDescriptionS.setText(service.description);
+        binding.cbNotActiveS.setChecked(modifiedService.not_active);
 
         setDurationView(service.duration);
         setPriceView(modifiedService.price);
@@ -135,6 +141,8 @@ public class ServiceActivity extends AppCompatActivity {
             App.hideKeyboardAndClearFocus(this);
             showDialogDeleteService();
         });
+
+        binding.cbNotActiveS.setOnCheckedChangeListener((buttonView, isChecked) -> modifiedService.not_active = isChecked);
     }
 
     @SuppressLint("ClickableViewAccessibility")

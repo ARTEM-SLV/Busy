@@ -1,6 +1,5 @@
 package com.arty.busy.ui.home.tasks;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -12,7 +11,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.arty.busy.ActivityForFragments;
+import com.arty.busy.App;
+import com.arty.busy.OnFragmentCloseListener;
 import com.arty.busy.R;
 import com.arty.busy.consts.Constants;
 import com.arty.busy.consts.Settings;
@@ -29,7 +29,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class TasksToDayActivity extends AppCompatActivity {
+public class TasksToDayActivity extends AppCompatActivity implements OnFragmentCloseListener {
     private ActivityTasksToDayBinding binding;
     private HomeViewModel homeViewModel;
     List<ItemTaskInfo> taskInfoList;
@@ -39,6 +39,7 @@ public class TasksToDayActivity extends AppCompatActivity {
     private boolean onGlobalLayoutListenerAdded = false;
     private boolean toScroll = true;
     private Time currTime;
+    private Time nextTaskTime;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -53,12 +54,6 @@ public class TasksToDayActivity extends AppCompatActivity {
 
         init();
         setValues();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
         setData();
         fillTasksData();
     }
@@ -165,18 +160,22 @@ public class TasksToDayActivity extends AppCompatActivity {
 
                 assert linerHour != null;
                 posOfTasks.add(linerHour.getTop());
+
+                if (nextTaskTime != null && nextTaskTime.equals(timeStart)) {
+                    posStart = linerHour.getTop();
+                }
             }
 
-            if (posOfTasks.size() > 0) {
+            if (posStart == 0) {
                 posStart = posOfTasks.get(0);
             }
 
             if (toScroll) {
                 binding.scrollTTD.scrollTo(0, posStart);
+                toScroll = false;
             }
 
             onGlobalLayoutListenerAdded = true;
-            toScroll = false;
         });
     }
 
@@ -205,6 +204,7 @@ public class TasksToDayActivity extends AppCompatActivity {
             if (itemTaskInfo.isDone()){
                 currResColor = getColor(R.color.DarkGreen);
             } else if (isNextTask(timeStart)){
+                nextTaskTime = new Time(timeStart);
                 currResColor = getColor(R.color.Navy);
             }
 
@@ -219,7 +219,7 @@ public class TasksToDayActivity extends AppCompatActivity {
 
             btnTask.setOnClickListener(v -> openTask(itemTaskInfo.getId_task(), itemTaskInfo.getTime()));
             String text = getString(
-                    R.string.task_button_text,
+                    R.string.t_task_button_text,
                     sTimeStart,
                     sTimeEnd,
                     itemTaskInfo.getClient(),
@@ -228,10 +228,13 @@ public class TasksToDayActivity extends AppCompatActivity {
             btnTask.setText(text);
             btnTask.setTextColor(currResColor);
 
+            int pxMin = App.dpToPx(this, minute*2);
+            int pxDur = App.dpToPx(this, duration*2);
+
             ConstraintLayout.LayoutParams btnParams = (ConstraintLayout.LayoutParams) btnTask.getLayoutParams();
-            btnParams.setMargins(0, minute*6, 0, 0);
+            btnParams.setMargins(0, pxMin, 0, 0);
             btnTask.setLayoutParams(btnParams);
-            btnTask.setHeight(duration*6);
+            btnTask.setHeight(pxDur);
 
             btnTask.setVisibility(View.VISIBLE);
 
@@ -410,12 +413,32 @@ public class TasksToDayActivity extends AppCompatActivity {
     }
 
     private void openTask(int id_task, String time){
-        Intent intent = new Intent(this, ActivityForFragments.class);
-        intent.putExtra(Constants.KEY_DATE, currDate);
-        intent.putExtra(Constants.ID_TASK, id_task);
-        intent.putExtra(Constants.KEY_TIME, time);
+        TaskFragment fragment = TaskFragment.newInstance(currDate, id_task, time);
+        getSupportFragmentManager().beginTransaction()
+                .setReorderingAllowed(true)
+                .setCustomAnimations(
+                        android.R.anim.fade_in,  // Анимация при входе
+                        android.R.anim.fade_out,  // Анимация при выходе
+                        android.R.anim.fade_in,  // Анимация при возврате назад
+                        android.R.anim.fade_out  // Анимация при закрытии
+                )
+                .replace(R.id.mainContainer_TTD, fragment)
+                .addToBackStack(null)
+                .commit();
+    }
 
-        startActivity(intent);
+    @Override
+    public void closeFragment(Bundle result) {
+        if (result != null) {
+            boolean update = result.getBoolean(Constants.KEY_UPDATE);
+            if (update) {
+                setData();
+                fillTasksData();
+            }
+        }
+
+        // Закрываем фрагмент
+        getSupportFragmentManager().popBackStack();
     }
 
     @Override

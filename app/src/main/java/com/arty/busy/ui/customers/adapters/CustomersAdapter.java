@@ -1,6 +1,5 @@
 package com.arty.busy.ui.customers.adapters;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -88,9 +87,8 @@ public class CustomersAdapter extends RecyclerView.Adapter<CustomersAdapter.Cust
             super(itemView);
         }
 
-        @SuppressLint("SetTextI18n")
         public void setData(@NonNull Customer customer){
-            tvName.setText(customer.first_name + " " + customer.last_name);
+            tvName.setText(customer.toString());
             tvPhone.setText(customer.phone);
             if (customer.picture == null){
                 tvPicture.setText(customer.shortTitle());

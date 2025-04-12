@@ -1,31 +1,4 @@
 <resources>
-    <string name="app_name">Busy</string>
-    <string name="title_home">Ежедневник</string>
-    <string name="title_customers">Клиенты</string>
-    <string name="title_services">Услуги</string>
-    <string name="title_reports" >Отчеты</string>
-    <string name="title_settings" >Настройки</string>
-
-    <!--    enum sex values-->
-    <string name="male">Мужской</string>
-    <string name="female">Женский</string>
-
-    <!--  titles  -->
-    <string name="total">Всего</string>
-    <string name="total_with_count">Всего: %d</string>
-    <string name="time">Время:</string>
-    <string name="hour">ч.</string>
-    <string name="minute">м.</string>
-    <string name="name">название</string>
-    <string name="description">описание…</string>
-    <string name="duration">время</string>
-    <string name="price">цена</string>
-    <!--  titles  -->
-
-    <!--   hints -->
-    <string name="set_time">укажите время</string>
-    <!--   hints -->
-
     <!--   content description -->
     <string name="cd_cancel">отменить</string>
     <string name="cd_ok">принять</string>
@@ -58,9 +31,37 @@
     <string name="cd_downward">вниз</string>
     <!--   content description -->
 
+    <string name="app_name">Busy</string>
+    <string name="title_home">Ежедневник</string>
+    <string name="title_customers">Клиенты</string>
+    <string name="title_services">Услуги</string>
+    <string name="title_reports" >Отчеты</string>
+    <string name="title_settings" >Настройки</string>
+
+    <!--    enum sex values-->
+    <string name="male">Мужской</string>
+    <string name="female">Женский</string>
+
+    <!--  titles  -->
+    <string name="total">Всего</string>
+    <string name="total_with_count">Всего: %d</string>
+    <string name="time">Время:</string>
+    <string name="hour">ч.</string>
+    <string name="minute">м.</string>
+    <string name="name">название</string>
+    <string name="description">описание…</string>
+    <string name="duration">время</string>
+    <string name="price">цена</string>
+    <string name="not_active">не активный</string>
+    <!--  titles  -->
+
+    <!--   hints -->
+    <string name="set_time">укажите время</string>
+    <!--   hints -->
+
     <!--   texts -->
     <string name="t_empty">Записи отсутствуют</string>
-    <string name="task_button_text">%1$s - %2$s\n%3$s\n%4$s</string>
+    <string name="t_task_button_text">%1$s - %2$s\n%3$s\n%4$s</string>
     <!--   texts -->
 
     <!--   question -->
