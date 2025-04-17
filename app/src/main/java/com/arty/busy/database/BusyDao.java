@@ -1,5 +1,6 @@
 package com.arty.busy.database;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -63,7 +64,7 @@ public interface BusyDao {
 
     // Services
     @Query("SELECT * FROM Service")
-    List<Service> getAllServices();
+    LiveData<List<Service>> getAllServices();
 
     @Query("SELECT * FROM Service WHERE uid =:uid")
     Service getServiceByID(int uid);
@@ -82,7 +83,7 @@ public interface BusyDao {
 
     // Customers
     @Query("SELECT * FROM Customer")
-    List<Customer> getAllCustomers();
+    LiveData<List<Customer>> getAllCustomers();
 
     @Query("SELECT * FROM Customer WHERE uid =:uid")
     Customer getCustomerByID(int uid);

@@ -27,18 +27,22 @@ import com.arty.busy.ui.services.viewmodels.ServicesViewModel;
 
 public class ServicesFragment extends Fragment implements OnFragmentCloseListener {
     private FragmentServicesBinding binding;
-    private ServicesViewModel servicesViewModel;
     private ServicesAdapter servicesAdapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        servicesViewModel =
-                new ViewModelProvider(this, (ViewModelProvider.Factory) new ViewModelProvider.NewInstanceFactory()).get(ServicesViewModel.class);
+        ServicesViewModel servicesViewModel = new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory()).get(ServicesViewModel.class);
 
         binding = FragmentServicesBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-        Context context = root.getContext();
+        init(root);
+        servicesViewModel.getListOfServices().observe(getViewLifecycleOwner(), servicesAdapter::updateListOfServices);
 
+        return root;
+    }
+
+    private void init(View root){
+        Context context = root.getContext();
         Bundle arguments = getArguments();
         int uid = -1;
         boolean isChoice = false;
@@ -53,15 +57,17 @@ public class ServicesFragment extends Fragment implements OnFragmentCloseListene
         listOfServices.setLayoutManager(linearLayoutManager);
         listOfServices.setAdapter(servicesAdapter);
 
+//        servicesViewModel.getListOfServices().observe(getViewLifecycleOwner(), servicesAdapter::updateListOfServices);
+
         if (isChoice){
             binding.btnBackS.setOnClickListener(v -> requireActivity().getSupportFragmentManager().popBackStack());
             binding.btnBackS.setVisibility(View.VISIBLE);
         } else {
             binding.btnBackS.setVisibility(View.INVISIBLE);
         }
-        
+
         binding.btnAddS.setOnClickListener(v -> {
-            // TODO: 11.04.2025  
+            // TODO: 11.04.2025
         });
 
         binding.fabAddS.setOnClickListener(v -> {
@@ -74,16 +80,11 @@ public class ServicesFragment extends Fragment implements OnFragmentCloseListene
 
         setOnTouchListenerForCustomersList();
         setTextChangedListenerFotSearch(servicesAdapter);
-
-        return root;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-
-        servicesViewModel.getListOfServices().observe(getViewLifecycleOwner(), servicesAdapter::updateListOfServices);
-        servicesAdapter.filter("");
 
         if (servicesAdapter.getItemCount() == 0) {
             binding.tvEmptyS.setVisibility(View.VISIBLE);

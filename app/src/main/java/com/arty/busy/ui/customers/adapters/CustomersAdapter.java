@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.arty.busy.OnFragmentCloseListener;
@@ -21,48 +23,46 @@ import com.arty.busy.models.Customer;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CustomersAdapter extends RecyclerView.Adapter<CustomersAdapter.CustomersViewHolder> {
+public class CustomersAdapter extends ListAdapter<Customer, CustomersAdapter.CustomersViewHolder> {
     private final OnFragmentCloseListener closeListener;
     private final Context context;
     private final List<Customer> listOfCustomers;
-    private List<Customer> filteredList;
     private final int uid;
     private final boolean isChoice;
     private LinearLayout mainLayoutBefore;
+    private String lastQuery = "";
 
     public CustomersAdapter(Context context, int uid, boolean isChoice, OnFragmentCloseListener closeListener) {
+        super(DIFF_CALLBACK);
         this.context = context;
         this.uid = uid;
-        this.listOfCustomers = new ArrayList<>();
-        this.filteredList = new ArrayList<>();
         this.isChoice = isChoice;
         this.closeListener = closeListener;
+        this.listOfCustomers = new ArrayList<>();
     }
 
     @NonNull
     @Override
     public CustomersViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.item_list_of_customers, parent, false);
-
-        return new CustomersAdapter.CustomersViewHolder(view);
+        return new CustomersViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull CustomersViewHolder holder, int position) {
-        Customer customer = filteredList.get(position);
+        Customer customer = getItem(position);
         holder.setData(customer);
 
-        // Открываем DialogActivity при клике на элемент списка
         holder.itemView.setOnClickListener(v -> {
-            if (isChoice){
-                if (mainLayoutBefore != null){
+            if (isChoice) {
+                if (mainLayoutBefore != null) {
                     mainLayoutBefore.setForeground(null);
                 }
                 v.setForeground(ContextCompat.getDrawable(context, R.drawable.style_radial_green_transparent));
                 if (closeListener != null) {
                     Bundle result = new Bundle();
                     result.putParcelable("customer", customer);
-                    closeListener.closeFragment(result); // Закрываем фрагмент
+                    closeListener.closeFragment(result);
                 }
             } else {
                 Intent intent = new Intent(context, CustomerActivity.class);
@@ -72,10 +72,17 @@ public class CustomersAdapter extends RecyclerView.Adapter<CustomersAdapter.Cust
         });
     }
 
-    @Override
-    public int getItemCount() {
-        return filteredList.size();
-    }
+    static final DiffUtil.ItemCallback<Customer> DIFF_CALLBACK = new DiffUtil.ItemCallback<>() {
+        @Override
+        public boolean areItemsTheSame(@NonNull Customer oldItem, @NonNull Customer newItem) {
+            return oldItem.uid == newItem.uid;
+        }
+
+        @Override
+        public boolean areContentsTheSame(@NonNull Customer oldItem, @NonNull Customer newItem) {
+            return oldItem.equals(newItem);
+        }
+    };
 
     class CustomersViewHolder extends RecyclerView.ViewHolder {
         private final TextView tvName = itemView.findViewById(R.id.tvName_LOC);
@@ -87,21 +94,29 @@ public class CustomersAdapter extends RecyclerView.Adapter<CustomersAdapter.Cust
             super(itemView);
         }
 
-        public void setData(@NonNull Customer customer){
+        public void setData(@NonNull Customer customer) {
             tvName.setText(customer.toString());
             tvPhone.setText(customer.phone);
-            if (customer.picture == null){
+            if (customer.picture == null) {
                 tvPicture.setText(customer.shortTitle());
             }
-            if (customer.uid == uid){
+            if (customer.uid == uid) {
                 mainLayout.setForeground(ContextCompat.getDrawable(context, R.drawable.style_radial_green_transparent));
                 mainLayoutBefore = mainLayout;
-            } else mainLayout.setForeground(null);
+            } else {
+                mainLayout.setForeground(null);
+            }
         }
     }
 
-    // Метод фильтрации
+    public void updateListOfCustomers(List<Customer> newListOfCustomers) {
+        listOfCustomers.clear();
+        listOfCustomers.addAll(newListOfCustomers);
+        filter(lastQuery);
+    }
+
     public void filter(String query) {
+        lastQuery = query;
         List<Customer> newFilteredList = new ArrayList<>();
 
         if (query.isEmpty()) {
@@ -117,24 +132,6 @@ public class CustomersAdapter extends RecyclerView.Adapter<CustomersAdapter.Cust
             }
         }
 
-        // Обновляем текущий список безопасно
-        filteredList = newFilteredList;
-        notifyDataSetChanged();
-    }
-
-    public void updateListOfCustomers(List<Customer> newListOfCustomers){
-        int oldSize = listOfCustomers.size();
-
-        listOfCustomers.clear();
-        listOfCustomers.addAll(newListOfCustomers);
-
-        // Уведомляем адаптер о том, что данные изменились
-        if (oldSize == 0) {
-            // Если список был пуст, добавляем все новые элементы
-            notifyItemRangeInserted(0, listOfCustomers.size());
-        } else {
-            // Если данные обновились, просто обновляем весь диапазон
-            notifyItemRangeChanged(0, listOfCustomers.size());
-        }
+        submitList(newFilteredList);
     }
 }

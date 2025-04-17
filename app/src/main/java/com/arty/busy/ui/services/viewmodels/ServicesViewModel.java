@@ -1,7 +1,6 @@
 package com.arty.busy.ui.services.viewmodels;
 
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.arty.busy.App;
@@ -18,11 +17,6 @@ public class ServicesViewModel extends ViewModel {
     }
 
     public LiveData<List<Service>> getListOfServices() {
-        List<Service> listOfServices = busyDao.getAllServices();
-
-        MutableLiveData<List<Service>> mListOfServices = new MutableLiveData<>();
-        mListOfServices.setValue(listOfServices);
-
-        return mListOfServices;
+        return busyDao.getAllServices();
     }
 }

@@ -20,7 +20,7 @@ import com.arty.busy.databinding.ActivityTasksToDayBinding;
 import com.arty.busy.date.DateTime;
 import com.arty.busy.date.Time;
 import com.arty.busy.ui.home.items.ItemTaskInfo;
-import com.arty.busy.ui.home.viewmodels.HomeViewModel;
+import com.arty.busy.ui.home.viewmodels.TasksViewModel;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -31,7 +31,7 @@ import java.util.Locale;
 
 public class TasksToDayActivity extends AppCompatActivity implements OnFragmentCloseListener {
     private ActivityTasksToDayBinding binding;
-    private HomeViewModel homeViewModel;
+    private TasksViewModel tasksViewModel;
     List<ItemTaskInfo> taskInfoList;
     private long currDate;
     private int posStart;
@@ -46,8 +46,8 @@ public class TasksToDayActivity extends AppCompatActivity implements OnFragmentC
         super.onCreate(savedInstanceState);
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
 
-        homeViewModel =
-                new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory()).get(HomeViewModel.class);
+        tasksViewModel =
+                new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory()).get(TasksViewModel.class);
 
         binding = ActivityTasksToDayBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -137,7 +137,7 @@ public class TasksToDayActivity extends AppCompatActivity implements OnFragmentC
     }
 
     private void setListTasksToDay(){
-        taskInfoList = homeViewModel.getListTasksToDay(currDate);
+        taskInfoList = tasksViewModel.getListTasksToDay(currDate);
 
         binding.scrollTTD.getViewTreeObserver().addOnGlobalLayoutListener(() -> {
             if (onGlobalLayoutListenerAdded) {

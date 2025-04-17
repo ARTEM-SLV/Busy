@@ -19,6 +19,7 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.arty.busy.App;
@@ -44,7 +45,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class TaskFragment extends Fragment {
     private FragmentTaskBinding binding;
-    private Activity activity;
+    private FragmentActivity activity;
     private TaskViewModel taskViewModel;
     private Customer customer;
     private Service service;
@@ -68,6 +69,32 @@ public class TaskFragment extends Fragment {
     }
 
     @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+
+        if (context instanceof Activity) {
+            activity = (FragmentActivity) context;
+        } else {
+            activity = requireActivity();
+        }
+        activity.getOnBackPressedDispatcher().addCallback(
+                this,
+                new OnBackPressedCallback(true) {
+                    @Override
+                    public void handleOnBackPressed() {
+                        beforeFinishFragment(true);
+                    }
+                }
+        );
+
+        try {
+            closeListener = (OnFragmentCloseListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context + " must implement OnFragmentCloseListener");
+        }
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
@@ -79,6 +106,7 @@ public class TaskFragment extends Fragment {
                 new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory()).get(TaskViewModel.class);
 
         binding = FragmentTaskBinding.inflate(inflater, container, false);
+//        View root = binding.getRoot();
 
         init();
         setData();
@@ -87,17 +115,10 @@ public class TaskFragment extends Fragment {
 
         setDataFromFragment();
 
-        return binding.getRoot();
+        return  binding.getRoot();
     }
 
     private void init(){
-        Context context = binding.getRoot().getContext();
-        if (context instanceof Activity) {
-            activity = (Activity) context;
-        } else {
-            activity = requireActivity();
-        }
-
         dateFormat = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
         textWatcher = new App.MoneyTextWatcher(binding.etPriceT);
     }
@@ -156,12 +177,12 @@ public class TaskFragment extends Fragment {
 
         binding.btnOkT.setOnClickListener(v -> {
             App.hideKeyboardAndClearFocus(activity);
-            beforeFinishActivity(false);
+            beforeFinishFragment(false);
         });
 
         binding.btnCloseT.setOnClickListener(v -> {
             App.hideKeyboardAndClearFocus(activity);
-            beforeFinishActivity(true);
+            beforeFinishFragment(true);
         });
 
         binding.btnReschedule.setOnClickListener(v -> {
@@ -405,35 +426,15 @@ public class TaskFragment extends Fragment {
         return res;
     }
 
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-        requireActivity().getOnBackPressedDispatcher().addCallback(
-                this,
-                new OnBackPressedCallback(true) {
-                    @Override
-                    public void handleOnBackPressed() {
-                        beforeFinishActivity(true);
-                    }
-                }
-        );
-
-        try {
-            closeListener = (OnFragmentCloseListener) context;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(context + " must implement OnFragmentCloseListener");
-        }
-    }
-
-    private void beforeFinishActivity(boolean isClosing){
+    private void beforeFinishFragment(boolean isClosing){
         if (isClosing){
-            closeActivity();
+            handlerBtnClose();
         } else {
-            doneActivity();
+            handlerBtnDone();
         }
     }
 
-    private void closeActivity(){
+    private void handlerBtnClose(){
         if (!modifiedTask.equals(currentTask)){
             showDialogCloseFragment();
         } else {
@@ -441,7 +442,7 @@ public class TaskFragment extends Fragment {
         }
     }
 
-    private void doneActivity(){
+    private void handlerBtnDone(){
         if (!checkFilling()) {
             return;
         }
@@ -522,6 +523,11 @@ public class TaskFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
         closeListener = null;
     }
 }

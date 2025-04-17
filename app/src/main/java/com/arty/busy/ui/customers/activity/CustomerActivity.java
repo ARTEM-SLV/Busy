@@ -6,11 +6,9 @@ import androidx.lifecycle.ViewModelProvider;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
-import android.view.WindowManager;
 
 import com.arty.busy.App;
 import com.arty.busy.R;
@@ -36,8 +34,6 @@ public class CustomerActivity extends AppCompatActivity {
         binding = ActivityCustomerBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        setWindowParam();
-
         setData();
         setView();
         setOnClickListeners();
@@ -50,33 +46,6 @@ public class CustomerActivity extends AppCompatActivity {
         if (isCreating){
             isCreating = false;
         }
-    }
-
-    private void setWindowParam(){
-        // Получаем параметры окна
-        Window window = getWindow();
-        if (window != null) {
-            WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
-            layoutParams.copyFrom(window.getAttributes());
-
-            // Устанавливаем ширину и высоту (50% ширины и 30% высоты экрана)
-            layoutParams.width = (int) (getScreenWidth() * 0.9);
-            layoutParams.height = (int) (getScreenHeight() * 0.9);
-
-            window.setAttributes(layoutParams);
-        }
-    }
-
-    private int getScreenWidth() {
-        DisplayMetrics metrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(metrics);
-        return metrics.widthPixels;
-    }
-
-    private int getScreenHeight() {
-        DisplayMetrics metrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(metrics);
-        return metrics.heightPixels;
     }
 
     private void setData(){
@@ -93,7 +62,6 @@ public class CustomerActivity extends AppCompatActivity {
         }
     }
 
-    @SuppressLint("SetTextI18n")
     private void setView(){
         binding.tvPhotoC.setText(modifiedCustomer.shortTitle());
         binding.etFirstNameC.setText(modifiedCustomer.first_name);

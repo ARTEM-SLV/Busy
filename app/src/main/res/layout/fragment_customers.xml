@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainContainer_C"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/AliceBlue"
@@ -21,7 +22,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageButton
-            android:id="@+id/btnAdd_C"
+            android:id="@+id/btnTODO_C"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="5"

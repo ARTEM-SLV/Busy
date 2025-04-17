@@ -1,7 +1,6 @@
 package com.arty.busy.ui.customers.viewmodels;
 
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.arty.busy.App;
@@ -18,11 +17,6 @@ public class CustomersViewModel extends ViewModel {
     }
 
     public LiveData<List<Customer>> getListOfCustomers() {
-        List<Customer> listOfCustomers = busyDao.getAllCustomers();
-
-        MutableLiveData<List<Customer>> mListOfCustomers = new MutableLiveData<>();
-        mListOfCustomers.setValue(listOfCustomers);
-
-        return mListOfCustomers;
+        return busyDao.getAllCustomers();
     }
 }

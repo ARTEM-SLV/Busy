@@ -3,14 +3,12 @@ package com.arty.busy.ui.home.adapters;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -35,6 +33,7 @@ public class ListOfDaysAdapter extends RecyclerView.Adapter<ListOfDaysAdapter.Vi
     protected List<ItemListOfDays> listOfDaysArr;
     protected FragmentManager fragmentManager;
     private static Date dateSelectedElement;
+    private int currPos = 0;
 
     public ListOfDaysAdapter(Context context, FragmentManager fragmentManager, Activity activity) {
         this.activity = activity;
@@ -61,6 +60,7 @@ public class ListOfDaysAdapter extends RecyclerView.Adapter<ListOfDaysAdapter.Vi
 
         viewHolderLOD.itemView.setOnClickListener(v -> {
             dateSelectedElement = listOfDaysArr.get(viewHolderLOD.getAdapterPosition()).getDate();
+            currPos = viewHolderLOD.getAdapterPosition();
 
             Intent intent = new Intent(context, TasksToDayActivity.class);
             intent.putExtra(Constants.KEY_DATE, dateSelectedElement.getTime());
@@ -98,12 +98,6 @@ public class ListOfDaysAdapter extends RecyclerView.Adapter<ListOfDaysAdapter.Vi
             } else binding.containerMainLOD.setBackgroundResource(R.drawable.style_radial_yellow);//binding.containerRightLOD.setForeground(null);
 
             cleanTvTask();
-
-//            if (total == 10){
-//                binding.containerMainLOD.setBackgroundResource(R.drawable.style_radial_yellow);
-//            } else if (total > 10){
-//                binding.containerMainLOD.setBackgroundResource(R.drawable.style_radial_red);
-//            } else binding.containerMainLOD.setBackgroundResource(R.drawable.style_radial_green);
 
             if (currentDate.equals(itemTaskList.getDate())){
                 binding.mainLayoutLOD.setBackgroundResource(R.drawable.style_radial_dark_blue_transparent);
@@ -199,21 +193,23 @@ public class ListOfDaysAdapter extends RecyclerView.Adapter<ListOfDaysAdapter.Vi
     }
 
     public void loadData(List<ItemListOfDays> listOfDays){
-        // Запоминаем старую длину списка для использования в методах notify
-        int oldSize = listOfDaysArr.size();
+//        // Запоминаем старую длину списка для использования в методах notify
+//        int oldSize = listOfDaysArr.size();
 
         // Очищаем текущий список и добавляем новые данные
         listOfDaysArr.clear();
         listOfDaysArr.addAll(listOfDays);
 
-        // Уведомляем адаптер о том, что данные изменились
-        if (oldSize == 0) {
-            // Если список был пуст, добавляем все новые элементы
-            notifyItemRangeInserted(0, listOfDaysArr.size());
-        } else {
-            // Если данные обновились, просто обновляем весь диапазон
-            notifyItemRangeChanged(0, listOfDaysArr.size());
-        }
+        notifyDataSetChanged();
+
+//        // Уведомляем адаптер о том, что данные изменились
+//        if (oldSize == 0) {
+//            // Если список был пуст, добавляем все новые элементы
+//            notifyItemRangeInserted(0, listOfDaysArr.size());
+//        } else {
+//            // Если данные обновились, просто обновляем весь диапазон
+//            notifyItemRangeChanged(0, listOfDaysArr.size());
+//        }
     }
 
     public void addNewDataOnTop(List<ItemListOfDays> listOfDays) {
@@ -228,6 +224,14 @@ public class ListOfDaysAdapter extends RecyclerView.Adapter<ListOfDaysAdapter.Vi
     }
 
     public Date getSelectedDate(){
+        if (dateSelectedElement == null){
+            dateSelectedElement = DateTime.getCurrentStartDate();
+        }
+
         return dateSelectedElement;
+    }
+
+    public int getCurrPosition(){
+        return currPos;
     }
 }

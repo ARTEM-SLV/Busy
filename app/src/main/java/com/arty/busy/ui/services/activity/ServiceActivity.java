@@ -5,11 +5,9 @@ import android.app.AlertDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.text.TextWatcher;
-import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
-import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 
 import androidx.annotation.Nullable;
@@ -44,8 +42,6 @@ public class ServiceActivity extends AppCompatActivity {
         binding = ActivityServiceBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        setWindowParam();
-
         init();
         setData();
         setView();
@@ -59,33 +55,6 @@ public class ServiceActivity extends AppCompatActivity {
         if (isCreating){
             isCreating = false;
         }
-    }
-
-    private void setWindowParam(){
-        // Получаем параметры окна
-        Window window = getWindow();
-        if (window != null) {
-            WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
-            layoutParams.copyFrom(window.getAttributes());
-
-            // Устанавливаем ширину и высоту (50% ширины и 30% высоты экрана)
-            layoutParams.width = (int) (getScreenWidth() * 0.9);
-            layoutParams.height = (int) (getScreenHeight() * 0.9);
-
-            window.setAttributes(layoutParams);
-        }
-    }
-
-    private int getScreenWidth() {
-        DisplayMetrics metrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(metrics);
-        return metrics.widthPixels;
-    }
-
-    private int getScreenHeight() {
-        DisplayMetrics metrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(metrics);
-        return metrics.heightPixels;
     }
 
     private void init(){

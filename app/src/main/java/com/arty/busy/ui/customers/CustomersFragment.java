@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -27,24 +28,35 @@ import com.arty.busy.ui.customers.viewmodels.CustomersViewModel;
 
 public class CustomersFragment extends Fragment implements OnFragmentCloseListener {
     private FragmentCustomersBinding binding;
-    private CustomersViewModel customersViewModel;
     private CustomersAdapter customersAdapter;
+    private FragmentActivity activity;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        customersViewModel =
+        CustomersViewModel customersViewModel =
                 new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory()).get(CustomersViewModel.class);
 
         binding = FragmentCustomersBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+        init(root);
+        customersViewModel.getListOfCustomers().observe(getViewLifecycleOwner(), customersAdapter::updateListOfCustomers);
 
+        return root;
+    }
+
+    private void init(View root){
         Context context = root.getContext();
+        if (context instanceof FragmentActivity){
+            activity = (FragmentActivity) context;
+        } else {
+            activity = requireActivity();
+        }
 
-        Bundle arguments = getArguments();
+        Bundle args = getArguments();
         int uid = -1;
         boolean isChoice = false;
-        if (arguments != null){
-            uid = arguments.getInt(Constants.ID_CUSTOMER, -1);
-            isChoice = arguments.getBoolean("isChoice");
+        if (args != null){
+            uid = args.getInt(Constants.ID_CUSTOMER, -1);
+            isChoice = args.getBoolean("isChoice");
         }
 
         customersAdapter = new CustomersAdapter(context, uid, isChoice, this);
@@ -54,18 +66,18 @@ public class CustomersFragment extends Fragment implements OnFragmentCloseListen
         listOfCustomers.setAdapter(customersAdapter);
 
         if (isChoice){
-            binding.btnBackC.setOnClickListener(v -> requireActivity().getSupportFragmentManager().popBackStack());
+            binding.btnBackC.setOnClickListener(v -> activity.getSupportFragmentManager().popBackStack());
             binding.btnBackC.setVisibility(View.VISIBLE);
         } else {
             binding.btnBackC.setVisibility(View.INVISIBLE);
         }
 
-        binding.btnAddC.setOnClickListener(v -> {
+        binding.btnTODOC.setOnClickListener(v -> {
             // TODO: 11.04.2025
         });
 
         binding.fabAddC.setOnClickListener(v -> {
-            App.hideKeyboardAndClearFocus(requireActivity());
+            App.hideKeyboardAndClearFocus(activity);
             Intent intent = new Intent(context, CustomerActivity.class);
             if (context != null) {
                 context.startActivity(intent);
@@ -74,16 +86,11 @@ public class CustomersFragment extends Fragment implements OnFragmentCloseListen
 
         setOnTouchListenerForCustomersList();
         setTextChangedListenerFotSearch(customersAdapter);
-
-        return root;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-
-        customersViewModel.getListOfCustomers().observe(getViewLifecycleOwner(), customersAdapter::updateListOfCustomers);
-        customersAdapter.filter("");
 
         if (customersAdapter.getItemCount() == 0) {
             binding.tvEmptyC.setVisibility(View.VISIBLE);
@@ -96,7 +103,7 @@ public class CustomersFragment extends Fragment implements OnFragmentCloseListen
     private void setOnTouchListenerForCustomersList() {
         binding.customersListC.setOnTouchListener((v, event) -> {
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                App.hideKeyboardAndClearFocus(requireActivity());
+                App.hideKeyboardAndClearFocus(activity);
 
                 v.performClick();
             }
@@ -120,7 +127,7 @@ public class CustomersFragment extends Fragment implements OnFragmentCloseListen
     @Override
     public void closeFragment(Bundle result) {
         getParentFragmentManager().setFragmentResult("customer", result);
-        requireActivity().getSupportFragmentManager().popBackStack(); // Закрываем фрагмент
+        activity.getSupportFragmentManager().popBackStack(); // Закрываем фрагмент
     }
 
     @Override

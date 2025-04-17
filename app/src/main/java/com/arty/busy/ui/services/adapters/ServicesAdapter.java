@@ -11,12 +11,13 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.arty.busy.OnFragmentCloseListener;
 import com.arty.busy.R;
 import com.arty.busy.date.Time;
-import com.arty.busy.models.Customer;
 import com.arty.busy.models.Service;
 import com.arty.busy.ui.services.activity.ServiceActivity;
 
@@ -24,47 +25,58 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class ServicesAdapter extends RecyclerView.Adapter<ServicesAdapter.ServicesViewHolder> {
+public class ServicesAdapter extends ListAdapter<Service, ServicesAdapter.ServicesViewHolder> {
+
     private final OnFragmentCloseListener closeListener;
-    protected Context context;
-    protected List<Service> listOfServices, filteredList;
-    protected int uid;
+    private final Context context;
+    private final int uid;
     private final boolean isChoice;
     private LinearLayout mainLayoutBefore;
+    private String lastQuery = "";
+    private final List<Service> fullList = new ArrayList<>();
 
     public ServicesAdapter(Context context, int uid, boolean isChoice, OnFragmentCloseListener closeListener) {
+        super(DIFF_CALLBACK);
         this.context = context;
         this.uid = uid;
-        this.listOfServices = new ArrayList<>();
-        this.filteredList = new ArrayList<>();
         this.isChoice = isChoice;
         this.closeListener = closeListener;
     }
+
+    private static final DiffUtil.ItemCallback<Service> DIFF_CALLBACK = new DiffUtil.ItemCallback<>() {
+        @Override
+        public boolean areItemsTheSame(@NonNull Service oldItem, @NonNull Service newItem) {
+            return oldItem.uid == newItem.uid;
+        }
+
+        @Override
+        public boolean areContentsTheSame(@NonNull Service oldItem, @NonNull Service newItem) {
+            return oldItem.equals(newItem);
+        }
+    };
 
     @NonNull
     @Override
     public ServicesViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.item_list_of_services, parent, false);
-
         return new ServicesViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ServicesViewHolder holder, int position) {
-        Service service = filteredList.get(position);
+        Service service = getItem(position);
         holder.setData(service);
 
-        // Открываем DialogActivity при клике на элемент списка
         holder.itemView.setOnClickListener(v -> {
-            if (isChoice){
-                if (mainLayoutBefore != null){
+            if (isChoice) {
+                if (mainLayoutBefore != null) {
                     mainLayoutBefore.setForeground(null);
                 }
                 v.setForeground(ContextCompat.getDrawable(context, R.drawable.style_radial_green_transparent));
                 if (closeListener != null) {
                     Bundle result = new Bundle();
                     result.putParcelable("service", service);
-                    closeListener.closeFragment(result); // Закрываем фрагмент
+                    closeListener.closeFragment(result);
                 }
             } else {
                 Intent intent = new Intent(context, ServiceActivity.class);
@@ -72,11 +84,6 @@ public class ServicesAdapter extends RecyclerView.Adapter<ServicesAdapter.Servic
                 context.startActivity(intent);
             }
         });
-    }
-
-    @Override
-    public int getItemCount() {
-        return filteredList.size();
     }
 
     class ServicesViewHolder extends RecyclerView.ViewHolder {
@@ -90,57 +97,43 @@ public class ServicesAdapter extends RecyclerView.Adapter<ServicesAdapter.Servic
             super(itemView);
         }
 
-        public void setData(@NonNull Service service){
+        public void setData(@NonNull Service service) {
             tvShortTitle.setText(service.short_title);
             tvTitle.setText(service.title);
-            tvPrice.setText(String.format(Locale.getDefault(), "%.2f", service.price));// Double.toString(service.price));
+            tvPrice.setText(String.format(Locale.getDefault(), "%.2f", service.price));
             tvDuration.setText(getTimeDuration(service.duration));
-            if (service.uid == uid){
+            if (service.uid == uid) {
                 mainLayout.setForeground(ContextCompat.getDrawable(context, R.drawable.style_radial_green_transparent));
                 mainLayoutBefore = mainLayout;
             } else mainLayout.setForeground(null);
         }
     }
 
-    private String getTimeDuration(int duration){
+    private String getTimeDuration(int duration) {
         Time time = new Time(duration);
-
         return time.toString();
     }
 
-    // Метод фильтрации
-    public void filter(String query) {
-        List<Service> newFilteredList = new ArrayList<>();
-
-        if (query.isEmpty()) {
-            newFilteredList.addAll(listOfServices);
-        } else {
-            String lowerCaseQuery = query.toLowerCase();
-            for (Service service : listOfServices) {
-                if ((service.title != null && service.title.toLowerCase().contains(lowerCaseQuery))) {
-                    newFilteredList.add(service);
-                }
-            }
-        }
-
-        // Обновляем текущий список безопасно
-        filteredList = newFilteredList;
-        notifyDataSetChanged();
+    public void updateListOfServices(List<Service> newList) {
+        fullList.clear();
+        fullList.addAll(newList);
+        filter(lastQuery);
     }
 
-    public void updateListOfServices(List<Service> newListOfServices){
-        int oldSize = listOfServices.size();
+    public void filter(String query) {
+        lastQuery = query;
 
-        listOfServices.clear();
-        listOfServices.addAll(newListOfServices);
-
-        // Уведомляем адаптер о том, что данные изменились
-        if (oldSize == 0) {
-            // Если список был пуст, добавляем все новые элементы
-            notifyItemRangeInserted(0, listOfServices.size());
+        if (query.isEmpty()) {
+            submitList(new ArrayList<>(fullList));
         } else {
-            // Если данные обновились, просто обновляем весь диапазон
-            notifyItemRangeChanged(0, listOfServices.size());
+            String lower = query.toLowerCase();
+            List<Service> filtered = new ArrayList<>();
+            for (Service s : fullList) {
+                if (s.title != null && s.title.toLowerCase().contains(lower)) {
+                    filtered.add(s);
+                }
+            }
+            submitList(filtered);
         }
     }
 }

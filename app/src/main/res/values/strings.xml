@@ -83,6 +83,7 @@
     <string name="duration">duration</string>
     <string name="price">price</string>
     <string name="not_active">not active</string>
+    <string name="phone">+1 (___) ___-____</string>
     <!--  titles  -->
 
     <!--   hints -->
