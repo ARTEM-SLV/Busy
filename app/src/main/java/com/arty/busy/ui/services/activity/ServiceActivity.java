@@ -14,8 +14,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.arty.busy.App;
 import com.arty.busy.R;
+import com.arty.busy.Utility;
 import com.arty.busy.databinding.ActivityServiceBinding;
 import com.arty.busy.date.Time;
 import com.arty.busy.models.Service;
@@ -29,7 +29,7 @@ public class ServiceActivity extends AppCompatActivity {
     private Service service, modifiedService;
     private boolean isNew = false;
     private boolean isCreating = true;
-    private TextWatcher textWatcher;
+    private TextWatcher moneyTextWatcher;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -58,8 +58,7 @@ public class ServiceActivity extends AppCompatActivity {
     }
 
     private void init(){
-        textWatcher = new App.MoneyTextWatcher(binding.etPriceS);
-
+        moneyTextWatcher = new Utility.MoneyTextWatcher(binding.etPriceS);
     }
 
     private void setData(){
@@ -97,17 +96,17 @@ public class ServiceActivity extends AppCompatActivity {
         setOnClickListenerForETDuration();
 
         binding.btnOkS.setOnClickListener(v -> {
-            App.hideKeyboardAndClearFocus(this);
+            Utility.hideKeyboardAndClearFocus(this);
             beforeFinishActivity(false);
         });
 
         binding.btnCancelS.setOnClickListener(v -> {
-            App.hideKeyboardAndClearFocus(this);
+            Utility.hideKeyboardAndClearFocus(this);
             beforeFinishActivity(true);
         });
 
         binding.btnDeleteTaskS.setOnClickListener(v -> {
-            App.hideKeyboardAndClearFocus(this);
+            Utility.hideKeyboardAndClearFocus(this);
             showDialogDeleteService();
         });
 
@@ -118,7 +117,7 @@ public class ServiceActivity extends AppCompatActivity {
     private void setOnTouchListenerForRoot() {
         binding.getRoot().setOnTouchListener((v, event) -> {
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                App.hideKeyboardAndClearFocus(this);
+                Utility.hideKeyboardAndClearFocus(this);
 
                 v.performClick();
             }
@@ -156,7 +155,7 @@ public class ServiceActivity extends AppCompatActivity {
     private void setOnClickListenerForETPrice(){
         binding.etPriceS.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_DONE) {
-                App.hideKeyboardAndClearFocus(this);
+                Utility.hideKeyboardAndClearFocus(this);
                 return true;
             }
             return false;
@@ -170,22 +169,22 @@ public class ServiceActivity extends AppCompatActivity {
 
                 binding.etPriceS.post(() -> binding.etPriceS.selectAll());
             } else {
-                binding.etPriceS.removeTextChangedListener(textWatcher);
+                binding.etPriceS.removeTextChangedListener(moneyTextWatcher);
 
                 String price = binding.etPriceS.getText().toString().replace(',', '.');
                 modifiedService.price = Double.parseDouble(price);
-                App.formatToMoneyString(binding.etPriceS);
+                Utility.formatToMoneyString(binding.etPriceS);
 
-                binding.etPriceS.addTextChangedListener(textWatcher);
+                binding.etPriceS.addTextChangedListener(moneyTextWatcher);
             }
         });
 
-        binding.etPriceS.addTextChangedListener(textWatcher);
+        binding.etPriceS.addTextChangedListener(moneyTextWatcher);
     }
 
     private void setOnClickListenerForETDuration() {
         binding.etDurationS.setOnClickListener(v -> {
-            App.hideKeyboardAndClearFocus(this);
+            Utility.hideKeyboardAndClearFocus(this);
             showTimePickerDialog();
         });
     }
@@ -214,7 +213,7 @@ public class ServiceActivity extends AppCompatActivity {
     }
 
     private void setPriceView(double price){
-        binding.etPriceS.setText(App.getFormattedToMoney(price));
+        binding.etPriceS.setText(Utility.getFormattedToMoney(price));
         modifiedService.price = price;
     }
 
@@ -261,14 +260,14 @@ public class ServiceActivity extends AppCompatActivity {
 
         if (modifiedService.short_title.isEmpty()){
             String msg = getString(R.string.w_first_name_not_filled);
-            App.showWarning(msg, binding.etShortTitleS, this);
+            Utility.showWarning(msg, binding.etShortTitleS, this);
 
             return false;
         }
 
         if (modifiedService.title.isEmpty()){
             String msg = getString(R.string.w_first_name_not_filled);
-            App.showWarning(msg, binding.etTitleS, this);
+            Utility.showWarning(msg, binding.etTitleS, this);
 
             return false;
         }

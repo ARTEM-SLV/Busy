@@ -29,6 +29,7 @@
     <string name="cd_search">поиск</string>
     <string name="cd_upward">вверх</string>
     <string name="cd_downward">вниз</string>
+    <string name="cd_goto_date">перейти к дате</string>
     <!--   content description -->
 
     <string name="app_name">Busy</string>

@@ -6,12 +6,13 @@ import androidx.lifecycle.ViewModelProvider;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.os.Bundle;
+import android.text.TextWatcher;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 
-import com.arty.busy.App;
 import com.arty.busy.R;
+import com.arty.busy.Utility;
 import com.arty.busy.databinding.ActivityCustomerBinding;
 import com.arty.busy.models.Customer;
 import com.arty.busy.ui.customers.viewmodels.CustomerViewModel;
@@ -22,6 +23,7 @@ public class CustomerActivity extends AppCompatActivity {
     private Customer customer, modifiedCustomer;
     private boolean isNew = false;
     private boolean isCreating = true;
+    private TextWatcher phoneTextWatcher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +36,7 @@ public class CustomerActivity extends AppCompatActivity {
         binding = ActivityCustomerBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        init();
         setData();
         setView();
         setOnClickListeners();
@@ -46,6 +49,10 @@ public class CustomerActivity extends AppCompatActivity {
         if (isCreating){
             isCreating = false;
         }
+    }
+
+    private void init(){
+        phoneTextWatcher = new Utility.PhoneMaskTextWatcher(binding.etPhoneC);
     }
 
     private void setData(){
@@ -83,18 +90,41 @@ public class CustomerActivity extends AppCompatActivity {
         binding.cbNotActiveC.setOnCheckedChangeListener((buttonView, isChecked) -> modifiedCustomer.not_active = isChecked);
 
         setOnTouchListenerForRoot();
+        setOnClickListenerForETPhone();
     }
 
     @SuppressLint("ClickableViewAccessibility")
     private void setOnTouchListenerForRoot() {
         binding.getRoot().setOnTouchListener((v, event) -> {
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                App.hideKeyboardAndClearFocus(this);
+                Utility.hideKeyboardAndClearFocus(this);
 
                 v.performClick();
             }
             return false;
         } );
+    }
+
+    private void setOnClickListenerForETPhone(){
+        binding.etPhoneC.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus) {
+//                String rawText = binding.etPhoneC.getText().toString()
+//                        .replaceAll("[^\\d.,]", "");
+//                binding.etPhoneC.setText(rawText);
+
+                binding.etPhoneC.post(() -> binding.etPhoneC.selectAll());
+            } else {
+                binding.etPhoneC.removeTextChangedListener(phoneTextWatcher);
+
+                String phone = binding.etPhoneC.getText().toString().replace(',', '.');
+//                modifiedCustomer.phone = phone;
+                Utility.formatToMoneyString(binding.etPhoneC);
+
+                binding.etPhoneC.addTextChangedListener(phoneTextWatcher);
+            }
+        });
+
+        binding.etPhoneC.addTextChangedListener(phoneTextWatcher);
     }
 
     private void fillCustomerValues(){
@@ -140,7 +170,7 @@ public class CustomerActivity extends AppCompatActivity {
 
         if (modifiedCustomer.first_name.isEmpty()){
             String msg = getString(R.string.w_first_name_not_filled);
-            App.showWarning(msg, binding.etFirstNameC, this);
+            Utility.showWarning(msg, binding.etFirstNameC, this);
 
             return false;
         }

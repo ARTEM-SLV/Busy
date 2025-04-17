@@ -24,6 +24,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.arty.busy.App;
 import com.arty.busy.OnFragmentCloseListener;
+import com.arty.busy.Utility;
 import com.arty.busy.consts.Constants;
 import com.arty.busy.R;
 import com.arty.busy.databinding.FragmentTaskBinding;
@@ -120,7 +121,7 @@ public class TaskFragment extends Fragment {
 
     private void init(){
         dateFormat = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
-        textWatcher = new App.MoneyTextWatcher(binding.etPriceT);
+        textWatcher = new Utility.MoneyTextWatcher(binding.etPriceT);
     }
 
     private void setData(){
@@ -176,27 +177,27 @@ public class TaskFragment extends Fragment {
         setOnClickListenerForETPrice();
 
         binding.btnOkT.setOnClickListener(v -> {
-            App.hideKeyboardAndClearFocus(activity);
+            Utility.hideKeyboardAndClearFocus(activity);
             beforeFinishFragment(false);
         });
 
         binding.btnCloseT.setOnClickListener(v -> {
-            App.hideKeyboardAndClearFocus(activity);
+            Utility.hideKeyboardAndClearFocus(activity);
             beforeFinishFragment(true);
         });
 
         binding.btnReschedule.setOnClickListener(v -> {
-            App.hideKeyboardAndClearFocus(activity);
+            Utility.hideKeyboardAndClearFocus(activity);
             showDatePicker();
         });
 
         binding.tvTimeT.setOnClickListener(v -> {
-            App.hideKeyboardAndClearFocus(activity);
+            Utility.hideKeyboardAndClearFocus(activity);
             showTimePickerDialog(binding.tvTimeT, modifiedTask.time);
         });
 
         binding.etDurationT.setOnClickListener(v -> {
-            App.hideKeyboardAndClearFocus(activity);
+            Utility.hideKeyboardAndClearFocus(activity);
             showTimePickerDialog(binding.etDurationT, binding.etDurationT.getText().toString());
         });
 
@@ -210,7 +211,7 @@ public class TaskFragment extends Fragment {
     private void setOnTouchListenerForRoot() {
         binding.getRoot().setOnTouchListener((v, event) -> {
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                App.hideKeyboardAndClearFocus(activity);
+                Utility.hideKeyboardAndClearFocus(activity);
 
                 v.performClick();
             }
@@ -220,7 +221,7 @@ public class TaskFragment extends Fragment {
 
     private void setOnClickListenerTVCustomer(){
         binding.tvCustomerT.setOnClickListener(v -> {
-            App.hideKeyboardAndClearFocus(activity);
+            Utility.hideKeyboardAndClearFocus(activity);
 
             Bundle bundle = new Bundle();
             if (customer != null)
@@ -244,7 +245,7 @@ public class TaskFragment extends Fragment {
 
     private void setOnClickListenerTVService(){
         binding.tvServiceT.setOnClickListener(v -> {
-            App.hideKeyboardAndClearFocus(activity);
+            Utility.hideKeyboardAndClearFocus(activity);
 
             Bundle bundle = new Bundle();
             if (service != null)
@@ -269,7 +270,7 @@ public class TaskFragment extends Fragment {
     private void setOnClickListenerForETPrice(){
         binding.etPriceT.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_DONE) {
-                App.hideKeyboardAndClearFocus(activity);
+                Utility.hideKeyboardAndClearFocus(activity);
                 return true;
             }
             return false;
@@ -287,7 +288,7 @@ public class TaskFragment extends Fragment {
 
                 String price = binding.etPriceT.getText().toString().replace(',', '.');
                 modifiedTask.price = Double.parseDouble(price);
-                App.formatToMoneyString(binding.etPriceT);
+                Utility.formatToMoneyString(binding.etPriceT);
 
                 binding.etPriceT.addTextChangedListener(textWatcher);
             }
@@ -400,7 +401,7 @@ public class TaskFragment extends Fragment {
     }
 
     private void setPriceView(double price){
-        binding.etPriceT.setText(App.getFormattedToMoney(price));
+        binding.etPriceT.setText(Utility.getFormattedToMoney(price));
         modifiedTask.price = price;
     }
 
@@ -464,25 +465,25 @@ public class TaskFragment extends Fragment {
 
         if (modifiedTask.day == 0){
             String msg = getString(R.string.w_day_not_specified);
-            App.showWarning(msg, binding.tvDateT, activity);
+            Utility.showWarning(msg, binding.tvDateT, activity);
             return false;
         }
 
         if (Objects.equals(modifiedTask.time, "00:00")){
             String msg = getString(R.string.w_time_not_filled);
-            App.showWarning(msg, binding.tvTimeT, activity);
+            Utility.showWarning(msg, binding.tvTimeT, activity);
             return false;
         }
 
         if (modifiedTask.id_customer <= 0){
             String msg = getString(R.string.w_client_is_not_filled);
-            App.showWarning(msg, binding.tvCustomerT, activity);
+            Utility.showWarning(msg, binding.tvCustomerT, activity);
             return false;
         }
 
         if (modifiedTask.id_service <= 0){
             String msg = getString(R.string.w_service_is_not_filled);
-            App.showWarning(msg, binding.tvServiceT, activity);
+            Utility.showWarning(msg, binding.tvServiceT, activity);
             return false;
         }
 

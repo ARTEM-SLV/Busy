@@ -59,6 +59,7 @@
     <string name="cd_search">search</string>
     <string name="cd_upward">upward</string>
     <string name="cd_downward">downward</string>
+    <string name="cd_goto_date">goto date</string>
     <!--   content description -->
 
     <string name="app_name">Busy</string>

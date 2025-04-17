@@ -20,9 +20,9 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.arty.busy.App;
 import com.arty.busy.OnFragmentCloseListener;
 import com.arty.busy.R;
+import com.arty.busy.Utility;
 import com.arty.busy.consts.Constants;
 import com.arty.busy.databinding.FragmentCustomerBinding;
 import com.arty.busy.models.Customer;
@@ -177,7 +177,7 @@ public class CustomerFragment extends DialogFragment {
     private void setOnTouchListenerForRoot() {
         binding.getRoot().setOnTouchListener((v, event) -> {
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                App.hideKeyboardAndClearFocus(activity);
+                Utility.hideKeyboardAndClearFocus(activity);
 
                 v.performClick();
             }
@@ -231,7 +231,7 @@ public class CustomerFragment extends DialogFragment {
 
         if (modifiedCustomer.first_name.isEmpty()){
             String msg = getString(R.string.w_first_name_not_filled);
-            App.showWarning(msg, binding.etFirstNameC, activity);
+            Utility.showWarning(msg, binding.etFirstNameC, activity);
 
             return false;
         }

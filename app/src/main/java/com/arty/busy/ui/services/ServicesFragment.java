@@ -17,8 +17,8 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.arty.busy.App;
 import com.arty.busy.OnFragmentCloseListener;
+import com.arty.busy.Utility;
 import com.arty.busy.consts.Constants;
 import com.arty.busy.databinding.FragmentServicesBinding;
 import com.arty.busy.ui.services.activity.ServiceActivity;
@@ -71,7 +71,7 @@ public class ServicesFragment extends Fragment implements OnFragmentCloseListene
         });
 
         binding.fabAddS.setOnClickListener(v -> {
-            App.hideKeyboardAndClearFocus(requireActivity());
+            Utility.hideKeyboardAndClearFocus(requireActivity());
             Intent intent = new Intent(context, ServiceActivity.class);
             if (context != null) {
                 context.startActivity(intent);
@@ -97,7 +97,7 @@ public class ServicesFragment extends Fragment implements OnFragmentCloseListene
     private void setOnTouchListenerForCustomersList() {
         binding.servicesListS.setOnTouchListener((v, event) -> {
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                App.hideKeyboardAndClearFocus(requireActivity());
+                Utility.hideKeyboardAndClearFocus(requireActivity());
 
                 v.performClick();
             }

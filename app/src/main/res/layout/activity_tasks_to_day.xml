@@ -21,22 +21,6 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fabDown_TTD"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="32dp"
-            android:layout_marginBottom="30dp"
-            android:clickable="true"
-            android:contentDescription="@string/cd_downward"
-            android:src="@drawable/ic_downward_24"
-            app:backgroundTint="@color/LightCyan"
-            app:backgroundTintMode="add"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:shapeAppearanceOverlay="@style/SquareFab"
-            tools:ignore="ImageContrastCheck" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fabUp_TTD"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -48,6 +32,22 @@
             app:backgroundTint="@color/LightCyan"
             app:backgroundTintMode="add"
             app:layout_constraintBottom_toTopOf="@+id/fabDown_TTD"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:shapeAppearanceOverlay="@style/SquareFab"
+            tools:ignore="ImageContrastCheck" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabDown_TTD"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="30dp"
+            android:clickable="true"
+            android:contentDescription="@string/cd_downward"
+            android:src="@drawable/ic_downward_24"
+            app:backgroundTint="@color/LightCyan"
+            app:backgroundTintMode="add"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:shapeAppearanceOverlay="@style/SquareFab"
             tools:ignore="ImageContrastCheck" />

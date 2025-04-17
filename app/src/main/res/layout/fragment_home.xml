@@ -7,11 +7,89 @@
     android:layout_height="match_parent"
     tools:context=".ui.home.HomeFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id ="@+id/homeListOfDays"
+    <LinearLayout
+        android:id="@+id/headContainer_LOD"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".ui.home.HomeFragment"/>
+        android:layout_height="90dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="4dp"
+        android:background="@drawable/style_frame_blue"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <LinearLayout
+            android:id="@+id/headContainerStart_LOD"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="28"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/btnCalendar_LOD"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_calendar_month_24" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/headContainerMid_LOD"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="14"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvHeader_LOD"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:textColor="@color/DarkSlateGray"
+                android:textSize="34sp"
+                tools:text="Header" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/headContainerEnd_LOD"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="27"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/btnTODO_LOD"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_article_24" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/homeListOfDays"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/headContainer_LOD"
+        tools:context=".ui.home.HomeFragment" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fbGoToCurrDate"
@@ -20,9 +98,11 @@
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="32dp"
         android:clickable="true"
-        android:src="@drawable/ic_ok_24"
-        app:backgroundTint="@color/CadetBlue"
+        android:contentDescription="@string/cd_goto_date"
+        android:src="@drawable/ic_upward_24"
+        app:backgroundTint="@color/LightSkyBlue"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:shapeAppearanceOverlay="@style/SquareFab" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

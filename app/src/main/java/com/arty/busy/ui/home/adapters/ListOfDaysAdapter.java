@@ -100,7 +100,7 @@ public class ListOfDaysAdapter extends RecyclerView.Adapter<ListOfDaysAdapter.Vi
             cleanTvTask();
 
             if (currentDate.equals(itemTaskList.getDate())){
-                binding.mainLayoutLOD.setBackgroundResource(R.drawable.style_radial_dark_blue_transparent);
+                binding.mainLayoutLOD.setBackgroundResource(R.drawable.style_radial_dark_gray_transparent);
                 binding.icoThisDayLOD.setVisibility(View.VISIBLE);
             } else {
                 binding.mainLayoutLOD.setBackground(null);

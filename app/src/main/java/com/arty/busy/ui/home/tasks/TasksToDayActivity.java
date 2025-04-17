@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.arty.busy.App;
 import com.arty.busy.OnFragmentCloseListener;
 import com.arty.busy.R;
+import com.arty.busy.Utility;
 import com.arty.busy.consts.Constants;
 import com.arty.busy.consts.Settings;
 import com.arty.busy.databinding.ActivityTasksToDayBinding;
@@ -228,8 +229,8 @@ public class TasksToDayActivity extends AppCompatActivity implements OnFragmentC
             btnTask.setText(text);
             btnTask.setTextColor(currResColor);
 
-            int pxMin = App.dpToPx(this, minute*2);
-            int pxDur = App.dpToPx(this, duration*2);
+            int pxMin = Utility.dpToPx(this, minute*2);
+            int pxDur = Utility.dpToPx(this, duration*2);
 
             ConstraintLayout.LayoutParams btnParams = (ConstraintLayout.LayoutParams) btnTask.getLayoutParams();
             btnParams.setMargins(0, pxMin, 0, 0);
